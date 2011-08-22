@@ -35,7 +35,9 @@
 	[MobClick setDelegate:self];
 	[MobClick appLaunched];
 #endif
-	
+
+	UIUtil::ShowStatusBar(YES);
+
 	// Create window
 	CGRect frame = UIUtil::ScreenFrame();
 	frame.origin.y = 0;
@@ -50,7 +52,6 @@
 	[_window addSubview:_controller.view];
 	[_window makeKeyAndVisible];
 
-	UIUtil::ShowStatusBar(YES);
 	UIUtil::ShowSplashView(controller.view);
 	
 	return YES;
