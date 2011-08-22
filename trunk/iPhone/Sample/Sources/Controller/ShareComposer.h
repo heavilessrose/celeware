@@ -9,7 +9,7 @@
 @interface MailComposer : MFMailComposeViewController <MFMailComposeViewControllerDelegate>
 {
 }
-+ (id)composerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body;
++ (id)composerWithBody:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
 @end
 
 
@@ -18,13 +18,13 @@
 @interface SMSComposer : MFMessageComposeViewController <MFMessageComposeViewControllerDelegate>
 {
 }
-+ (id)composerWithRecipients:(NSArray *)recipients body:(NSString *)body;
++ (id)composerWithBody:(NSString *)body to:(NSArray *)recipients;
 @end
 
 
 //
 @interface UIViewController (MailComposer)
-- (MailComposer *)composeMail:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body;
-- (SMSComposer *)composeSMS:(NSArray *)recipients body:(NSString *)body;
-- (UINavigationController *)composeWeibo:(NSString *)url body:(NSString *)body;
+- (MailComposer *)composeMail:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
+- (SMSComposer *)composeSMS:(NSString *)body to:(NSArray *)recipients;
+- (UINavigationController *)composeWeibo:(NSString *)body url:(NSString *)url key:(NSString *)key pic:(NSString *)pic uid:(NSString *)uid;
 @end

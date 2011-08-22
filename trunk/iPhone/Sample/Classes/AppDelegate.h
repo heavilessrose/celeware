@@ -14,7 +14,7 @@
 }
 
 //
-@property (nonatomic, readonly) UIWindow *window;
+@property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, readonly) UIViewController *controller;
 
 @end

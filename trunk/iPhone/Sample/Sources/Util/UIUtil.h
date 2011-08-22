@@ -107,6 +107,22 @@ public:
 	}
 	
 	//
+	NS_INLINE BOOL MakeCall(NSString *number)
+	{
+		BOOL ret = OpenURL([NSString stringWithFormat:@"tel:%@", number]);
+		if (ret == NO)
+		{
+			UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not make call on this device.", @"在此设备上无法拨打电话。")
+																 message:nil
+																delegate:nil
+													   cancelButtonTitle:NSLocalizedString(@"Dismiss", @"关闭")
+													   otherButtonTitles:nil] autorelease];
+			[alertView show];
+		}
+		return ret;
+	}
+	
+	//
 	NS_INLINE UIWindow *KeyWindow()
 	{
 		return Application().keyWindow;

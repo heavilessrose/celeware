@@ -5,6 +5,7 @@
 
 //
 @interface UIImage (ImageEx)
++ (UIImage *)imageWithColor:(UIColor *)color;
 - (UIImage *)scaleImageToSize:(CGSize)size;
 - (UIImage *)cropImageInRect:(CGRect)rect;
 //- (UIImage *)cropImageToRect:(CGRect)rect;
@@ -17,6 +18,7 @@
 //
 @interface UIView (ViewEx)
 - (void)removeSubviews;
+- (UIView *)findFirstResponder;
 - (void)fadeForAction:(SEL)action target:(id)target;
 @end
 
@@ -69,7 +71,7 @@
 #define UIButtonTypeNavigationItem		(UIButtonType)100
 #define UIButtonTypeNavigationBack		(UIButtonType)101
 #define UIButtonTypeNavigationDone		(UIButtonType)102
-@interface UINavigationButton: UIButton
+@interface UIFlexButton: UIButton
 {
 }
 @property(nonatomic,retain) UIColor *tintColor;

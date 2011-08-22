@@ -7,6 +7,22 @@
 
 @implementation UIImage (ImageEx)
 
+//
++ (UIImage *)imageWithColor:(UIColor *)color
+{
+	CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+	UIGraphicsBeginImageContext(rect.size);
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	CGContextSetFillColorWithColor(context, [color CGColor]);
+	CGContextFillRect(context, rect);
+	
+	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	return image;
+}
+
 // Scale to specified size if needed
 #define _Radians(d) (d * M_PI/180)
 - (UIImage *)scaleImageToSize:(CGSize)size
@@ -90,6 +106,10 @@
 			CGContextRotateCTM(bitmap, _Radians(-180.));
 			break;
 		}
+		default:
+		{
+			break;
+		}
 	}
 	
 	// Draw into the context, this scales the image
@@ -152,12 +172,12 @@
 	
 	CGContextDrawImage(bitmap, CGRectMake(0, 0, rect.size.width, rect.size.height), imageRef);
 	CGImageRef ref = CGBitmapContextCreateImage(bitmap);
-
+	
 	UIImage *resultImage=[UIImage imageWithCGImage:ref];
 	CGImageRelease(imageRef);
 	CGContextRelease(bitmap);
 	CGImageRelease(ref);
-
+	
 	return resultImage;
 }
 #endif
@@ -167,7 +187,7 @@
 {
 	UIImage *image;
 	CGImageRef ref;
-	if ([UIScreen.mainScreen respondsToSelector:@selector(scale)])
+	if (/*[UIScreen.mainScreen respondsToSelector:@selector(scale)] && */UIUtil::SystemVersion() >= 4.0)
 	{
 		CGFloat scale = UIScreen.mainScreen.scale;
 		rect.origin.x *= scale;
@@ -281,7 +301,7 @@
 	CGFloat width = CGImageGetWidth(img);
 	CGFloat height = CGImageGetHeight(img);
 	CGRect bounds = CGRectMake(0, 0, width, height);
-
+	
 	CGSize size = bounds.size;
 	if (width > maxDimension || height > maxDimension)
 	{ 
@@ -298,13 +318,13 @@
 		} 
 	}
 	CGFloat scale = size.width/width;
-
+	
 	CGAffineTransform transform = [self orientationTransform:&size];
 	size.width *= scale;
 	size.height *= scale;
 	UIGraphicsBeginImageContext(size);
 	CGContextRef context = UIGraphicsGetCurrentContext();
-
+	
 	// Flip
 	UIImageOrientation orientation = self.imageOrientation;
 	if (orientation == UIImageOrientationRight || orientation == UIImageOrientationLeft)
@@ -323,7 +343,6 @@
 	UIGraphicsEndImageContext();
 	return newImage;
 }
-
 @end
 
 
@@ -339,6 +358,25 @@
 		UIView* child = self.subviews.lastObject;
 		[child removeFromSuperview];
 	}
+}
+
+//
+- (UIView *)findFirstResponder
+{
+    if ([self isFirstResponder])
+	{
+        return self;
+    }
+	
+    for (UIView *view in self.subviews)
+	{
+		UIView* ret = [view findFirstResponder];
+        if (ret)
+		{
+            return ret;
+		}
+    }
+	return nil;
 }
 
 //
@@ -360,7 +398,7 @@
 	SEL action = (SEL)value.pointerValue;
 	[target performSelector:action withObject:self];
 	[context release];
-
+	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.2];
 	self.alpha = 1;

@@ -4,11 +4,11 @@
 
 
 // Check network connection status
-NetworkConnectionType NetworkUtil::NetworkConnectionStatus()
+NetworkConnectionType NetworkUtil::NetworkConnectionStatus(NSString *host)
 {
 	NetworkConnectionType status = NetworkConnectionNONE;
 
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [@"www.google.com" UTF8String]);
+	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [host UTF8String]);
 	if (reachability)
 	{
 		SCNetworkReachabilityFlags flags;

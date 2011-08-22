@@ -6,7 +6,7 @@
 @implementation MailComposer
 
 // Compose mail
-+ (id)composerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
++ (id)composerWithBody:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients
 {
 	// Display composer
 	MailComposer *composer = [[[MailComposer alloc] init] autorelease];
@@ -40,7 +40,7 @@
 @implementation SMSComposer
 
 // Compose SMS
-+ (id)composerWithRecipients:(NSArray *)recipients body:(NSString *)body
++ (id)composerWithBody:(NSString *)body to:(NSArray *)recipients
 {
 	// Display composer
 	SMSComposer *composer = [[[SMSComposer alloc] init] autorelease];
@@ -72,7 +72,7 @@
 @implementation UIViewController (MailComposer)
 
 //
-- (MailComposer *)composeMail:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
+- (MailComposer *)composeMail:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients
 {
 	// Check for email account
 	if ([MFMailComposeViewController canSendMail] == NO)
@@ -81,13 +81,13 @@
 		return nil;
 	}
 	
-	MailComposer *composer = [MailComposer composerWithRecipients:recipients subject:subject body:body];
+	MailComposer *composer = [MailComposer composerWithBody:body subject:subject to:recipients];
 	[self presentModalViewController:composer animated:YES];
 	return composer;
 }
 
 //
-- (SMSComposer *)composeSMS:(NSArray *)recipients body:(NSString *)body
+- (SMSComposer *)composeSMS:(NSString *)body to:(NSArray *)recipients
 {
 	// Check
 	Class cls = (NSClassFromString(@"MFMessageComposeViewController")); 
@@ -104,19 +104,22 @@
 		return nil;
 	}
 	
-	SMSComposer *composer = [SMSComposer composerWithRecipients:recipients body:body];
+	SMSComposer *composer = [SMSComposer composerWithBody:body to:recipients];
 	[self presentModalViewController:composer animated:YES];
 	return composer;
 }
 
 //
-- (UINavigationController *)composeWeibo:(NSString *)url body:(NSString *)body
+- (UINavigationController *)composeWeibo:(NSString *)body url:(NSString *)url key:(NSString *)key pic:(NSString *)pic uid:(NSString *)uid
 {
-	NSString *appKey = NSUtil::BundleInfo(@"SinaWeiboAppKey");
-	url = [NSString stringWithFormat:@"http://v.t.sina.com.cn/share/share.php?title=%@&url=%@&appkey=%@&pic=&ralateUid=", 
+	url = [NSString stringWithFormat:@"http://service.weibo.com/share/share.php?title=%@&url=%@&appkey=%@&pic=%@&ralateUid=%@",
+		   
 		   [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-		   [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-		   appKey ? appKey : @""];
+		   (url ? [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @""), 
+		   (key ? key : @""),
+		   (pic ? [pic stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @""),
+		   (uid ? uid : @"")
+		   ];
 	WebController *controller = [[[WebController alloc] initWithUrl:[NSURL URLWithString:url]] autorelease];
 	return [self presentModalNavigationController:controller animated:YES];
 }
