@@ -19,6 +19,9 @@
 /* Cancelled */
 "Cancelled" = "已取消";
 
+/* Could not make call on this device. */
+"Could not make call on this device." = "在此設備上無法撥打電話。";
+
 /* Could not send SMS on this device. */
 "Could not send SMS on this device." = "在此設備上無法發送短信。";
 
@@ -26,7 +29,7 @@
 "Did Logout" = "已註銷";
 
 /* Dismiss */
-"Dismiss" = "確定";
+"Dismiss" = "關閉";
 
 /* Download */
 "Download" = "下載";
