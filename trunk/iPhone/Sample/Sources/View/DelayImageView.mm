@@ -7,6 +7,8 @@
 //
 @implementation DelayImageView
 @synthesize url=_url;
+@synthesize def=_def;
+@synthesize loaded=_loaded;
 
 //
 - (void)stopAnimating
@@ -22,7 +24,7 @@
 {
 	[self stopAnimating];
 
-	_activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	_activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 	_activityView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 	_activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 	[self addSubview:_activityView];
@@ -35,7 +37,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 #ifdef _DEBUG
 	// TODO: Don't download at once?
-	[NSThread sleepForTimeInterval:1];
+	[NSThread sleepForTimeInterval:2];
 #endif
 
 	NSString *path = NSUtil::CacheUrlPath(_url);
@@ -48,9 +50,31 @@
 - (void)downloaded:(NSData *)data
 {
 	self.image = [UIImage imageWithData:data];
+	
+	if (self.image)
+	{
+		CGFloat alpha = self.alpha;
+		self.alpha = 0;
+		[UIView beginAnimations:nil context:nil];
+		[UIView setAnimationDuration:0.5];
+		self.alpha = alpha;
+		[UIView commitAnimations];
+	}
+
 	if (self.image || _force)
 	{
 		[self stopAnimating];
+		if (self.image == nil)
+		{
+			if (_def)
+			{
+				self.image = [UIImage imageNamed:_def];
+			}
+		}
+		else
+		{
+			_loaded = YES;
+		}
 	}
 	else
 	{
@@ -74,8 +98,14 @@
 		self.image = [UIImage imageWithContentsOfFile:path];
 		if (self.image == nil)
 		{
+			_loaded = NO;
+			if (_def) self.image = [UIImage imageNamed:_def];
 			[self startAnimating];
 			[self performSelectorInBackground:@selector(downloading) withObject:nil];
+		}
+		else
+		{
+			_loaded = YES;
 		}
 	}
 	else
@@ -85,7 +115,8 @@
 }
 
 //
-/*- (void)setImage:(UIImage *)image
+/*
+- (void)setImage:(UIImage *)image
 {
 	[super setImage:image];
 	if (image)
@@ -97,7 +128,8 @@
 		self.alpha = alpha;
 		[UIView commitAnimations];
 	}
-}*/
+}
+*/
 
 //
 - (id)initWithUrl:(NSString *)url frame:(CGRect)frame
@@ -111,6 +143,7 @@
 - (void)dealloc
 {
 	[_url release];
+	[_def release];
 	[super dealloc];
 }
 

@@ -42,6 +42,18 @@ NSDate *NSUtil::FormatDate(NSString *string, NSString *format, NSLocale *locale)
 	return [formatter dateFromString:string];
 }
 
+// Convert string to date
+NSDate *NSUtil::FormatDate(NSString *string, NSDateFormatterStyle dateStyle, NSDateFormatterStyle timeStyle, NSLocale *locale)
+{
+	if (string == nil) return nil;
+	
+	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+	[formatter setDateStyle:dateStyle];
+	[formatter setTimeStyle:timeStyle];
+	if (locale) formatter.locale = locale;
+	return [formatter dateFromString:string];
+}
+
 // Convert date to readable string. Return nil on fail
 NSString *NSUtil::SmartDate(NSDate *date)
 {

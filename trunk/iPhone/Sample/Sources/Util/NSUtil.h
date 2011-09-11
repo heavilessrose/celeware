@@ -180,6 +180,9 @@ public:
 	
 	// Convert string to date
 	static NSDate *FormatDate(NSString *string, NSString *format = @"yyyy-MM-dd HH:mm:ss", NSLocale *locale = nil);
+	
+	// Convert string to date
+	static NSDate *FormatDate(NSString *string, NSDateFormatterStyle dateStyle, NSDateFormatterStyle timeStyle = NSDateFormatterNoStyle, NSLocale *locale = nil);
 
 	// Convert date to readable string. Return nil on fail
 	static NSString *SmartDate(NSDate *date);
