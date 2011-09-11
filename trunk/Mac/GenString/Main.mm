@@ -318,6 +318,8 @@ int main(int argc, const char * argv[])
 		strcpy(dir, argv[0]);
 		char *p = strrchr(dir, '/');
 		if (p) *p = 0;
+		p = strrchr(dir, '/');
+		if (p && !strcmp(p + 1, "Resources")) *p = 0;
 		NSString *srcDir = /*@"/Users/Yonsm/Documents/InfoHub";*/[NSString stringWithFormat:@"%s", dir];
 		if ([[NSFileManager defaultManager] fileExistsAtPath:[srcDir stringByAppendingPathComponent:@"Resources/English.lproj/Localizable.strings"]])
 		{
