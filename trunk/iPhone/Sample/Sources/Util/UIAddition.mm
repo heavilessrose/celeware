@@ -380,6 +380,28 @@
 }
 
 //
+- (UIView *)findSubview:(NSString *)cls
+{
+	for (UIView *child in self.subviews)
+	{
+		if ([child isKindOfClass:NSClassFromString(cls)])
+		{
+			return child;
+		}
+		else
+		{
+			UIView *ret = [child findSubview:cls];
+			if (ret)
+			{
+				return ret;
+			}
+		}
+	}
+	
+	return nil;
+}
+
+//
 - (void)fadeForAction:(SEL)action target:(id)target
 {
 	[UIView beginAnimations:nil context:[[NSArray alloc] initWithObjects:target, [NSValue valueWithPointer:action], nil]];

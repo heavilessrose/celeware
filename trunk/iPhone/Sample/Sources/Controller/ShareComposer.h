@@ -9,7 +9,7 @@
 @interface MailComposer : MFMailComposeViewController <MFMailComposeViewControllerDelegate>
 {
 }
-+ (id)composerWithBody:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
++ (id)composerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body;
 @end
 
 
@@ -17,14 +17,16 @@
 // NOTICE: MessageUI.framework should select "Optional" mode
 @interface SMSComposer : MFMessageComposeViewController <MFMessageComposeViewControllerDelegate>
 {
+	BOOL _autoSend;
 }
-+ (id)composerWithBody:(NSString *)body to:(NSArray *)recipients;
+@property(nonatomic) BOOL autoSend;
++ (id)composerWithRecipients:(NSArray *)recipients body:(NSString *)body;
 @end
 
 
 //
 @interface UIViewController (MailComposer)
-- (MailComposer *)composeMail:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
-- (SMSComposer *)composeSMS:(NSString *)body to:(NSArray *)recipients;
-- (UINavigationController *)composeWeibo:(NSString *)body url:(NSString *)url key:(NSString *)key pic:(NSString *)pic uid:(NSString *)uid;
+- (MailComposer *)composeMail:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body;
+- (SMSComposer *)composeSMS:(NSArray *)recipients body:(NSString *)body;
+- (UINavigationController *)composeWeibo:(NSString *)url body:(NSString *)body;
 @end

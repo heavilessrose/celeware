@@ -19,6 +19,8 @@
 @interface UIView (ViewEx)
 - (void)removeSubviews;
 - (UIView *)findFirstResponder;
+- (UIView *)findSubview:(NSString *)cls;
+
 - (void)fadeForAction:(SEL)action target:(id)target;
 @end
 

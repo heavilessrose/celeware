@@ -164,7 +164,8 @@ public:
 	//
 	NS_INLINE NSString *CacheUrlPath(NSString *url)
 	{
-		return CacheSubPath(MD5(url));
+		NSString *file = [url stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>?*:|/\\\""]];
+		return CacheSubPath(file);
 	}
 
 #pragma mark Format methods
@@ -267,8 +268,8 @@ public:
 	NS_INLINE NSString *UUID()
 	{
 		CFUUIDRef uuid = CFUUIDCreate(NULL);
-		CFStringRef nonce = CFUUIDCreateString(NULL, uuid);
-		NSMakeCollectable(uuid);
-		return (NSString *)nonce;
+		CFStringRef string = CFUUIDCreateString(NULL, uuid);
+		CFRelease(uuid);
+		return (NSString *)string;
 	}
 };

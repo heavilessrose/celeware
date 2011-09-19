@@ -6,7 +6,7 @@
 @implementation MailComposer
 
 // Compose mail
-+ (id)composerWithBody:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients
++ (id)composerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
 {
 	// Display composer
 	MailComposer *composer = [[[MailComposer alloc] init] autorelease];
@@ -20,16 +20,14 @@
 // Dismisses the email composition interface when users tap Cancel or Send. Proceeds to update the message field with the result of the operation.
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-	[self dismissModalViewControllerAnimated:YES];
-	
-	/*if (result == MFMailComposeResultSent)
-	 {
-	 [UIAlertView alertWithTitle:NSLocalizedString(@"Send email successfully.", @"发送邮件成功。")];
-	 }
-	 else */if (result == MFMailComposeResultFailed)
-	 {
-		 [UIAlertView alertWithTitle:NSLocalizedString(@"Failed to send email.", @"发送邮件失败。")];
-	 }
+	if (result == MFMailComposeResultFailed)
+	{
+		[UIAlertView alertWithTitle:NSLocalizedString(@"Failed to send email.", @"发送邮件失败。")];
+	}
+	else
+	{
+		[self dismissModalViewControllerAnimated:YES];
+	}
 }
 
 @end
@@ -38,9 +36,10 @@
 
 
 @implementation SMSComposer
+@synthesize autoSend=_autoSend;
 
 // Compose SMS
-+ (id)composerWithBody:(NSString *)body to:(NSArray *)recipients
++ (id)composerWithRecipients:(NSArray *)recipients body:(NSString *)body
 {
 	// Display composer
 	SMSComposer *composer = [[[SMSComposer alloc] init] autorelease];
@@ -50,19 +49,49 @@
 	return composer;
 }
 
+//
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
+//
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+
+	if (_autoSend)
+	{
+		_autoSend = NO;
+		UIView *entryView = [UIUtil::KeyWindow() findSubview:@"CKMessageEntryView"];
+		for (UIView *child in entryView.subviews)
+		{
+			if ([child isKindOfClass:[UIButton class]] && (child.frame.size.width > child.frame.size.height))
+			{
+				_autoSend = YES;
+				[((UIButton *)child) sendActionsForControlEvents:UIControlEventTouchUpInside];
+				break;
+			}
+		}
+	}
+}
+
 // The user's completion of message composition.
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result;
 {
-	[self dismissModalViewControllerAnimated:YES];
-	
-	/*if (result == MessageComposeResultSent)
-	 {
-	 [UIAlertView alertWithTitle:NSLocalizedString(@"Send SMS successfully.", @"发送短信成功。")];
-	 }
-	 else */if (result == MessageComposeResultFailed)
-	 {
-		 [UIAlertView alertWithTitle:NSLocalizedString(@"Failed to send SMS.", @"发送短信失败。")];
-	 }
+	if (result == MessageComposeResultFailed)
+	{
+		[UIAlertView alertWithTitle:NSLocalizedString(@"Failed to send SMS.", @"发送短信失败。")];
+	}
+	else
+	{
+		[self dismissModalViewControllerAnimated:!_autoSend];
+		
+		if ((result == MessageComposeResultSent) && _autoSend)
+		{
+			[UIAlertView alertWithTitle:NSLocalizedString(@"Send SMS successfully.", @"发送短信成功。")];
+		}
+	}
 }
 
 @end
@@ -72,7 +101,7 @@
 @implementation UIViewController (MailComposer)
 
 //
-- (MailComposer *)composeMail:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients
+- (MailComposer *)composeMail:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body
 {
 	// Check for email account
 	if ([MFMailComposeViewController canSendMail] == NO)
@@ -81,13 +110,13 @@
 		return nil;
 	}
 	
-	MailComposer *composer = [MailComposer composerWithBody:body subject:subject to:recipients];
+	MailComposer *composer = [MailComposer composerWithRecipients:recipients subject:subject body:body];
 	[self presentModalViewController:composer animated:YES];
 	return composer;
 }
 
 //
-- (SMSComposer *)composeSMS:(NSString *)body to:(NSArray *)recipients
+- (SMSComposer *)composeSMS:(NSArray *)recipients body:(NSString *)body
 {
 	// Check
 	Class cls = (NSClassFromString(@"MFMessageComposeViewController")); 
@@ -104,22 +133,20 @@
 		return nil;
 	}
 	
-	SMSComposer *composer = [SMSComposer composerWithBody:body to:recipients];
-	[self presentModalViewController:composer animated:YES];
+	SMSComposer *composer = [SMSComposer composerWithRecipients:recipients body:body];
+	composer.autoSend = recipients.count && body.length;
+	[self presentModalViewController:composer animated:!composer.autoSend];
 	return composer;
 }
 
 //
-- (UINavigationController *)composeWeibo:(NSString *)body url:(NSString *)url key:(NSString *)key pic:(NSString *)pic uid:(NSString *)uid
+- (UINavigationController *)composeWeibo:(NSString *)url body:(NSString *)body
 {
-	url = [NSString stringWithFormat:@"http://service.weibo.com/share/share.php?title=%@&url=%@&appkey=%@&pic=%@&ralateUid=%@",
-		   
+	NSString *appKey = NSUtil::BundleInfo(@"SinaWeiboAppKey");
+	url = [NSString stringWithFormat:@"http://v.t.sina.com.cn/share/share.php?title=%@&url=%@&appkey=%@&pic=&ralateUid=", 
 		   [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
-		   (url ? [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @""), 
-		   (key ? key : @""),
-		   (pic ? [pic stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @""),
-		   (uid ? uid : @"")
-		   ];
+		   [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], 
+		   appKey ? appKey : @""];
 	WebController *controller = [[[WebController alloc] initWithUrl:[NSURL URLWithString:url]] autorelease];
 	return [self presentModalNavigationController:controller animated:YES];
 }
