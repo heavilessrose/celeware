@@ -17,25 +17,12 @@
 	[super dealloc];
 }
 
-//
-#ifdef _MobClick
-- (NSString *)appKey
-{
-	return NSUtil::BundleInfo(@"MobClickKey");
-}
-#endif
-
 
 #pragma mark Monitoring Application State Changes
 
 // The application has launched and may have additional launch options to handle.
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifdef _MobClick
-	[MobClick setDelegate:self];
-	[MobClick appLaunched];
-#endif
-
 	UIUtil::ShowStatusBar(YES);
 
 	// Create window
@@ -58,20 +45,14 @@
 }
 
 // The application is about to terminate.
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-#ifdef _MobClick
-	[MobClick appTerminated];
-#endif
-}
+//- (void)applicationWillTerminate:(UIApplication *)application
+//{
+//}
 
 // Tells the delegate that the application is about to become inactive.
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-#ifdef _MobClick
-	[MobClick appTerminated];
-#endif
-}
+//- (void)applicationWillResignActive:(UIApplication *)application
+//{
+//}
 
 // The application has become active.
 //- (void)applicationDidBecomeActive:(UIApplication *)application
@@ -79,13 +60,9 @@
 //}
 
 // Tells the delegate that the application is about to enter the foreground.
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-#ifdef _MobClick
-	[MobClick setDelegate:self];
-	[MobClick appLaunched];
-#endif
-}
+//- (void)applicationWillEnterForeground:(UIApplication *)application
+//{
+//}
 
 // Tells the delegate that the application is now in the background.
 //- (void)applicationDidEnterBackground:(UIApplication *)application

@@ -3,11 +3,7 @@
 
 
 //
-@interface AppDelegate : NSObject <UIApplicationDelegate
-#ifdef _MobClick
-, MobClickDelegate
-#endif
->
+@interface AppDelegate : NSObject <UIApplicationDelegate>
 {
 	UIWindow *_window;
 	UIViewController *_controller;	
