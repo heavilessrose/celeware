@@ -164,7 +164,27 @@ public:
 	//
 	NS_INLINE NSString *CacheUrlPath(NSString *url)
 	{
-		NSString *file = [url stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>?*:|/\\\""]];
+		unichar chars[256];
+		NSRange range = {0, MIN(url.length, 256)};
+		[url getCharacters:chars range:range];
+		for (NSUInteger i = 0; i < range.length; i++)
+		{
+			switch (chars[i])
+			{
+				case '|':
+				case '/':
+				case '\\':
+				case '?':
+				case '*':
+				case ':':
+				case '<':
+				case '>':
+				case '"':
+					chars[i] = '_';
+					break;
+			}
+		}
+		NSString *file = [NSString stringWithCharacters:chars length:range.length];
 		return CacheSubPath(file);
 	}
 
