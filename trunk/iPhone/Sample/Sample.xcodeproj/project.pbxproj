@@ -493,6 +493,9 @@
 /* Begin PBXProject section */
 		248B2CB0141CFC8C0026FD73 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 248B2CB3141CFC8C0026FD73 /* Build configuration list for PBXProject "Sample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -661,6 +664,7 @@
 		248B2CE0141CFC8C0026FD73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -668,6 +672,7 @@
 		248B2CE1141CFC8C0026FD73 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
