@@ -140,8 +140,8 @@ public:
 	//
 	NS_INLINE NSString *CachePath()
 	{
-		return DocumentsSubPath(@"Cache");
-		//return UserDirectoryPath(NSCachesDirectory);
+		//return DocumentsSubPath(@"Cache");
+		return UserDirectoryPath(NSCachesDirectory);
 	}
 	
 	//
