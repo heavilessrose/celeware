@@ -4,7 +4,6 @@
 
 //
 @implementation AppDelegate
-@synthesize window=_window;
 @synthesize controller=_controller;
 
 #pragma mark Generic methods

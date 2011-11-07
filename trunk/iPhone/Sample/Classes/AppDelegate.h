@@ -10,7 +10,6 @@
 }
 
 //
-@property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, readonly) UIViewController *controller;
 
 @end
