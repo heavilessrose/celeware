@@ -13,7 +13,7 @@
 //
 - (id)initWithArray:(NSArray *)array selectedIndex:(NSUInteger)select
 {
-	[super initWithStyle:UITableViewStyleGrouped];
+	self = [super initWithStyle:UITableViewStyleGrouped];
 	_array = [array retain];
 	_selectedIndex = select;
 	return self;

@@ -18,7 +18,7 @@ public:
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		//if (_settings == nil)
 		{
-			NSString *path = NSUtil::DocumentsSubPath(kSettingsFile);
+			NSString *path = NSUtil::DocumentPath(kSettingsFile);
 			_settings = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
 			if (_settings == nil) _settings = [[NSMutableDictionary alloc] init];
 		}
@@ -36,7 +36,7 @@ public:
 	//
 	NS_INLINE void Save()
 	{
-		[_settings writeToFile:NSUtil::DocumentsSubPath(kSettingsFile) atomically:YES];
+		[_settings writeToFile:NSUtil::DocumentPath(kSettingsFile) atomically:YES];
 	}
 	
 	//

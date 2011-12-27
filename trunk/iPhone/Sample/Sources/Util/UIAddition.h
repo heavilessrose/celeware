@@ -57,6 +57,7 @@
 
 //
 @interface UIViewController (ViewControllerEx)
+- (void)dismissModalViewController;
 - (UINavigationController *)presentNavigationController:(UIViewController *)controller animated:(BOOL)animated;
 - (UINavigationController *)presentModalNavigationController:(UIViewController *)controller animated:(BOOL)animated;
 @end

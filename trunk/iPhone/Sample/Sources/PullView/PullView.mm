@@ -14,7 +14,7 @@
 //
 - (id)initWithFrame:(CGRect)frame
 {
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 
 	//
 	_stampLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -42,10 +42,7 @@
 	_arrowImage = [CALayer layer];
 	_arrowImage.contentsGravity = kCAGravityResizeAspect;
 	_arrowImage.contents = (id)[UIImage imageNamed:@"PullArrow.png"].CGImage;
-	if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-	{
-		_arrowImage.contentsScale = [[UIScreen mainScreen] scale];
-	}
+	_arrowImage.contentsScale = [[UIScreen mainScreen] scale];
 	[[self layer] addSublayer:_arrowImage];
 	
 	//

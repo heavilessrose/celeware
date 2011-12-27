@@ -121,7 +121,7 @@ BOOL NSUtil::IsPhoneNumberEqual(NSString *phoneNumber1, NSString *phoneNumber2, 
 	
 	const char *number1 = phoneNumber1.UTF8String;
 	const char *number2 = phoneNumber2.UTF8String;
-
+	
 	const char *end1 = number1 + strlen(number1);
 	const char *end2 = number2 + strlen(number2);
 	const char *p1 = end1 - 1;
@@ -183,7 +183,7 @@ NSString *NSUtil::BASE64Encode(const unsigned char *data, NSUInteger length, NSU
 		'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v',
 		'w','x','y','z','0','1','2','3','4','5','6','7','8','9','+','/'
 	};
-
+	
 	NSMutableString *result = [NSMutableString stringWithCapacity:length];
 	unsigned long ixtext = 0;
 	unsigned long lentext = length;
@@ -257,7 +257,7 @@ NSString *NSUtil::BASE64Encode(const unsigned char *data, NSUInteger length, NSU
 NSData *NSUtil::BASE64Decode(NSString *string)
 {
 	NSMutableData *mutableData = nil;
-
+	
 	if (string)
 	{
 		unsigned long ixtext = 0;
@@ -278,13 +278,13 @@ NSData *NSUtil::BASE64Decode(NSString *string)
 		
 		while (YES)
 		{
-			if( ixtext >= lentext )
+			if (ixtext >= lentext)
 			{
 				break;
 			}
 			ch = base64data[ixtext++];
 			flignore = NO;
-
+			
 			if ((ch >= 'A') && (ch <= 'Z')) ch = ch - 'A';
 			else if ((ch >= 'a') && (ch <= 'z')) ch = ch - 'a' + 26;
 			else if ((ch >= '0') && (ch <= '9')) ch = ch - '0' + 52;
@@ -307,14 +307,15 @@ NSData *NSUtil::BASE64Decode(NSString *string)
 					flbreak = YES;
 				}
 				
-				inbuf [ixinbuf++] = ch;
+				inbuf[ixinbuf++] = ch;
 				
+				// Please ignore any warning here
 				if (ixinbuf == 4)
 				{
+					outbuf[0] = (inbuf[0] << 2) | ((inbuf[1] & 0x30) >> 4);
+					outbuf[1] = ((inbuf[1] & 0x0F) << 4) | ((inbuf[2] & 0x3C) >> 2);
+					outbuf[2] = ((inbuf[2] & 0x03) << 6) | (inbuf[3] & 0x3F);
 					ixinbuf = 0;
-					outbuf [0] = (inbuf[0] << 2) | ((inbuf[1] & 0x30) >> 4);
-					outbuf [1] = ((inbuf[1] & 0x0F) << 4) | ((inbuf[2] & 0x3C) >> 2);
-					outbuf [2] = ((inbuf[2] & 0x03) << 6) | (inbuf[3] & 0x3F);
 					
 					for (i = 0; i < ctcharsinbuf; i++)
 					{

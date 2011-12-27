@@ -2,12 +2,11 @@
 #import <UIKit/UIKit.h>
 #import "DelayImageView.h"
 
-//TODO: Porting UILongPressGestureRecognizer to 3.0～3.1.2, instead of using this subclass
-
 //
 @protocol TouchViewDelegate <NSObject>
 @optional
 - (BOOL)touchView:(UIView *)sender touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+- (BOOL)touchView:(UIView *)sender touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
 - (BOOL)touchView:(UIView *)sender touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 - (BOOL)touchView:(UIView *)sender touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
 @end
@@ -44,6 +43,17 @@
 	if ([_touchDelegate respondsToSelector:@selector(touchView: touchesBegan: withEvent:)] == NO ||	\
 		[_touchDelegate touchView:self touchesBegan:touches withEvent:event] == NO)	\
 		[super touchesBegan:touches withEvent:event];	\
+}	\
+	\
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event	\
+{	\
+	if (_showTouchHighlight)	\
+	{	\
+		self.alpha = 0.75;	\
+	}	\
+	if ([_touchDelegate respondsToSelector:@selector(touchView: touchesMoved: withEvent:)] == NO ||	\
+		[_touchDelegate touchView:self touchesMoved:touches withEvent:event] == NO)	\
+		[super touchesMoved:touches withEvent:event];	\
 }	\
 	\
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event	\

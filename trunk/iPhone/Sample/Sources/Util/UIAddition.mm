@@ -49,17 +49,9 @@
 	}
 	
 	// Get scale
-	CGFloat scale;
-	if ([UIScreen.mainScreen respondsToSelector:@selector(scale)])
-	{
-		scale = UIScreen.mainScreen.scale;
-		size.width *= scale;
-		size.height *= scale;
-	}
-	else
-	{
-		scale = 1;
-	}
+	CGFloat scale = UIUtil::ScreenScale();
+	size.width *= scale;
+	size.height *= scale;
 	
 	// Scale image
 	CGImageRef imageRef = self.CGImage;
@@ -187,21 +179,13 @@
 {
 	UIImage *image;
 	CGImageRef ref;
-	if (/*[UIScreen.mainScreen respondsToSelector:@selector(scale)] && */UIUtil::SystemVersion() >= 4.0)
-	{
-		CGFloat scale = UIScreen.mainScreen.scale;
-		rect.origin.x *= scale;
-		rect.origin.y *= scale;
-		rect.size.width *= scale;
-		rect.size.height *= scale;
-		ref = CGImageCreateWithImageInRect(self.CGImage, rect);
-		image = [UIImage imageWithCGImage:ref scale:scale orientation:self.imageOrientation];
-	}
-	else
-	{
-		ref = CGImageCreateWithImageInRect(self.CGImage, rect);
-		image = [UIImage imageWithCGImage:ref];
-	}
+	CGFloat scale = UIScreen.mainScreen.scale;
+	rect.origin.x *= scale;
+	rect.origin.y *= scale;
+	rect.size.width *= scale;
+	rect.size.height *= scale;
+	ref = CGImageCreateWithImageInRect(self.CGImage, rect);
+	image = [UIImage imageWithCGImage:ref scale:scale orientation:self.imageOrientation];
 	CGImageRelease(ref);
 	return image;
 }
@@ -209,7 +193,7 @@
 //
 - (UIImage *)maskImageWithImage:(UIImage *)mask
 {
-	UIUtil::BeginImageContext(self.size);
+	UIGraphicsBeginImageContextWithOptions(self.size, NO, UIUtil::ScreenScale());
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
@@ -226,7 +210,6 @@
 	
 	CGImageRef masked = CGImageCreateWithMask(self.CGImage, maskImage);
 	CGImageRelease(maskImage);
-	CGImageRelease(maskRef);
 	
 	CGContextDrawImage(context, rect, masked);
 	CGImageRelease(masked);
@@ -478,12 +461,7 @@
 		textField.borderStyle = UITextBorderStyleRoundedRect;
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		textField.tag = kTextFieldTag;
-		
-		if (UIUtil::SystemVersion() < 4.0)
-		{
-			[self setTransform:CGAffineTransformMakeTranslation(0, 60)];
-		}
-		
+
 		[self addSubview:textField];
 		[textField becomeFirstResponder];
 	}
@@ -551,13 +529,7 @@
 {
 	UINavigationController *navigator = [[[UINavigationController alloc] initWithRootViewController:controller] autorelease];
 	navigator.modalTransitionStyle = controller.modalTransitionStyle;
-	
-#if (_TARGET_VERSION < 32)
-	if ([navigator respondsToSelector:@selector(setModalPresentationStyle:)])
-#endif
-	{
-		navigator.modalPresentationStyle = controller.modalPresentationStyle;
-	}
+	navigator.modalPresentationStyle = controller.modalPresentationStyle;
 	
 	[self presentModalViewController:navigator animated:animated];
 	return navigator;
@@ -569,12 +541,18 @@
 	UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"返回")
 																   style:UIBarButtonItemStyleDone
 																  target:self
-																  action:@selector(dismissModalViewControllerAnimated:)];
+																  action:@selector(dismissModalViewController)];
 	//controller.navigationItem.backBarButtonItem = doneButton;
 	controller.navigationItem.leftBarButtonItem = doneButton;
 	[doneButton release];
 	
 	return [self presentNavigationController:controller animated:animated];
+}
+
+//
+- (void)dismissModalViewController
+{
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 @end

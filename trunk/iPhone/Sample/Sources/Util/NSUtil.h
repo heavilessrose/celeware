@@ -33,7 +33,7 @@ public:
 	//
 	NS_INLINE NSString *BundleVersion()
 	{
-		return BundleInfo(@"CFBundleVersion");
+		return BundleInfo(@"CFBundleShortVersionString");
 	}
 	
 	//
@@ -43,7 +43,7 @@ public:
 	}
 	
 	//
-	NS_INLINE NSString *BundleSubPath(NSString *file)
+	NS_INLINE NSString *BundlePath(NSString *file)
 	{
 		return [BundlePath() stringByAppendingPathComponent:file];
 	}
@@ -91,15 +91,15 @@ public:
 	}
 	
 	//
-	NS_INLINE NSString *DocumentsPath()
+	NS_INLINE NSString *DocumentPath()
 	{
 		return UserDirectoryPath(NSDocumentDirectory);
 	}
 	
 	// 
-	NS_INLINE NSString *DocumentsSubPath(NSString *file)
+	NS_INLINE NSString *DocumentPath(NSString *file)
 	{
-		return [DocumentsPath() stringByAppendingPathComponent:file];
+		return [DocumentPath() stringByAppendingPathComponent:file];
 	}
 
 #pragma mark User defaults
@@ -140,7 +140,7 @@ public:
 	//
 	NS_INLINE NSString *CachePath()
 	{
-		//return DocumentsSubPath(@"Cache");
+		//return DocumentPath(@"Cache");
 		return UserDirectoryPath(NSCachesDirectory);
 	}
 	
@@ -151,7 +151,7 @@ public:
 	}
 	
 	//
-	NS_INLINE NSString *CacheSubPath(NSString *file)
+	NS_INLINE NSString *CachePath(NSString *file)
 	{
 		NSString *dir = CachePath();
 		if (IsDirectoryExist(dir) == NO)
@@ -185,7 +185,7 @@ public:
 			}
 		}
 		NSString *file = [NSString stringWithCharacters:chars length:range.length];
-		return CacheSubPath(file);
+		return CachePath(file);
 	}
 
 #pragma mark Format methods

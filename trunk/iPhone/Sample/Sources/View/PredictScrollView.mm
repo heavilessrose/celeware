@@ -17,7 +17,7 @@
 {
 	frame.origin.x = -5;
 	frame.size.width += 10;
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	self.pagingEnabled = YES;
 	self.delegate = self;
 	//self.backgroundColor = [UIColor blackColor];
@@ -176,7 +176,7 @@
 //
 - (id)initWithFrame:(CGRect)frame
 {
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 
 	frame.origin.y = 0;//frame.size.height - 40;
 	frame.size.height = 26;

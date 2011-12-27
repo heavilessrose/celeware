@@ -19,7 +19,7 @@
 		frame.size.height = image.size.height;
 	}
 
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	self.userInteractionEnabled = YES;
 	self.image = image;
 	

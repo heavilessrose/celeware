@@ -30,25 +30,13 @@ public:
 	//
 	NS_INLINE BOOL IsPad()
 	{
-#ifdef _TARGET_IPHONE_IPAD
-		return (SystemVersion() < 3.2) ? NO : ([Device() userInterfaceIdiom] == UIUserInterfaceIdiomPad);
-#elif defined(_TARGET_IPAD)
-		return YES;
-#else
-		return NO;
-#endif
-	}
-
-	//
-	NS_INLINE BOOL IsMultitasking()
-	{
-		return ([Device() respondsToSelector:@selector(isMultitaskingSupported)] && [Device() isMultitaskingSupported]);
+		return [Device() userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 	}
 
 	//
 	NS_INLINE BOOL IsRetina()
 	{
-		return [Screen() respondsToSelector:@selector(scale)] && ([Screen() scale] == 2);
+		return ScreenScale() == 2;
 	}
 	
 	//
@@ -56,7 +44,13 @@ public:
 	{
 		return [UIScreen mainScreen];
 	}
-	
+
+	//
+	NS_INLINE CGFloat ScreenScale()
+	{
+		return Screen().scale;
+	}
+
 	//
 	NS_INLINE CGRect AppFrame()
 	{
@@ -107,9 +101,29 @@ public:
 	}
 	
 	//
-	NS_INLINE BOOL MakeCall(NSString *number)
+	NS_INLINE BOOL MakeCall(NSString *number, BOOL direct = NO)
 	{
-		BOOL ret = OpenURL([NSString stringWithFormat:@"tel:%@", number]);
+		NSString *url = [NSString stringWithFormat:@"tel:%@", [number stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+		NSURL *URL = [NSURL URLWithString:url];
+		
+		// Try alternate call method (Result in a call with alert box, and back to apptioncation after hung)
+		if (!direct && [Application() canOpenURL:URL])
+		{
+			static UIWebView *webView = nil;
+			if (webView == nil)
+			{
+				webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+				webView.hidden = YES;
+			}
+			if (webView.superview == nil)	// To avoid key window reborn
+			{
+				[KeyWindow() addSubview:webView];
+			}
+			[webView loadRequest:[NSURLRequest requestWithURL:URL]];
+			return YES;
+		}
+
+		BOOL ret = [Application() openURL:URL];
 		if (ret == NO)
 		{
 			UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not make call on this device.", @"在此设备上无法拨打电话。")
@@ -138,18 +152,7 @@ public:
 	//
 	NS_INLINE void ShowStatusBar(BOOL show = YES, UIStatusBarAnimation animated = UIStatusBarAnimationFade)
 	{
-#if (_TARGET_VERSION < 32)
-		if ([Application() respondsToSelector:@selector(setStatusBarHidden:withAnimation:)])
-#endif
-		{
-			[Application() setStatusBarHidden:!show withAnimation:animated];
-		}
-#if (_TARGET_VERSION < 32)
-		else
-		{
-			[Application() setStatusBarHidden:!show animated:animated];
-		}
-#endif
+		[Application() setStatusBarHidden:!show withAnimation:animated];
 	}
 
 	//
@@ -170,28 +173,7 @@ public:
 
 	//
 	static UIImageView *ShowSplashView(UIView *fadeInView = nil);
-
-#pragma mark Misc methods
 	
-	//
-	NS_INLINE void BeginImageContext(CGSize size)
-	{
-		if ([UIScreen.mainScreen respondsToSelector:@selector(scale)])
-		{
-			UIGraphicsBeginImageContextWithOptions(size, NO, Screen().scale);
-		}
-		else
-		{
-			UIGraphicsBeginImageContext(size);
-		}
-	}
-	
-	//
-	NS_INLINE NSInteger ShadowVerticalMultiplier()
-	{
-		return (SystemVersion() < 3.2) ? -1 : 1;
-	}
-
 #pragma mark Debug methods
 public:	
 	// Print log with indent

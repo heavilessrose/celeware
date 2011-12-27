@@ -3,23 +3,30 @@
 #import "WebController.h"
 
 @implementation WebController
-@synthesize url=_url;
+@synthesize URL=_URL;
 
 #pragma mark Generic methods
 
 // Contructor
-- (id)initWithUrl:(NSURL *)url
+- (id)initWithURL:(NSURL *)URL
 {
-	[super init];
-	_url = [url retain];
+	self = [super init];
+	_URL = [URL retain];
 	return self;
+}
+
+// Contructor
+- (id)initWithUrl:(NSString *)url
+{
+	return [self initWithURL:[NSURL URLWithString:url]];
 }
 
 // Destructor
 - (void)dealloc
 {
+	if (_loading) UIUtil::ShowNetworkIndicator(NO);
 	[_rightButton release];
-	[_url release];
+	[_URL release];
 	[super dealloc];
 }
 
@@ -30,14 +37,26 @@
 }
 
 //
-- (void)setUrl:(NSURL *)url
+- (NSString *)url
 {
-	if (url != _url)
+	return self.URL.absoluteString;
+}
+
+//
+- (void)setUrl:(NSString *)url
+{
+	self.URL = [NSURL URLWithString:url];
+}
+
+//
+- (void)setURL:(NSURL *)URL
+{
+	if (URL != _URL)
 	{
-		[_url release];
-		_url = [url retain];
+		[_URL release];
+		_URL = [URL retain];
 	}
-	[self.webView loadRequest:[NSURLRequest requestWithURL:_url]];
+	if (URL) [self.webView loadRequest:[NSURLRequest requestWithURL:_URL]];
 }
 
 
@@ -59,7 +78,7 @@
 {	
 	[super viewDidLoad];
 
-	if (_url) self.url = _url;
+	if (_URL) [self.webView loadRequest:[NSURLRequest requestWithURL:_URL]];
 }
 
 // Override to allow rotation.
@@ -81,7 +100,7 @@
 //
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-	UIUtil::ShowNetworkIndicator(YES);
+	if (_loading++ == 0) UIUtil::ShowNetworkIndicator(YES);
 	self.title = NSLocalizedString(@"Loading...", @"加载中⋯");
 	
 	[_rightButton release];
@@ -96,7 +115,8 @@
 //
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-	UIUtil::ShowNetworkIndicator(NO);
+	if (_loading != 0) _loading--;
+	if (_loading == 0) UIUtil::ShowNetworkIndicator(NO);
 	self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 	[self.navigationItem setRightBarButtonItem:_rightButton animated:YES];
 	
@@ -225,7 +245,7 @@
 {
 	[super webViewDidFinishLoad:webView];
 	
-	UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.webView action:@selector(reload)];
+	UIBarButtonItem *refreshButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self.webView action:@selector(reload)] autorelease];
 	NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.toolbarItems];
 	[buttons replaceObjectAtIndex:(0 * 3 + 1) withObject:refreshButton];
 	((UIBarButtonItem *)[buttons objectAtIndex:1 * 3 + 1]).enabled = self.webView.canGoBack;
@@ -244,14 +264,7 @@
 													cancelButtonTitle:NSLocalizedString(@"Cancel", @"取消")
 											   destructiveButtonTitle:nil
 													otherButtonTitles:NSLocalizedString(@"Open with Safari", @"在 Safari 中打开")/*, NSLocalizedString(@"Send via Email", @"发送邮件链接")*/, nil];
-	if ([actionSheet respondsToSelector:@selector(showFromBarButtonItem: animated:)])
-	{
-		[actionSheet showFromBarButtonItem:sender animated:YES];
-	}
-	else
-	{
-		[actionSheet showFromToolbar:self.navigationController.toolbar];
-	}
+	[actionSheet showFromBarButtonItem:sender animated:YES];
 	[actionSheet release];
 }
 
@@ -265,8 +278,8 @@
 	{
 		case 0:
 		{
-			NSString *url = [((UIWebView *)self.view) stringByEvaluatingJavaScriptFromString:@"window.location.href"];
-			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+			NSString *URL = [((UIWebView *)self.view) stringByEvaluatingJavaScriptFromString:@"window.location.href"];
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL]];
 			break;
 		}
 			

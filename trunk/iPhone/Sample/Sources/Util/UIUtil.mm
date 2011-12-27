@@ -68,12 +68,12 @@ UIImageView *UIUtil::ShowSplashView(UIView *fadeInView)
 	//
 	CGRect frame = UIUtil::ScreenFrame();
 	UIImageView *splashView = [[[UIImageView alloc] initWithFrame:frame] autorelease];
-	splashView.image = [UIImage imageWithContentsOfFile:NSUtil::BundleSubPath(UIUtil::IsPad() ? @"Default@iPad.png" : @"Default.png")];
+	splashView.image = [UIImage imageWithContentsOfFile:NSUtil::BundlePath(UIUtil::IsPad() ? @"Default@iPad.png" : @"Default.png")];
 	splashView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[UIUtil::KeyWindow() addSubview:splashView];
 
 	//
-	//UIImage *logoImage = [UIImage imageWithContentsOfFile:NSUtil::BundleSubPath(UIUtil::IsPad() ? @"Splash@2x.png" : @"Splash.png")];
+	//UIImage *logoImage = [UIImage imageWithContentsOfFile:NSUtil::BundlePath(UIUtil::IsPad() ? @"Splash@2x.png" : @"Splash.png")];
 	//UIImageView *logoView = [[[UIImageView alloc] initWithImage:logoImage] autorelease];
 	//logoView.center = CGPointMake(frame.size.width / 2, (frame.size.height / 2));
 	//logoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;

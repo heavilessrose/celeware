@@ -5,14 +5,17 @@
 //
 @interface WebController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
 {
-	NSURL *_url;
+	NSURL *_URL;
+	NSUInteger _loading;
 	UIBarButtonItem *_rightButton;
 }
 
-@property(nonatomic,retain) NSURL *url;
+@property(nonatomic,retain) NSURL *URL;
+@property(nonatomic,retain) NSString *url;
 @property(nonatomic,readonly) UIWebView *webView;
 
-- (id)initWithUrl:(NSURL *)url;
+- (id)initWithURL:(NSURL *)URL;
+- (id)initWithUrl:(NSString *)url;
 
 @end
 

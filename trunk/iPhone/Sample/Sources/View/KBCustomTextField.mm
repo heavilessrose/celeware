@@ -3,6 +3,20 @@
 #import "KBCustomTextField.h"
 
 
+// KBCustomButton to fix iOS5 crash
+@interface KBCustomButton : UIButton
+{
+}
+@end
+
+@implementation KBCustomButton
+- (id)key
+{
+	return nil;
+}
+@end
+
+
 @implementation KBCustomTextField
 @synthesize kbDelegate=_kbDelegate;
 
@@ -121,7 +135,7 @@
 	UIKBKeyView *view = [self findKeyView:name];
 	if (view)
 	{
-		UIButton *button = [[[UIButton alloc] initWithFrame:view.frame] autorelease];
+		UIButton *button = [[[KBCustomButton alloc] initWithFrame:view.frame] autorelease];
 		button.titleLabel.font = [UIFont boldSystemFontOfSize:17];
 		[button setTitle:title forState:UIControlStateNormal];
 		[button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -144,7 +158,7 @@
 //
 - (id)initWithFrame:(CGRect)frame
 {
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	if (UIUtil::SystemVersion() >= 4.1)
 	{
 		self.keyboardType = UIKeyboardTypeDecimalPad;
@@ -181,7 +195,7 @@
 //
 - (id)initWithFrame:(CGRect)frame
 {
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	self.keyboardType = UIKeyboardTypeNumberPad;
 	if (UIUtil::IsPad() == NO)
 	{
@@ -194,7 +208,7 @@
 - (void)keyboardShow:(KBCustomTextField *)sender
 {
 	[self keyboardHide:self];
-	_customButton = [[KBCustomTextField addCustomButton:@"NumberPad-Empty" title:NSLocalizedString(@"Hide KB", @"隐藏键盘") target:self action:@selector(onDoneButton:)] retain];
+	_customButton = [[KBCustomTextField addCustomButton:@"NumberPad-Empty" title:NSLocalizedString(@"Hide KB", @"隐藏键盘") target:self action:@selector(resignFirstResponder)] retain];
 }
 
 // Handle keyboard hide
@@ -203,12 +217,6 @@
 	[_customButton removeFromSuperview];
 	[_customButton release];
 	_customButton = nil;
-}
-
-//
-- (void)onDoneButton:(UIButton *)sender
-{
-	[self resignFirstResponder];
 }
 
 @end

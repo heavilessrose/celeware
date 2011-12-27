@@ -7,9 +7,6 @@
 //#define _TARGET_IPAD
 #define _TARGET_IPHONE_IPAD
 
-// Target OS version (disable lower version to reduce some unnecessary codes)
-#define _TARGET_VERSION 30
-
 // UniBase
 #import "UniBase.h"
 

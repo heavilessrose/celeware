@@ -5,28 +5,50 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "WebController.h"
 
-// Compose mail
-@interface MailComposer : MFMailComposeViewController <MFMailComposeViewControllerDelegate>
-{
-}
-+ (id)composerWithRecipients:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body;
-@end
 
-
-// Compose SMS
-// NOTICE: MessageUI.framework should select "Optional" mode
+// 
 @interface SMSComposer : MFMessageComposeViewController <MFMessageComposeViewControllerDelegate>
 {
 	BOOL _autoSend;
 }
 @property(nonatomic) BOOL autoSend;
-+ (id)composerWithRecipients:(NSArray *)recipients body:(NSString *)body;
++ (id)composerWithBody:(NSString *)body to:(NSArray *)recipients;
+@end
+
+
+// 
+@interface MailComposer : MFMailComposeViewController <MFMailComposeViewControllerDelegate>
+{
+}
++ (id)composerWithBody:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
+@end
+
+
+// 
+@interface WeiboComposer : WebController
+{
+}
++ (id)composerWithBody:(NSString *)body pic:(NSString *)pic link:(NSString *)link;
+@end
+
+
+// 
+@interface FacebookComposer : WebController
+{
+	NSString *_link;
+	NSString *_body;
+	NSUInteger _done;
+}
+@property(nonatomic,retain) NSString *link;
+@property(nonatomic,retain) NSString *body;
++ (id)composerWithBody:(NSString *)body link:(NSString *)link;
 @end
 
 
 //
-@interface UIViewController (MailComposer)
-- (MailComposer *)composeMail:(NSArray *)recipients subject:(NSString *)subject body:(NSString *)body;
-- (SMSComposer *)composeSMS:(NSArray *)recipients body:(NSString *)body;
-- (UINavigationController *)composeWeibo:(NSString *)url body:(NSString *)body;
+@interface UIViewController (ShareComposer)
+- (SMSComposer *)composeSMS:(NSString *)body to:(NSArray *)recipients;
+- (MailComposer *)composeMail:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
+- (WeiboComposer *)composeWeibo:(NSString *)body pic:(NSString *)pic link:(NSString *)link;
+- (FacebookComposer *)composeFacebook:(NSString *)body link:(NSString *)link;
 @end

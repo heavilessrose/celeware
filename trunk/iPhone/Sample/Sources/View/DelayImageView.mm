@@ -134,7 +134,7 @@
 //
 - (id)initWithUrl:(NSString *)url frame:(CGRect)frame
 {
-	[super initWithFrame:frame];
+	self = [super initWithFrame:frame];
 	self.url = url;
 	return self;
 }
