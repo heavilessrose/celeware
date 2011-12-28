@@ -16,9 +16,14 @@
 #define UNICODE
 #endif
 
+#import <stdio.h>
 #import <stdlib.h>
+#import <stdarg.h>
+#import <memory.h>
 #import <mach/mach_time.h>
+#ifdef __OBJC__
 #import <Foundation/Foundation.h>
+#endif
 /**********************************************************************************************************************/
 
 
@@ -71,6 +76,9 @@ typedef void						*PVOID;
 typedef FILE						*UFILE;
 typedef void						*HANDLE;
 typedef HANDLE						*PHANDLE;
+#ifndef __OBJC__
+typedef int							BOOL;
+#endif
 typedef BOOL						*PBOOL;
 typedef float						FLOAT, *PFLOAT;
 typedef double						DOUBLE, *PDOUBLE;
@@ -103,7 +111,7 @@ typedef unsigned int				UINT_PTR, *PUINT_PTR;
 
 typedef char						CHAR, *PCHAR;
 typedef char						ACHAR, *PACHAR;
-typedef UniChar						WCHAR, *PWCHAR;
+typedef UINT16						WCHAR, *PWCHAR;
 #ifdef _UNICODE
 typedef WCHAR						TCHAR, *PTCHAR;
 typedef WORD						UTCHAR, *PUTCHAR;
@@ -1601,21 +1609,6 @@ UAPI(PTSTR) UPathSplit(PTSTR* pptzPath)
 	return p;
 }
 
-UAPI(BOOL) UFileDelete(PCTSTR ptzPath)
-{
-	return [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithUTF8String:ptzPath] error:nil];
-}
-
-UAPI(BOOL) UFileCopy(PCTSTR ptzPath, PCTSTR ptzNewPath)
-{
-	return [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:ptzPath] toPath:[NSString stringWithUTF8String:ptzNewPath] error:nil];
-}
-
-UAPI(BOOL) UFileMove(PCTSTR ptzPath, PCTSTR ptzNewPath)
-{
-	return [[NSFileManager defaultManager] moveItemAtPath:[NSString stringWithUTF8String:ptzPath] toPath:[NSString stringWithUTF8String:ptzNewPath] error:nil];
-}
-
 UAPI(BOOL) UFileNameValid(PCTSTR ptzName)
 {
 	UINT i;
@@ -1632,6 +1625,22 @@ UAPI(BOOL) UFileNameValid(PCTSTR ptzName)
 		}
 	}
 	return (*ptzName != 0);
+}
+
+#ifdef __OBJC__
+UAPI(BOOL) UFileDelete(PCTSTR ptzPath)
+{
+	return [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithUTF8String:ptzPath] error:nil];
+}
+
+UAPI(BOOL) UFileCopy(PCTSTR ptzPath, PCTSTR ptzNewPath)
+{
+	return [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:ptzPath] toPath:[NSString stringWithUTF8String:ptzNewPath] error:nil];
+}
+
+UAPI(BOOL) UFileMove(PCTSTR ptzPath, PCTSTR ptzNewPath)
+{
+	return [[NSFileManager defaultManager] moveItemAtPath:[NSString stringWithUTF8String:ptzPath] toPath:[NSString stringWithUTF8String:ptzNewPath] error:nil];
 }
 
 UAPI(BOOL) UFileExist(PCTSTR ptzPath)
@@ -1659,7 +1668,7 @@ UAPI(BOOL) UDirDelete(PCTSTR ptzDir)
 UAPI(UINT) UDirGetAppPath(PTSTR ptzPath)
 {
 	NSString *dir = [[NSBundle mainBundle] bundlePath];
-	return TStrCopy(ptzPath, dir.UTF8String);
+	return TStrCopy(ptzPath, dir.UTF8String) - 1;
 }
 
 UAPI(UINT) UDirGetAppFile(PTSTR ptzPath, PCTSTR ptzFile)
@@ -1673,7 +1682,7 @@ UAPI(UINT) UDirGetAppFile(PTSTR ptzPath, PCTSTR ptzFile)
 			break;
 		}
 	}
-	return (UINT) (p - ptzPath) + TStrCopy(p, ptzFile);
+	return (UINT) (p - ptzPath) + TStrCopy(p, ptzFile) - 1;
 }
 
 UAPI(UINT) UDirGetAppExt(PTSTR ptzPath, PCTSTR ptzExt)
@@ -1693,7 +1702,7 @@ UAPI(UINT) UDirGetAppExt(PTSTR ptzPath, PCTSTR ptzExt)
 		p = ptzEnd;
 		*p++ = '.';
 	}
-	return (UINT) (p - ptzPath) + TStrCopy(p, ptzExt);
+	return (UINT) (p - ptzPath) + TStrCopy(p, ptzExt) - 1;
 }
 
 UAPI(UINT) UDirGetCurrent(PTSTR ptzDir)
@@ -1709,7 +1718,7 @@ UAPI(UINT) UDirGetCurrent(PTSTR ptzDir)
 UAPI(UINT) UDirGetTemp(PTSTR ptzDir)
 {
 	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	return TStrCopy(ptzDir, dir.UTF8String);
+	return TStrCopy(ptzDir, dir.UTF8String) - 1;
 }
 
 UAPI(UINT) UFileGetTemp(PTSTR ptzPath)
@@ -1721,8 +1730,9 @@ UAPI(UINT) UFileGetTemp(PTSTR ptzPath)
 	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 	NSString *path = [dir stringByAppendingPathComponent:(NSString *)string];
 	[(NSString *)string autorelease];
-	return TStrCopy(ptzPath, path.UTF8String);
+	return TStrCopy(ptzPath, path.UTF8String) - 1;
 }
+#endif
 /**********************************************************************************************************************/
 
 
@@ -1771,27 +1781,19 @@ UAPI(VOID) UTrace(PCTSTR ptzFormat, ...)
 #if defined(_TRACE_TO_FILE)
 	UFileSave(_TRACE_TO_FILE, tz, i * sizeof(TCHAR), TRUE);
 #elif defined(_TRACE_TO_CONSOLE)
-	printf(tz);
+	puts(tz);
 #else
-	NSLog(@"%s", tz);
+	puts(tz);
 #endif
 }
 
 UAPI(VOID) UAssert(PCTSTR ptzExp, PCTSTR ptzFile, UINT uLine)
 {
-	TCHAR tzText[MAX_STR];
-	TCHAR tzModule[MAX_PATH];
-	
-	UDirGetAppPath(tzModule);
-	TStrFormat(tzText,
-			   TEXT("Assertion failed!\n\n")
-			   TEXT("Program: %s\n")
-			   TEXT("File: %s\n")
-			   TEXT("Line: %d\n\n")
-			   TEXT("Expression: %s\n\n"),
-			   tzModule, ptzFile, uLine, ptzExp);
-	
-	NSLog(@"%s", tzText);
+	printf(TEXT("Assertion failed!\n\n")
+		   TEXT("File: %s\n")
+		   TEXT("Line: %d\n\n")
+		   TEXT("Expression: %s\n\n"),
+		   ptzFile, uLine, ptzExp);
 }
 /**********************************************************************************************************************/
 
