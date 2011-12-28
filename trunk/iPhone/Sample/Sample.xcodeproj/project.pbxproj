@@ -129,7 +129,6 @@
 		248B2DA4141CFD700026FD73 /* TabStripView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabStripView.h; sourceTree = "<group>"; };
 		248B2DA5141CFD700026FD73 /* TabStripView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TabStripView.mm; sourceTree = "<group>"; };
 		248B2DA6141CFD700026FD73 /* UniBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniBase.h; sourceTree = "<group>"; };
-		248B2DA7141CFD700026FD73 /* UniBase.TODO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniBase.TODO.h; sourceTree = "<group>"; };
 		248B2DA9141CFD700026FD73 /* DownloadUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadUtil.h; sourceTree = "<group>"; };
 		248B2DAA141CFD700026FD73 /* DownloadUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DownloadUtil.mm; sourceTree = "<group>"; };
 		248B2DAB141CFD700026FD73 /* NetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkUtil.h; sourceTree = "<group>"; };
@@ -303,7 +302,6 @@
 				248B2D92141CFD700026FD73 /* Main.mm */,
 				248B2D97141CFD700026FD73 /* Prefix.pch */,
 				248B2DA6141CFD700026FD73 /* UniBase.h */,
-				248B2DA7141CFD700026FD73 /* UniBase.TODO.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

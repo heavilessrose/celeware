@@ -35,10 +35,6 @@
 - (void)downloading
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-#ifdef _DEBUG
-	// TODO: Don't download at once?
-	[NSThread sleepForTimeInterval:2];
-#endif
 
 	NSString *path = NSUtil::CacheUrlPath(_url);
 	NSData *data = DownloadUtil::DownloadData(_url, path, _force ? DownloadFromOnline : DownloadCheckLocal /*DownloadCheckOnline*/);

@@ -290,6 +290,6 @@ public:
 		CFUUIDRef uuid = CFUUIDCreate(NULL);
 		CFStringRef string = CFUUIDCreateString(NULL, uuid);
 		CFRelease(uuid);
-		return (NSString *)string;
+		return [(NSString *)string autorelease];
 	}
 };
