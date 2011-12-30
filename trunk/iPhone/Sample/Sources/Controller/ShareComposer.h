@@ -27,8 +27,12 @@
 // 
 @interface WeiboComposer : WebController
 {
+	BOOL _isLast;
+	NSString *_body;
 }
+@property(nonatomic,retain) NSString *body;
 + (id)composerWithBody:(NSString *)body pic:(NSString *)pic link:(NSString *)link;
++ (id)composerWithBody:(NSString *)body;	// Alter mode, use it carefully
 @end
 
 

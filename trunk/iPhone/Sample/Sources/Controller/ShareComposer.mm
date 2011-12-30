@@ -12,14 +12,7 @@
 	// Check
 	if ([MFMessageComposeViewController canSendText] == NO)
 	{
-		if (body) [UIPasteboard generalPasteboard].string = body;
-		
-		NSString *url = @"sms:";
-		if ([recipients count]) url = [url stringByAppendingString:[recipients objectAtIndex:0]];
-		if (UIUtil::OpenURL(url) == NO)
-		{
-			[UIAlertView alertWithTitle:NSLocalizedString(@"Could not send SMS on this device.", @"在此设备上无法发送短信。")];
-		}
+		[UIAlertView alertWithTitle:NSLocalizedString(@"Could not send SMS on this device.", @"在此设备上无法发送短信。")];
 		return nil;
 	}
 	
@@ -117,6 +110,7 @@
 
 
 @implementation WeiboComposer
+@synthesize body=_body;
 
 //
 + (id)composerWithBody:(NSString *)body pic:(NSString *)pic link:(NSString *)link
@@ -131,7 +125,65 @@
 					 (pic ? [pic stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @""),
 					 (uid ? uid : @"")
 					 ];
-	return [[[WebController alloc] initWithUrl:url] autorelease];
+	return [[[WebController alloc] initWithUrl:url] autorelease];	// Sure, we fake WebController as WeiboComposer:)
+}
+
+//
++ (id)composerWithBody:(NSString *)body
+{
+	NSString *uid = NSUtil::BundleInfo(@"WeiboAppUid");
+	NSString *url = [NSString stringWithFormat:@"http://m.weibo.cn/u/%@?", (uid ? uid : @"")];
+	WeiboComposer *composer = [[[WeiboComposer alloc] initWithUrl:url] autorelease];
+	composer.body = body;
+	return composer;
+}
+
+//
+- (void)dealloc
+{
+	[_body release];
+	[super dealloc];
+}
+
+//
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
+{
+	NSLog(@"NAVI%d: %@", navigationType, request.URL.absoluteString);
+	return YES;
+}
+
+//
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+	_isLast = NO;
+	[super webViewDidStartLoad:webView];
+}
+
+//
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+	[super webViewDidFinishLoad:webView];
+	
+	if (_body)
+	{
+		NSString *className = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName(\"content\")[0].className"];
+		if ([className isEqualToString:@"newarea"])
+		{
+			_isLast = YES;
+			[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(showComposer) userInfo:nil repeats:NO];
+		}
+	}
+}
+
+//
+- (void)showComposer
+{
+	if (_isLast && _body)
+	{
+		NSString *js = [NSString stringWithFormat:@"recommend(); document.getElementsByName(\"content\")[0].value = \"%@\";", _body];
+		[self.webView stringByEvaluatingJavaScriptFromString:js];
+		self.body = nil;
+	}
 }
 
 @end
@@ -215,7 +267,7 @@
 			}
 		}
 	}
-	else 
+	else
 #endif
 		if (_done == 0)
 		{

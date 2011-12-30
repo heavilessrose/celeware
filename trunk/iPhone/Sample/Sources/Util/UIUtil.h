@@ -97,37 +97,31 @@ public:
 	//
 	NS_INLINE BOOL OpenURL(NSString *url)
 	{
-		return [Application() openURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+		url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		BOOL ret = [Application() openURL:[NSURL URLWithString:url]];
+		if (ret == NO)
+		{
+			UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not open", @"无法打开")
+																 message:url
+																delegate:nil
+													   cancelButtonTitle:NSLocalizedString(@"Dismiss", @"关闭")
+													   otherButtonTitles:nil] autorelease];
+			[alertView show];
+		}
+		return ret;
 	}
-	
+
 	//
-	NS_INLINE BOOL MakeCall(NSString *number, BOOL direct = NO)
+	NS_INLINE BOOL MakeCall(NSString *number, BOOL direct = YES)
 	{
-		NSString *url = [NSString stringWithFormat:@"tel:%@", [number stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+		NSString *url = [NSString stringWithFormat:(direct ? @"tel://%@" : @"telprompt://%@"), [number stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 		NSURL *URL = [NSURL URLWithString:url];
 		
-		// Try alternate call method (Result in a call with alert box, and back to apptioncation after hung)
-		if (!direct && [Application() canOpenURL:URL])
-		{
-			static UIWebView *webView = nil;
-			if (webView == nil)
-			{
-				webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-				webView.hidden = YES;
-			}
-			if (webView.superview == nil)	// To avoid key window reborn
-			{
-				[KeyWindow() addSubview:webView];
-			}
-			[webView loadRequest:[NSURLRequest requestWithURL:URL]];
-			return YES;
-		}
-
 		BOOL ret = [Application() openURL:URL];
 		if (ret == NO)
 		{
-			UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not make call on this device.", @"在此设备上无法拨打电话。")
-																 message:nil
+			UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Could not make call", @"无法拨打电话")
+																 message:number
 																delegate:nil
 													   cancelButtonTitle:NSLocalizedString(@"Dismiss", @"关闭")
 													   otherButtonTitles:nil] autorelease];
