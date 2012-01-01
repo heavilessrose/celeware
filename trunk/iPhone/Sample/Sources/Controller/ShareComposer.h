@@ -25,7 +25,7 @@
 
 
 // 
-@interface WeiboComposer : WebController
+@interface WeiboComposer : WebBrowser
 {
 	BOOL _isLast;
 	NSString *_body;
