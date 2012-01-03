@@ -193,9 +193,9 @@
 			isa = PBXGroup;
 			children = (
 				248B2CEB141CFD700026FD73 /* Classes */,
-				248B2CF7141CFD700026FD73 /* Documents */,
-				248B2CF8141CFD700026FD73 /* Resources */,
 				248B2D08141CFD700026FD73 /* Sources */,
+				248B2CF8141CFD700026FD73 /* Resources */,
+				248B2CF7141CFD700026FD73 /* Documents */,
 				248B2CBC141CFC8C0026FD73 /* Frameworks */,
 				248B2CBA141CFC8C0026FD73 /* Products */,
 			);
