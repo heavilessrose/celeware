@@ -50,6 +50,16 @@
 }
 
 //
+- (IBAction)resign:(id)sender
+{
+	[defaults setValue:[certField stringValue] forKey:@"CERT_NAME"];
+	[defaults setValue:[provisioningPathField stringValue] forKey:@"MOBILEPROVISION_PATH"];
+	[defaults synchronize];
+
+	[super resign:pathField.stringValue cert:certField.stringValue prov:provisioningPathField.stringValue];
+}
+
+//
 - (IBAction)browse:(id)sender
 {
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
@@ -117,6 +127,12 @@
 	flurry.hidden = YES;
 	[flurry stopAnimation:self];
 	[flurry setAlphaValue:0.5];
+}
+
+//
+- (void)setStatusText:(NSString *)text
+{
+	[statusLabel setStringValue:text];
 }
 
 @end

@@ -17,15 +17,16 @@
 	[self disableControls];
 	
 	NSLog(@"Setting up working directory in %@",workingPath);
-	[statusLabel setStringValue:@"Setting up working directory"];
+	[self setStatusText:@"Setting up working directory"];
 	
 	[[NSFileManager defaultManager] removeItemAtPath:workingPath error:nil];
 	
 	[[NSFileManager defaultManager] createDirectoryAtPath:workingPath withIntermediateDirectories:TRUE attributes:nil error:nil];
 	
-	if (originalIpaPath && [originalIpaPath length] > 0) {
+	if (originalIpaPath && [originalIpaPath length] > 0)
+	{
 		NSLog(@"Unzipping %@",originalIpaPath);
-		[statusLabel setStringValue:@"Extracting original app"];
+		[self setStatusText:@"Extracting original app"];
 	}
 	
 	unzipTask = [[NSTask alloc] init];
@@ -58,14 +59,9 @@
 }
 
 //
-- (IBAction)resign:(id)sender
+- (void)resign:(NSString *)path cert:(NSString *)cert prov:(NSString *)prov
 {
 	//Save cert name
-	[defaults setValue:[certField stringValue] forKey:@"CERT_NAME"];
-	[defaults setValue:[provisioningPathField stringValue] forKey:@"MOBILEPROVISION_PATH"];
-	[defaults synchronize];
-
-	NSString *path = [pathField stringValue];
 	if ([[[path pathExtension] lowercaseString] isEqualToString:@"ipa"])
 	{
 		[self launchResign:path];
@@ -90,7 +86,7 @@
 						@"You must choose an *.ipa file",
 						@"OK",nil,nil);
 		[self enableControls];
-		[statusLabel setStringValue:@"Please try again"];
+		[self setStatusText:@"Please try again"];
 	}
 }
 
@@ -106,7 +102,7 @@
 		if ([[NSFileManager defaultManager] fileExistsAtPath:[workingPath stringByAppendingPathComponent:@"Payload"]])
 		{
 			NSLog(@"Unzipping done");
-			[statusLabel setStringValue:@"Original app extracted"];
+			[self setStatusText:@"Original app extracted"];
 			if ([[provisioningPathField stringValue] isEqualTo:@""])
 			{
 				[self doCodeSigning];
@@ -122,7 +118,7 @@
 							@"Unzip failed",
 							@"OK",nil,nil);
 			[self enableControls];
-			[statusLabel setStringValue:@"Ready"];
+			[self setStatusText:@"Ready"];
 		}
 	}
 }
@@ -222,7 +218,7 @@
 					if (identifierOK)
 					{
 						NSLog(@"Provisioning completed.");
-						[statusLabel setStringValue:@"Provisioning completed"];
+						[self setStatusText:@"Provisioning completed"];
 						[self doCodeSigning];
 					}
 					else
@@ -231,7 +227,7 @@
 										@"Product identifiers don't match",
 										@"OK",nil,nil);
 						[self enableControls];
-						[statusLabel setStringValue:@"Ready"];
+						[self setStatusText:@"Ready"];
 					}
 				}
 				else
@@ -240,7 +236,7 @@
 									@"Provisioning failed",
 									@"OK",nil,nil);
 					[self enableControls];
-					[statusLabel setStringValue:@"Ready"];
+					[self setStatusText:@"Ready"];
 				}
 				break;
 			}
@@ -321,7 +317,7 @@
 			appPath = [[workingPath stringByAppendingPathComponent:@"Payload"] stringByAppendingPathComponent:file];
 			NSLog(@"Found %@",appPath);
 			appName = [file retain];
-			[statusLabel setStringValue:[NSString stringWithFormat:@"Codesigning %@",file]];
+			[self setStatusText:[NSString stringWithFormat:@"Codesigning %@",file]];
 			break;
 		}
 	}
@@ -370,7 +366,7 @@
 		[codesignTask release];
 		codesignTask = nil;
 		NSLog(@"Codesigning done");
-		[statusLabel setStringValue:@"Codesigning completed"];
+		[self setStatusText:@"Codesigning completed"];
 		[self doVerifySignature];
 	}
 }
@@ -386,7 +382,7 @@
 		[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkVerificationProcess:) userInfo:nil repeats:TRUE];
 		
 		NSLog(@"Verifying %@",appPath);
-		[statusLabel setStringValue:[NSString stringWithFormat:@"Verifying %@",appName]];
+		[self setStatusText:[NSString stringWithFormat:@"Verifying %@",appName]];
 		
 		NSPipe *pipe=[NSPipe pipe];
 		[verifyTask setStandardOutput:pipe];
@@ -419,7 +415,7 @@
 		if ([verificationResult length] == 0)
 		{
 			NSLog(@"Verification done");
-			[statusLabel setStringValue:@"Verification completed"];
+			[self setStatusText:@"Verification completed"];
 			[self doZip];
 		}
 		else
@@ -427,7 +423,7 @@
 			NSString *error = [[codesigningResult stringByAppendingString:@"\n\n"] stringByAppendingString:verificationResult];
 			NSRunAlertPanel(@"Signing failed", error, @"OK",nil, nil);
 			[self enableControls];
-			[statusLabel setStringValue:@"Please try again"];
+			[self setStatusText:@"Please try again"];
 		}
 	}
 }
@@ -456,7 +452,7 @@
 		[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkZip:) userInfo:nil repeats:TRUE];
 		
 		NSLog(@"Zipping %@", destinationPath);
-		[statusLabel setStringValue:[NSString stringWithFormat:@"Saving %@",fileName]];
+		[self setStatusText:[NSString stringWithFormat:@"Saving %@",fileName]];
 		
 		[zipTask launch];
 	}
@@ -471,7 +467,7 @@
 		[zipTask release];
 		zipTask = nil;
 		NSLog(@"Zipping done");
-		[statusLabel setStringValue:[NSString stringWithFormat:@"Saved %@",fileName]];
+		[self setStatusText:[NSString stringWithFormat:@"Saved %@",fileName]];
 		
 		[[NSFileManager defaultManager] removeItemAtPath:workingPath error:nil];
 		
@@ -496,6 +492,11 @@
 //
 - (void)enableControls
 {
+}
+
+//
+- (void)setStatusText:(NSString *)text
+{	
 }
 
 @end

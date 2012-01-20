@@ -29,16 +29,11 @@
 	IBOutlet NSTextField *pathField;
 	IBOutlet NSTextField *provisioningPathField;
 	IBOutlet NSTextField *certField;
-	IBOutlet NSButton	*browseButton;
-	IBOutlet NSButton	*provisioningBrowseButton;
-	IBOutlet NSButton	*resignButton;
-	IBOutlet NSTextField *statusLabel;
-	IBOutlet NSProgressIndicator *flurry;
 }
 
 @property (nonatomic, retain) NSString *workingPath;
 
-- (IBAction)resign:(id)sender;
+- (void)resign:(NSString *)path cert:(NSString *)cert prov:(NSString *)prov;
 
 - (void)checkUnzip:(NSTimer *)timer;
 - (void)doProvisioning;
@@ -49,7 +44,9 @@
 - (void)checkVerificationProcess:(NSTimer *)timer;
 - (void)doZip;
 - (void)checkZip:(NSTimer *)timer;
+
 - (void)disableControls;
 - (void)enableControls;
+- (void)setStatusText:(NSString *)text;
 
 @end
