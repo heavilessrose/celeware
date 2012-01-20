@@ -4,252 +4,58 @@
 
 
 @implementation iPAFine
-@synthesize workingPath;
 
-// 
-- (void)launchResign:(NSString *)path
+//
+- (NSString *)doTask:(NSString *)path arguments:(NSArray *)arguments
 {
-	codesigningResult = nil;
-	verificationResult = nil;
-	originalIpaPath = [path retain];
-	workingPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:@"CeleWare.iPAFine"] retain];
-	
-	[self disableControls];
-	
-	NSLog(@"Setting up working directory in %@",workingPath);
-	[self setStatusText:@"Setting up working directory"];
-	
-	[[NSFileManager defaultManager] removeItemAtPath:workingPath error:nil];
-	
-	[[NSFileManager defaultManager] createDirectoryAtPath:workingPath withIntermediateDirectories:TRUE attributes:nil error:nil];
-	
-	if (originalIpaPath && [originalIpaPath length] > 0)
+	NSPipe *pipe = [NSPipe pipe];
+	NSTask *task = [[[NSTask alloc] init] autorelease];
+	task.launchPath = path;
+	task.arguments = arguments;
+	task.standardOutput = pipe;
+	task.standardError = pipe;
+	[task launch];
+	[task waitUntilExit];
+
+	NSString *result = nil;
+	NSFileHandle *handle = [pipe fileHandleForReading];
+	NSData *data = [handle readDataToEndOfFile];
+	if (data.length)
 	{
-		NSLog(@"Unzipping %@",originalIpaPath);
-		[self setStatusText:@"Extracting original app"];
+		result = [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];
 	}
-	
-	unzipTask = [[NSTask alloc] init];
-	[unzipTask setLaunchPath:@"/usr/bin/unzip"];
-	[unzipTask setArguments:[NSArray arrayWithObjects:@"-q", originalIpaPath, @"-d", workingPath, nil]];
-	
-	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkUnzip:) userInfo:nil repeats:TRUE];
-	
-	[unzipTask launch];
+	NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
+	return result;
 }
 
 //
-- (void)nextResign
+- (NSString *)unzipIPA:(NSString *)ipaPath workPath:(NSString *)workPath
 {
-	while (_current < _files.count)
+	NSString *result = [self doTask:@"/usr/bin/unzip" arguments:[NSArray arrayWithObjects:@"-q", ipaPath, @"-d", workPath, nil]];
+	NSString *payloadPath = [workPath stringByAppendingPathComponent:@"Payload"];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:payloadPath])
 	{
-		NSString *file = [_files objectAtIndex:_current++];
-		NSString *resigned = [[file stringByDeletingPathExtension] stringByAppendingString:@"-resigned.ipa"];
-		resigned = [[pathField stringValue] stringByAppendingPathComponent:resigned];
-		if ([[[file pathExtension] lowercaseString] isEqualToString:@"ipa"] &&
-			([file rangeOfString:@"resigned"].location == NSNotFound) &&
-			![[NSFileManager defaultManager] fileExistsAtPath:resigned])
+		NSArray *dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:payloadPath error:nil];
+		for (NSString *dir in dirs)
 		{
-			NSString *path = [[[pathField stringValue] stringByAppendingPathComponent:file] retain];	// Yonsm: BUG need retain?
-			NSLog(@"Launch IPA %@", path);
-			[self launchResign:path];
-			break;
-		}
-	}
-}
-
-//
-- (void)resign:(NSString *)path cert:(NSString *)cert prov:(NSString *)prov
-{
-	//Save cert name
-	if ([[[path pathExtension] lowercaseString] isEqualToString:@"ipa"])
-	{
-		[self launchResign:path];
-	}
-	else
-	{
-		
-		// Added By Yonsm
-		BOOL isDir = NO;
-		if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir)
-		{
-			//files
-			_current = 0;
-			[_files release];
-			_files = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil] retain];
-			[self nextResign];
-			return;
-		}
-		// Ended By Yonsm
-		
-		NSRunAlertPanel(@"Error", 
-						@"You must choose an *.ipa file",
-						@"OK",nil,nil);
-		[self enableControls];
-		[self setStatusText:@"Please try again"];
-	}
-}
-
-//
-- (void)checkUnzip:(NSTimer *)timer
-{
-	if ([unzipTask isRunning] == 0)
-	{
-		[timer invalidate];
-		[unzipTask release];
-		unzipTask = nil;
-		
-		if ([[NSFileManager defaultManager] fileExistsAtPath:[workingPath stringByAppendingPathComponent:@"Payload"]])
-		{
-			NSLog(@"Unzipping done");
-			[self setStatusText:@"Original app extracted"];
-			if ([[provisioningPathField stringValue] isEqualTo:@""])
+			if ([dir.pathExtension.lowercaseString isEqualToString:@"app"])
 			{
-				[self doCodeSigning];
-			}
-			else
-			{
-				[self doProvisioning];
+				return [payloadPath stringByAppendingPathComponent:dir];
 			}
 		}
-		else
-		{
-			NSRunAlertPanel(@"Error", 
-							@"Unzip failed",
-							@"OK",nil,nil);
-			[self enableControls];
-			[self setStatusText:@"Ready"];
-		}
+		_error = @"Invalid app";
+		return nil;
 	}
+	_error = [@"Unzip filed:" stringByAppendingString:result ? result : @""];
+	return nil;
 }
 
 //
-- (void)doProvisioning {
-	NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[workingPath stringByAppendingPathComponent:@"Payload"] error:nil];
-	
-	for (NSString *file in dirContents)
-	{
-		if ([[[file pathExtension] lowercaseString] isEqualToString:@"app"])
-		{
-			appPath = [[workingPath stringByAppendingPathComponent:@"Payload"] stringByAppendingPathComponent:file];
-			if ([[NSFileManager defaultManager] fileExistsAtPath:[appPath stringByAppendingPathComponent:@"embedded.mobileprovision"]])
-			{
-				NSLog(@"Found embedded.mobileprovision, deleting.");
-				[[NSFileManager defaultManager] removeItemAtPath:[appPath stringByAppendingPathComponent:@"embedded.mobileprovision"] error:nil];
-			}
-			break;
-		}
-	}
-	
-	NSString *targetPath = [appPath stringByAppendingPathComponent:@"embedded.mobileprovision"];
-	
-	provisioningTask = [[NSTask alloc] init];
-	[provisioningTask setLaunchPath:@"/bin/cp"];
-	[provisioningTask setArguments:[NSArray arrayWithObjects:[provisioningPathField stringValue], targetPath, nil]];
-	
-	[provisioningTask launch];
-	
-	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkProvisioning:) userInfo:nil repeats:TRUE];
-}
-
-- (void)checkProvisioning:(NSTimer *)timer
-{
-	if ([provisioningTask isRunning] == 0)
-	{
-		[timer invalidate];
-		[provisioningTask release];
-		provisioningTask = nil;
-		
-		NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[workingPath stringByAppendingPathComponent:@"Payload"] error:nil];
-		
-		for (NSString *file in dirContents) {
-			if ([[[file pathExtension] lowercaseString] isEqualToString:@"app"])
-			{
-				appPath = [[workingPath stringByAppendingPathComponent:@"Payload"] stringByAppendingPathComponent:file];
-				if ([[NSFileManager defaultManager] fileExistsAtPath:[appPath stringByAppendingPathComponent:@"embedded.mobileprovision"]])
-				{
-					
-					BOOL identifierOK = FALSE;
-					NSString *identifierInProvisioning = @"";
-					
-					NSString *embeddedProvisioning = [NSString stringWithContentsOfFile:[appPath stringByAppendingPathComponent:@"embedded.mobileprovision"] encoding:NSASCIIStringEncoding error:nil];
-					NSArray* embeddedProvisioningLines = [embeddedProvisioning componentsSeparatedByCharactersInSet:
-														  [NSCharacterSet newlineCharacterSet]];
-					
-					for (int i = 0; i <= [embeddedProvisioningLines count]; i++)
-					{
-						if ([[embeddedProvisioningLines objectAtIndex:i] rangeOfString:@"application-identifier"].location != NSNotFound) {
-							
-							NSInteger fromPosition = [[embeddedProvisioningLines objectAtIndex:i+1] rangeOfString:@"<string>"].location + 8;
-							
-							NSInteger toPosition = [[embeddedProvisioningLines objectAtIndex:i+1] rangeOfString:@"</string>"].location;
-							
-							NSRange range;
-							range.location = fromPosition;
-							range.length = toPosition-fromPosition;
-							
-							NSString *fullIdentifier = [[embeddedProvisioningLines objectAtIndex:i+1] substringWithRange:range];
-							
-							NSArray *identifierComponents = [fullIdentifier componentsSeparatedByString:@"."];
-							
-							if ([[identifierComponents lastObject] isEqualTo:@"*"]) {
-								identifierOK = TRUE;
-							}
-							
-							for (int i = 1; i < [identifierComponents count]; i++) {
-								identifierInProvisioning = [identifierInProvisioning stringByAppendingString:[identifierComponents objectAtIndex:i]];
-								if (i < [identifierComponents count]-1) {
-									identifierInProvisioning = [identifierInProvisioning stringByAppendingString:@"."];
-								}
-							}
-							break;
-						}
-					}
-					
-					NSLog(@"Mobileprovision identifier: %@",identifierInProvisioning);
-					
-					NSString *infoPlist = [NSString stringWithContentsOfFile:[appPath stringByAppendingPathComponent:@"Info.plist"] encoding:NSASCIIStringEncoding error:nil];
-					if ([infoPlist rangeOfString:identifierInProvisioning].location != NSNotFound)
-					{
-						NSLog(@"Identifiers match");
-						identifierOK = TRUE;
-					}
-					
-					if (identifierOK)
-					{
-						NSLog(@"Provisioning completed.");
-						[self setStatusText:@"Provisioning completed"];
-						[self doCodeSigning];
-					}
-					else
-					{
-						NSRunAlertPanel(@"Error",
-										@"Product identifiers don't match",
-										@"OK",nil,nil);
-						[self enableControls];
-						[self setStatusText:@"Ready"];
-					}
-				}
-				else
-				{
-					NSRunAlertPanel(@"Error",
-									@"Provisioning failed",
-									@"OK",nil,nil);
-					[self enableControls];
-					[self setStatusText:@"Ready"];
-				}
-				break;
-			}
-		}
-	}
-}
-
-//
-- (void)doRefine
+- (NSString *)renameApp:(NSString *)appPath ipaPath:(NSString *)ipaPath
 {
 	// 获取显示名称
-	NSString *DISPNAME = originalIpaPath.lastPathComponent.stringByDeletingPathExtension;
-	
+	NSString *DISPNAME = ipaPath.lastPathComponent.stringByDeletingPathExtension;
+
 	NSRange range = [DISPNAME rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_- "]];
 	if (range.location != NSNotFound)
 	{
@@ -257,11 +63,11 @@
 	}
 	
 	if ([DISPNAME hasSuffix:@"HD"]) DISPNAME = [DISPNAME substringToIndex:DISPNAME.length - 2];
-
+	
 	if ([DISPNAME hasPrefix:@"iOS."]) DISPNAME = [DISPNAME substringFromIndex:4];
 	else if ([DISPNAME hasPrefix:@"iPad."]) DISPNAME = [DISPNAME substringFromIndex:5];
 	else if ([DISPNAME hasPrefix:@"iPhone."]) DISPNAME = [DISPNAME substringFromIndex:7];
-
+	
 	//
 	NSString *infoPath = [appPath stringByAppendingPathComponent:@"Info.plist"];
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
@@ -298,205 +104,148 @@
 	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleVersion"];
 	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleShortVersionString"];
 
-	[fileName release];
-	fileName = [[NSString alloc] initWithFormat:@"%@.%@_%@.ipa", PREFIX, DISPNAME, VERSION];
-	NSLog(@"RENAME: %@", fileName);
+	return [NSString stringWithFormat:@"%@/%@.%@_%@.ipa", ipaPath.stringByDeletingLastPathComponent, PREFIX, DISPNAME, VERSION];
 }
 
 //
-- (void)doCodeSigning
+- (void)checkProv:(NSString *)appPath provPath:(NSString *)provPath
 {
-	appPath = nil;
-	
-	NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[workingPath stringByAppendingPathComponent:@"Payload"] error:nil];
-	
-	for (NSString *file in dirContents)
+	// Check
+	NSString *embeddedProvisioning = [NSString stringWithContentsOfFile:provPath encoding:NSASCIIStringEncoding error:nil];
+	NSArray* embeddedProvisioningLines = [embeddedProvisioning componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	for (int i = 0; i <= [embeddedProvisioningLines count]; i++)
 	{
-		if ([[[file pathExtension] lowercaseString] isEqualToString:@"app"]) 
+		if ([[embeddedProvisioningLines objectAtIndex:i] rangeOfString:@"application-identifier"].location != NSNotFound)
 		{
-			appPath = [[workingPath stringByAppendingPathComponent:@"Payload"] stringByAppendingPathComponent:file];
-			NSLog(@"Found %@",appPath);
-			appName = [file retain];
-			[self setStatusText:[NSString stringWithFormat:@"Codesigning %@",file]];
-			break;
+			NSInteger fromPosition = [[embeddedProvisioningLines objectAtIndex:i+1] rangeOfString:@"<string>"].location + 8;
+			NSInteger toPosition = [[embeddedProvisioningLines objectAtIndex:i+1] rangeOfString:@"</string>"].location;
+			
+			NSRange range;
+			range.location = fromPosition;
+			range.length = toPosition - fromPosition;
+			
+			NSString *identifier = [[embeddedProvisioningLines objectAtIndex:i+1] substringWithRange:range];
+			if (![identifier hasSuffix:@".*"])
+			{
+				NSRange range = [identifier rangeOfString:@"."];
+				if (range.location != NSNotFound) identifier = [identifier substringFromIndex:range.location + 1];
+				
+				NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile:[appPath stringByAppendingPathComponent:@"Info.plist"]];
+				if (![[info objectForKey:@"CFBundleIdentifier"] isEqualToString:identifier])
+				{
+					_error = @"Identifiers match";
+					return;
+				}
+			}
+			return;
 		}
 	}
-	
-	if (appPath)
+	_error = @"Invalid prov";
+}
+
+//
+- (void)provApp:(NSString *)appPath provPath:(NSString *)provPath
+{
+	NSString *targetPath = [appPath stringByAppendingPathComponent:@"embedded.mobileprovision"];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:targetPath])
 	{
-		[self doRefine];
-		
-		NSString *resourceRulesPath = [[NSBundle mainBundle] pathForResource:@"ResourceRules" ofType:@"plist"];
-		NSString *resourceRulesArgument = [NSString stringWithFormat:@"--resource-rules=%@",resourceRulesPath];
-		
-		codesignTask = [[NSTask alloc] init];
-		[codesignTask setLaunchPath:@"/usr/bin/codesign"];
-		[codesignTask setArguments:[NSArray arrayWithObjects:@"-fs", [certField stringValue], resourceRulesArgument, appPath, nil]];
-		
-		[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCodesigning:) userInfo:nil repeats:TRUE];
-		
-		[appPath retain];
-		
-		NSPipe *pipe=[NSPipe pipe];
-		[codesignTask setStandardOutput:pipe];
-		[codesignTask setStandardError:pipe];
-		NSFileHandle *handle=[pipe fileHandleForReading];
-		
-		[codesignTask launch];
-		
-		[NSThread detachNewThreadSelector:@selector(watchCodesigning:)
-								 toTarget:self withObject:handle];
+		NSLog(@"Found embedded.mobileprovision, deleting.");
+		[[NSFileManager defaultManager] removeItemAtPath:targetPath error:nil];
+	}
+	
+	NSString *result = [self doTask:@"/bin/cp" arguments:[NSArray arrayWithObjects:provPath, targetPath, nil]];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:targetPath])
+	{
+		_error = [@"Product identifiers don't match: " stringByAppendingString:result ? result : @""];
 	}
 }
 
-- (void)watchCodesigning:(NSFileHandle*)streamHandle
+//
+- (void)signApp:(NSString *)appPath certName:(NSString *)certName
 {
-	NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
+	NSString *resourceRulesPath = [[NSBundle mainBundle] pathForResource:@"ResourceRules" ofType:@"plist"];
+	NSString *resourceRulesArgument = [NSString stringWithFormat:@"--resource-rules=%@",resourceRulesPath];
 	
-	codesigningResult = [[NSString alloc] initWithData:[streamHandle readDataToEndOfFile] encoding:NSASCIIStringEncoding];
+	NSString *result = [self doTask:@"/usr/bin/codesign" arguments:[NSArray arrayWithObjects:@"-fs", certName, resourceRulesArgument, appPath, nil]];
 	
-	[pool release];
-}
-
-- (void)checkCodesigning:(NSTimer *)timer
-{
-	if ([codesignTask isRunning] == 0)
+	result = [self doTask:@"/usr/bin/codesign" argument:[NSArray arrayWithObjects:@"-v", appPath, nil]];
+	if (result)
 	{
-		[timer invalidate];
-		[codesignTask release];
-		codesignTask = nil;
-		NSLog(@"Codesigning done");
-		[self setStatusText:@"Codesigning completed"];
-		[self doVerifySignature];
+		_error = [@"Sign error: " stringByAppendingString:result];
 	}
 }
 
-- (void)doVerifySignature
+- (void)zipIPA:(NSString *)workPath outPath:(NSString *)outPath
 {
-	if (appPath)
+	NSString *result = [self doTask:@"/usr/bin/zip" arguments:[NSArray arrayWithObjects:@"-qr", outPath, workPath, nil]];
+	[[NSFileManager defaultManager] removeItemAtPath:workPath error:nil];
+}
+
+// 
+- (void)refineIPA:(NSString *)ipaPath certName:(NSString *)certName provPath:(NSString *)provPath
+{
+	// 
+	NSString *workPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"CeleWare.iPAFine"];
+	NSLog(@"Setting up working directory in %@",workPath);
+	[[NSFileManager defaultManager] removeItemAtPath:workPath error:nil];
+	[[NSFileManager defaultManager] createDirectoryAtPath:workPath withIntermediateDirectories:TRUE attributes:nil error:nil];
+	
+	// Unzip
+	_error = nil;
+	NSString *appPath = [self unzipIPA:ipaPath workPath:workPath];
+	if (_error) return;
+
+	//
+	NSString *outPath = [self renameApp:appPath ipaPath:ipaPath];
+	
+	// Provision
+	if (provPath)
 	{
-		verifyTask = [[NSTask alloc] init];
-		[verifyTask setLaunchPath:@"/usr/bin/codesign"];
-		[verifyTask setArguments:[NSArray arrayWithObjects:@"-v", appPath, nil]];
-		
-		[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkVerificationProcess:) userInfo:nil repeats:TRUE];
-		
-		NSLog(@"Verifying %@",appPath);
-		[self setStatusText:[NSString stringWithFormat:@"Verifying %@",appName]];
-		
-		NSPipe *pipe=[NSPipe pipe];
-		[verifyTask setStandardOutput:pipe];
-		[verifyTask setStandardError:pipe];
-		NSFileHandle *handle=[pipe fileHandleForReading];
-		
-		[verifyTask launch];
-		
-		[NSThread detachNewThreadSelector:@selector(watchVerificationProcess:)
-								 toTarget:self withObject:handle];
+		[self provApp:appPath provPath:provPath];
+		if (_error) return;
 	}
+	
+	// Sign
+	[self signApp:appPath certName:certName];
+	if (_error) return;
+
+	//
+	[self zipIPA:workPath outPath:outPath];
 }
 
-- (void)watchVerificationProcess:(NSFileHandle*)streamHandle
+//
+- (NSString *)refine:(NSString *)ipaPath certName:(NSString *)certName provPath:(NSString *)provPath
 {
-	NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-	
-	verificationResult = [[NSString alloc] initWithData:[streamHandle readDataToEndOfFile] encoding:NSASCIIStringEncoding];
-	
-	[pool release];
-}
-
-- (void)checkVerificationProcess:(NSTimer *)timer
-{
-	if ([verifyTask isRunning] == 0)
+	_error = nil;
+	BOOL isDir = NO;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:ipaPath isDirectory:&isDir])
 	{
-		[timer invalidate];
-		[verifyTask release];
-		verifyTask = nil;
-		if ([verificationResult length] == 0)
+		if (isDir)
 		{
-			NSLog(@"Verification done");
-			[self setStatusText:@"Verification completed"];
-			[self doZip];
+			NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:ipaPath error:nil];
+			for (NSString *file in files)
+			{
+				if ([file.pathExtension.lowercaseString isEqualToString:@"ipa"])
+				{
+					[self refineIPA:[ipaPath stringByAppendingPathComponent:file] certName:certName provPath:provPath];
+				}
+			}
+		}
+		else if ([ipaPath.pathExtension.lowercaseString isEqualToString:@"ipa"])
+		{
+			[self refineIPA:ipaPath certName:certName provPath:provPath];
 		}
 		else
 		{
-			NSString *error = [[codesigningResult stringByAppendingString:@"\n\n"] stringByAppendingString:verificationResult];
-			NSRunAlertPanel(@"Signing failed", error, @"OK",nil, nil);
-			[self enableControls];
-			[self setStatusText:@"Please try again"];
+			_error = NSLocalizedString(@"You must choose an IPA file.", @"必须选择 IPA 文件。");
 		}
 	}
-}
-
-- (void)doZip
-{
-	if (appPath)
+	else
 	{
-		NSArray *destinationPathComponents = [originalIpaPath pathComponents];
-		NSString *destinationPath = @"";
-		
-		for (int i = 0; i < ([destinationPathComponents count]-1); i++)
-		{
-			destinationPath = [destinationPath stringByAppendingPathComponent:[destinationPathComponents objectAtIndex:i]];
-		}
-		
-		destinationPath = [destinationPath stringByAppendingPathComponent:fileName];
-		
-		NSLog(@"Dest: %@",destinationPath);
-		
-		zipTask = [[NSTask alloc] init];
-		[zipTask setLaunchPath:@"/usr/bin/zip"];
-		[zipTask setCurrentDirectoryPath:workingPath];
-		[zipTask setArguments:[NSArray arrayWithObjects:@"-qr", destinationPath, @".", nil]];
-		
-		[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkZip:) userInfo:nil repeats:TRUE];
-		
-		NSLog(@"Zipping %@", destinationPath);
-		[self setStatusText:[NSString stringWithFormat:@"Saving %@",fileName]];
-		
-		[zipTask launch];
+		// Multi files?
+		_error = @"Path not found";
 	}
-}
-
-//
-- (void)checkZip:(NSTimer *)timer
-{
-	if ([zipTask isRunning] == 0)
-	{
-		[timer invalidate];
-		[zipTask release];
-		zipTask = nil;
-		NSLog(@"Zipping done");
-		[self setStatusText:[NSString stringWithFormat:@"Saved %@",fileName]];
-		
-		[[NSFileManager defaultManager] removeItemAtPath:workingPath error:nil];
-		
-		[appPath release];
-		[workingPath release];
-		[self enableControls];
-		
-		NSString *result = [[codesigningResult stringByAppendingString:@"\n\n"] stringByAppendingString:verificationResult];
-		NSLog(@"Codesigning result: %@",result);
-		
-		// Added By Yonsm
-		[self performSelectorOnMainThread:@selector(nextResign) withObject:nil waitUntilDone:NO];
-		// Ended By Yonsm
-	}
-}
-
-//
-- (void)disableControls
-{
-}
-
-//
-- (void)enableControls
-{
-}
-
-//
-- (void)setStatusText:(NSString *)text
-{	
+	return _error;
 }
 
 @end

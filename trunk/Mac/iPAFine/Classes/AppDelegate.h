@@ -8,6 +8,12 @@
 {
 	NSWindow *window;
 	
+	NSUserDefaults *defaults;
+
+	IBOutlet NSTextField *pathField;
+	IBOutlet NSTextField *provisioningPathField;
+	IBOutlet NSTextField *certField;
+
 	IBOutlet NSButton	*browseButton;
 	IBOutlet NSButton	*provisioningBrowseButton;
 	IBOutlet NSButton	*resignButton;
