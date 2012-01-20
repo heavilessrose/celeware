@@ -81,8 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				2447BD0414C9830000A34F0F /* Classes */,
-				2447BD0A14C9830000A34F0F /* Resources */,
 				2447BD1214C9830000A34F0F /* Sources */,
+				2447BD0A14C9830000A34F0F /* Resources */,
 			);
 			path = iPAFine;
 			sourceTree = "<group>";
@@ -90,11 +90,11 @@
 		2447BD0414C9830000A34F0F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2447BD0514C9830000A34F0F /* AppDelegate.h */,
-				2447BD0614C9830000A34F0F /* AppDelegate.mm */,
-				2447BD0714C9830000A34F0F /* Controller */,
 				2447BD0814C9830000A34F0F /* Model */,
 				2447BD0914C9830000A34F0F /* View */,
+				2447BD0714C9830000A34F0F /* Controller */,
+				2447BD0514C9830000A34F0F /* AppDelegate.h */,
+				2447BD0614C9830000A34F0F /* AppDelegate.mm */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
