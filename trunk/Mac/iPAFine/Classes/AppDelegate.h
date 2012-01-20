@@ -2,40 +2,41 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+//
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
-@private
-    NSWindow *window;
+	NSWindow *window;
 	
 	// Added By Yonsm
 	NSArray *_files;
 	NSUInteger _current;
 	// Enned By Yonsm
-    
-    NSUserDefaults *defaults;
-    
-    NSTask *unzipTask;
-    NSTask *provisioningTask;
-    NSTask *codesignTask;
-    NSTask *verifyTask;
-    NSTask *zipTask;
-    NSString *originalIpaPath;
-    NSString *appPath;
-    NSString *workingPath;
-    NSString *appName;
-    NSString *fileName;
-    
-    NSString *codesigningResult;
-    NSString *verificationResult;
-    
-    IBOutlet NSTextField *pathField;
-    IBOutlet NSTextField *provisioningPathField;
-    IBOutlet NSTextField *certField;
-    IBOutlet NSButton    *browseButton;
-    IBOutlet NSButton    *provisioningBrowseButton;
-    IBOutlet NSButton    *resignButton;
-    IBOutlet NSTextField *statusLabel;
-    IBOutlet NSProgressIndicator *flurry;
+	
+	NSUserDefaults *defaults;
+	
+	NSTask *unzipTask;
+	NSTask *provisioningTask;
+	NSTask *codesignTask;
+	NSTask *verifyTask;
+	NSTask *zipTask;
+	NSString *originalIpaPath;
+	NSString *appPath;
+	NSString *workingPath;
+	NSString *appName;
+	NSString *fileName;
+	
+	NSString *codesigningResult;
+	NSString *verificationResult;
+	
+	IBOutlet NSTextField *pathField;
+	IBOutlet NSTextField *provisioningPathField;
+	IBOutlet NSTextField *certField;
+	IBOutlet NSButton	*browseButton;
+	IBOutlet NSButton	*provisioningBrowseButton;
+	IBOutlet NSButton	*resignButton;
+	IBOutlet NSTextField *statusLabel;
+	IBOutlet NSProgressIndicator *flurry;
 }
 
 @property (assign) IBOutlet NSWindow *window;
