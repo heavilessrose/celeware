@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		243F979614C9982200C902A9 /* ResourceRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 243F979514C9982200C902A9 /* ResourceRules.plist */; };
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
 		2447BD1614C9830000A34F0F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2447BD0B14C9830000A34F0F /* Credits.rtf */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		243F979514C9982200C902A9 /* ResourceRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResourceRules.plist; sourceTree = "<group>"; };
 		2447BCE314C9824400A34F0F /* IPAFine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPAFine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2447BCE714C9824400A34F0F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2447BCEA14C9824400A34F0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -123,6 +125,7 @@
 		2447BD0A14C9830000A34F0F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				243F979514C9982200C902A9 /* ResourceRules.plist */,
 				24E0393D14C987BB003AA3D9 /* Icon.icns */,
 				2447BD0B14C9830000A34F0F /* Credits.rtf */,
 				2447BD0D14C9830000A34F0F /* InfoPlist.strings */,
@@ -197,6 +200,7 @@
 				2447BD1714C9830000A34F0F /* InfoPlist.strings in Resources */,
 				2447BD1814C9830000A34F0F /* MainMenu.xib in Resources */,
 				24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */,
+				243F979614C9982200C902A9 /* ResourceRules.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

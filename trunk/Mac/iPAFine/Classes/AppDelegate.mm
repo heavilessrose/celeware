@@ -48,7 +48,7 @@
 	codesigningResult = nil;
 	verificationResult = nil;
 	originalIpaPath = [path retain];
-	workingPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:@"com.appulize.iresign"] retain];
+	workingPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:@"CeleWare.iPAFine"] retain];
 	
 	[self disableControls];
 	
@@ -284,7 +284,68 @@
 	}
 }
 
-- (void)doCodeSigning {
+//
+- (void)doRefine
+{
+	// 获取显示名称
+	NSString *DISPNAME = originalIpaPath.lastPathComponent.stringByDeletingPathExtension;
+	
+	NSRange range = [DISPNAME rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_- "]];
+	if (range.location != NSNotFound)
+	{
+		DISPNAME = [DISPNAME substringToIndex:range.location];
+	}
+	
+	if ([DISPNAME hasSuffix:@"HD"]) DISPNAME = [DISPNAME substringToIndex:DISPNAME.length - 2];
+
+	if ([DISPNAME hasPrefix:@"iOS."]) DISPNAME = [DISPNAME substringFromIndex:4];
+	else if ([DISPNAME hasPrefix:@"iPad."]) DISPNAME = [DISPNAME substringFromIndex:5];
+	else if ([DISPNAME hasPrefix:@"iPhone."]) DISPNAME = [DISPNAME substringFromIndex:7];
+
+	//
+	NSString *infoPath = [appPath stringByAppendingPathComponent:@"Info.plist"];
+	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
+	
+	// 获取程序类型
+	NSArray *devices = [info objectForKey:@"UIDeviceFamily"];
+	NSUInteger family = 0;
+	for (id device in devices) family += [device intValue];
+	NSString *PREFIX = (family == 3) ? @"iOS" : ((family == 2) ? @"iPad" : @"iPhone");
+	
+	// 修改显示名称
+	//[info setObject:DISPNAME forKey:@"CFBundleDisplayName"];
+	//[info writeToFile:infoPath atomically:YES];
+	NSString *localizePath = [appPath stringByAppendingPathComponent:@"zh_CN/InfoPlist.string"];
+	NSMutableDictionary *localize = [NSMutableDictionary dictionaryWithContentsOfFile:localizePath];
+	if (localize == nil) localize = [NSMutableDictionary dictionary];
+	{
+		[localize setObject:DISPNAME forKey:@"CFBundleDisplayName"];
+		[localize writeToFile:localizePath atomically:YES];
+	}
+	
+	// 修改 iTunes 项目名称
+	NSString *metaPath = [[[appPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTunesMetadata.plist"];
+	NSMutableDictionary *meta = [NSMutableDictionary dictionaryWithContentsOfFile:metaPath];
+	if (meta)
+	{
+		[meta setObject:DISPNAME forKey:@"playlistName"];
+		[meta setObject:DISPNAME forKey:@"itemName"];
+		[meta writeToFile:metaPath atomically:YES];
+	}
+	
+	//
+	NSString *VERSION = meta ? [meta objectForKey:@"bundleVersion"] : nil;
+	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleVersion"];
+	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleShortVersionString"];
+
+	[fileName release];
+	fileName = [[NSString alloc] initWithFormat:@"%@.%@_%@.ipa", PREFIX, DISPNAME, VERSION];
+	NSLog(@"RENAME: %@", fileName);
+}
+
+//
+- (void)doCodeSigning
+{
 	appPath = nil;
 	
 	NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[workingPath stringByAppendingPathComponent:@"Payload"] error:nil];
@@ -303,6 +364,8 @@
 	
 	if (appPath)
 	{
+		[self doRefine];
+		
 		NSString *resourceRulesPath = [[NSBundle mainBundle] pathForResource:@"ResourceRules" ofType:@"plist"];
 		NSString *resourceRulesArgument = [NSString stringWithFormat:@"--resource-rules=%@",resourceRulesPath];
 		
@@ -417,11 +480,6 @@
 			destinationPath = [destinationPath stringByAppendingPathComponent:[destinationPathComponents objectAtIndex:i]];
 		}
 		
-		fileName = [originalIpaPath lastPathComponent];
-		fileName = [fileName substringToIndex:[fileName length]-4];
-		fileName = [fileName stringByAppendingString:@"-resigned"];
-		fileName = [fileName stringByAppendingPathExtension:@"ipa"];
-		
 		destinationPath = [destinationPath stringByAppendingPathComponent:fileName];
 		
 		NSLog(@"Dest: %@",destinationPath);
@@ -436,7 +494,6 @@
 		NSLog(@"Zipping %@", destinationPath);
 		[statusLabel setStringValue:[NSString stringWithFormat:@"Saving %@",fileName]];
 		
-		[fileName retain];
 		[zipTask launch];
 	}
 }
