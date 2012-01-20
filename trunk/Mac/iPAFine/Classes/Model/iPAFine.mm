@@ -6,39 +6,6 @@
 @implementation iPAFine
 @synthesize workingPath;
 
-//
-- (void)check
-{
-	defaults = [NSUserDefaults standardUserDefaults];
-	
-	if ([defaults valueForKey:@"CERT_NAME"])
-		[certField setStringValue:[defaults valueForKey:@"CERT_NAME"]];
-	if ([defaults valueForKey:@"MOBILEPROVISION_PATH"])
-		[provisioningPathField setStringValue:[defaults valueForKey:@"MOBILEPROVISION_PATH"]];
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/zip"])
-	{
-		NSRunAlertPanel(@"Error", 
-						@"This app cannot run without the zip utility present at /usr/bin/zip",
-						@"OK",nil,nil);
-		exit(0);
-	}
-	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/unzip"])
-	{
-		NSRunAlertPanel(@"Error", 
-						@"This app cannot run without the unzip utility present at /usr/bin/unzip",
-						@"OK",nil,nil);
-		exit(0);
-	}
-	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign"])
-	{
-		NSRunAlertPanel(@"Error", 
-						@"This app cannot run without the codesign utility present at /usr/bin/codesign",
-						@"OK",nil, nil);
-		exit(0);
-	}
-}
-
 // 
 - (void)launchResign:(NSString *)path
 {

@@ -40,7 +40,6 @@
 
 - (IBAction)resign:(id)sender;
 
-- (void)check;
 - (void)checkUnzip:(NSTimer *)timer;
 - (void)doProvisioning;
 - (void)checkProvisioning:(NSTimer *)timer;
