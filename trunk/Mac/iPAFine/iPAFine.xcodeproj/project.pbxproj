@@ -15,6 +15,7 @@
 		2447BD1814C9830000A34F0F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2447BD0F14C9830000A34F0F /* MainMenu.xib */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
 		24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 24E0393D14C987BB003AA3D9 /* Icon.icns */; };
+		24F7531F14C9AE540007E549 /* iPAFine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F7531E14C9AE540007E549 /* iPAFine.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		2447BD1D14C9841000A34F0F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2447BD1E14C9841800A34F0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hans"; path = "zh-Hans.lproj/Credits.rtf"; sourceTree = "<group>"; };
 		24E0393D14C987BB003AA3D9 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		24F7531D14C9AE540007E549 /* iPAFine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPAFine.h; path = Classes/Model/iPAFine.h; sourceTree = SOURCE_ROOT; };
+		24F7531E14C9AE540007E549 /* iPAFine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iPAFine.mm; path = Classes/Model/iPAFine.mm; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 		2447BD0914C9830000A34F0F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				24F7531D14C9AE540007E549 /* iPAFine.h */,
+				24F7531E14C9AE540007E549 /* iPAFine.mm */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 			files = (
 				2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */,
 				2447BD1A14C9830000A34F0F /* Main.m in Sources */,
+				24F7531F14C9AE540007E549 /* iPAFine.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
