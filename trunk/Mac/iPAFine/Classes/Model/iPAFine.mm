@@ -8,7 +8,24 @@
 //
 - (NSString *)doTask:(NSString *)path arguments:(NSArray *)arguments
 {
+	NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath:path];
+	[task setArguments:arguments];
+	
 	NSPipe *pipe = [NSPipe pipe];
+	[task setStandardOutput:pipe];
+	
+	NSFileHandle *file = [pipe fileHandleForReading];
+	
+	[task launch];
+	
+	NSData *data = [file readDataToEndOfFile];
+	NSString *result = data.length ? [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] : nil;
+
+	NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
+	return result;
+		
+/*	NSPipe *pipe = [NSPipe pipe];
 	NSTask *task = [[[NSTask alloc] init] autorelease];
 	task.launchPath = path;
 	task.arguments = arguments;
@@ -25,7 +42,7 @@
 		result = [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];
 	}
 	NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
-	return result;
+	return result;*/
 }
 
 //
@@ -100,7 +117,7 @@
 	}
 	
 	//
-	NSString *VERSION = meta ? [meta objectForKey:@"bundleVersion"] : nil;
+	NSString *VERSION = meta ? [meta objectForKey:@"bundleShortVersionString"] : nil;
 	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleVersion"];
 	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleShortVersionString"];
 
@@ -168,7 +185,7 @@
 	
 	NSString *result = [self doTask:@"/usr/bin/codesign" arguments:[NSArray arrayWithObjects:@"-fs", certName, resourceRulesArgument, appPath, nil]];
 	
-	result = [self doTask:@"/usr/bin/codesign" argument:[NSArray arrayWithObjects:@"-v", appPath, nil]];
+	result = [self doTask:@"/usr/bin/codesign" arguments:[NSArray arrayWithObjects:@"-v", appPath, nil]];
 	if (result)
 	{
 		_error = [@"Sign error: " stringByAppendingString:result];
@@ -177,7 +194,8 @@
 
 - (void)zipIPA:(NSString *)workPath outPath:(NSString *)outPath
 {
-	NSString *result = [self doTask:@"/usr/bin/zip" arguments:[NSArray arrayWithObjects:@"-qr", outPath, workPath, nil]];
+	//TODO: Current Dir Error
+	/*NSString *result = */[self doTask:@"/usr/bin/zip" arguments:[NSArray arrayWithObjects:@"-qr", outPath, workPath, nil]];
 	[[NSFileManager defaultManager] removeItemAtPath:workPath error:nil];
 }
 
@@ -185,7 +203,8 @@
 - (void)refineIPA:(NSString *)ipaPath certName:(NSString *)certName provPath:(NSString *)provPath
 {
 	// 
-	NSString *workPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"CeleWare.iPAFine"];
+	NSString *workPath = ipaPath.stringByDeletingPathExtension;//[NSTemporaryDirectory() stringByAppendingPathComponent:@"CeleWare.iPAFine"];
+	
 	NSLog(@"Setting up working directory in %@",workPath);
 	[[NSFileManager defaultManager] removeItemAtPath:workPath error:nil];
 	[[NSFileManager defaultManager] createDirectoryAtPath:workPath withIntermediateDirectories:TRUE attributes:nil error:nil];

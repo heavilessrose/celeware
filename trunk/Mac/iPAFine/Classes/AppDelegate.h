@@ -4,7 +4,7 @@
 
 
 //
-@interface AppDelegate : iPAFine <NSApplicationDelegate>
+@interface AppDelegate : iPAFine <NSApplicationDelegate, NSTextFieldDelegate>
 {
 	NSWindow *window;
 	
