@@ -6,14 +6,16 @@
 @implementation iPAFine
 
 //
-- (NSString *)doTask:(NSString *)path arguments:(NSArray *)arguments
+- (NSString *)doTask:(NSString *)path arguments:(NSArray *)arguments currentDirectory:(NSString *)currentDirectory
 {
 	NSTask *task = [[NSTask alloc] init];
-	[task setLaunchPath:path];
-	[task setArguments:arguments];
+	task.launchPath = path;
+	task.arguments = arguments;
+	if (currentDirectory) task.currentDirectoryPath = currentDirectory;
 	
 	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardOutput:pipe];
+	task.standardOutput = pipe;
+	task.standardError = pipe;
 	
 	NSFileHandle *file = [pipe fileHandleForReading];
 	
@@ -24,25 +26,13 @@
 
 	NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
 	return result;
-		
-/*	NSPipe *pipe = [NSPipe pipe];
-	NSTask *task = [[[NSTask alloc] init] autorelease];
-	task.launchPath = path;
-	task.arguments = arguments;
-	task.standardOutput = pipe;
-	task.standardError = pipe;
-	[task launch];
-	[task waitUntilExit];
+}
 
-	NSString *result = nil;
-	NSFileHandle *handle = [pipe fileHandleForReading];
-	NSData *data = [handle readDataToEndOfFile];
-	if (data.length)
-	{
-		result = [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease];
-	}
-	NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
-	return result;*/
+
+//
+- (NSString *)doTask:(NSString *)path arguments:(NSArray *)arguments
+{
+	return [self doTask:path arguments:arguments currentDirectory:nil];
 }
 
 //
@@ -195,7 +185,7 @@
 - (void)zipIPA:(NSString *)workPath outPath:(NSString *)outPath
 {
 	//TODO: Current Dir Error
-	/*NSString *result = */[self doTask:@"/usr/bin/zip" arguments:[NSArray arrayWithObjects:@"-qr", outPath, workPath, nil]];
+	/*NSString *result = */[self doTask:@"/usr/bin/zip" arguments:[NSArray arrayWithObjects:@"-qr", outPath, @".", nil] currentDirectory:workPath];
 	[[NSFileManager defaultManager] removeItemAtPath:workPath error:nil];
 }
 
