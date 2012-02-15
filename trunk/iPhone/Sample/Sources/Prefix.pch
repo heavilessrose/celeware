@@ -16,7 +16,7 @@
 #ifdef _DEBUG
 #define _Log(s, ...)	NSLog(s, ##__VA_ARGS__)
 #else
-#define _Log(s, ...)	((VOID) 0)
+#define _Log(s, ...)	((void) 0)
 #endif
 
 // UniBase

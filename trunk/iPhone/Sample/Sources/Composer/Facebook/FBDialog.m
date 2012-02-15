@@ -123,7 +123,7 @@ static CGFloat kBorderWidth = 10;
   CGColorSpaceRelease(space);
 }
 
-- (BOOL)shouldRotateToOrientation:(UIDeviceOrientation)orientation {
+- (BOOL)shouldRotateToOrientation:(UIInterfaceOrientation)orientation {
   if (orientation == _orientation) {
     return NO;
   } else {
@@ -298,7 +298,7 @@ static CGFloat kBorderWidth = 10;
     _delegate = nil;
     _session = [session retain];
     _loadingURL = nil;
-    _orientation = UIDeviceOrientationUnknown;
+    _orientation = (UIInterfaceOrientation)UIDeviceOrientationUnknown;
     _showingKeyboard = NO;
     
     self.backgroundColor = [UIColor clearColor];
@@ -428,7 +428,7 @@ static CGFloat kBorderWidth = 10;
 // UIDeviceOrientationDidChangeNotification
 
 - (void)deviceOrientationDidChange:(void*)object {
-  UIDeviceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+  UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
   if (!_showingKeyboard && [self shouldRotateToOrientation:orientation]) {
     [self updateWebOrientation];
 
