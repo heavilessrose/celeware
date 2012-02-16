@@ -18,7 +18,7 @@
 	{
 		frame.size.height = image.size.height;
 	}
-
+	
 	self = [super initWithFrame:frame];
 	self.userInteractionEnabled = YES;
 	self.image = image;
@@ -37,7 +37,7 @@
 	scrollView.contentInset = UIEdgeInsetsMake(0, 20, 0, 20);
 	scrollView.delegate = self;
 	[self addSubview:scrollView];
-
+	
 	// Create left cap
 	UIImage *leftImage = [UIImage imageNamed:@"TabStripLeft.png"];
 	leftCap = [[UIImageView alloc] initWithImage:leftImage];
@@ -53,7 +53,7 @@
 	rightCap.center = CGPointMake(frame.size.width - rightImage.size.width / 2, frame.size.height / 2);
 	rightCap.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
 	[self addSubview:rightCap];
-
+	
 	return self;
 }
 
@@ -69,7 +69,7 @@
 	UIFont *titleFont = [UIFont systemFontOfSize:14];
 	CGSize titleSize = [title sizeWithFont:titleFont];
 	CGRect titleFrame = CGRectMake(5, 0, titleSize.width, self.frame.size.height - 2);
-
+	
 	if (titleLabel == nil)
 	{
 		titleLabel = [[[UILabel alloc] initWithFrame:titleFrame] autorelease];
@@ -95,38 +95,45 @@
 }
 
 //
-- (void)didMoveToSuperview {
+- (void)didMoveToSuperview
+{
 	[super didMoveToSuperview];
 	
 	scrollView.scrollsToTop = NO;
-	[self reloadData];
+	if (self.superview) [self reloadData];
 	
-	if(scrollView.subviews && scrollView.subviews.count > 0) {
+	if(scrollView.subviews && scrollView.subviews.count > 0)
+	{
 		[(TabStripButton*)[scrollView.subviews objectAtIndex:0] markSelected];
 	}
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
-- (void)reloadData {
-	if(scrollView.subviews && scrollView.subviews.count > 0) {
+- (void)reloadData
+{
+	if(scrollView.subviews && scrollView.subviews.count > 0)
+	{
 		[scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	}
 	
-	if(!self.dataSource) {
+	if(!self.dataSource)
+	{
 		return;
 	}
 	
 	int items;
 	
-	if((items = [self.dataSource numberOfTabsInTabStripView:self]) == 0) {
+	if((items = [self.dataSource numberOfTabsInTabStripView:self]) == 0)
+	{
 		return;
 	}
 	
 	int x;
 	
 	float origin_x = 0;
-	for(x=0;x<items;x++) {
+	for(x=0;x<items;x++)
+	{
 		NSString* str = [self.dataSource tabStripView:self titleForTabAtIndex:x];
 		
 		TabStripButton* button = [[TabStripButton alloc] initWithFrame:CGRectZero];
@@ -168,24 +175,26 @@
 	{
 		[button markSelected];
 	}
-
+	
 	if(self.delegate && [self.delegate respondsToSelector:@selector(tabStripView:didSelectedTabAtIndex:)])
 	{
 		[self.delegate tabStripView:self didSelectedTabAtIndex:[scrollView.subviews indexOfObject:button]];
 	}
 }
 
-- (void)selectTabAtIndex:(NSUInteger)index {
+- (void)selectTabAtIndex:(NSUInteger)index
+{
 	[self selectTabAtIndex:index animated:NO];
 }
 
-- (void)selectTabAtIndex:(NSUInteger)index animated:(BOOL)animated {
+- (void)selectTabAtIndex:(NSUInteger)index animated:(BOOL)animated
+{
 	if(!scrollView.subviews) return;
 	
 	[scrollView.subviews makeObjectsPerformSelector:@selector(markUnselected)];
-
+	
 	if(index >= (NSUInteger)scrollView.subviews.count) return;
-
+	
 	[(TabStripButton*)[scrollView.subviews objectAtIndex:index] markSelected];
 	
 	CGRect rect = ((TabStripButton*)[scrollView.subviews objectAtIndex:index]).frame;
@@ -196,39 +205,53 @@
 	[self setupCaps];
 }
 
-- (void)updateOrientation {
+- (void)updateOrientation
+{
 	[self performSelector:@selector(setupCaps) withObject:nil afterDelay:0.3];
 }
 
-- (void)setupCaps {
-	if(scrollView.contentSize.width <= scrollView.frame.size.width - scrollView.contentInset.left - scrollView.contentInset.right) {
+- (void)setupCaps
+{
+	if(scrollView.contentSize.width <= scrollView.frame.size.width - scrollView.contentInset.left - scrollView.contentInset.right)
+	{
 		leftCap.hidden = YES;
 		rightCap.hidden = YES;
-	} else {
-		if(scrollView.contentOffset.x > (-scrollView.contentInset.left)+10.0f) {
+	}
+	else
+	{
+		if(scrollView.contentOffset.x > (-scrollView.contentInset.left)+10.0f)
+		{
 			leftCap.hidden = NO;
-		} else {
+		}
+		else
+		{
 			leftCap.hidden = YES;
 		}
 		
 		if((scrollView.frame.size.width+scrollView.contentOffset.x)+10.0f >= scrollView.contentSize.width) {
 			rightCap.hidden = YES;
-		} else {
+		}
+		else 
+		{
 			rightCap.hidden = NO;
 		}
 	}
 	
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)inScrollView {
+- (void)scrollViewDidScroll:(UIScrollView *)inScrollView
+{
 	[self setupCaps];
 }
 
-- (NSInteger)selectedTabIndex {
+- (NSInteger)selectedTabIndex
+{
 	int x = 0;
 	
-	for(TabStripButton* tab in scrollView.subviews) {
-		if([tab isMemberOfClass:[TabStripButton class]]) {
+	for(TabStripButton* tab in scrollView.subviews)
+	{
+		if([tab isMemberOfClass:[TabStripButton class]])
+		{
 			if([tab isSelected]) return x;
 		}
 		
@@ -238,12 +261,14 @@
 	return NSNotFound;
 }
 
-- (void)setButtonInsets:(UIEdgeInsets)insets {
+- (void)setButtonInsets:(UIEdgeInsets)insets
+{
 	buttonInsets = UIEdgeInsetsMake(0.0f, insets.left, 0.0f, insets.right);
 	self.scrollView.contentInset = buttonInsets;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	[scrollView release];
 	[leftCap release];

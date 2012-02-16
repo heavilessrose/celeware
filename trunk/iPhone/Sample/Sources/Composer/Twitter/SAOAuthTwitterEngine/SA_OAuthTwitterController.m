@@ -166,7 +166,7 @@
 	if ([_blockerView.layer respondsToSelector: @selector(setCornerRadius:)]) [(id) _blockerView.layer setCornerRadius: 10];
 	
 	UILabel								*label = [[[UILabel alloc] initWithFrame: CGRectMake(0, 5, _blockerView.bounds.size.width, 15)] autorelease];
-	label.text = NSLocalizedString(@"Please Wait⋯", @"请稍等⋯");
+	label.text = NSLocalizedString(@"Please Wait…", @"请稍等…");
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = [UIColor whiteColor];
 	label.textAlignment = UITextAlignmentCenter;
