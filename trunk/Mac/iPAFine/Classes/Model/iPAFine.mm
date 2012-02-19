@@ -86,20 +86,23 @@
 	NSString *PREFIX = (family == 3) ? @"iOS" : ((family == 2) ? @"iPad" : @"iPhone");
 	
 	// 修改显示名称
-	//[info setObject:DISPNAME forKey:@"CFBundleDisplayName"];
-	//[info writeToFile:infoPath atomically:YES];
+	[info setObject:DISPNAME forKey:@"CFBundleDisplayName"];
+	[info writeToFile:infoPath atomically:YES];
+	
 	NSString *localizePath = [appPath stringByAppendingPathComponent:@"zh_CN/InfoPlist.string"];
 	NSMutableDictionary *localize = [NSMutableDictionary dictionaryWithContentsOfFile:localizePath];
-	if (localize == nil) localize = [NSMutableDictionary dictionary];
+	if (localize == nil)// localize = [NSMutableDictionary dictionary];
 	{
 		[localize setObject:DISPNAME forKey:@"CFBundleDisplayName"];
 		[localize writeToFile:localizePath atomically:YES];
 	}
 	
+	
+	
 	// 修改 iTunes 项目名称
 	NSString *metaPath = [[[appPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTunesMetadata.plist"];
 	NSMutableDictionary *meta = [NSMutableDictionary dictionaryWithContentsOfFile:metaPath];
-	if (meta)
+	if (meta == nil) meta = [NSMutableDictionary dictionary];
 	{
 		[meta setObject:DISPNAME forKey:@"playlistName"];
 		[meta setObject:DISPNAME forKey:@"itemName"];
@@ -219,6 +222,11 @@
 	{
 		[self signApp:appPath certName:certName];
 		if (_error) return;
+	}
+	
+	if (1)
+	{
+		[[NSFileManager defaultManager] removeItemAtPath:ipaPath error:nil];
 	}
 	
 	//
