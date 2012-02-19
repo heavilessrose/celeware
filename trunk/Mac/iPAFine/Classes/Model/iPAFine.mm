@@ -208,16 +208,19 @@
 	NSString *outPath = [self renameApp:appPath ipaPath:ipaPath];
 	
 	// Provision
-	if (provPath)
+	if (provPath.length)
 	{
 		[self provApp:appPath provPath:provPath];
 		if (_error) return;
 	}
 	
 	// Sign
-	[self signApp:appPath certName:certName];
-	if (_error) return;
-
+	if (certName.length)
+	{
+		[self signApp:appPath certName:certName];
+		if (_error) return;
+	}
+	
 	//
 	[self zipIPA:workPath outPath:outPath];
 }
