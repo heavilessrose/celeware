@@ -59,6 +59,24 @@
 	if (URL) [self.webView loadRequest:[NSURLRequest requestWithURL:_URL]];
 }
 
+//
+- (NSString *)HTML
+{
+	return [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+}
+
+//
+- (void)setHTML:(NSString *)HTML
+{
+	[self.webView loadHTMLString:HTML baseURL:nil];
+}
+
+//
+- (void)loadHTML:(NSString *)HTML baseURL:(NSURL *)baseURL
+{
+	[self.webView loadHTMLString:HTML baseURL:baseURL];
+}
+
 
 #pragma mark View methods
 
@@ -78,7 +96,7 @@
 {	
 	[super viewDidLoad];
 
-	if (_URL) [self.webView loadRequest:[NSURLRequest requestWithURL:_URL]];
+	self.URL = _URL;
 }
 
 // Override to allow rotation.
@@ -94,6 +112,7 @@
 //
 //- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 //{
+//	_Log(@"shouldStartLoadWithRequest%d", navigationType);
 //	return YES;
 //}
 

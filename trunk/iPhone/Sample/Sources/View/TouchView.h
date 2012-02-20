@@ -93,6 +93,6 @@
 //_DeclareTouchView(TouchView, UIView);
 _DeclareTouchView(TouchImageView, UIImageView);
 _DeclareTouchView(TouchScrollView, UIScrollView);
-//_DeclareTouchView(TouchDelayImageView, DelayImageView);
+_DeclareTouchView(TouchDelayImageView, DelayImageView);
 
 

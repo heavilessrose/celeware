@@ -2,7 +2,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface TabStripButton : UIControl {
+@interface TabStripButton : UIControl
+{
 @private
 	UILabel* label;
 	UIImageView* imageView;

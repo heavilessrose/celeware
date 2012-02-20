@@ -9,7 +9,7 @@
 - (id)initWithURL:(NSURL *)URL
 {
 	_URL = [URL retain];
-	return [super init];
+	return self = [super init];
 }
 
 //
@@ -29,7 +29,7 @@
 	
 	[_URL release];
 
-	[super dealloc];
+    [super dealloc];
 }
 
 //
@@ -76,11 +76,11 @@
 //
 -(void)videoPlayFinished:(NSNotification *)notification
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-	
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
 	_playerRemoved = YES;
 	
-	MPMoviePlayerController *player = [notification object];
+    MPMoviePlayerController *player = [notification object];
 	[player stop];
 }
 

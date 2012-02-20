@@ -10,12 +10,12 @@
 
 @protocol TabStripViewDelegate, TabStripViewDataSource;
 
-@interface TabStripView : UIImageView<UIScrollViewDelegate> {
+@interface TabStripView : UIImageView<UIScrollViewDelegate>
+{
 @private
-	UIScrollView* scrollView;
-	UIView* leftCap;
-	UIView* rightCap;
-	id dataSource;
+	UIScrollView *scrollView;
+	UIView *leftCap;
+	UIView *rightCap;
 	id delegate;
 	UIEdgeInsets buttonInsets;
 	UILabel *titleLabel;
@@ -43,11 +43,6 @@
 @property(nonatomic,assign) IBOutlet id<TabStripViewDelegate> delegate;
 
 /*
- * @see TabStripViewDataSource protocol
- */
-@property(nonatomic,assign) IBOutlet id<TabStripViewDataSource> dataSource;
-
-/*
  * Currectly selected tab
  */
 @property(readonly) NSInteger selectedTabIndex;
@@ -60,9 +55,9 @@
 /*
  * These properties are used internally, shouldn't need to be used elsewhere.
  */
-@property(nonatomic,readonly) UIScrollView* scrollView;
-@property(nonatomic,readonly) UIView* leftCap;
-@property(nonatomic,readonly) UIView* rightCap;
+@property(nonatomic,readonly) UIView *leftCap;
+@property(nonatomic,readonly) UIView *rightCap;
+@property(nonatomic,readonly) UIScrollView *scrollView;
 
 /*
  * Momentary style.
@@ -72,15 +67,13 @@
 /*
  * Allows you to a title.
  */
-@property(nonatomic,retain) NSString* title;
+@property(nonatomic,retain) NSString *title;
 
 @end
+
 
 @protocol TabStripViewDelegate<NSObject>
-- (void)tabStripView:(TabStripView*)tabStripView didSelectedTabAtIndex:(NSInteger)index;
-@end
-
-@protocol TabStripViewDataSource<NSObject>
-- (NSInteger)numberOfTabsInTabStripView:(TabStripView*)tabStripView;
-- (NSString*)tabStripView:(TabStripView*)tabStripView titleForTabAtIndex:(NSInteger)index;
+- (void)tabStripView:(TabStripView *)tabStripView didSelectedTabAtIndex:(NSInteger)index;
+- (NSInteger)numberOfTabsInTabStripView:(TabStripView *)tabStripView;
+- (NSString*)tabStripView:(TabStripView *)tabStripView titleForTabAtIndex:(NSInteger)index;
 @end

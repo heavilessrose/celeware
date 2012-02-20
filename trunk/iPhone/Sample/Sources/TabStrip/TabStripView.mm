@@ -2,13 +2,14 @@
 #import "TabStripView.h"
 #import "TabStripButton.h"
 
+//
 @interface TabStripView (Private)
 - (void)setupCaps;
 @end
 
-
+//
 @implementation TabStripView
-@synthesize scrollView, leftCap, rightCap, delegate, dataSource, buttonInsets, momentary;
+@synthesize scrollView, leftCap, rightCap, delegate, buttonInsets, momentary;
 
 // 
 - (id)initWithFrame:(CGRect)frame
@@ -102,7 +103,7 @@
 	scrollView.scrollsToTop = NO;
 	if (self.superview) [self reloadData];
 	
-	if(scrollView.subviews && scrollView.subviews.count > 0)
+	if (scrollView.subviews && scrollView.subviews.count > 0)
 	{
 		[(TabStripButton*)[scrollView.subviews objectAtIndex:0] markSelected];
 	}
@@ -110,21 +111,22 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
+//
 - (void)reloadData
 {
-	if(scrollView.subviews && scrollView.subviews.count > 0)
+	if (scrollView.subviews && scrollView.subviews.count > 0)
 	{
 		[scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	}
 	
-	if(!self.dataSource)
+	if (!self.delegate)
 	{
 		return;
 	}
 	
 	int items;
 	
-	if((items = [self.dataSource numberOfTabsInTabStripView:self]) == 0)
+	if ((items = [self.delegate numberOfTabsInTabStripView:self]) == 0)
 	{
 		return;
 	}
@@ -134,7 +136,7 @@
 	float origin_x = 0;
 	for(x=0;x<items;x++)
 	{
-		NSString* str = [self.dataSource tabStripView:self titleForTabAtIndex:x];
+		NSString* str = [self.delegate tabStripView:self titleForTabAtIndex:x];
 		
 		TabStripButton* button = [[TabStripButton alloc] initWithFrame:CGRectZero];
 		
@@ -160,14 +162,14 @@
 	[self setupCaps];
 }
 
-
+//
 - (void)buttonDown:(TabStripButton*)button
 {
 	[scrollView.subviews makeObjectsPerformSelector:@selector(markUnselected)];
 	[button markSelected];
 }
 
-
+//
 - (void)buttonClicked:(TabStripButton*)button
 {
 	[scrollView.subviews makeObjectsPerformSelector:@selector(markUnselected)];
@@ -176,24 +178,26 @@
 		[button markSelected];
 	}
 	
-	if(self.delegate && [self.delegate respondsToSelector:@selector(tabStripView:didSelectedTabAtIndex:)])
+	if (self.delegate && [self.delegate respondsToSelector:@selector(tabStripView:didSelectedTabAtIndex:)])
 	{
 		[self.delegate tabStripView:self didSelectedTabAtIndex:[scrollView.subviews indexOfObject:button]];
 	}
 }
 
+//
 - (void)selectTabAtIndex:(NSUInteger)index
 {
 	[self selectTabAtIndex:index animated:NO];
 }
 
+//
 - (void)selectTabAtIndex:(NSUInteger)index animated:(BOOL)animated
 {
-	if(!scrollView.subviews) return;
+	if (!scrollView.subviews) return;
 	
 	[scrollView.subviews makeObjectsPerformSelector:@selector(markUnselected)];
 	
-	if(index >= (NSUInteger)scrollView.subviews.count) return;
+	if (index >= (NSUInteger)scrollView.subviews.count) return;
 	
 	[(TabStripButton*)[scrollView.subviews objectAtIndex:index] markSelected];
 	
@@ -205,21 +209,23 @@
 	[self setupCaps];
 }
 
+//
 - (void)updateOrientation
 {
 	[self performSelector:@selector(setupCaps) withObject:nil afterDelay:0.3];
 }
 
+//
 - (void)setupCaps
 {
-	if(scrollView.contentSize.width <= scrollView.frame.size.width - scrollView.contentInset.left - scrollView.contentInset.right)
+	if (scrollView.contentSize.width <= scrollView.frame.size.width - scrollView.contentInset.left - scrollView.contentInset.right)
 	{
 		leftCap.hidden = YES;
 		rightCap.hidden = YES;
 	}
 	else
 	{
-		if(scrollView.contentOffset.x > (-scrollView.contentInset.left)+10.0f)
+		if (scrollView.contentOffset.x > (-scrollView.contentInset.left)+10.0f)
 		{
 			leftCap.hidden = NO;
 		}
@@ -228,7 +234,7 @@
 			leftCap.hidden = YES;
 		}
 		
-		if((scrollView.frame.size.width+scrollView.contentOffset.x)+10.0f >= scrollView.contentSize.width) {
+		if ((scrollView.frame.size.width+scrollView.contentOffset.x)+10.0f >= scrollView.contentSize.width) {
 			rightCap.hidden = YES;
 		}
 		else 
@@ -239,20 +245,22 @@
 	
 }
 
+//
 - (void)scrollViewDidScroll:(UIScrollView *)inScrollView
 {
 	[self setupCaps];
 }
 
+//
 - (NSInteger)selectedTabIndex
 {
 	int x = 0;
 	
 	for(TabStripButton* tab in scrollView.subviews)
 	{
-		if([tab isMemberOfClass:[TabStripButton class]])
+		if ([tab isMemberOfClass:[TabStripButton class]])
 		{
-			if([tab isSelected]) return x;
+			if ([tab isSelected]) return x;
 		}
 		
 		x++;
@@ -261,12 +269,14 @@
 	return NSNotFound;
 }
 
+//
 - (void)setButtonInsets:(UIEdgeInsets)insets
 {
 	buttonInsets = UIEdgeInsetsMake(0.0f, insets.left, 0.0f, insets.right);
 	self.scrollView.contentInset = buttonInsets;
 }
 
+//
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];

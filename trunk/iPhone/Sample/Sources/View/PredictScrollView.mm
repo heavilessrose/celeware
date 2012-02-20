@@ -159,7 +159,7 @@
 
 	CGFloat width = scrollView.frame.size.width;
 	NSUInteger currentPage = floor((scrollView.contentOffset.x - width / 2) / width) + 1;
-	if (_itemPage != currentPage)
+	if ((_itemPage != currentPage) && (currentPage < _numberOfPages))
 	{
 		_itemPage = currentPage;
 		[self loadPages];

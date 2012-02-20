@@ -13,7 +13,7 @@ NSData *DownloadUtil::DownloadData(NSString *url, NSString *to, DownloadMode mod
 
 	//UIUtil::ShowNetworkIndicator(YES);
 	NSError *error = nil;
-	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url] options:((mode == DownloadCheckOnline) ? 0 : NSUncachedRead) error:&error];
+	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] options:((mode == DownloadCheckOnline) ? 0 : NSUncachedRead) error:&error];
 	[data writeToFile:to atomically:NO];
 	//UIUtil::ShowNetworkIndicator(NO);
 	return data;
