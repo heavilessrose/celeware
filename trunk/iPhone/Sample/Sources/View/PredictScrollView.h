@@ -21,6 +21,8 @@
 	id<PredictScrollViewDelegate> _delegate2;
 }
 
+- (void)freePages:(BOOL)force;
+
 @property(nonatomic,readonly) UIView **pages;
 @property(nonatomic,assign) NSUInteger currentPage;
 @property(nonatomic,assign) NSUInteger numberOfPages;
