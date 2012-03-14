@@ -21,7 +21,9 @@
 - (UIView *)findFirstResponder;
 - (UIView *)findSubview:(NSString *)cls;
 
+- (void)fadeForAction:(SEL)action target:(id)target;
 - (void)fadeForAction:(SEL)action target:(id)target duration:(CGFloat)duration;
+- (void)fadeForAction:(SEL)action target:(id)target duration:(CGFloat)duration delay:(CGFloat)delay;
 @end
 
 

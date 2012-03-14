@@ -385,13 +385,25 @@
 }
 
 //
+- (void)fadeForAction:(SEL)action target:(id)target
+{
+	[self fadeForAction:action target:target duration:0.3];
+}
+
+//
 - (void)fadeForAction:(SEL)action target:(id)target duration:(CGFloat)duration
 {
-	[UIView beginAnimations:nil context:[[NSArray alloc] initWithObjects:target, [NSValue valueWithPointer:action], [NSNumber numberWithFloat:duration], nil]];
+	[self fadeForAction:action target:target duration:duration delay:0];
+}
+
+//
+- (void)fadeForAction:(SEL)action target:(id)target duration:(CGFloat)duration delay:(CGFloat)delay
+{
+	[UIView beginAnimations:nil context:[[NSArray alloc] initWithObjects:target, [NSValue valueWithPointer:action], [NSNumber numberWithFloat:duration], [NSNumber numberWithFloat:delay], nil]];
 	[UIView setAnimationDuration:duration];
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(fadeInForAction: finished: context:)];
-	self.alpha = 0;
+	self.alpha = (self.alpha == 0) ? 1 : 0;
 	[UIView commitAnimations];
 }
 
@@ -401,13 +413,23 @@
 	id target = [context objectAtIndex:0];
 	NSValue *value = [context objectAtIndex:1];
 	CGFloat duration = [[context objectAtIndex:2] floatValue];
+	CGFloat delay = [[context objectAtIndex:3] floatValue];
 	SEL action = (SEL)value.pointerValue;
-	[target performSelector:action withObject:self];
+	if (delay == 0)
+	{
+		[target performSelector:action withObject:self];
+	}
 	[context release];
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:duration];
-	self.alpha = 1;
+	if (delay != 0)
+	{
+		[UIView setAnimationDelay:delay];
+		[UIView setAnimationDelegate:target];
+		[UIView setAnimationDidStopSelector:action];
+	}
+	self.alpha = (self.alpha == 1) ? 0 : 1;
 	[UIView commitAnimations];
 }
 

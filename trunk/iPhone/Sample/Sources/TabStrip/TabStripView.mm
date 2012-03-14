@@ -204,7 +204,10 @@
 	CGRect rect = ((TabStripButton*)[scrollView.subviews objectAtIndex:index]).frame;
 	rect.size.width += 25.0f;
 	
-	[scrollView scrollRectToVisible:rect animated:animated];
+	if (scrollView.contentSize.width > scrollView.frame.size.width)
+	{
+		[scrollView scrollRectToVisible:rect animated:animated];
+	}
 	
 	[self setupCaps];
 }
