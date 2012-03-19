@@ -53,6 +53,6 @@
 @interface UIViewController (ShareComposer)
 - (SMSComposer *)composeSMS:(NSString *)body to:(NSArray *)recipients;
 - (MailComposer *)composeMail:(NSString *)body subject:(NSString *)subject to:(NSArray *)recipients;
-- (WeiboComposer *)composeWeibo:(NSString *)body pic:(NSString *)pic link:(NSString *)link;
-- (FacebookComposer *)composeFacebook:(NSString *)body link:(NSString *)link;
+- (UINavigationController *)composeWeibo:(NSString *)body pic:(NSString *)pic link:(NSString *)link;
+- (UINavigationController *)composeFacebook:(NSString *)body link:(NSString *)link;
 @end
