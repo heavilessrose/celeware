@@ -63,17 +63,17 @@
 	// 获取显示名称
 	NSString *DISPNAME = ipaPath.lastPathComponent.stringByDeletingPathExtension;
 
-	NSRange range = [DISPNAME rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_- "]];
+	if ([DISPNAME hasPrefix:@"iOS."]) DISPNAME = [DISPNAME substringFromIndex:4];
+	else if ([DISPNAME hasPrefix:@"iPad."]) DISPNAME = [DISPNAME substringFromIndex:5];
+	else if ([DISPNAME hasPrefix:@"iPhone."]) DISPNAME = [DISPNAME substringFromIndex:7];
+
+	NSRange range = [DISPNAME rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_- ."]];
 	if (range.location != NSNotFound)
 	{
 		DISPNAME = [DISPNAME substringToIndex:range.location];
 	}
-	
+
 	if ([DISPNAME hasSuffix:@"HD"]) DISPNAME = [DISPNAME substringToIndex:DISPNAME.length - 2];
-	
-	if ([DISPNAME hasPrefix:@"iOS."]) DISPNAME = [DISPNAME substringFromIndex:4];
-	else if ([DISPNAME hasPrefix:@"iPad."]) DISPNAME = [DISPNAME substringFromIndex:5];
-	else if ([DISPNAME hasPrefix:@"iPhone."]) DISPNAME = [DISPNAME substringFromIndex:7];
 	
 	//
 	NSString *infoPath = [appPath stringByAppendingPathComponent:@"Info.plist"];
@@ -88,16 +88,18 @@
 	// 修改显示名称
 	[info setObject:DISPNAME forKey:@"CFBundleDisplayName"];
 	[info writeToFile:infoPath atomically:YES];
-	
-	NSString *localizePath = [appPath stringByAppendingPathComponent:@"zh_CN/InfoPlist.string"];
-	NSMutableDictionary *localize = [NSMutableDictionary dictionaryWithContentsOfFile:localizePath];
-	if (localize == nil)// localize = [NSMutableDictionary dictionary];
+
+	static const NSString *langs[] = {@"zh-Hans", @"zh_Hans", @"zh_CN", @"zh-CN", @"zh"};
+	for (NSUInteger i = 0; i < sizeof(langs) / sizeof(langs[0]); i++)
 	{
-		[localize setObject:DISPNAME forKey:@"CFBundleDisplayName"];
-		[localize writeToFile:localizePath atomically:YES];
+		NSString *localizePath = [appPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.lproj/InfoPlist.strings", langs[i]]];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:localizePath])
+		{
+			NSMutableDictionary *localize = [NSMutableDictionary dictionaryWithContentsOfFile:localizePath];
+			[localize removeObjectForKey:@"CFBundleDisplayName"];
+			[localize writeToFile:localizePath atomically:YES];
+		}
 	}
-	
-	
 	
 	// 修改 iTunes 项目名称
 	NSString *metaPath = [[[appPath stringByDeletingLastPathComponent] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"iTunesMetadata.plist"];
@@ -178,10 +180,10 @@
 	
 	NSString *result = [self doTask:@"/usr/bin/codesign" arguments:[NSArray arrayWithObjects:@"-fs", certName, resourceRulesArgument, appPath, nil]];
 	
-	result = [self doTask:@"/usr/bin/codesign" arguments:[NSArray arrayWithObjects:@"-v", appPath, nil]];
-	if (result)
+	NSString *result2 = [self doTask:@"/usr/bin/codesign" arguments:[NSArray arrayWithObjects:@"-v", appPath, nil]];
+	if (result2)
 	{
-		_error = [@"Sign error: " stringByAppendingString:result];
+		_error = [@"Sign error: " stringByAppendingFormat:@"%@\n\n%@", result2, result];
 	}
 }
 
