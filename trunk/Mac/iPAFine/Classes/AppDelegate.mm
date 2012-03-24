@@ -7,6 +7,12 @@
 @synthesize window;
 
 //
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+	return YES;
+}
+
+//
 - (void)resizeWindow:(int)newHeight
 {
 	NSRect r;
