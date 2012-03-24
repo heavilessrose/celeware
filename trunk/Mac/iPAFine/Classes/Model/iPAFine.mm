@@ -24,7 +24,7 @@
 	NSData *data = [file readDataToEndOfFile];
 	NSString *result = data.length ? [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] : nil;
 
-	NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
+	//NSLog(@"CMD:\n%@\n%@ARG\n\n%@\n\n", path, arguments, (result ? result : @""));
 	return result;
 }
 
@@ -53,8 +53,44 @@
 		_error = @"Invalid app";
 		return nil;
 	}
-	_error = [@"Unzip filed:" stringByAppendingString:result ? result : @""];
+	_error = [@"Unzip failed:" stringByAppendingString:result ? result : @""];
 	return nil;
+}
+
+//
+- (void)stripApp:(NSString *)appPath
+{
+	NSString *infoPath = [appPath stringByAppendingPathComponent:@"Info.plist"];
+	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
+
+	NSString *exeName = [info objectForKey:@"CFBundleExecutable"];
+	if (exeName == nil)
+	{
+		_error = @"Strip failed: No CFBundleExecutable";
+		return;
+	}
+
+	NSString *exePath = [appPath stringByAppendingPathComponent:exeName];
+	NSString *result = [self doTask:@"/usr/bin/lipo" arguments:[NSArray arrayWithObjects:@"-info", exePath, nil]];
+	
+	if (([result rangeOfString:@"armv6 armv7"].location == NSNotFound) && ([result rangeOfString:@"armv7 armv6"].location == NSNotFound))
+	{
+		return;
+	}
+
+	NSString *newPath = [exePath stringByAppendingString:@"NEW"];
+	result = [self doTask:@"/usr/bin/lipo" arguments:[NSArray arrayWithObjects:@"-remove", @"armv6", @"-output", newPath, exePath, nil]];
+	if (result.length)
+	{
+		_error = [@"Strip failed:" stringByAppendingString:result];
+	}
+
+	NSError *error = nil;
+	BOOL ret = [[NSFileManager defaultManager] removeItemAtPath:exePath error:&error] && [[NSFileManager defaultManager] moveItemAtPath:newPath toPath:exePath error:&error];
+	if (!ret)
+	{
+		_error = [@"Strip failed:" stringByAppendingString:error.localizedDescription];
+	}
 }
 
 //
@@ -209,29 +245,34 @@
 	NSString *appPath = [self unzipIPA:ipaPath workPath:workPath];
 	if (_error) return;
 
-	//
+	// Strip
+	[self stripApp:appPath];
+	if (_error) return;
+
+	// Rename
 	NSString *outPath = [self renameApp:appPath ipaPath:ipaPath];
-	
+
 	// Provision
 	if (provPath.length)
 	{
 		[self provApp:appPath provPath:provPath];
 		if (_error) return;
 	}
-	
+
 	// Sign
 	if (certName.length)
 	{
 		[self signApp:appPath certName:certName];
 		if (_error) return;
 	}
-	
+
+	// Remove origin
 	if (1)
 	{
 		[[NSFileManager defaultManager] removeItemAtPath:ipaPath error:nil];
 	}
 	
-	//
+	// Zip
 	[self zipIPA:workPath outPath:outPath];
 }
 
