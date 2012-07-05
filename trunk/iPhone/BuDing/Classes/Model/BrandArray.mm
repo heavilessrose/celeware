@@ -95,39 +95,6 @@
 + (NSArray *)brandsFromString:(NSString *)string
 {
 	NSMutableArray *brands = [NSMutableArray arrayWithCapacity:27];
-	
-	// Parse
-	CSVParser * parser = [[[CSVParser alloc] initWithString:string
-												  separator:@","
-												  hasHeader:NO
-												 fieldNames:[NSArray arrayWithObjects:@"cata", @"name", @"pron", nil]
-						   ] autorelease];
-	NSArray *rows = [parser arrayOfParsedRows];
-	for (NSDictionary *row in rows)
-	{
-		NSString *cata = [row objectForKey:@"cata"];
-		NSString *name = [row objectForKey:@"name"];
-		NSString *pron = [row objectForKey:@"pron"];
-		if (cata.length && name.length && pron.length)
-		{
-			// 
-			BrandItem *item = [[[BrandItem alloc] init] autorelease];
-			item.cata = cata;
-			item.name = name;
-			item.icon = nil;
-			item.pron = pron;
-			[brands addBrand:item];
-		}
-		else
-		{
-			_Log(@"Error: %@", row);
-		}
-	}
-	
-	// Sort
-	[brands sortUsingSelector:@selector(compareByIndex:)];
-	for (NSMutableArray *group in brands) [group sortUsingSelector:@selector(compare:)];
-	
 	return brands;
 }
 
