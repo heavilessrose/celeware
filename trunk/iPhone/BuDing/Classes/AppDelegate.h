@@ -5,7 +5,7 @@
 
 
 //
-@interface AppDelegate : BrandLoader <UIApplicationDelegate>
+@interface AppDelegate : NSObject <UIApplicationDelegate>
 {
 	UIWindow *_window;
 	UINavigationController *_controller;	

@@ -77,10 +77,9 @@
 //}
 
 // Tells the delegate that the application is about to enter the foreground.
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-	[super updateBegin];
-}
+//- (void)applicationWillEnterForeground:(UIApplication *)application
+//{
+//}
 
 // Tells the delegate that the application is now in the background.
 //- (void)applicationDidEnterBackground:(UIApplication *)application
@@ -88,10 +87,9 @@
 //}
 
 // Try to clean up as much memory as possible. next step is to terminate app
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
-	super.brands = nil;
-}
+//- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+//{
+//}
 
 
 #pragma mark Managing Status Bar Changes
