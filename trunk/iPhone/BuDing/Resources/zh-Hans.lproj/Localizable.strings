@@ -1,0 +1,195 @@
+/* ... */
+"..." = "⋯";
+
+/* <P>Hello,<br><br>I'm using CeleDial for iPhone, that is a powerful yet easy to use smart dialing utility.<br><br>...<br><br>You can download it from <a href='http://www.celedial.com/appstore'>http://www.celedial.com/appstore</a><br></P> */
+"<P>Hello,<br><br>I'm using CeleDial for iPhone, that is a powerful yet easy to use smart dialing utility.<br><br>...<br><br>You can download it from <a href='http://www.celedial.com/appstore'>http://www.celedial.com/appstore</a><br></P>" = "<P>您好，<br><br>我正在使用 CeleDial for iPhone，一个非常强大且非常容易使用的智能拨号和号码归属查询工具。⋯<br><br>您可以从 <a href='http://www.celedial.com/appstore'>http://www.celedial.com/appstore</a> 下载它。<br></P>";
+
+/* About */
+"About" = "关于";
+
+/* After Tomorrow  */
+"After Tomorrow " = "后天";
+
+/* Application Information */
+"Application Information" = "软件信息";
+
+/* applications */
+"applications" = "应用";
+
+/* AppStore */
+"AppStore" = "夸夸我吧";
+
+/* Back */
+"Back" = "返回";
+
+/* Before Yesterday  */
+"Before Yesterday " = "前天";
+
+/* Cancel */
+"Cancel" = "取消";
+
+/* Cancelled */
+"Cancelled" = "已取消";
+
+/* CeleDial for iPhone Feedback */
+"CeleDial for iPhone Feedback" = "CeleDial for iPhone 问题反馈";
+
+/* Copyright© */
+"Copyright©" = "版权所有©";
+
+/* Could not make call on this device. */
+"Could not make call on this device." = "在此设备上无法拨打电话。";
+
+/* Could not send SMS on this device. */
+"Could not send SMS on this device." = "在此设备上无法发送短信。";
+
+/* Did Logout */
+"Did Logout" = "已注销";
+
+/* Dismiss */
+"Dismiss" = "关闭";
+
+/* Download */
+"Download" = "下载";
+
+/* Email Composer */
+"Email Composer" = "邮件撰写";
+
+/* Error */
+"Error" = "错误";
+
+/* Failed */
+"Failed" = "发送失败";
+
+/* Failed to send email. */
+"Failed to send email." = "发送邮件失败。";
+
+/* Failed to send SMS. */
+"Failed to send SMS." = "发送短信失败。";
+
+/* Failed: %@ */
+"Failed: %@" = "失败: %@";
+
+/* Feedback & Share */
+"Feedback & Share" = "反馈和分享";
+
+/* Hello, \n\n  ... */
+"Hello, \n\n  ..." = "你好，\n\n  ⋯";
+
+/* Hide KB */
+"Hide KB" = "隐藏键盘";
+
+/* I'm using CeleDial for iPhone, that is a powerful yet easy to use smart dialing utility. You can download it from http://www.celedial.com/appstore. */
+"I'm using CeleDial for iPhone, that is a powerful yet easy to use smart dialing utility. You can download it from http://www.celedial.com/appstore." = "我正在使用 CeleDial for iPhone，一个非常强大且非常容易使用的智能拨号和号码归属查询工具。您可以从 http://www.celedial.com/appstore 下载它。";
+
+/* Introduce */
+"Introduce" = "功能介绍";
+
+/* Loading... */
+"Loading..." = "加载中⋯";
+
+/* Logout */
+"Logout" = "注销";
+
+/* Online Information */
+"Online Information" = "在线内容";
+
+/* Open with Safari */
+"Open with Safari" = "在 Safari 中打开";
+
+/* Please setup your email account first. */
+"Please setup your email account first." = "请先设置您的邮件账户。";
+
+/* Please Wait⋯ */
+"Please Wait⋯" = "请稍等⋯";
+
+/* Please wait... */
+"Please wait..." = "请稍候⋯";
+
+/* Privay Policy */
+"Privay Policy" = "隐私政策";
+
+/* Rated CeleDial */
+"Rated CeleDial" = "软件评分";
+
+/* Repeated Weibo Text */
+"Repeated Weibo Text" = "重复博文";
+
+/* Select and Copy the PIN */
+"Select and Copy the PIN" = "选择并拷贝 PIN";
+
+/* Send */
+"Send" = "发送";
+
+/* Send Feedback */
+"Send Feedback" = "意见建议";
+
+/* Send SMS successfully. */
+"Send SMS successfully." = "发送短信成功。";
+
+/* Send via Email */
+"Send via Email" = "发送邮件链接";
+
+/* Sending... */
+"Sending..." = "正在发送⋯";
+
+/* Share */
+"Share" = "分享";
+
+/* Share a smart dialing utility, CeleDial for iPhone. */
+"Share a smart dialing utility, CeleDial for iPhone." = "推荐一个好用的 CeleDial 智能拨号工具";
+
+/* Share a smart dialing utility, CeleDial for iPhone. You can download it from http://www.celedial.com/appstore */
+"Share a smart dialing utility, CeleDial for iPhone. You can download it from http://www.celedial.com/appstore" = "推荐一个好用的 CeleDial 智能拨号和号码归属查询工具，您可以从 http://www.celedial.com/appstore 下载它。";
+
+/* Share at Weibo */
+"Share at Weibo" = "微博分享";
+
+/* Share To Facebook */
+"Share To Facebook" = "分享至 Facebook";
+
+/* Share To Sina Weibo */
+"Share To Sina Weibo" = "分享至新浪微博";
+
+/* Share To Twitter */
+"Share To Twitter" = "分享至 Twitter";
+
+/* Share via Email */
+"Share via Email" = "邮件分享";
+
+/* Share via SMS */
+"Share via SMS" = "短信分享";
+
+/* Sina Account Info */
+"Sina Account Info" = "新浪微博账户";
+
+/* Sina Weibo */
+"Sina Weibo" = "新浪微博";
+
+/* SMS Composer */
+"SMS Composer" = "短信撰写";
+
+/* Succeed */
+"Succeed" = "发送成功";
+
+/* Terms of Service */
+"Terms of Service" = "服务条款";
+
+/* Today  */
+"Today " = "今天";
+
+/* Tomorrow  */
+"Tomorrow " = "明天";
+
+/* Twitter Account Info */
+"Twitter Account Info" = "Twitter 账户信息";
+
+/* Web Site */
+"Web Site" = "官方网站";
+
+/* www.yahoo.com.hk */
+"www.yahoo.com.hk" = "www.yahoo.com.hk";
+
+/* Yesterday  */
+"Yesterday " = "昨天";
+
