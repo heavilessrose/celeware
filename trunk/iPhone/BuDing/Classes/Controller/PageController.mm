@@ -1,12 +1,11 @@
 
 #import "AppDelegate.h"
-#import "HomeController.h"
+#import "PageController.h"
 #import "AboutController.h"
-#import "SearchController.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 
-@implementation HomeController
+@implementation PageController
 
 #pragma mark Generic methods
 
@@ -285,8 +284,8 @@ const static NSString *c_catas[] = {@"All", @"Wine", @"Jewelry", @"Beauty", @"Fa
 //
 - (void)onBrand
 {
-	UIViewController *controller = [[[SearchController alloc] initWithCata:(NSString *)c_catas[_index]] autorelease];
-	[self.navigationController pushViewController:controller animated:YES];
+	//UIViewController *controller = [[[SearchController alloc] initWithCata:(NSString *)c_catas[_index]] autorelease];
+	//[self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

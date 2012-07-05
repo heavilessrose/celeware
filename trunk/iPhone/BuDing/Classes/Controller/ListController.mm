@@ -1,8 +1,8 @@
 
 #import "AppDelegate.h"
-#import "BrandController.h"
+#import "ListController.h"
 
-@implementation BrandController
+@implementation ListController
 @synthesize brands=_brands;
 
 #pragma mark Generic methods

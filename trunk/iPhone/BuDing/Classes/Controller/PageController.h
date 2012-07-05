@@ -4,7 +4,7 @@
 
 
 //
-@interface HomeController : UIViewController <TouchViewDelegate>
+@interface PageController : UIViewController <TouchViewDelegate>
 {
 	CGPoint _touch;
 	NSUInteger _index;

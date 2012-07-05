@@ -3,7 +3,7 @@
 #import <UIKit/UIKit.h>
 
 //
-@interface BrandController : UITableViewController <BrandLoaderDelegate>
+@interface ListController : UITableViewController <BrandLoaderDelegate>
 {
 	NSArray *_brands;
 }

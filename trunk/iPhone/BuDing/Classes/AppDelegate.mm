@@ -1,6 +1,6 @@
 
 #import "AppDelegate.h"
-#import "HomeController.h"
+#import "PageController.h"
 
 
 //
@@ -41,7 +41,7 @@
 	_window = [[UIWindow alloc] initWithFrame:frame];
 
 	// Create controller
-	UIViewController *controller = [[HomeController alloc] init];
+	UIViewController *controller = [[PageController alloc] init];
 	_controller = [[UINavigationController alloc] initWithRootViewController:controller];
 	_controller.navigationBar.barStyle = UIBarStyleBlack;
 	_controller.toolbar.barStyle = UIBarStyleBlack;
