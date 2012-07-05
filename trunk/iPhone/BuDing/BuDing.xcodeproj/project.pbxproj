@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		241F38A4148F4B7900676B4B /* AboutController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241F38A3148F4B7900676B4B /* AboutController.mm */; };
-		241F3927148F75D100676B4B /* ListController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241F3926148F75D100676B4B /* ListController.mm */; };
-		245E22FC148FB0E4004D627B /* BrandItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245E22FB148FB0E4004D627B /* BrandItem.mm */; };
 		245E2306148FE64B004D627B /* PullArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 245E2302148FE64B004D627B /* PullArrow.png */; };
 		245E2307148FE64B004D627B /* PullArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 245E2303148FE64B004D627B /* PullArrow@2x.png */; };
 		245E2308148FE64B004D627B /* PullView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245E2305148FE64B004D627B /* PullView.mm */; };
@@ -18,7 +15,6 @@
 		248B2CC2141CFC8C0026FD73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CC1141CFC8C0026FD73 /* CoreGraphics.framework */; };
 		248B2DCF141CFD700026FD73 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248B2CED141CFD700026FD73 /* AppDelegate.mm */; };
 		248B2DD0141CFD700026FD73 /* PageController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248B2CF0141CFD700026FD73 /* PageController.mm */; };
-		248B2DD1141CFD700026FD73 /* BrandLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248B2CF3141CFD700026FD73 /* BrandLoader.mm */; };
 		248B2DD2141CFD700026FD73 /* NullView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248B2CF6141CFD700026FD73 /* NullView.mm */; };
 		248B2DD3141CFD700026FD73 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 248B2CF9141CFD700026FD73 /* Default.png */; };
 		248B2DD4141CFD700026FD73 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 248B2CFA141CFD700026FD73 /* Default@2x.png */; };
@@ -48,8 +44,10 @@
 		248B2E3D141CFEC40026FD73 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2E3C141CFEC40026FD73 /* MediaPlayer.framework */; };
 		248B2E3F141CFECD0026FD73 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2E3E141CFECD0026FD73 /* SystemConfiguration.framework */; };
 		24D980221491226F00BF02CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D980211491226F00BF02CE /* AudioToolbox.framework */; };
-		24EA43F014922E9500E53E77 /* BrandArray.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EA43EF14922E9500E53E77 /* BrandArray.mm */; };
 		24EB3FD0149078C500870518 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EB3FCF149078C500870518 /* AVFoundation.framework */; };
+		24F3AECD15A5A0BC00457FB6 /* BrandItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245E22FB148FB0E4004D627B /* BrandItem.mm */; };
+		24F3AECE15A5A0BC00457FB6 /* BrandArray.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EA43EF14922E9500E53E77 /* BrandArray.mm */; };
+		24F3AECF15A5A0BC00457FB6 /* BrandLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 248B2CF3141CFD700026FD73 /* BrandLoader.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -426,7 +424,6 @@
 			files = (
 				248B2DCF141CFD700026FD73 /* AppDelegate.mm in Sources */,
 				248B2DD0141CFD700026FD73 /* PageController.mm in Sources */,
-				248B2DD1141CFD700026FD73 /* BrandLoader.mm in Sources */,
 				248B2DD2141CFD700026FD73 /* NullView.mm in Sources */,
 				248B2E0D141CFD700026FD73 /* ShareComposer.mm in Sources */,
 				248B2E17141CFD700026FD73 /* Main.mm in Sources */,
@@ -441,11 +438,10 @@
 				248B2E2A141CFD700026FD73 /* PredictScrollView.mm in Sources */,
 				248B2E2B141CFD700026FD73 /* TouchView.mm in Sources */,
 				248B2E30141CFD700026FD73 /* WebController.mm in Sources */,
-				241F38A4148F4B7900676B4B /* AboutController.mm in Sources */,
-				241F3927148F75D100676B4B /* ListController.mm in Sources */,
-				245E22FC148FB0E4004D627B /* BrandItem.mm in Sources */,
 				245E2308148FE64B004D627B /* PullView.mm in Sources */,
-				24EA43F014922E9500E53E77 /* BrandArray.mm in Sources */,
+				24F3AECD15A5A0BC00457FB6 /* BrandItem.mm in Sources */,
+				24F3AECE15A5A0BC00457FB6 /* BrandArray.mm in Sources */,
+				24F3AECF15A5A0BC00457FB6 /* BrandLoader.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
