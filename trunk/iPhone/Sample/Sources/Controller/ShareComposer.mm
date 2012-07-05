@@ -308,17 +308,19 @@
 }
 
 //
-- (UINavigationController *)composeWeibo:(NSString *)body pic:(NSString *)pic link:(NSString *)link
+- (WeiboComposer *)composeWeibo:(NSString *)body pic:(NSString *)pic link:(NSString *)link
 {
 	WeiboComposer *composer = [WeiboComposer composerWithBody:body pic:pic link:link];
-	return [self presentModalNavigationController:composer animated:YES];
+	[self presentModalNavigationController:composer animated:YES];
+	return composer;
 }
 
 //
-- (UINavigationController *)composeFacebook:(NSString *)body link:(NSString *)link
+- (FacebookComposer *)composeFacebook:(NSString *)body link:(NSString *)link
 {
 	FacebookComposer *composer = [FacebookComposer composerWithBody:body link:link];
-	return [self presentModalNavigationController:composer animated:YES];
+	[self presentModalNavigationController:composer animated:YES];
+	return composer;
 }
 
 @end
