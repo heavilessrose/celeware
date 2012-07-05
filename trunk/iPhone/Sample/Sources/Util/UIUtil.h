@@ -167,7 +167,20 @@ public:
 
 	//
 	static UIImageView *ShowSplashView(UIView *fadeInView = nil);
+
+#pragma mark Misc methods
 	
+	//
+	NS_INLINE UIImage *Image(NSString *name)
+	{
+		return [UIImage imageNamed:name];
+	}
+	
+	//
+	NS_INLINE UIImage *Image2X(NSString *name)
+	{
+		return Image([name stringByAppendingString:IsPad() ? @"@2x.png" : @".png"]);
+	}
 #pragma mark Debug methods
 public:	
 	// Print log with indent

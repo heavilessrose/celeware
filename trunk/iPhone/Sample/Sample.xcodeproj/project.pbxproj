@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		241202691571C2F9009F4337 /* BitLive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241202681571C2F9009F4337 /* BitLive.mm */; };
 		248B2CBE141CFC8C0026FD73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CBD141CFC8C0026FD73 /* UIKit.framework */; };
 		248B2CC0141CFC8C0026FD73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CBF141CFC8C0026FD73 /* Foundation.framework */; };
 		248B2CC2141CFC8C0026FD73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CC1141CFC8C0026FD73 /* CoreGraphics.framework */; };
@@ -62,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		241202671571C2F9009F4337 /* BitLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitLive.h; sourceTree = "<group>"; };
+		241202681571C2F9009F4337 /* BitLive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BitLive.mm; sourceTree = "<group>"; };
 		248B2CB9141CFC8C0026FD73 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B2CBD141CFC8C0026FD73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		248B2CBF141CFC8C0026FD73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -406,6 +409,8 @@
 		248B2DA8141CFD700026FD73 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				241202671571C2F9009F4337 /* BitLive.h */,
+				241202681571C2F9009F4337 /* BitLive.mm */,
 				248B2DA9141CFD700026FD73 /* DownloadUtil.h */,
 				248B2DAA141CFD700026FD73 /* DownloadUtil.mm */,
 				248B2DAB141CFD700026FD73 /* NetworkUtil.h */,
@@ -574,6 +579,7 @@
 				248B2E2A141CFD700026FD73 /* PredictScrollView.mm in Sources */,
 				248B2E2B141CFD700026FD73 /* TouchView.mm in Sources */,
 				248B2E30141CFD700026FD73 /* WebController.mm in Sources */,
+				241202691571C2F9009F4337 /* BitLive.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
