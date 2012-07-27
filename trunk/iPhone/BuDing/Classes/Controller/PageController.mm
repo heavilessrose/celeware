@@ -8,17 +8,19 @@
 #pragma mark Generic methods
 
 // Constructor
-//- (id)init
-//{
-//	[super init];
-//	return self;
-//}
+- (id)initWithDict:(NSDictionary *)dict
+{
+	self = [super init];
+	_dict = [dict retain];
+	return self;
+}
 
 // Destructor
-//- (void)dealloc
-//{
-//	[super dealloc];
-//}
+- (void)dealloc
+{
+	[_dict release];
+	[super dealloc];
+}
 
 
 #pragma mark View methods
@@ -28,7 +30,7 @@
 {
 	UIImageView *view = [[[UIImageView alloc] initWithFrame:UIUtil::AppFrame()] autorelease];
 	view.image = UIUtil::Image2X(@"Background");
-	view.contentMode = UIViewContentModeScaleAspectFill;
+	//view.contentMode = UIViewContentModeScaleAspectFill;
 	view.userInteractionEnabled = YES;
 	self.view = view;
 }
@@ -72,6 +74,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	UIUtil::ShowStatusBar([[_dict objectForKey:@"StatusBar"] boolValue]);
+	[self.navigationController setNavigationBarHidden:![[_dict objectForKey:@"NavigationBar"] boolValue] animated:YES];
 }
 
 // Called after the view was dismissed, covered or otherwise hidden.

@@ -4,15 +4,11 @@
 
 
 //
-@interface PageController : UIViewController <TouchViewDelegate>
+@interface PageController : UIViewController
 {
-	CGPoint _touch;
-	NSUInteger _index;
-	UIImageView *_cata;
-	UIImageView *_icon;
-	UIImageView *_logo;
-	TouchImageView *_aperture;
-	CGAffineTransform _transform;
+	NSDictionary *_dict;
 }
+
+- (id)initWithDict:(NSDictionary *)dict;
 
 @end
