@@ -1,0 +1,302 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		240FEE951510853F0045D331 /* NSUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 240FEE891510853F0045D331 /* NSUtil.h */; };
+		240FEE961510853F0045D331 /* NSUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 240FEE8A1510853F0045D331 /* NSUtil.mm */; };
+		240FEE9B1510853F0045D331 /* UIUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 240FEE8F1510853F0045D331 /* UIUtil.h */; };
+		240FEE9C1510853F0045D331 /* UIUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 240FEE901510853F0045D331 /* UIUtil.mm */; };
+		2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */; };
+		24C1807615104BF100951174 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C1807515104BF100951174 /* UIKit.framework */; };
+		24C180781510573D00951174 /* libsubstrate.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C180771510573D00951174 /* libsubstrate.dylib */; };
+		24CADA911510492B00B22162 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CADA901510492B00B22162 /* Foundation.framework */; };
+		24CADA971510492B00B22162 /* Fakour.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24CADA961510492B00B22162 /* Fakour.mm */; };
+		24CADAA815104AAD00B22162 /* substrate.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CADAA415104AAD00B22162 /* substrate.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		240FEE891510853F0045D331 /* NSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUtil.h; sourceTree = "<group>"; };
+		240FEE8A1510853F0045D331 /* NSUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSUtil.mm; sourceTree = "<group>"; };
+		240FEE8F1510853F0045D331 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		240FEE901510853F0045D331 /* UIUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIUtil.mm; sourceTree = "<group>"; };
+		2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		24C1807515104BF100951174 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		24C180771510573D00951174 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
+		24CADA8D1510492B00B22162 /* Fakour.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Fakour.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		24CADA901510492B00B22162 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		24CADA941510492B00B22162 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		24CADA951510492B00B22162 /* Fakour.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fakour.h; sourceTree = "<group>"; };
+		24CADA961510492B00B22162 /* Fakour.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Fakour.mm; sourceTree = "<group>"; };
+		24CADAA415104AAD00B22162 /* substrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substrate.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		24CADA8A1510492B00B22162 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */,
+				24C1807615104BF100951174 /* UIKit.framework in Frameworks */,
+				24CADA911510492B00B22162 /* Foundation.framework in Frameworks */,
+				24C180781510573D00951174 /* libsubstrate.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		240FEE841510853F0045D331 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				240FEE891510853F0045D331 /* NSUtil.h */,
+				240FEE8A1510853F0045D331 /* NSUtil.mm */,
+				240FEE8F1510853F0045D331 /* UIUtil.h */,
+				240FEE901510853F0045D331 /* UIUtil.mm */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		24CADA821510492B00B22162 = {
+			isa = PBXGroup;
+			children = (
+				24CADA921510492B00B22162 /* Fakour */,
+				24CADA8F1510492B00B22162 /* Frameworks */,
+				24CADA8E1510492B00B22162 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		24CADA8E1510492B00B22162 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24CADA8D1510492B00B22162 /* Fakour.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24CADA8F1510492B00B22162 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */,
+				24C1807515104BF100951174 /* UIKit.framework */,
+				24CADA901510492B00B22162 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		24CADA921510492B00B22162 /* Fakour */ = {
+			isa = PBXGroup;
+			children = (
+				240FEE841510853F0045D331 /* Util */,
+				24C180771510573D00951174 /* libsubstrate.dylib */,
+				24CADAA415104AAD00B22162 /* substrate.h */,
+				24CADA951510492B00B22162 /* Fakour.h */,
+				24CADA961510492B00B22162 /* Fakour.mm */,
+				24CADA931510492B00B22162 /* Supporting Files */,
+			);
+			path = Fakour;
+			sourceTree = "<group>";
+		};
+		24CADA931510492B00B22162 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				24CADA941510492B00B22162 /* Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		24CADA8B1510492B00B22162 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24CADAA815104AAD00B22162 /* substrate.h in Headers */,
+				240FEE951510853F0045D331 /* NSUtil.h in Headers */,
+				240FEE9B1510853F0045D331 /* UIUtil.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		24CADA8C1510492B00B22162 /* Fakour */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24CADA9A1510492B00B22162 /* Build configuration list for PBXNativeTarget "Fakour" */;
+			buildPhases = (
+				24CADA891510492B00B22162 /* Sources */,
+				24CADA8A1510492B00B22162 /* Frameworks */,
+				24CADA8B1510492B00B22162 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fakour;
+			productName = Fakour;
+			productReference = 24CADA8D1510492B00B22162 /* Fakour.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24CADA841510492B00B22162 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 24CADA871510492B00B22162 /* Build configuration list for PBXProject "Fakour" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 24CADA821510492B00B22162;
+			productRefGroup = 24CADA8E1510492B00B22162 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				24CADA8C1510492B00B22162 /* Fakour */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		24CADA891510492B00B22162 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24CADA971510492B00B22162 /* Fakour.mm in Sources */,
+				240FEE961510853F0045D331 /* NSUtil.mm in Sources */,
+				240FEE9C1510853F0045D331 /* UIUtil.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		24CADA981510492B00B22162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 春杨 郭 (JBQ6S5A8W5)";
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_EXTENSION = dylib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INIT_ROUTINE = _FakourInitialize;
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = (
+					"–lsubstrate",
+					"–dynamiclib",
+				);
+				PROVISIONING_PROFILE = "25DF2575-435E-41AA-9E21-D6C76A931AB5";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		24CADA991510492B00B22162 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 春杨 郭 (JBQ6S5A8W5)";
+				COPY_PHASE_STRIP = YES;
+				EXECUTABLE_EXTENSION = dylib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INIT_ROUTINE = _FakourInitialize;
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MACH_O_TYPE = mh_dylib;
+				OTHER_LDFLAGS = (
+					"–lsubstrate",
+					"–dynamiclib",
+				);
+				PROVISIONING_PROFILE = "25DF2575-435E-41AA-9E21-D6C76A931AB5";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		24CADA9B1510492B00B22162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Fakour.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Fakour/Prefix.pch;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Fakour\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		24CADA9C1510492B00B22162 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Fakour.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Fakour/Prefix.pch;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Fakour\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		24CADA871510492B00B22162 /* Build configuration list for PBXProject "Fakour" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24CADA981510492B00B22162 /* Debug */,
+				24CADA991510492B00B22162 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24CADA9A1510492B00B22162 /* Build configuration list for PBXNativeTarget "Fakour" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24CADA9B1510492B00B22162 /* Debug */,
+				24CADA9C1510492B00B22162 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 24CADA841510492B00B22162 /* Project object */;
+}
