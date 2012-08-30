@@ -281,7 +281,7 @@ public:
 	//
 	NS_INLINE NSString *TS()
 	{
-		return [NSString stringWithFormat:@"%d", time(NULL)];
+		return [NSString stringWithFormat:@"%ld", time(NULL)];
 	}
 
 	//

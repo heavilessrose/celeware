@@ -4,6 +4,7 @@
 
 
 @implementation PredictScrollView
+@synthesize gap=_gap;
 @synthesize pages=_pages;
 @synthesize currentPage=_itemPage;
 @synthesize numberOfPages=_numberOfPages;
@@ -15,8 +16,10 @@
 // Constructor
 - (id)initWithFrame:(CGRect)frame
 {
-	frame.origin.x = -5;
-	frame.size.width += 10;
+	_gap = 5;
+	frame.origin.x -= _gap;
+	frame.size.width += _gap * 2;
+
 	self = [super initWithFrame:frame];
 	self.pagingEnabled = YES;
 	self.delegate = self;
@@ -30,6 +33,19 @@
 {
 	if (_pages) free(_pages);
 	[super dealloc];
+}
+
+//
+- (void)setGap:(CGFloat)gap
+{
+	CGRect frame = self.frame;
+	frame.origin.x += _gap;
+	frame.size.width -= _gap * 2;
+
+	frame.origin.x -= gap;
+	frame.size.width += gap * 2;
+	self.frame = frame;
+	_gap = gap;
 }
 
 //
@@ -64,8 +80,8 @@
 
 	CGRect frame = self.frame;
 	frame.origin.y = 0;
-	frame.origin.x = frame.size.width * index + 5;
-	frame.size.width -= 10;
+	frame.origin.x = frame.size.width * index + _gap;
+	frame.size.width -= _gap * 2;
 
 	_pages[index] = [_delegate2 scrollView:self viewForPage:index inFrame:frame];
 	_pages[index].autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;

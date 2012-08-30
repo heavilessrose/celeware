@@ -60,6 +60,9 @@
 		248B2E3B141CFEBA0026FD73 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2E3A141CFEBA0026FD73 /* MessageUI.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		248B2E3D141CFEC40026FD73 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2E3C141CFEC40026FD73 /* MediaPlayer.framework */; };
 		248B2E3F141CFECD0026FD73 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2E3E141CFECD0026FD73 /* SystemConfiguration.framework */; };
+		24B05D5115EF0BEB00B6EB39 /* NRGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B05D4A15EF0BEB00B6EB39 /* NRGridView.m */; };
+		24B05D5215EF0BEB00B6EB39 /* NRGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B05D4C15EF0BEB00B6EB39 /* NRGridViewCell.m */; };
+		24B05D5315EF0BEB00B6EB39 /* NRGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B05D4E15EF0BEB00B6EB39 /* NRGridViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -172,6 +175,15 @@
 		248B2E3A141CFEBA0026FD73 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		248B2E3C141CFEC40026FD73 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		248B2E3E141CFECD0026FD73 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		24B05D4815EF0BEB00B6EB39 /* NRGridConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridConstants.h; sourceTree = "<group>"; };
+		24B05D4915EF0BEB00B6EB39 /* NRGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridView.h; sourceTree = "<group>"; };
+		24B05D4A15EF0BEB00B6EB39 /* NRGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRGridView.m; sourceTree = "<group>"; };
+		24B05D4B15EF0BEB00B6EB39 /* NRGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridViewCell.h; sourceTree = "<group>"; };
+		24B05D4C15EF0BEB00B6EB39 /* NRGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRGridViewCell.m; sourceTree = "<group>"; };
+		24B05D4D15EF0BEB00B6EB39 /* NRGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridViewController.h; sourceTree = "<group>"; };
+		24B05D4E15EF0BEB00B6EB39 /* NRGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRGridViewController.m; sourceTree = "<group>"; };
+		24B05D4F15EF0BEB00B6EB39 /* NRGridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridViewDataSource.h; sourceTree = "<group>"; };
+		24B05D5015EF0BEB00B6EB39 /* NRGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridViewDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +308,7 @@
 				248B2DB5141CFD700026FD73 /* View */,
 				248B2D74141CFD700026FD73 /* Controller */,
 				248B2D98141CFD700026FD73 /* PullView */,
+				24B05D4715EF0BEB00B6EB39 /* GridView */,
 				248B2D9D141CFD700026FD73 /* TabStrip */,
 				248B2DBE141CFD700026FD73 /* WebController */,
 				248B2D93141CFD700026FD73 /* MobClick */,
@@ -471,6 +484,22 @@
 			path = ZipArchive;
 			sourceTree = "<group>";
 		};
+		24B05D4715EF0BEB00B6EB39 /* GridView */ = {
+			isa = PBXGroup;
+			children = (
+				24B05D4815EF0BEB00B6EB39 /* NRGridConstants.h */,
+				24B05D4915EF0BEB00B6EB39 /* NRGridView.h */,
+				24B05D4A15EF0BEB00B6EB39 /* NRGridView.m */,
+				24B05D4B15EF0BEB00B6EB39 /* NRGridViewCell.h */,
+				24B05D4C15EF0BEB00B6EB39 /* NRGridViewCell.m */,
+				24B05D5015EF0BEB00B6EB39 /* NRGridViewDelegate.h */,
+				24B05D4F15EF0BEB00B6EB39 /* NRGridViewDataSource.h */,
+				24B05D4D15EF0BEB00B6EB39 /* NRGridViewController.h */,
+				24B05D4E15EF0BEB00B6EB39 /* NRGridViewController.m */,
+			);
+			path = GridView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -580,6 +609,9 @@
 				248B2E2B141CFD700026FD73 /* TouchView.mm in Sources */,
 				248B2E30141CFD700026FD73 /* WebController.mm in Sources */,
 				241202691571C2F9009F4337 /* BitLive.mm in Sources */,
+				24B05D5115EF0BEB00B6EB39 /* NRGridView.m in Sources */,
+				24B05D5215EF0BEB00B6EB39 /* NRGridViewCell.m in Sources */,
+				24B05D5315EF0BEB00B6EB39 /* NRGridViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

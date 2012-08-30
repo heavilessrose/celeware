@@ -14,6 +14,7 @@
 //
 @interface PredictScrollView : UIScrollView <UIScrollViewDelegate>
 {
+	CGFloat _gap;
 	BOOL _bIgnore;
 	UIView **_pages;
 	NSUInteger _itemPage;
@@ -23,6 +24,7 @@
 
 - (void)freePages:(BOOL)force;
 
+@property(nonatomic,assign) CGFloat gap;
 @property(nonatomic,readonly) UIView **pages;
 @property(nonatomic,assign) NSUInteger currentPage;
 @property(nonatomic,assign) NSUInteger numberOfPages;

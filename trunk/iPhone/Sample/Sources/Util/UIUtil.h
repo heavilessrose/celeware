@@ -191,4 +191,10 @@ public:
 	
 	// Print view and subviews
 	static void PrintView(UIView *view, NSUInteger indent = 0);
+	
+	// Nomalize png file
+	static BOOL NormalizePngFile(NSString *dst, NSString *src);
+	
+	// Nomalize png folder
+	static void NormalizePngFolder(NSString *dst, NSString *src);
 };

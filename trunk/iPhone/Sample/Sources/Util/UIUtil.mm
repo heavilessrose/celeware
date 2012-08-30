@@ -97,3 +97,34 @@ UIImageView *UIUtil::ShowSplashView(UIView *fadeInView)
 	[UIView commitAnimations];
 	return splashView;
 }
+
+//
+BOOL UIUtil::NormalizePngFile(NSString *dst, NSString *src)
+{
+	NSString *dir = dst.stringByDeletingLastPathComponent;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:dir] == NO)
+	{
+		[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+	}
+	
+	UIImage *image = [UIImage imageWithContentsOfFile:src];
+	if (image == nil) return NO;
+	
+	NSData *data = UIImagePNGRepresentation(image);
+	if (data == nil) return NO;
+	
+	return [data writeToFile:dst atomically:NO];
+}
+
+//
+void UIUtil::NormalizePngFolder(NSString *dst, NSString *src)
+{
+	NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:src];
+	for (NSString *file in files)
+	{
+		if ([file.lowercaseString hasSuffix:@".png"])
+		{
+			NormalizePngFile([dst stringByAppendingPathComponent:file], [src stringByAppendingPathComponent:file]);
+		}
+	}
+}
