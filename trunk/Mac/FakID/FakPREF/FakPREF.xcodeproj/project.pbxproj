@@ -10,6 +10,7 @@
 		2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */; };
 		24C1807615104BF100951174 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C1807515104BF100951174 /* UIKit.framework */; };
 		24CADA911510492B00B22162 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CADA901510492B00B22162 /* Foundation.framework */; };
+		24EEC84015F2723C00FA75E3 /* NoSIMTweak.h in Headers */ = {isa = PBXBuildFile; fileRef = 24EEC83F15F2723C00FA75E3 /* NoSIMTweak.h */; };
 		24F6669915F1F6990047BA9D /* FakPREF.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6667F15F1F6990047BA9D /* FakPREF.h */; };
 		24F6669A15F1F6990047BA9D /* FakPREF.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F6668015F1F6990047BA9D /* FakPREF.mm */; };
 		24F6669E15F1F6990047BA9D /* Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 24F6668615F1F6990047BA9D /* Prefix.pch */; };
@@ -38,6 +39,7 @@
 		24C1807515104BF100951174 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24CADA8D1510492B00B22162 /* FakPREF.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FakPREF.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		24CADA901510492B00B22162 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		24EEC83F15F2723C00FA75E3 /* NoSIMTweak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoSIMTweak.h; sourceTree = "<group>"; };
 		24F6667F15F1F6990047BA9D /* FakPREF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakPREF.h; sourceTree = "<group>"; };
 		24F6668015F1F6990047BA9D /* FakPREF.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakPREF.mm; sourceTree = "<group>"; };
 		24F6668615F1F6990047BA9D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				24F666B115F1F92E0047BA9D /* FakIOKit.mm */,
 				24F6667F15F1F6990047BA9D /* FakPREF.h */,
 				24F6668015F1F6990047BA9D /* FakPREF.mm */,
+				24EEC83F15F2723C00FA75E3 /* NoSIMTweak.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				24F666AB15F1F6990047BA9D /* zip.h in Headers */,
 				24F666AC15F1F6990047BA9D /* ZipArchive.h in Headers */,
 				24F666B215F1F92E0047BA9D /* FakIOKit.h in Headers */,
+				24EEC84015F2723C00FA75E3 /* NoSIMTweak.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
