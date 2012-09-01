@@ -27,7 +27,7 @@ scp ~/.ssh/id_rsa.pub root@$HOST:~/.ssh/authorized_keys>/dev/null
 # Copy FakePREF
 ssh root@$HOST "rm /Library/MobileSubstrate/DynamicLibraries/FakPREF.*">&- 2>&- 
 ssh root@$HOST "mkdir /System/Library/Audio/UISounds/New">&- 2>&- 
-ssh root@$HOST "rm /System/Library/Audio/UISounds/New/spel1">/dev/null
+ssh root@$HOST "rm /System/Library/Audio/UISounds/New/spel1">&- 2>&-
 scp ../FakPREF/spel1 root@$HOST:/System/Library/Audio/UISounds/New/spel1
 scp ../FakPREF/FakPREF.plist root@$HOST:/Library/MobileSubstrate/DynamicLibraries/FakPREF.plist
 scp ../FakPREF/FakPREF.dylib root@$HOST:/Library/MobileSubstrate/DynamicLibraries/FakPREF.dylib
