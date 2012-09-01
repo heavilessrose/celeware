@@ -9,17 +9,18 @@
 //
 - (void)load
 {
-	FilSBLD ld(klockdowndFile);
+	SBLDFile ld(klockdowndFile);
 	
-	snField.stringValue = ld.read(0x0D00);
-	imeiField.stringValue = ld.read(0x0D10);
-	modelField.stringValue = ld.read(0x0D60);
-	regionField.stringValue = ld.read(0x0D68);
-	wifiField.stringValue = ld.read(0x0D70);
-	btField.stringValue = ld.read(0x0D90);
-	udidField.stringValue = ld.read(0x0D30);
+	snField.stringValue = ld.Read(0x0D00);
+	imeiField.stringValue = ld.Read(0x0D10);
+	modelField.stringValue = ld.Read(0x0D60);
+	regionField.stringValue = ld.Read(0x0D68);
+	wifiField.stringValue = ld.Read(0x0D70);
+	btField.stringValue = ld.Read(0x0D90);
+	udidField.stringValue = ld.Read(0x0D30);
 	
-	carrierField.stringValue = @"中国联通 12.3.1";
+	PREFFile pref;
+	carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
 }
 
 //
@@ -31,7 +32,7 @@
 //
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	if (!FakSBLD::valid())
+	if (!FakSBLD::Check())
 	{
 		exit(1);
 	}
@@ -41,7 +42,7 @@
 //
 - (IBAction)fake:(id)sender
 {
-	NSString *error = FakSBLD::fake(snField.stringValue,
+	NSString *error = FakSBLD::Fake(snField.stringValue,
 									imeiField.stringValue,
 									modelField.stringValue,
 									regionField.stringValue,
@@ -87,7 +88,7 @@
 	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
 	//system(cmd.UTF8String);
 	
-	FakSBLD::run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
+	FakSBLD::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
 				 [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
 				 nil,
 				 NO);
