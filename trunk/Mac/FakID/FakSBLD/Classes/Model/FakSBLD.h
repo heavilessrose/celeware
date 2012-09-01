@@ -48,7 +48,7 @@ class FakSBLD
 {
 public:
 	static BOOL valid();
-	static NSString *fake(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *udid);
+	static NSString *fake(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *udid, NSString *carrier);
 	
 //private:
 	static NSString *sign(NSString *appPath);

@@ -18,6 +18,8 @@
 	wifiField.stringValue = ld.read(0x0D70);
 	btField.stringValue = ld.read(0x0D90);
 	udidField.stringValue = ld.read(0x0D30);
+	
+	carrierField.stringValue = @"中国联通 12.3.1";
 }
 
 //
@@ -38,14 +40,15 @@
 
 //
 - (IBAction)fake:(id)sender
-{	
+{
 	NSString *error = FakSBLD::fake(snField.stringValue,
-									 imeiField.stringValue,
-									 modelField.stringValue,
-									 regionField.stringValue,
-									 wifiField.stringValue,
-									 btField.stringValue,
-									 udidField.stringValue);
+									imeiField.stringValue,
+									modelField.stringValue,
+									regionField.stringValue,
+									wifiField.stringValue,
+									btField.stringValue,
+									udidField.stringValue,
+									carrierField.stringValue);
 	if (error)
 	{
 		NSRunAlertPanel(@"Error", error, @"OK", nil, nil);
@@ -67,10 +70,10 @@
 		NSRunAlertPanel(@"Error", @"iPhone host name or ip address should not be empty.", @"OK", nil, nil);
 		return;
 	}
-
+	
 	//
 	[self fake:nil];
-
+	
 	//
 	FILE *fp = fopen(kBundleSubPath(@"Contents/Resources/FakID/FakID.host").UTF8String, "w");
 	if (!fp)
@@ -83,7 +86,7 @@
 	//
 	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
 	//system(cmd.UTF8String);
-
+	
 	FakSBLD::run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
 				 [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
 				 nil,

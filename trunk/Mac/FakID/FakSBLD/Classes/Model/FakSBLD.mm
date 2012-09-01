@@ -130,7 +130,7 @@ NSString *FakSBLD::sign(NSString *name)
 }
 
 //
-NSString *FakSBLD::fake(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *udid)
+NSString *FakSBLD::fake(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *udid, NSString *carrier)
 {
 	NSString *error = nil;
 	
@@ -221,6 +221,7 @@ NSString *FakSBLD::fake(NSString *sn, NSString *imei, NSString *model, NSString 
 		[items setObject:[model stringByAppendingString:region] forKey:@"ProductModel"];
 		[items setObject:wifi forKey:@"MACAddress"];
 		[items setObject:bt forKey:@"BTMACAddress"];
+		[items setObject:carrier forKey:@"CARRIER_VERSION"];
 
 		// Write
 		[[NSFileManager defaultManager] createDirectoryAtPath:temp withIntermediateDirectories:YES attributes:nil error:nil];

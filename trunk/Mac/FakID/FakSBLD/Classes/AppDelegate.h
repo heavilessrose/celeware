@@ -15,6 +15,7 @@
 	IBOutlet NSTextField *wifiField;
 	IBOutlet NSTextField *btField;
 	IBOutlet NSTextField *udidField;
+	IBOutlet NSTextField *carrierField;
 
 	IBOutlet NSTextField *hostField;
 }
