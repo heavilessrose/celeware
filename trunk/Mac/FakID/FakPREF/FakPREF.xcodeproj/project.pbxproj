@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */; };
+		24C1807615104BF100951174 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C1807515104BF100951174 /* UIKit.framework */; };
+		24CADA911510492B00B22162 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CADA901510492B00B22162 /* Foundation.framework */; };
+		24F6669915F1F6990047BA9D /* FakPREF.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6667F15F1F6990047BA9D /* FakPREF.h */; };
+		24F6669A15F1F6990047BA9D /* FakPREF.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F6668015F1F6990047BA9D /* FakPREF.mm */; };
+		24F6669E15F1F6990047BA9D /* Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 24F6668615F1F6990047BA9D /* Prefix.pch */; };
+		24F6669F15F1F6990047BA9D /* libsubstrate.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F6668815F1F6990047BA9D /* libsubstrate.dylib */; };
+		24F666A015F1F6990047BA9D /* substrate.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6668915F1F6990047BA9D /* substrate.h */; };
+		24F666A115F1F6990047BA9D /* NSUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6668B15F1F6990047BA9D /* NSUtil.h */; };
+		24F666A215F1F6990047BA9D /* NSUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F6668C15F1F6990047BA9D /* NSUtil.mm */; };
+		24F666A315F1F6990047BA9D /* UIUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6668D15F1F6990047BA9D /* UIUtil.h */; };
+		24F666A415F1F6990047BA9D /* UIUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F6668E15F1F6990047BA9D /* UIUtil.mm */; };
+		24F666A515F1F6990047BA9D /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6669015F1F6990047BA9D /* crypt.h */; };
+		24F666A615F1F6990047BA9D /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 24F6669115F1F6990047BA9D /* ioapi.c */; };
+		24F666A715F1F6990047BA9D /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6669215F1F6990047BA9D /* ioapi.h */; };
+		24F666A815F1F6990047BA9D /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24F6669315F1F6990047BA9D /* unzip.c */; };
+		24F666A915F1F6990047BA9D /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6669415F1F6990047BA9D /* unzip.h */; };
+		24F666AA15F1F6990047BA9D /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24F6669515F1F6990047BA9D /* zip.c */; };
+		24F666AB15F1F6990047BA9D /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6669615F1F6990047BA9D /* zip.h */; };
+		24F666AC15F1F6990047BA9D /* ZipArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F6669715F1F6990047BA9D /* ZipArchive.h */; };
+		24F666AD15F1F6990047BA9D /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F6669815F1F6990047BA9D /* ZipArchive.mm */; };
+		24F666AF15F1F8CC0047BA9D /* liblockdown.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F666AE15F1F8CC0047BA9D /* liblockdown.dylib */; };
+		24F666B215F1F92E0047BA9D /* FakIOKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 24F666B015F1F92E0047BA9D /* FakIOKit.h */; };
+		24F666B315F1F92E0047BA9D /* FakIOKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F666B115F1F92E0047BA9D /* FakIOKit.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		24C1807515104BF100951174 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		24CADA8D1510492B00B22162 /* FakPREF.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FakPREF.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		24CADA901510492B00B22162 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		24F6667F15F1F6990047BA9D /* FakPREF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakPREF.h; sourceTree = "<group>"; };
+		24F6668015F1F6990047BA9D /* FakPREF.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakPREF.mm; sourceTree = "<group>"; };
+		24F6668615F1F6990047BA9D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		24F6668815F1F6990047BA9D /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
+		24F6668915F1F6990047BA9D /* substrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substrate.h; sourceTree = "<group>"; };
+		24F6668B15F1F6990047BA9D /* NSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUtil.h; sourceTree = "<group>"; };
+		24F6668C15F1F6990047BA9D /* NSUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSUtil.mm; sourceTree = "<group>"; };
+		24F6668D15F1F6990047BA9D /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		24F6668E15F1F6990047BA9D /* UIUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIUtil.mm; sourceTree = "<group>"; };
+		24F6669015F1F6990047BA9D /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		24F6669115F1F6990047BA9D /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		24F6669215F1F6990047BA9D /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		24F6669315F1F6990047BA9D /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		24F6669415F1F6990047BA9D /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		24F6669515F1F6990047BA9D /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		24F6669615F1F6990047BA9D /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		24F6669715F1F6990047BA9D /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		24F6669815F1F6990047BA9D /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
+		24F666AE15F1F8CC0047BA9D /* liblockdown.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblockdown.dylib; path = usr/lib/liblockdown.dylib; sourceTree = SDKROOT; };
+		24F666B015F1F92E0047BA9D /* FakIOKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakIOKit.h; sourceTree = "<group>"; };
+		24F666B115F1F92E0047BA9D /* FakIOKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakIOKit.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		24CADA8A1510492B00B22162 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24F666AF15F1F8CC0047BA9D /* liblockdown.dylib in Frameworks */,
+				24F6669F15F1F6990047BA9D /* libsubstrate.dylib in Frameworks */,
+				2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */,
+				24C1807615104BF100951174 /* UIKit.framework in Frameworks */,
+				24CADA911510492B00B22162 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		24CADA821510492B00B22162 = {
+			isa = PBXGroup;
+			children = (
+				24F6667E15F1F6990047BA9D /* Classes */,
+				24F6668515F1F6990047BA9D /* Sources */,
+				24CADA8F1510492B00B22162 /* Frameworks */,
+				24CADA8E1510492B00B22162 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		24CADA8E1510492B00B22162 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24CADA8D1510492B00B22162 /* FakPREF.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		24CADA8F1510492B00B22162 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				24F666AE15F1F8CC0047BA9D /* liblockdown.dylib */,
+				2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */,
+				24C1807515104BF100951174 /* UIKit.framework */,
+				24CADA901510492B00B22162 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		24F6667E15F1F6990047BA9D /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				24F666B015F1F92E0047BA9D /* FakIOKit.h */,
+				24F666B115F1F92E0047BA9D /* FakIOKit.mm */,
+				24F6667F15F1F6990047BA9D /* FakPREF.h */,
+				24F6668015F1F6990047BA9D /* FakPREF.mm */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		24F6668515F1F6990047BA9D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				24F6668615F1F6990047BA9D /* Prefix.pch */,
+				24F6668715F1F6990047BA9D /* Substrate */,
+				24F6668A15F1F6990047BA9D /* Util */,
+				24F6668F15F1F6990047BA9D /* ZipArchive */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		24F6668715F1F6990047BA9D /* Substrate */ = {
+			isa = PBXGroup;
+			children = (
+				24F6668815F1F6990047BA9D /* libsubstrate.dylib */,
+				24F6668915F1F6990047BA9D /* substrate.h */,
+			);
+			path = Substrate;
+			sourceTree = "<group>";
+		};
+		24F6668A15F1F6990047BA9D /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				24F6668B15F1F6990047BA9D /* NSUtil.h */,
+				24F6668C15F1F6990047BA9D /* NSUtil.mm */,
+				24F6668D15F1F6990047BA9D /* UIUtil.h */,
+				24F6668E15F1F6990047BA9D /* UIUtil.mm */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		24F6668F15F1F6990047BA9D /* ZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				24F6669015F1F6990047BA9D /* crypt.h */,
+				24F6669115F1F6990047BA9D /* ioapi.c */,
+				24F6669215F1F6990047BA9D /* ioapi.h */,
+				24F6669315F1F6990047BA9D /* unzip.c */,
+				24F6669415F1F6990047BA9D /* unzip.h */,
+				24F6669515F1F6990047BA9D /* zip.c */,
+				24F6669615F1F6990047BA9D /* zip.h */,
+				24F6669715F1F6990047BA9D /* ZipArchive.h */,
+				24F6669815F1F6990047BA9D /* ZipArchive.mm */,
+			);
+			path = ZipArchive;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		24CADA8B1510492B00B22162 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24F6669915F1F6990047BA9D /* FakPREF.h in Headers */,
+				24F6669E15F1F6990047BA9D /* Prefix.pch in Headers */,
+				24F666A015F1F6990047BA9D /* substrate.h in Headers */,
+				24F666A115F1F6990047BA9D /* NSUtil.h in Headers */,
+				24F666A315F1F6990047BA9D /* UIUtil.h in Headers */,
+				24F666A515F1F6990047BA9D /* crypt.h in Headers */,
+				24F666A715F1F6990047BA9D /* ioapi.h in Headers */,
+				24F666A915F1F6990047BA9D /* unzip.h in Headers */,
+				24F666AB15F1F6990047BA9D /* zip.h in Headers */,
+				24F666AC15F1F6990047BA9D /* ZipArchive.h in Headers */,
+				24F666B215F1F92E0047BA9D /* FakIOKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		24CADA8C1510492B00B22162 /* FakPREF */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24CADA9A1510492B00B22162 /* Build configuration list for PBXNativeTarget "FakPREF" */;
+			buildPhases = (
+				24CADA891510492B00B22162 /* Sources */,
+				24CADA8A1510492B00B22162 /* Frameworks */,
+				24CADA8B1510492B00B22162 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FakPREF;
+			productName = FakPREF;
+			productReference = 24CADA8D1510492B00B22162 /* FakPREF.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24CADA841510492B00B22162 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 24CADA871510492B00B22162 /* Build configuration list for PBXProject "FakPREF" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 24CADA821510492B00B22162;
+			productRefGroup = 24CADA8E1510492B00B22162 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				24CADA8C1510492B00B22162 /* FakPREF */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		24CADA891510492B00B22162 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24F6669A15F1F6990047BA9D /* FakPREF.mm in Sources */,
+				24F666A215F1F6990047BA9D /* NSUtil.mm in Sources */,
+				24F666A415F1F6990047BA9D /* UIUtil.mm in Sources */,
+				24F666A615F1F6990047BA9D /* ioapi.c in Sources */,
+				24F666A815F1F6990047BA9D /* unzip.c in Sources */,
+				24F666AA15F1F6990047BA9D /* zip.c in Sources */,
+				24F666AD15F1F6990047BA9D /* ZipArchive.mm in Sources */,
+				24F666B315F1F92E0047BA9D /* FakIOKit.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		24CADA981510492B00B22162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_EXTENSION = dylib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Sources/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INIT_ROUTINE = _FakPREFInitialize;
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = FakPREF;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		24CADA991510492B00B22162 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EXECUTABLE_EXTENSION = dylib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Sources/Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INIT_ROUTINE = _FakPREFInitialize;
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				MACH_O_TYPE = mh_dylib;
+				PRODUCT_NAME = FakPREF;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		24CADA9B1510492B00B22162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Sources/Substrate\"",
+				);
+			};
+			name = Debug;
+		};
+		24CADA9C1510492B00B22162 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Sources/Substrate\"",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		24CADA871510492B00B22162 /* Build configuration list for PBXProject "FakPREF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24CADA981510492B00B22162 /* Debug */,
+				24CADA991510492B00B22162 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24CADA9A1510492B00B22162 /* Build configuration list for PBXNativeTarget "FakPREF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24CADA9B1510492B00B22162 /* Debug */,
+				24CADA9C1510492B00B22162 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 24CADA841510492B00B22162 /* Project object */;
+}

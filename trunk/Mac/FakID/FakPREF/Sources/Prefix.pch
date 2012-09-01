@@ -1,0 +1,28 @@
+
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
+
+#import "substrate.h"
+
+//
+inline void WriteLog(const char *str)
+{
+	puts(str);
+	FILE *fp = fopen("/private/var/mobile/CeleWare.log", "a");
+	if (fp)
+	{
+		fputs(str, fp);
+		fputs("\n", fp);
+		fclose(fp);
+	}
+}
+
+//
+#ifdef DEBUG
+#define _Log(s, ...)	NSLog(s, ##__VA_ARGS__); {NSString *str = [NSString stringWithFormat:s, ##__VA_ARGS__]; WriteLog(str.UTF8String);}
+#else
+#define _Log(s, ...)	((void) 0)
+#endif
+
