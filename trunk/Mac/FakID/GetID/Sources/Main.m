@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
 	@autoreleasepool
 	{
 		LockdownConnectionRef connection = lockdown_connect();
+		
 		NSString *sn = lockdown_copy_value(connection, nil, kLockdownSerialNumberKey);
 		NSString *imei = lockdown_copy_value(connection, nil, kLockdownIMEIKey);
 		NSString *model = lockdown_copy_value(connection, nil, kLockdownModelNumberKey);
@@ -14,6 +15,14 @@ int main(int argc, char *argv[])
 		NSString *wifi = lockdown_copy_value(connection, nil, kLockdownWifiAddressKey);
 		NSString *bt = lockdown_copy_value(connection, nil, kLockdownBluetoothAddressKey);
 		NSString *udid = lockdown_copy_value(connection, nil, kLockdownUniqueDeviceIDKey);
+		
+		NSNumber *amount_data_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownAmountDataAvailableKey);
+		NSNumber *amount_data_rsv = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownAmountDataReservedKey);
+		NSNumber *total_data_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalDataAvailableKey);
+		NSNumber *total_data_cap = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalDataCapacityKey);
+		NSNumber *total_disk_cap = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalDiskCapacityKey);
+		NSNumber *total_sys_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalSystemAvailableKey);
+		NSNumber *total_sys_cap = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalSystemCapacityKey);
 		lockdown_disconnect(connection);
 		
 		printf("SN: %s\n", sn.UTF8String);
@@ -22,7 +31,15 @@ int main(int argc, char *argv[])
 		printf("WIFI: %s\n", wifi.UTF8String);
 		printf("BT: %s\n", bt.UTF8String);
 		printf("UDID: %s\n", udid.UTF8String);
-		
+
+		printf("Amount Data Available:%.2f GB\n", amount_data_avail.floatValue / 1024 / 1024 / 1024);
+		printf("Amount Data Reserved: %.2f GB\n", amount_data_rsv.floatValue / 1024 / 1024 / 1024);
+		printf("Total Data Available: %.2f GB\n", total_data_avail.floatValue / 1024 / 1024 / 1024);
+		printf("Total Data Capacity: %.2f GB\n", total_data_cap.floatValue / 1024 / 1024 / 1024);
+		printf("Total Disk Capacity: %.2f GB\n", total_disk_cap.floatValue / 1024 / 1024 / 1024);
+		printf("Total System Available: %.2f GB\n", total_sys_avail.floatValue / 1024 / 1024 / 1024);
+		printf("Total System Capacity: %.2f GB\n", total_sys_cap.floatValue / 1024 / 1024 / 1024);
+
 	    return 0;
 	}
 }
