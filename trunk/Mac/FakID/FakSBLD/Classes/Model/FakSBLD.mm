@@ -64,13 +64,14 @@ NSString *FakSBLD::Fake(NSString *sn, NSString *imei, NSString *model, NSString 
 	NSString *error = nil;
 	
 	// SB
+	NSString *imei2;
 	if (imei.length != 15)
 	{
 		error = @"IMEI must be 15 characters.";
 	}
 	else
 	{
-		NSString *imei2 = [NSString stringWithFormat:@"%@ %@ %@ %@",
+		imei2 = [NSString stringWithFormat:@"%@ %@ %@ %@",
 						   [imei substringToIndex:2],
 						   [imei substringWithRange:NSMakeRange(2, 6)],
 						   [imei substringWithRange:NSMakeRange(8, 6)],
@@ -112,7 +113,7 @@ NSString *FakSBLD::Fake(NSString *sn, NSString *imei, NSString *model, NSString 
 	if (error == nil)
 	{
 		PREFFile pref;
-		pref.Set(sn, imei, model, region, wifi, bt, carrier);
+		pref.Set(sn, imei2, model, region, wifi, bt, carrier);
 		error = pref.Save();
 	}
 	
