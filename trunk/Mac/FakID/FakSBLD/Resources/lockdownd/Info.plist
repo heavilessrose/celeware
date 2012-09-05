@@ -3,22 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>11D50</string>
+	<string>10H575</string>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>zh_CN</string>
-	<key>CFBundleDisplayName</key>
-	<string>Payload</string>
+	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>lockdownd</string>
-	<key>CFBundleIconFile</key>
-	<string>Icon.png</string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon.png</string>
-		<string>Icon@2x.png</string>
-	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.apple.lockdown</string>
+	<string>com.apple.lockdownd</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -28,7 +21,7 @@
 	<key>CFBundleResourceSpecification</key>
 	<string>ResourceRules.plist</string>
 	<key>CFBundleShortVersionString</key>
-	<string>20120401</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -36,43 +29,35 @@
 		<string>iPhoneOS</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.0.4</string>
+	<string>50</string>
 	<key>DTCompiler</key>
 	<string></string>
 	<key>DTPlatformBuild</key>
-	<string>9B176</string>
+	<string>9B179p</string>
 	<key>DTPlatformName</key>
 	<string>iphoneos</string>
 	<key>DTPlatformVersion</key>
 	<string>5.1</string>
 	<key>DTSDKBuild</key>
-	<string>9B176</string>
+	<string>9B179p</string>
 	<key>DTSDKName</key>
-	<string>iphoneos5.1</string>
+	<string>iphoneos5.1.internal</string>
 	<key>DTXcode</key>
-	<string>0431</string>
+	<string>0420</string>
 	<key>DTXcodeBuild</key>
-	<string>4E1019</string>
+	<string>4C175</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>4.0</string>
-	<key>UIApplicationExitsOnSuspend</key>
-	<false/>
+	<string>5.1</string>
+	<key>NSPrincipalClass</key>
+	<string>lockdownd</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
+		<integer>2</integer>
 	</array>
-	<key>UILaunchImageFile</key>
-	<string>Default.png</string>
-	<key>UIPrerenderedIcon</key>
-	<false/>
-	<key>UIStatusBarHidden</key>
-	<false/>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleBlackTranslucent</string>
 </dict>
 </plist>

@@ -18,7 +18,7 @@ NSString *FakSBLD::Run(NSString *path, NSArray *arguments, NSString *directory, 
 		task.standardError = pipe;
 		
 		NSFileHandle *file = [pipe fileHandleForReading];
-	
+		
 		[task launch];
 		
 		NSData *data = [file readDataToEndOfFile];
@@ -59,28 +59,46 @@ NSString *FakSBLD::Sign(NSString *name)
 }
 
 //
-NSString *FakSBLD::Fake(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *udid, NSString *carrier)
+NSString *FakSBLD::Fake(
+						NSString *sb_imei,
+						NSString *sb_imei2,
+						
+						NSString *ld_model,
+						NSString *ld_sn,
+						NSString *ld_imei,
+						NSString *ld_region,
+						NSString *ld_wifi,
+						NSString *ld_bt,
+						NSString *ld_udid,
+						
+						NSString *pr_sn,
+						NSString *pr_model,
+						NSString *pr_imei,
+						NSString *pr_modem,
+						NSString *pr_wifi,
+						NSString *pr_bt,
+						NSString *pr_tc,
+						NSString *pr_ac,
+						NSString *pr_carrier)
 {
 	NSString *error = nil;
 	
-	// SB
-	NSString *imei2;
-	if (imei.length != 15)
+	if ([pr_carrier lengthOfBytesUsingEncoding:NSUTF16LittleEndianStringEncoding] != 18)
 	{
-		error = @"IMEI must be 15 characters.";
+		error = @"Preferences Carrier Version must be 18 bytes in UTF-8";
+	}
+
+	// SB
+	if ([sb_imei2 lengthOfBytesUsingEncoding:NSUTF8StringEncoding] != 18)
+	{
+		error = @"SpringBoard IMEI2 must be 18 bytes in UTF-8";
 	}
 	else
 	{
-		imei2 = [NSString stringWithFormat:@"%@ %@ %@ %@",
-						   [imei substringToIndex:2],
-						   [imei substringWithRange:NSMakeRange(2, 6)],
-						   [imei substringWithRange:NSMakeRange(8, 6)],
-						   [imei substringFromIndex:14]];
-		
 		SBLDFile sb(kSpringBoardFile);
-		if (!sb.Write(0x2830, imei) || !sb.Write(0x27C1, imei2.UTF8String))
+		if (!sb.Write(0x2830, sb_imei) || !sb.Write(0x27C1, sb_imei2, NSUTF8StringEncoding))
 		{
-			error = [NSString stringWithFormat:@"File write error.\n\n%s", klockdowndFile];
+			error = [NSString stringWithFormat:@"File write error.\n\n%s", kSpringBoardFile];
 		}
 	}
 	if (error == nil)
@@ -93,13 +111,13 @@ NSString *FakSBLD::Fake(NSString *sn, NSString *imei, NSString *model, NSString 
 	{
 		SBLDFile ld(klockdowndFile);
 		
-		if (!ld.Write(0x0D00, sn) ||
-			!ld.Write(0x0D10, imei) ||
-			!ld.Write(0x0D60, model) ||
-			!ld.Write(0x0D68, region) ||
-			!ld.Write(0x0D70, wifi) ||
-			!ld.Write(0x0D90, bt) ||
-			!ld.Write(0x0D30, udid))
+		if (!ld.Write(0x0D00, ld_sn) ||
+			!ld.Write(0x0D10, ld_imei) ||
+			!ld.Write(0x0D60, ld_model) ||
+			!ld.Write(0x0D68, ld_region) ||
+			!ld.Write(0x0D70, ld_wifi) ||
+			!ld.Write(0x0D90, ld_bt) ||
+			!ld.Write(0x0D30, ld_udid))
 		{
 			error = [NSString stringWithFormat:@"File write error.\n\n%s", klockdowndFile];
 		}
@@ -109,13 +127,35 @@ NSString *FakSBLD::Fake(NSString *sn, NSString *imei, NSString *model, NSString 
 		error = Sign(@"lockdownd");
 	}
 	
-	// PREF
+	// PR
 	if (error == nil)
+	{
+		SBLDFile pr(kPreferencesFile);
+		if (!pr.Write(0x1710, pr_sn) ||
+			!pr.Write(0x1700, pr_model) ||
+			!pr.Write(0x1720, pr_imei) ||
+			!pr.Write(0x1735, pr_modem) ||
+			!pr.Write(0x1740, pr_wifi) ||
+			!pr.Write(0x1758, pr_bt) ||
+			!pr.Write(0x176c, pr_tc) ||
+			!pr.Write(0x1776, pr_ac) ||
+			!pr.Write(0x46938, pr_carrier, NSUTF16LittleEndianStringEncoding))
+		{
+			error = [NSString stringWithFormat:@"File write error.\n\n%s", kPreferencesFile];
+		}
+	}
+	if (error == nil)
+	{
+		error = Sign(@"Preferences");
+	}
+
+	// PREF
+	/*if (error == nil)
 	{
 		PREFFile pref;
 		pref.Set(sn, imei2, model, region, wifi, bt, carrier);
 		error = pref.Save();
-	}
+	}*/
 	
 	return error;
 }

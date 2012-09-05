@@ -10,6 +10,7 @@
 
 #define klockdowndFile		kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd").UTF8String
 #define kSpringBoardFile	kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard").UTF8String
+#define kPreferencesFile	kBundleSubPath(@"Contents/Resources/Preferences/Preferences").UTF8String
 
 
 //
@@ -17,9 +18,28 @@ class FakSBLD
 {
 public:
 	static BOOL Check();
-	static NSString *Fake(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *udid, NSString *carrier);
+	static NSString *Fake(NSString *sb_imei,
+						  NSString *sb_imei2,
+						  
+						  NSString *ld_model,
+						  NSString *ld_sn,
+						  NSString *ld_imei,
+						  NSString *ld_region,
+						  NSString *ld_wifi,
+						  NSString *ld_bt,
+						  NSString *ld_udid,
+						  
+						  NSString *pr_sn,
+						  NSString *pr_model,
+						  NSString *pr_imei,
+						  NSString *pr_modem,
+						  NSString *pr_wifi,
+						  NSString *pr_bt,
+						  NSString *pr_tc,
+						  NSString *pr_ac,
+						  NSString *pr_carrier);
 	
-//private:
+	//private:
 	static NSString *Sign(NSString *appPath);
 	static NSString *Run(NSString *path, NSArray *arguments = nil, NSString *directory = nil, BOOL needResult = YES);
 };

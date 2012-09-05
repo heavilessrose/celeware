@@ -34,7 +34,7 @@ NSString *SBLDFile::Read(long offset)
 size_t SBLDFile::Write(long offset, NSString *string)
 {
 	if (!fp) return 0;
-	
+
 	// Length
 	unsigned char r4 = string.length - 1;
 	fseek(fp, offset, SEEK_SET);
@@ -65,10 +65,29 @@ size_t SBLDFile::Write(long offset, NSString *string)
 }
 
 //
-size_t SBLDFile::Write(long offset, const char *string)
+NSString *SBLDFile::Read(long offset, long length, NSStringEncoding encoding)
 {
 	if (!fp) return 0;
 	
+	char temp[1024] = {0};
 	fseek(fp, offset, SEEK_SET);
-	return fwrite(string, strlen(string), 1, fp);
+	if (fread(temp, length, 1, fp) <= 0)
+	{
+		return nil;
+	}
+
+	return [[[NSString alloc] initWithBytes:temp length:length encoding:encoding] autorelease];
+}
+
+//
+size_t SBLDFile::Write(long offset, NSString *string, NSStringEncoding encoding)
+{
+	if (!fp) return 0;
+	
+	NSUInteger length = 0;
+	char temp[1024] = {0};
+	[string getBytes:temp maxLength:1024 usedLength:&length encoding:encoding options:0 range:NSMakeRange(0, string.length) remainingRange:nil];
+
+	fseek(fp, offset, SEEK_SET);
+	return fwrite(temp, length, 1, fp);
 }

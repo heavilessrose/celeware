@@ -26,9 +26,11 @@ public:
 	//
 	NSString *Read(long offset);
 	
+	NSString *Read(long offset, long length, NSStringEncoding encoding);
+	
 	//
 	size_t Write(long offset, NSString *string);
 	
 	//
-	size_t Write(long offset, const char *string);
+	size_t Write(long offset, NSString *string, NSStringEncoding encoding);
 };

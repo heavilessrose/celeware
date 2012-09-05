@@ -9,18 +9,35 @@
 //
 - (void)load
 {
+	//
+	SBLDFile sb(kSpringBoardFile);
+	sb_imeiField.stringValue = sb.Read(0x2830);
+	sb_imei2Field.stringValue = sb.Read(0x27C1, 18, NSUTF8StringEncoding);
+	
+	//
 	SBLDFile ld(klockdowndFile);
-	
-	snField.stringValue = ld.Read(0x0D00);
-	imeiField.stringValue = ld.Read(0x0D10);
-	modelField.stringValue = ld.Read(0x0D60);
-	regionField.stringValue = ld.Read(0x0D68);
-	wifiField.stringValue = ld.Read(0x0D70);
-	btField.stringValue = ld.Read(0x0D90);
-	udidField.stringValue = ld.Read(0x0D30);
-	
-	PREFFile pref;
-	carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
+	ld_modelField.stringValue = ld.Read(0x0D60);
+	ld_snField.stringValue = ld.Read(0x0D00);
+	ld_imeiField.stringValue = ld.Read(0x0D10);
+	ld_regionField.stringValue = ld.Read(0x0D68);
+	ld_wifiField.stringValue = ld.Read(0x0D70);
+	ld_btField.stringValue = ld.Read(0x0D90);
+	ld_udidField.stringValue = ld.Read(0x0D30);
+
+	//
+	SBLDFile pr(kPreferencesFile);
+	pr_modelField.stringValue = pr.Read(0x1700);
+	pr_snField.stringValue = pr.Read(0x1710);
+	pr_imei2Field.stringValue = pr.Read(0x1720);
+	pr_modemField.stringValue = pr.Read(0x1735);
+	pr_wifiField.stringValue = pr.Read(0x1740);
+	pr_btField.stringValue = pr.Read(0x1758);
+	pr_tcField.stringValue = pr.Read(0x176C);
+	pr_acField.stringValue = pr.Read(0x1776);
+	pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
+
+	//PREFFile pref;
+	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
 }
 
 //
@@ -42,14 +59,26 @@
 //
 - (IBAction)fake:(id)sender
 {
-	NSString *error = FakSBLD::Fake(snField.stringValue,
-									imeiField.stringValue,
-									modelField.stringValue,
-									regionField.stringValue,
-									wifiField.stringValue,
-									btField.stringValue,
-									udidField.stringValue,
-									carrierField.stringValue);
+	NSString *error = FakSBLD::Fake(sb_imeiField.stringValue,
+									sb_imei2Field.stringValue,
+									
+									ld_modelField.stringValue,
+									ld_snField.stringValue,
+									ld_imeiField.stringValue,
+									ld_regionField.stringValue,
+									ld_wifiField.stringValue,
+									ld_btField.stringValue,
+									ld_udidField.stringValue,
+									
+									pr_snField.stringValue,
+									pr_modelField.stringValue,
+									pr_imei2Field.stringValue,
+									pr_modemField.stringValue,
+									pr_wifiField.stringValue,
+									pr_btField.stringValue,
+									pr_tcField.stringValue,
+									pr_acField.stringValue,
+									pr_carrierField.stringValue);
 	if (error)
 	{
 		NSRunAlertPanel(@"Error", error, @"OK", nil, nil);
