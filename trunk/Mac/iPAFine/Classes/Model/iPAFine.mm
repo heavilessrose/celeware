@@ -103,7 +103,7 @@
 	else if ([DISPNAME hasPrefix:@"iPad."]) DISPNAME = [DISPNAME substringFromIndex:5];
 	else if ([DISPNAME hasPrefix:@"iPhone."]) DISPNAME = [DISPNAME substringFromIndex:7];
 
-	NSRange range = [DISPNAME rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_- ."]];
+	NSRange range = [DISPNAME rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"_- .（(["]];
 	if (range.location != NSNotFound)
 	{
 		DISPNAME = [DISPNAME substringToIndex:range.location];
@@ -148,11 +148,11 @@
 	}
 	
 	//
-	NSString *VERSION = meta ? [meta objectForKey:@"bundleShortVersionString"] : nil;
+	/*NSString *VERSION = meta ? [meta objectForKey:@"bundleShortVersionString"] : nil;
 	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleVersion"];
-	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleShortVersionString"];
+	if (VERSION.length == 0) VERSION = [info objectForKey:@"CFBundleShortVersionString"];*/
 
-	return [NSString stringWithFormat:@"%@/%@.%@_%@.ipa", ipaPath.stringByDeletingLastPathComponent, PREFIX, DISPNAME, VERSION];
+	return [NSString stringWithFormat:@"%@/%@.%@.ipa", ipaPath.stringByDeletingLastPathComponent, PREFIX, DISPNAME/*, VERSION*/];
 }
 
 //

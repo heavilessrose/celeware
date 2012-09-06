@@ -10,11 +10,9 @@
 		243F979614C9982200C902A9 /* ResourceRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 243F979514C9982200C902A9 /* ResourceRules.plist */; };
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
-		2447BD1614C9830000A34F0F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2447BD0B14C9830000A34F0F /* Credits.rtf */; };
-		2447BD1714C9830000A34F0F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2447BD0D14C9830000A34F0F /* InfoPlist.strings */; };
-		2447BD1814C9830000A34F0F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2447BD0F14C9830000A34F0F /* MainMenu.xib */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
-		24BF1A3E14F17785004904EB /* TextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24BF1A3D14F17785004904EB /* TextField.mm */; };
+		249B033D15F794EC00294C95 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 249B033B15F794EC00294C95 /* Credits.rtf */; };
+		249B033E15F794EC00294C95 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 249B033C15F794EC00294C95 /* MainMenu.xib */; };
 		24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 24E0393D14C987BB003AA3D9 /* Icon.icns */; };
 		24F7531F14C9AE540007E549 /* iPAFine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F7531E14C9AE540007E549 /* iPAFine.mm */; };
 /* End PBXBuildFile section */
@@ -28,18 +26,11 @@
 		2447BCEC14C9824400A34F0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2447BD0514C9830000A34F0F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2447BD0614C9830000A34F0F /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		2447BD0C14C9830000A34F0F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		2447BD0E14C9830000A34F0F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2447BD1014C9830000A34F0F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2447BD1114C9830000A34F0F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2447BD1314C9830000A34F0F /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		2447BD1414C9830000A34F0F /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
-		2447BD1B14C983F700A34F0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.xib"; sourceTree = "<group>"; };
-		2447BD1C14C9840D00A34F0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		2447BD1D14C9841000A34F0F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		2447BD1E14C9841800A34F0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "zh-Hans"; path = "zh-Hans.lproj/Credits.rtf"; sourceTree = "<group>"; };
-		24BF1A3C14F17785004904EB /* TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextField.h; sourceTree = "<group>"; };
-		24BF1A3D14F17785004904EB /* TextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextField.mm; sourceTree = "<group>"; };
+		249B033B15F794EC00294C95 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		249B033C15F794EC00294C95 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		24E0393D14C987BB003AA3D9 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		24F7531D14C9AE540007E549 /* iPAFine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPAFine.h; path = Classes/Model/iPAFine.h; sourceTree = SOURCE_ROOT; };
 		24F7531E14C9AE540007E549 /* iPAFine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = iPAFine.mm; path = Classes/Model/iPAFine.mm; sourceTree = SOURCE_ROOT; };
@@ -126,8 +117,6 @@
 			children = (
 				24F7531D14C9AE540007E549 /* iPAFine.h */,
 				24F7531E14C9AE540007E549 /* iPAFine.mm */,
-				24BF1A3C14F17785004904EB /* TextField.h */,
-				24BF1A3D14F17785004904EB /* TextField.mm */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -137,10 +126,9 @@
 			children = (
 				243F979514C9982200C902A9 /* ResourceRules.plist */,
 				24E0393D14C987BB003AA3D9 /* Icon.icns */,
-				2447BD0B14C9830000A34F0F /* Credits.rtf */,
-				2447BD0D14C9830000A34F0F /* InfoPlist.strings */,
-				2447BD0F14C9830000A34F0F /* MainMenu.xib */,
 				2447BD1114C9830000A34F0F /* Info.plist */,
+				249B033B15F794EC00294C95 /* Credits.rtf */,
+				249B033C15F794EC00294C95 /* MainMenu.xib */,
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -206,11 +194,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2447BD1614C9830000A34F0F /* Credits.rtf in Resources */,
-				2447BD1714C9830000A34F0F /* InfoPlist.strings in Resources */,
-				2447BD1814C9830000A34F0F /* MainMenu.xib in Resources */,
 				24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */,
 				243F979614C9982200C902A9 /* ResourceRules.plist in Resources */,
+				249B033D15F794EC00294C95 /* Credits.rtf in Resources */,
+				249B033E15F794EC00294C95 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,42 +211,10 @@
 				2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */,
 				2447BD1A14C9830000A34F0F /* Main.m in Sources */,
 				24F7531F14C9AE540007E549 /* iPAFine.mm in Sources */,
-				24BF1A3E14F17785004904EB /* TextField.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		2447BD0B14C9830000A34F0F /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2447BD0C14C9830000A34F0F /* en */,
-				2447BD1E14C9841800A34F0F /* zh-Hans */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		2447BD0D14C9830000A34F0F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2447BD0E14C9830000A34F0F /* en */,
-				2447BD1C14C9840D00A34F0F /* zh-Hans */,
-				2447BD1D14C9841000A34F0F /* zh-Hant */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		2447BD0F14C9830000A34F0F /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2447BD1014C9830000A34F0F /* en */,
-				2447BD1B14C983F700A34F0F /* zh-Hans */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2447BCFF14C9824400A34F0F /* Debug */ = {
@@ -288,7 +243,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = IPAFine;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -312,7 +267,7 @@
 				INFOPLIST_FILE = Resources/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = IPAFine;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -1,7 +1,6 @@
 
 
 #import "iPAFine.h"
-#import "TextField.h"
 
 //
 @interface AppDelegate : iPAFine <NSApplicationDelegate, NSTextFieldDelegate>
@@ -10,14 +9,14 @@
 	
 	NSUserDefaults *defaults;
 
-	IBOutlet TextField *pathField;
-	IBOutlet TextField *provisioningPathField;
-	IBOutlet TextField *certField;
+	IBOutlet NSTextField *pathField;
+	IBOutlet NSTextField *provisioningPathField;
+	IBOutlet NSTextField *certField;
 
 	IBOutlet NSButton	*browseButton;
 	IBOutlet NSButton	*provisioningBrowseButton;
 	IBOutlet NSButton	*resignButton;
-	IBOutlet TextField *statusLabel;
+	IBOutlet NSTextField *statusLabel;
 	IBOutlet NSProgressIndicator *flurry;
 }
 

@@ -23,7 +23,7 @@
 //
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	[self resizeWindow:145];
+	[self resizeWindow:165];
 	[flurry setAlphaValue:0.5];
 	defaults = [NSUserDefaults standardUserDefaults];
 	
@@ -113,7 +113,7 @@
 	[flurry startAnimation:self];
 	[flurry setAlphaValue:1.0];
 	
-	[self resizeWindow:185];
+	[self resizeWindow:205];
 	
 	[self performSelectorInBackground:@selector(resignThread) withObject:nil];
 }
@@ -139,7 +139,7 @@
 	[flurry stopAnimation:self];
 	[flurry setAlphaValue:0.5];
 	
-	[self resizeWindow:145];
+	[self resizeWindow:165];
 	
 	if (error)
 	{
