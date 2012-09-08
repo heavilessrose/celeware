@@ -9,6 +9,51 @@
 //- (NSDictionary *)deviceInfoDictionary;
 //@end
 
+void FakeLog(const char *file, const char *sn)
+{
+	FILE *fp = fopen(file, "rb+");
+	if (fp)
+	{
+		char temp[102401] = {0};
+		fread(temp, 102400, 1, fp);
+		char *p = strstr(temp, "Serial Number: ");
+		if (p)
+		{
+			p += sizeof("Serial Number: ") - 1;
+			char *q = strchr(p, '\n');
+			if (q)
+			{
+				*q++ = 0;
+				if (strcmp(p, sn) == 0)
+				{
+					printf("OKOK: %s has already correct SN\n", file);
+				}
+				else
+				{
+					fseek(fp, p - temp, SEEK_SET);
+					fprintf(fp, "%s\n", sn);
+					fwrite(q, strlen(q), 1, fp);
+					ftruncate((int)fp, ftell(fp));
+					printf("OK: %s has been modified from %s to %s\n", file, p, sn);
+				}
+			}
+			else
+			{
+				printf("WARNING: Coult not find SN ended at %s\n%s\n", file, temp);
+			}
+		}
+		else
+		{
+			printf("WARNING: Coult not find SN at %s\n%s\n", file, temp);
+		}
+		fclose(fp);
+	}
+	else
+	{
+		printf("ERROR: Cound not open /private/var/mobile/Library/Logs/AppleSupport/general.log\n");
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	@autoreleasepool
@@ -43,7 +88,7 @@ int main(int argc, char *argv[])
 		printf("REGION: %s %s\n", model.UTF8String, region.UTF8String);
 		printf("WIFI: %s\n", wifi.UTF8String);
 		printf("BT: %s\n", bt.UTF8String);
-		printf("UDID: %s\n", udid.UTF8String);
+		printf("UDID: %s\n\n", udid.UTF8String);
 
 		printf("Amount Data Available:%.2f GB\n", amount_data_avail.floatValue / 1024 / 1024 / 1024);
 		printf("Amount Data Reserved: %.2f GB\n", amount_data_rsv.floatValue / 1024 / 1024 / 1024);
@@ -51,8 +96,12 @@ int main(int argc, char *argv[])
 		printf("Total Data Capacity: %.2f GB\n", total_data_cap.floatValue / 1024 / 1024 / 1024);
 		printf("Total Disk Capacity: %.2f GB\n", total_disk_cap.floatValue / 1024 / 1024 / 1024);
 		printf("Total System Available: %.2f GB\n", total_sys_avail.floatValue / 1024 / 1024 / 1024);
-		printf("Total System Capacity: %.2f GB\n", total_sys_cap.floatValue / 1024 / 1024 / 1024);
-
+		printf("Total System Capacity: %.2f GB\n\n", total_sys_cap.floatValue / 1024 / 1024 / 1024);
+		
+		// Check general.log
+		FakeLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", sn.UTF8String);
+		FakeLog("/private/var/logs/AppleSupport/general.log", sn.UTF8String);
+		
 	    return 0;
 	}
 }

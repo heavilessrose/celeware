@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		243F979614C9982200C902A9 /* ResourceRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 243F979514C9982200C902A9 /* ResourceRules.plist */; };
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
@@ -29,7 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		243F979514C9982200C902A9 /* ResourceRules.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResourceRules.plist; sourceTree = "<group>"; };
 		2447BCE314C9824400A34F0F /* FakSBLD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakSBLD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2447BCE714C9824400A34F0F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2447BCEA14C9824400A34F0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -159,7 +157,6 @@
 				2447BD1114C9830000A34F0F /* Info.plist */,
 				24E0393D14C987BB003AA3D9 /* Icon.icns */,
 				24D0AC8615F2448600398D3C /* MainMenu.xib */,
-				243F979514C9982200C902A9 /* ResourceRules.plist */,
 			);
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
@@ -243,7 +240,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */,
-				243F979614C9982200C902A9 /* ResourceRules.plist in Resources */,
 				24F666CA15F1FFDE0047BA9D /* FakID in Resources */,
 				24F666CC15F1FFDE0047BA9D /* SpringBoard in Resources */,
 				24F666CE15F202570047BA9D /* lockdownd in Resources */,

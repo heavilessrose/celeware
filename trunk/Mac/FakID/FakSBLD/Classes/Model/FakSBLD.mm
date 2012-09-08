@@ -40,11 +40,15 @@ NSString *FakSBLD::Sign(NSString *name)
 	NSString *file = [NSString stringWithFormat:@"Contents/Resources/%@", name];
 	NSString *path = kBundleSubPath(file);
 	
-	NSString *resourceRulesPath = kBundleSubPath(@"Contents/Resources/ResourceRules.plist");
+	NSString *res = [NSString stringWithFormat:@"Contents/Resources/%@/ResourceRules.plist", name];
+	NSString *ent = [NSString stringWithFormat:@"Contents/Resources/%@/Entitlements.plist", name];
+	NSString *resourceRulesPath = kBundleSubPath(res);
+	NSString *entitlementsPath = kBundleSubPath(ent);
 	NSString *resourceRulesArgument = [NSString stringWithFormat:@"--resource-rules=%@",resourceRulesPath];
+	NSString *entitlementsArgument = [NSString stringWithFormat:@"--entitlements=%@",entitlementsPath];
 	
-	NSString *result = Run(@"/usr/bin/codesign", [NSArray arrayWithObjects:@"-fs", kCertName, resourceRulesArgument, path, nil]);
-	
+	NSString *result = Run(@"/usr/bin/codesign", [NSArray arrayWithObjects:@"-fs", kCertName, resourceRulesArgument, entitlementsArgument, path, nil]);
+
 	if (([result rangeOfString:@"replacing existing signature"].location == NSNotFound) &&
 		([result rangeOfString:@"replacing invalid existing signature"].location == NSNotFound))
 	{
@@ -54,7 +58,7 @@ NSString *FakSBLD::Sign(NSString *name)
 		[[NSFileManager defaultManager] copyItemAtPath:kBundleSubPath(from) toPath:kBundleSubPath(to) error:nil];
 		return result;
 	}
-	
+
 	return nil;
 }
 
