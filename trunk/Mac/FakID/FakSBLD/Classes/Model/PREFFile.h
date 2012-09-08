@@ -36,11 +36,11 @@ public:
 	}
 
 	//
-	inline void Set(NSString *sn, NSString *imei, NSString *model, NSString *region, NSString *wifi, NSString *bt, NSString *carrier = nil)
+	inline void Set(NSString *sn, NSString *imei, NSString *model, NSString *wifi, NSString *bt, NSString *carrier = nil)
 	{
 		[items setObject:sn forKey:@"SerialNumber"];
 		[items setObject:imei forKey:@"IMEI"];
-		[items setObject:[model stringByAppendingString:region] forKey:@"ProductModel"];
+		[items setObject:model forKey:@"ProductModel"];
 		[items setObject:wifi forKey:@"MACAddress"];
 		[items setObject:bt forKey:@"BTMACAddress"];
 		if (carrier.length) [items setObject:carrier forKey:@"CARRIER_VERSION"];
