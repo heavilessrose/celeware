@@ -57,6 +57,82 @@
 }
 
 //
+- (IBAction)sync:(id)sender
+{
+	if (pr_snField.stringValue.length)
+	{
+		ld_snField.stringValue = pr_snField.stringValue;
+	}
+	else
+	{
+		pr_snField.stringValue = ld_snField.stringValue;
+	}
+	
+	if (pr_wifiField.stringValue.length)
+	{
+		ld_wifiField.stringValue = pr_wifiField.stringValue;
+	}
+	else
+	{
+		pr_wifiField.stringValue = ld_wifiField.stringValue;
+	}
+	
+	if (pr_btField.stringValue.length)
+	{
+		ld_btField.stringValue = pr_btField.stringValue;
+	}
+	else
+	{
+		pr_btField.stringValue = ld_btField.stringValue;
+	}
+	
+	
+	if ((ld_modelField.stringValue.length >= 5) && ld_regionField.stringValue.length)
+	{
+		pr_modelField.stringValue = [[ld_modelField.stringValue stringByAppendingString:ld_regionField.stringValue] stringByDeletingLastPathComponent];
+	}
+	else if (pr_modelField.stringValue.length > 5)
+	{
+		ld_modelField.stringValue = [pr_modelField.stringValue substringToIndex:5];
+		if (ld_regionField.stringValue.length == 0)
+		{
+			ld_regionField.stringValue = [pr_modelField.stringValue substringFromIndex:5];
+		}
+	}
+	
+	if (pr_imei2Field.stringValue.length)
+	{
+		sb_imei2Field.stringValue = pr_imei2Field.stringValue;
+		sb_imeiField.stringValue = ld_imeiField.stringValue = [pr_imei2Field.stringValue stringByReplacingOccurrencesOfString:@" " withString:@""];
+	}
+	else if (ld_imeiField.stringValue.length)
+	{
+		sb_imeiField.stringValue = ld_imeiField.stringValue;
+		pr_imei2Field.stringValue = sb_imei2Field.stringValue = [NSString stringWithFormat:@"%@ %@ %@ %@",
+																 [ld_imeiField.stringValue substringToIndex:2],
+																 [ld_imeiField.stringValue substringWithRange:NSMakeRange(2, 6)],
+																 [ld_imeiField.stringValue substringWithRange:NSMakeRange(8, 6)],
+																 [ld_imeiField.stringValue substringFromIndex:14]
+																 ];
+	}
+	else if (sb_imeiField.stringValue.length)
+	{
+		ld_imeiField.stringValue = sb_imeiField.stringValue;
+		pr_imei2Field.stringValue = sb_imei2Field.stringValue = [NSString stringWithFormat:@"%@ %@ %@ %@",
+																 [sb_imeiField.stringValue substringToIndex:2],
+																 [sb_imeiField.stringValue substringWithRange:NSMakeRange(2, 6)],
+																 [sb_imeiField.stringValue substringWithRange:NSMakeRange(8, 6)],
+																 [sb_imeiField.stringValue substringFromIndex:14]
+																 ];
+	}
+	else if (sb_imei2Field.stringValue.length)
+	{
+		pr_imei2Field.stringValue = sb_imei2Field.stringValue;
+		sb_imeiField.stringValue = ld_imeiField.stringValue = [sb_imei2Field.stringValue stringByReplacingOccurrencesOfString:@" " withString:@""];
+	}
+}
+
+//
 - (IBAction)fake:(id)sender
 {
 	NSString *error = FakSBLD::Fake(sb_imeiField.stringValue,
