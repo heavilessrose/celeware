@@ -150,12 +150,12 @@ NSString *FakSBLD::Fake(
 	}
 
 	// PREF
-	/*if (error == nil)
+	if (error == nil)
 	{
 		PREFFile pref;
-		pref.Set(sn, imei2, model, region, wifi, bt, carrier);
+		pref.Set(pr_sn, pr_imei, pr_model, pr_wifi, pr_bt, pr_carrier);
 		error = pref.Save();
-	}*/
+	}
 	
 	return error;
 }

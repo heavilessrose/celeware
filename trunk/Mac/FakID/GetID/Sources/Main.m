@@ -1,11 +1,24 @@
 
 #import <UIKit/UIKit.h>
 #import "liblockdown.h"
+//#import <mach/mach_host.h>
+//#import <dlfcn.h>
+
+//@interface MBSDevice : NSObject
+//- (void)collectAllDeviceInformation;
+//- (NSDictionary *)deviceInfoDictionary;
+//@end
 
 int main(int argc, char *argv[])
 {
 	@autoreleasepool
 	{
+		//void *lib = dlopen("/System/Library/PrivateFrameworks/iOSDiagnosticsSupport.framework/iOSDiagnosticsSupport", RTLD_LAZY);
+		//Class mBSDevice = NSClassFromString(@"MBSDevice");
+		//MBSDevice *device =[[[mBSDevice alloc] init] autorelease];
+		//[device collectAllDeviceInformation];
+		//NSDictionary *dict =  device.deviceInfoDictionary;
+		
 		LockdownConnectionRef connection = lockdown_connect();
 		
 		NSString *sn = lockdown_copy_value(connection, nil, kLockdownSerialNumberKey);
