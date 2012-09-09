@@ -168,23 +168,45 @@ NSString *FakSBLD::Fake(
 BOOL FakSBLD::Check()
 {
 	// Check tools
-	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign"])
+	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign"] ||
+		![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign_allocate"])
 	{
-		NSRunAlertPanel(@"Error",
-						@"This app cannot run without the codesign utility present at /usr/bin/codesign",
-						@"OK",nil, nil);
-		return NO;
+		// Create authorization reference
+		AuthorizationRef authorizationRef;
+		OSStatus status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment, kAuthorizationFlagDefaults, &authorizationRef);
+		
+		NSString *names[2] = {@"codesign", @"codesign_allocate"};
+		for (NSUInteger i = 0; i < 2; i++)
+		{
+			// Run the tool using the authorization reference
+			NSString *dir =[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Resources/FakID"];
+			NSString *from = [dir stringByAppendingPathComponent:names[i]];
+			NSString *to = [NSString stringWithFormat:@"/usr/bin/%@", names[i]];
+			
+			const char *args[] = {from.UTF8String, to.UTF8String, NULL};
+			FILE *pipe = nil;
+			status = AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/cp", kAuthorizationFlagDefaults, (char **)args, &pipe);
+			
+			// Print to standard output
+			char readBuffer[128];
+			if (status == errAuthorizationSuccess)
+			{
+				for (;;)
+				{
+					long bytesRead = read(fileno(pipe), readBuffer, sizeof(readBuffer));
+					if (bytesRead < 1) break;
+					write(fileno(stdout), readBuffer, bytesRead);
+				}
+			}
+			else
+			{
+				NSRunAlertPanel(@"Error",
+								@"This app cannot run without the codesign utility present at /usr/bin/codesign",
+								@"OK",nil, nil);
+				return NO;
+			}
+		}
 	}
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign_allocate"])
-	{
-		NSRunAlertPanel(@"Error",
-						@"This app cannot run without the codesign utility present at /usr/bin/codesign_allocate",
-						@"OK",nil, nil);
-		return NO;
-	}
-	
-	// TODO: Check cert
-	
+
 	return YES;
 }

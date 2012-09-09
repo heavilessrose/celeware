@@ -14,6 +14,7 @@
 		24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 24E0393D14C987BB003AA3D9 /* Icon.icns */; };
 		24E5F6EC15F28080003B48CE /* SBLDFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24E5F6E915F28080003B48CE /* SBLDFile.mm */; };
 		24E5F6ED15F28080003B48CE /* PREFFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24E5F6EB15F28080003B48CE /* PREFFile.mm */; };
+		24F4047115FC270300086E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F4047015FC270300086E1C /* Security.framework */; };
 		24F666CA15F1FFDE0047BA9D /* FakID in Resources */ = {isa = PBXBuildFile; fileRef = 24F666C715F1FFDE0047BA9D /* FakID */; };
 		24F666CC15F1FFDE0047BA9D /* SpringBoard in Resources */ = {isa = PBXBuildFile; fileRef = 24F666C915F1FFDE0047BA9D /* SpringBoard */; };
 		24F666CE15F202570047BA9D /* lockdownd in Resources */ = {isa = PBXBuildFile; fileRef = 24F666CD15F202570047BA9D /* lockdownd */; };
@@ -44,6 +45,7 @@
 		24E5F6E915F28080003B48CE /* SBLDFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SBLDFile.mm; sourceTree = "<group>"; };
 		24E5F6EA15F28080003B48CE /* PREFFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PREFFile.h; sourceTree = "<group>"; };
 		24E5F6EB15F28080003B48CE /* PREFFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PREFFile.mm; sourceTree = "<group>"; };
+		24F4047015FC270300086E1C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		24F666C715F1FFDE0047BA9D /* FakID */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FakID; sourceTree = "<group>"; };
 		24F666C915F1FFDE0047BA9D /* SpringBoard */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpringBoard; sourceTree = "<group>"; };
 		24F666CD15F202570047BA9D /* lockdownd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lockdownd; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24F4047115FC270300086E1C /* Security.framework in Frameworks */,
 				24F666E815F231FC0047BA9D /* libz.1.2.5.dylib in Frameworks */,
 				2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */,
 			);
@@ -101,6 +104,7 @@
 				2447BCEA14C9824400A34F0F /* AppKit.framework */,
 				2447BCEB14C9824400A34F0F /* CoreData.framework */,
 				2447BCEC14C9824400A34F0F /* Foundation.framework */,
+				24F4047015FC270300086E1C /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
