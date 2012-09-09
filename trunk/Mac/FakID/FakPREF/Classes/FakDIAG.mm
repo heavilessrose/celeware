@@ -2,16 +2,10 @@
 #import "FakPREF.h"
 #import "ZipArchive.h"
 
-//
-static IMP pInitWithRequest;
-id MyInitWithRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request, id delegate)
-{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
-	id ret = pInitWithRequest(self, _cmd, request, delegate);
-	_Log(@"MyInitWithRequest %@: %@\n{\n%@\n}\n", request.HTTPMethod, request.URL.absoluteString, [[[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding] autorelease]);
 
-	NSString *url = request.URL.absoluteString;
+//
+NSString *Url2FileName(NSString *url)
+{
 	unichar chars[256];
 	NSRange range = {0, MIN(url.length, 256)};
 	[url getCharacters:chars range:range];
@@ -32,9 +26,72 @@ id MyInitWithRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request, id 
 				break;
 		}
 	}
-	NSString *file = [NSString stringWithCharacters:chars length:range.length];
-	[request.HTTPBody writeToFile:[NSString stringWithFormat:@"/var/mobile/HttpRequest_%@.txt", file] atomically:YES];
+	return [NSString stringWithCharacters:chars length:range.length];
+}
+
+
+//
+void LogRequest(NSURLRequest *request)
+{
+	_Log(@"LogRequest %@: %@\n{\n%@\n}\n", request.HTTPMethod, request.URL.absoluteString, request.allHTTPHeaderFields ? request.allHTTPHeaderFields : @"");
 	
+	NSString *file = Url2FileName(request.URL.absoluteString);
+	[request.HTTPBody writeToFile:[NSString stringWithFormat:@"/var/mobile/HttpRequest_%@.txt", file] atomically:YES];
+}
+
+
+//
+static IMP pInitWithRequest;
+id MyInitWithRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request, id delegate)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	id ret = pInitWithRequest(self, _cmd, request, delegate);
+	LogRequest(request);
+	[pool release];
+	
+	return ret;
+}
+
+
+//
+static IMP pInitWithRequest2;
+id MyInitWithRequest2(NSURLConnection *self, SEL _cmd, NSURLRequest *request, id delegate, void *usesCache, void *maxContentLength, void *startImmediately, void *connectionProperties)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	id ret = pInitWithRequest2(self, _cmd, request, delegate, usesCache, maxContentLength, startImmediately, connectionProperties);
+	LogRequest(request);
+
+	[pool release];
+	
+	return ret;
+}
+
+//
+static IMP pSetHTTPBody;
+id MySetHTTPBody(NSURLRequest *self, SEL _cmd, NSData *body)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	id ret = pSetHTTPBody(self, _cmd, body);
+	LogRequest(self);
+
+	[pool release];
+
+	return ret;
+}
+
+
+//
+static IMP pInitWithCFURLRequest;
+id MyInitWithCFURLRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	id ret = pInitWithCFURLRequest(self, _cmd, request);
+	LogRequest(request);
+
 	[pool release];
 	
 	return ret;
@@ -56,7 +113,6 @@ void *MyCopyLogsToTempDirectory(NSURLConnection *self, SEL _cmd)
 	[[NSFileManager defaultManager] copyItemAtPath:@"/private/var/logs/AppleSupport/general.log" toPath:@"/var/mobile/Copy.general.log" error:nil];
 	[[NSFileManager defaultManager] copyItemAtPath:@"/private/var/mobile/Library/Logs/AppleSupport/general.log" toPath:@"/var/mobile/Copy.AppleSupport.general.log" error:nil];
 
-	
 	[pool release];
 	
 	return ret;
@@ -64,7 +120,7 @@ void *MyCopyLogsToTempDirectory(NSURLConnection *self, SEL _cmd)
 
 	
 //
-extern "C" void FakPREFInitializeXXX()
+extern "C" void FakPREFInitialize()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
@@ -72,7 +128,11 @@ extern "C" void FakPREFInitializeXXX()
 	_Log(@"FakPREFInitialize: %@", msg);
 
 	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithRequest: delegate:), (IMP)MyInitWithRequest, (IMP *)&pInitWithRequest);
-	MSHookMessageEx(NSClassFromString(@"MBSDevice"), @selector(copyLogsToTempDirectory), (IMP)MyCopyLogsToTempDirectory, (IMP *)&pCopyLogsToTempDirectory);
+	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithRequest: delegate: usesCache: maxContentLength: startImmediately: connectionProperties:), (IMP)MyInitWithRequest2, (IMP *)&pInitWithRequest2);
+	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithCFURLRequest:), (IMP)MyInitWithCFURLRequest, (IMP *)&pInitWithCFURLRequest);
+	MSHookMessageEx(NSClassFromString(@"NSURLRequest"), @selector(setHTTPBody:), (IMP)MySetHTTPBody, (IMP *)&pSetHTTPBody);
+	
+	//MSHookMessageEx(NSClassFromString(@"MBSDevice"), @selector(copyLogsToTempDirectory), (IMP)MyCopyLogsToTempDirectory, (IMP *)&pCopyLogsToTempDirectory);
 
 	[pool release];
 }
