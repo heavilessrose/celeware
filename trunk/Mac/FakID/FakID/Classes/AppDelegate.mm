@@ -211,7 +211,11 @@
 	NSString *to_sb = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
 	NSString *to_ld = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/usr/libexec/lockdownd");
 	NSString *to_pr = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/Applications/Preferences.app/Preferences");
-	
+
+	[[NSFileManager defaultManager] removeItemAtPath:to_sb error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:to_ld error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:to_pr error:nil];
+
 	[[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil];
 	[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil];
 	[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil];
