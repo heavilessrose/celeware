@@ -120,7 +120,7 @@ void *MyCopyLogsToTempDirectory(NSURLConnection *self, SEL _cmd)
 
 	
 //
-extern "C" void FakPREFInitialize()
+extern "C" void FakPREFInitializeX()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	

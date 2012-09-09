@@ -77,9 +77,9 @@
 		24D0ACC415F25FC300398D3C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				24D0ACC515F25FC300398D3C /* Info.plist */,
 				24D0ACC615F25FC300398D3C /* Main.m */,
 				24D0ACC715F25FC300398D3C /* Prefix.pch */,
+				24D0ACC515F25FC300398D3C /* Info.plist */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

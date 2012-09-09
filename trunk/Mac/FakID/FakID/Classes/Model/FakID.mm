@@ -1,10 +1,10 @@
 
 
-#import "FakSBLD.h"
+#import "FakID.h"
 
 
 //
-NSString *FakSBLD::Run(NSString *path, NSArray *arguments, NSString *directory, BOOL needResult)
+NSString *FakID::Run(NSString *path, NSArray *arguments, NSString *directory, BOOL needResult)
 {
 	NSTask *task = [[NSTask alloc] init];
 	task.launchPath = path;
@@ -35,7 +35,7 @@ NSString *FakSBLD::Run(NSString *path, NSArray *arguments, NSString *directory, 
 }
 
 //
-NSString *FakSBLD::Sign(NSString *name)
+NSString *FakID::Sign(NSString *name)
 {
 	NSString *file = [NSString stringWithFormat:@"Contents/Resources/%@", name];
 	NSString *path = kBundleSubPath(file);
@@ -63,7 +63,7 @@ NSString *FakSBLD::Sign(NSString *name)
 }
 
 //
-NSString *FakSBLD::Fake(
+NSString *FakID::Fake(
 						NSString *sb_imei,
 						NSString *sb_imei2,
 						
@@ -165,7 +165,7 @@ NSString *FakSBLD::Fake(
 }
 
 //
-BOOL FakSBLD::Check()
+BOOL FakID::Check()
 {
 	// Check tools
 	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign"] ||

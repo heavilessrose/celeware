@@ -14,7 +14,7 @@
 
 
 //
-class FakSBLD
+class FakID
 {
 public:
 	static BOOL Check();

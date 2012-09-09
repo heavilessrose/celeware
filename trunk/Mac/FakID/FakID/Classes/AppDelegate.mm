@@ -1,7 +1,7 @@
 
 
 #import "AppDelegate.h"
-#import "FakSBLD.h"
+#import "FakID.h"
 
 @implementation AppDelegate
 @synthesize window;
@@ -49,7 +49,7 @@
 //
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	if (!FakSBLD::Check())
+	if (!FakID::Check())
 	{
 		exit(1);
 	}
@@ -135,7 +135,7 @@
 //
 - (IBAction)fake:(id)sender
 {
-	NSString *error = FakSBLD::Fake(sb_imeiField.stringValue,
+	NSString *error = FakID::Fake(sb_imeiField.stringValue,
 									sb_imei2Field.stringValue,
 									
 									ld_modelField.stringValue,
@@ -193,10 +193,33 @@
 	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
 	//system(cmd.UTF8String);
 	
-	FakSBLD::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
+	FakID::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
 				 [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
 				 nil,
 				 NO);
+}
+
+
+//
+- (IBAction)pwnage:(id)sender
+{
+	[self fake:nil];
+
+	NSString *from_sb = kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard");
+	NSString *from_ld = kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd");
+	NSString *from_pr = kBundleSubPath(@"Contents/Resources/Preferences/Preferences");
+	NSString *to_sb = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
+	NSString *to_ld = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/usr/libexec/lockdownd");
+	NSString *to_pr = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/Applications/Preferences.app/Preferences");
+	
+	[[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil];
+	[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil];
+	[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil];
+
+	FakID::Run(kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/MacOS/PwnageTool"),
+			   [NSArray array],
+			   nil,
+			   NO);
 }
 
 @end

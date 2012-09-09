@@ -52,7 +52,7 @@ ssh root@$HOST "chmod 755 /System/Library/CoreServices/SpringBoard.app/SpringBoa
 ssh root@$HOST "killall SpringBoard"
 
 # Check result
-scp GetID root@$HOST:/usr/bin/GetID
-ssh root@$HOST "chmod 755 /usr/bin/GetID"
-ssh root@$HOST "/usr/bin/GetID"
-ssh root@$HOST "rm /usr/bin/GetID"
+scp FakLOG root@$HOST:/usr/bin/FakLOG
+ssh root@$HOST "chmod 755 /usr/bin/FakLOG"
+ssh root@$HOST "/usr/bin/FakLOG"
+ssh root@$HOST "rm /usr/bin/FakLOG"

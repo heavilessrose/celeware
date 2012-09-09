@@ -161,7 +161,7 @@ void MyDidSelectRowAtIndexPathForReset(id<UITableViewDataSource> self, SEL _cmd,
 }
 
 //
-extern "C" void FakPREFInitializeX()
+extern "C" void FakPREFInitialize()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
