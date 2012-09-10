@@ -9,8 +9,9 @@
 //- (NSDictionary *)deviceInfoDictionary;
 //@end
 
-void FakLog(const char *file, const char *sn)
+BOOL FakLog(const char *file, const char *sn)
 {
+	BOOL ret = NO;
 	FILE *fp = fopen(file, "rb+");
 	if (fp)
 	{
@@ -36,6 +37,7 @@ void FakLog(const char *file, const char *sn)
 					ftruncate((int)fp, ftell(fp));
 					printf("OK: %s has been modified from %s to %s\n", file, p, sn);
 				}
+				ret = YES;
 			}
 			else
 			{
@@ -52,6 +54,7 @@ void FakLog(const char *file, const char *sn)
 	{
 		printf("ERROR: Cound not open /private/var/mobile/Library/Logs/AppleSupport/general.log\n");
 	}
+	return ret;
 }
 
 int main(int argc, char *argv[])
@@ -99,8 +102,13 @@ int main(int argc, char *argv[])
 		printf("Total System Capacity: %.2f GB\n\n", total_sys_cap.floatValue / 1024 / 1024 / 1024);*/
 		
 		// Check general.log
-		FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", sn.UTF8String);
-		FakLog("/private/var/logs/AppleSupport/general.log", sn.UTF8String);
+		if (FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", sn.UTF8String) &&
+			FakLog("/private/var/logs/AppleSupport/general.log", sn.UTF8String))
+		{
+			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
+		}
+			
 		
 	    return 0;
 	}
