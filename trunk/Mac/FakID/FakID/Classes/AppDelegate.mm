@@ -297,15 +297,15 @@
 		[info writeToFile:kBundleSubPath(@"ActivationInfo.plist") atomically:NO];
 		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.plist") atomically:NO];
 		
-		BOOL ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.plist") options:0 error:nil], [xml2 objectForKey:@"SerialNumber"]);
-		[self performSelectorOnMainThread:@selector(activated:) withObject:[NSNumber numberWithBool:ret] waitUntilDone:YES];
+		NSString *ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.plist") options:0 error:nil], [xml2 objectForKey:@"SerialNumber"]);
+		[self performSelectorOnMainThread:@selector(activated:) withObject:ret waitUntilDone:YES];
 	}
 }
 
 //
-- (void)activated:(NSNumber *)ret
+- (void)activated:(NSString *)ret
 {
-	NSRunAlertPanel(@"Activation Result", ret.boolValue ? @"Activation successfully." : @"Activation failed.", @"OK", nil, nil);
+	NSRunAlertPanel(@"Activation Result", ret, @"OK", nil, nil);
 }
 
 //

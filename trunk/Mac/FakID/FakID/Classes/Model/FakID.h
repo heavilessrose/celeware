@@ -18,7 +18,7 @@ class FakID
 {
 public:
 	static BOOL Check();
-	static BOOL active(NSData *data, NSString *sn);
+	static NSString *active(NSData *data, NSString *sn);
 	static NSString *Fake(NSString *sb_imei,
 						  NSString *sb_imei2,
 						  

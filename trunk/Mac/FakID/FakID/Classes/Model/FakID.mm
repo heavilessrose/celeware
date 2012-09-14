@@ -211,9 +211,9 @@ BOOL FakID::Check()
 }
 
 //
-BOOL FakID::active(NSData *data, NSString *sn)
+NSString *FakID::active(NSData *data, NSString *sn)
 {
-	NSURL *URL = [NSURL URLWithString:@"https://albert.apple.com/WebObjects/ALUnbrick.woa/wa/deviceActivation"];//https://albert.apple.com/WebObjects/ALActivation.woa/wa/deviceActivation"];
+	NSURL *URL = [NSURL URLWithString:@"https://albert.apple.com:443/WebObjects/ALUnbrick.woa/wa/deviceActivation"];//https://albert.apple.com/WebObjects/ALActivation.woa/wa/deviceActivation"];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
 	request.timeoutInterval = 60;
 
@@ -271,10 +271,11 @@ BOOL FakID::active(NSData *data, NSString *sn)
 	if (error == nil)
 	{
 		[ret writeToFile:kBundleSubPath(@"Response.htm") atomically:NO];
-		if (response.statusCode == 200)
+		//if (response.statusCode == 200)
 		{
-			return YES;
+		//	return YES;
 		}
+		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	}
-	return NO;
+	return error.localizedDescription;
 }
