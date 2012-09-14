@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2402197C16036DE0008AE6BB /* MobileDeviceAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2402197916036DE0008AE6BB /* MobileDeviceAccess.m */; };
+		2402197F16036E40008AE6BB /* MobileDevice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2402197E16036E40008AE6BB /* MobileDevice.framework */; };
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
@@ -30,6 +32,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2402197516035F86008AE6BB /* MobileDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDevice.h; sourceTree = "<group>"; };
+		2402197816036DE0008AE6BB /* MobileDeviceAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceAccess.h; sourceTree = "<group>"; };
+		2402197916036DE0008AE6BB /* MobileDeviceAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceAccess.m; sourceTree = "<group>"; };
+		2402197E16036E40008AE6BB /* MobileDevice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileDevice.framework; path = /System/Library/PrivateFrameworks/MobileDevice.framework; sourceTree = "<absolute>"; };
 		2447BCE314C9824400A34F0F /* FakID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakID.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2447BCE714C9824400A34F0F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2447BCEA14C9824400A34F0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -72,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2402197F16036E40008AE6BB /* MobileDevice.framework in Frameworks */,
 				24F4047115FC270300086E1C /* Security.framework in Frameworks */,
 				24F666E815F231FC0047BA9D /* libz.1.2.5.dylib in Frameworks */,
 				2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */,
@@ -81,11 +88,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2402197416035F86008AE6BB /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				2402197516035F86008AE6BB /* MobileDevice.h */,
+				2402197816036DE0008AE6BB /* MobileDeviceAccess.h */,
+				2402197916036DE0008AE6BB /* MobileDeviceAccess.m */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		2447BCD814C9824400A34F0F = {
 			isa = PBXGroup;
 			children = (
 				2447BD0414C9830000A34F0F /* Classes */,
 				2447BD1214C9830000A34F0F /* Sources */,
+				2402197416035F86008AE6BB /* Headers */,
 				2447BD0A14C9830000A34F0F /* Resources */,
 				2447BCE614C9824400A34F0F /* Frameworks */,
 				2447BCE414C9824400A34F0F /* Products */,
@@ -103,6 +121,7 @@
 		2447BCE614C9824400A34F0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2402197E16036E40008AE6BB /* MobileDevice.framework */,
 				24F666E715F231FB0047BA9D /* libz.1.2.5.dylib */,
 				2447BCE714C9824400A34F0F /* Cocoa.framework */,
 				2447BCEA14C9824400A34F0F /* AppKit.framework */,
@@ -265,6 +284,7 @@
 				24F666E515F231C90047BA9D /* ZipArchive.mm in Sources */,
 				24E5F6EC15F28080003B48CE /* SBLDFile.mm in Sources */,
 				24E5F6ED15F28080003B48CE /* PREFFile.mm in Sources */,
+				2402197C16036DE0008AE6BB /* MobileDeviceAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +353,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Volumes/RAM,
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 			};
 			name = Debug;
@@ -344,6 +366,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Volumes/RAM,
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
 				);
 			};
 			name = Release;

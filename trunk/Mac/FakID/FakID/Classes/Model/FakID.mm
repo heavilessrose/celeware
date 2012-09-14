@@ -2,7 +2,6 @@
 
 #import "FakID.h"
 
-
 //
 NSString *FakID::Run(NSString *path, NSArray *arguments, NSString *directory, BOOL needResult)
 {

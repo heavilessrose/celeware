@@ -1,9 +1,10 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "MobileDeviceAccess.h"
 
 //
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, MobileDeviceAccessListener>
 {
 	IBOutlet NSWindow *window;
 
@@ -29,6 +30,8 @@
 	IBOutlet NSTextField *pr_carrierField;
 
 	IBOutlet NSTextField *hostField;
+	
+	IBOutlet NSButton *fetchButton;
 }
 
 @property (assign) NSWindow *window;

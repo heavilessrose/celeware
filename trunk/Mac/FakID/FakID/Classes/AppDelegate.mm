@@ -7,7 +7,7 @@
 @synthesize window;
 
 //
-- (void)load
+- (IBAction)load:(id)sender
 {
 	//
 	SBLDFile sb(kSpringBoardFile);
@@ -53,7 +53,8 @@
 	{
 		exit(1);
 	}
-	[self load];
+	[self load:nil];
+	MobileDeviceAccess.singleton.listener = self;
 }
 
 //
@@ -133,6 +134,55 @@
 }
 
 //
+- (IBAction)fetch:(id)sender
+{
+	//
+	NSArray *devices = MobileDeviceAccess.singleton.devices;
+	if (devices.count == 0)
+	{
+		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
+	}
+	
+	sb_imeiField.stringValue = @"";
+	sb_imei2Field.stringValue = @"";
+	
+	ld_modelField.stringValue = @"";
+	ld_regionField.stringValue = @"";
+	ld_snField.stringValue = @"";
+	ld_imeiField.stringValue = @"";
+	ld_wifiField.stringValue = @"";
+	ld_btField.stringValue = @"";
+	ld_udidField.stringValue = @"";
+	
+	pr_modelField.stringValue = @"";
+	pr_modemField.stringValue = @"";
+	pr_snField.stringValue = @"";
+	pr_imei2Field.stringValue = @"";
+	pr_wifiField.stringValue = @"";
+	pr_btField.stringValue = @"";
+	pr_tcField.stringValue = @"";
+	pr_acField.stringValue = @"";
+	pr_carrierField.stringValue = @"";
+	
+	AMDevice *device = [devices objectAtIndex:0];
+	
+#define FillValue(field, key) {NSString *value = [device deviceValueForKey:key]; if (value) field.stringValue = value;}
+	FillValue(pr_snField, @"SerialNumber");
+	
+	FillValue(pr_wifiField, @"WiFiAddress");
+	FillValue(pr_btField, @"BluetoothAddress");
+	FillValue(ld_modelField, @"ModelNumber");
+	FillValue(ld_regionField, @"RegionInfo");
+	
+	FillValue(ld_imeiField, @"InternationalMobileEquipmentIdentity");
+	
+	FillValue(ld_udidField, @"UniqueDeviceID");
+	FillValue(pr_modemField, @"BasebandVersion");
+	//FillValue(pr_carrierField, @"FirmwareVersion");
+	return [self sync:nil];
+}
+
+//
 - (IBAction)fake:(id)sender
 {
 	NSString *error = FakID::Fake(sb_imeiField.stringValue,
@@ -166,6 +216,7 @@
 		NSRunAlertPanel(@"Done", msg, @"OK", nil, nil);
 	}
 }
+
 
 //
 - (IBAction)deploy:(id)sender
@@ -224,6 +275,33 @@
 			   [NSArray array],
 			   nil,
 			   NO);
+}
+
+//
+- (IBAction)active:(id)sender
+{
+	//
+	NSArray *devices = MobileDeviceAccess.singleton.devices;
+	if (devices.count == 0)
+	{
+		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
+	}
+
+	//
+	AMDevice *device = [devices objectAtIndex:0];
+	NSDictionary *info = [device deviceValueForKey:@"ActivationInfo" inDomain:nil];
+	[info writeToFile:@"/Volumes/RAM/abc2.plist" atomically:NO];
+}
+
+//
+- (void)deviceConnected:(AMDevice*)device;
+{
+	fetchButton.enabled = YES;
+}
+
+- (void)deviceDisconnected:(AMDevice*)device;
+{
+	fetchButton.enabled = NO;
 }
 
 @end
