@@ -6,6 +6,25 @@
 @implementation AppDelegate
 @synthesize window;
 
+
+#pragma mark -
+
+//
+- (void)deviceConnected:(AMDevice*)device;
+{
+	fetchButton.enabled = YES;
+	activeButton.enabled = YES;
+}
+
+- (void)deviceDisconnected:(AMDevice*)device;
+{
+	fetchButton.enabled = NO;
+	activeButton.enabled = NO;
+}
+
+
+#pragma mark -
+
 //
 - (IBAction)load:(id)sender
 {
@@ -23,7 +42,7 @@
 	ld_wifiField.stringValue = ld.Read(0x0D70);
 	ld_btField.stringValue = ld.Read(0x0D90);
 	ld_udidField.stringValue = ld.Read(0x0D30);
-
+	
 	//
 	SBLDFile pr(kPreferencesFile);
 	pr_modelField.stringValue = pr.Read(0x1700);
@@ -35,26 +54,9 @@
 	pr_tcField.stringValue = pr.Read(0x176C);
 	pr_acField.stringValue = pr.Read(0x1776);
 	pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
-
+	
 	//PREFFile pref;
 	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
-}
-
-//
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
-{
-	return YES;
-}
-
-//
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-	if (!FakID::Check())
-	{
-		exit(1);
-	}
-	[self load:nil];
-	MobileDeviceAccess.singleton.listener = self;
 }
 
 //
@@ -141,6 +143,7 @@
 	if (devices.count == 0)
 	{
 		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
+		return;
 	}
 	
 	sb_imeiField.stringValue = @"";
@@ -186,35 +189,97 @@
 - (IBAction)fake:(id)sender
 {
 	NSString *error = FakID::Fake(sb_imeiField.stringValue,
-									sb_imei2Field.stringValue,
-									
-									ld_modelField.stringValue,
-									ld_snField.stringValue,
-									ld_imeiField.stringValue,
-									ld_regionField.stringValue,
-									ld_wifiField.stringValue,
-									ld_btField.stringValue,
-									ld_udidField.stringValue,
-									
-									pr_snField.stringValue,
-									pr_modelField.stringValue,
-									pr_imei2Field.stringValue,
-									pr_modemField.stringValue,
-									pr_wifiField.stringValue,
-									pr_btField.stringValue,
-									pr_tcField.stringValue,
-									pr_acField.stringValue,
-									pr_carrierField.stringValue);
+								  sb_imei2Field.stringValue,
+								  
+								  ld_modelField.stringValue,
+								  ld_snField.stringValue,
+								  ld_imeiField.stringValue,
+								  ld_regionField.stringValue,
+								  ld_wifiField.stringValue,
+								  ld_btField.stringValue,
+								  ld_udidField.stringValue,
+								  
+								  pr_snField.stringValue,
+								  pr_modelField.stringValue,
+								  pr_imei2Field.stringValue,
+								  pr_modemField.stringValue,
+								  pr_wifiField.stringValue,
+								  pr_btField.stringValue,
+								  pr_tcField.stringValue,
+								  pr_acField.stringValue,
+								  pr_carrierField.stringValue);
 	if (error)
 	{
 		NSRunAlertPanel(@"Error", error, @"OK", nil, nil);
-		//[self load];
 	}
 	else if (sender)
 	{
 		NSString *msg = [NSString stringWithFormat:@"All done. You can get the result file at:\n\n%@\n\n%@\n\n%@", kBundleSubPath(@"Contents/Resources/FakPREF/"), kBundleSubPath(@"Contents/Resources/lockdownd/"), kBundleSubPath(@"Contents/Resources/SpringBoard/")];
 		NSRunAlertPanel(@"Done", msg, @"OK", nil, nil);
 	}
+}
+
+//
+- (IBAction)pwnage:(id)sender
+{
+	[self fake:nil];
+	
+	NSString *from_sb = kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard");
+	NSString *from_ld = kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd");
+	NSString *from_pr = kBundleSubPath(@"Contents/Resources/Preferences/Preferences");
+	NSString *to_sb = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
+	NSString *to_ld = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/usr/libexec/lockdownd");
+	NSString *to_pr = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/Applications/Preferences.app/Preferences");
+	
+	[[NSFileManager defaultManager] removeItemAtPath:to_sb error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:to_ld error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:to_pr error:nil];
+	
+	[[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil];
+	[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil];
+	[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil];
+	
+	FakID::Run(kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/MacOS/PwnageTool"),
+			   [NSArray array],
+			   nil,
+			   NO);
+}
+
+//
+- (IBAction)active:(id)sender
+{
+	//
+	NSArray *devices = MobileDeviceAccess.singleton.devices;
+	if (devices.count == 0)
+	{
+		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
+		return;
+	}
+	
+	//
+	AMDevice *device = [devices objectAtIndex:0];
+	NSMutableDictionary *info = [device deviceValueForKey:@"ActivationInfo" inDomain:nil];
+	if (info == nil)
+	{
+		NSRunAlertPanel(@"Error", @"Failed to read activation info", @"OK", nil, nil);
+		return;
+	}
+	 
+	info = [NSMutableDictionary dictionaryWithDictionary:info];
+
+	[info removeObjectForKey:@"ActivationInfoErrors"];
+	[info setObject:[NSNumber numberWithBool:YES] forKey:@"ActivationInfoComplete"];
+
+	NSString *base64 = [info objectForKey:@"ActivationInfoXML"];
+	if (base64.length)
+	{
+		NSData *xml = NSUtil::BASE64Decode(base64);
+		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.plist") atomically:NO];
+		
+		//[info setObject:base64 forKey:@"ActivationInfoXML"];
+	}
+
+	[info writeToFile:kBundleSubPath(@"ActivationInfo.plist") atomically:NO];
 }
 
 
@@ -245,63 +310,30 @@
 	//system(cmd.UTF8String);
 	
 	FakID::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
-				 [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
-				 nil,
-				 NO);
-}
-
-
-//
-- (IBAction)pwnage:(id)sender
-{
-	[self fake:nil];
-
-	NSString *from_sb = kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard");
-	NSString *from_ld = kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd");
-	NSString *from_pr = kBundleSubPath(@"Contents/Resources/Preferences/Preferences");
-	NSString *to_sb = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
-	NSString *to_ld = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/usr/libexec/lockdownd");
-	NSString *to_pr = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/Applications/Preferences.app/Preferences");
-
-	[[NSFileManager defaultManager] removeItemAtPath:to_sb error:nil];
-	[[NSFileManager defaultManager] removeItemAtPath:to_ld error:nil];
-	[[NSFileManager defaultManager] removeItemAtPath:to_pr error:nil];
-
-	[[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil];
-
-	FakID::Run(kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/MacOS/PwnageTool"),
-			   [NSArray array],
+			   [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
 			   nil,
 			   NO);
 }
 
+
+#pragma mark -
+
 //
-- (IBAction)active:(id)sender
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
-	//
-	NSArray *devices = MobileDeviceAccess.singleton.devices;
-	if (devices.count == 0)
+	return YES;
+}
+
+//
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+	if (!FakID::Check())
 	{
-		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
+		exit(1);
 	}
-
-	//
-	AMDevice *device = [devices objectAtIndex:0];
-	NSDictionary *info = [device deviceValueForKey:@"ActivationInfo" inDomain:nil];
-	[info writeToFile:@"/Volumes/RAM/abc2.plist" atomically:NO];
+	[self load:nil];
+	MobileDeviceAccess.singleton.listener = self;
 }
 
-//
-- (void)deviceConnected:(AMDevice*)device;
-{
-	fetchButton.enabled = YES;
-}
-
-- (void)deviceDisconnected:(AMDevice*)device;
-{
-	fetchButton.enabled = NO;
-}
 
 @end

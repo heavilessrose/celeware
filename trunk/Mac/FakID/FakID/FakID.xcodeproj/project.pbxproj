@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2402197C16036DE0008AE6BB /* MobileDeviceAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2402197916036DE0008AE6BB /* MobileDeviceAccess.m */; };
 		2402197F16036E40008AE6BB /* MobileDevice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2402197E16036E40008AE6BB /* MobileDevice.framework */; };
+		2402198516039757008AE6BB /* NSUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2402198216039757008AE6BB /* NSUtil.mm */; };
+		2402198916039865008AE6BB /* SettingUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2402198816039865008AE6BB /* SettingUtil.mm */; };
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
@@ -36,6 +38,10 @@
 		2402197816036DE0008AE6BB /* MobileDeviceAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceAccess.h; sourceTree = "<group>"; };
 		2402197916036DE0008AE6BB /* MobileDeviceAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceAccess.m; sourceTree = "<group>"; };
 		2402197E16036E40008AE6BB /* MobileDevice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileDevice.framework; path = /System/Library/PrivateFrameworks/MobileDevice.framework; sourceTree = "<absolute>"; };
+		2402198116039757008AE6BB /* NSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUtil.h; sourceTree = "<group>"; };
+		2402198216039757008AE6BB /* NSUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSUtil.mm; sourceTree = "<group>"; };
+		2402198716039865008AE6BB /* SettingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUtil.h; sourceTree = "<group>"; };
+		2402198816039865008AE6BB /* SettingUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingUtil.mm; sourceTree = "<group>"; };
 		2447BCE314C9824400A34F0F /* FakID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakID.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2447BCE714C9824400A34F0F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2447BCEA14C9824400A34F0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -96,6 +102,17 @@
 				2402197916036DE0008AE6BB /* MobileDeviceAccess.m */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		2402198016039757008AE6BB /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2402198116039757008AE6BB /* NSUtil.h */,
+				2402198216039757008AE6BB /* NSUtil.mm */,
+				2402198716039865008AE6BB /* SettingUtil.h */,
+				2402198816039865008AE6BB /* SettingUtil.mm */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		2447BCD814C9824400A34F0F = {
@@ -182,6 +199,7 @@
 		2447BD1214C9830000A34F0F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2402198016039757008AE6BB /* Util */,
 				24F666D815F231C90047BA9D /* ZipArchive */,
 				2447BD1314C9830000A34F0F /* Prefix.pch */,
 				2447BD1414C9830000A34F0F /* Main.m */,
@@ -285,6 +303,8 @@
 				24E5F6EC15F28080003B48CE /* SBLDFile.mm in Sources */,
 				24E5F6ED15F28080003B48CE /* PREFFile.mm in Sources */,
 				2402197C16036DE0008AE6BB /* MobileDeviceAccess.m in Sources */,
+				2402198516039757008AE6BB /* NSUtil.mm in Sources */,
+				2402198916039865008AE6BB /* SettingUtil.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

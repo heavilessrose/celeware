@@ -2,6 +2,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MobileDeviceAccess.h"
+#import "NSUtil.h"
+
 
 //
 @interface AppDelegate : NSObject <NSApplicationDelegate, MobileDeviceAccessListener>
@@ -32,6 +34,7 @@
 	IBOutlet NSTextField *hostField;
 	
 	IBOutlet NSButton *fetchButton;
+	IBOutlet NSButton *activeButton;
 }
 
 @property (assign) NSWindow *window;

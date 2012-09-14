@@ -10,3 +10,4 @@
 #else
 #define _Log(s, ...)	((void) 0)
 #endif
+
