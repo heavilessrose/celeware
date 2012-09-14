@@ -264,24 +264,49 @@
 		NSRunAlertPanel(@"Error", @"Failed to read activation info", @"OK", nil, nil);
 		return;
 	}
-	 
-	info = [NSMutableDictionary dictionaryWithDictionary:info];
-
-	[info removeObjectForKey:@"ActivationInfoErrors"];
-	[info setObject:[NSNumber numberWithBool:YES] forKey:@"ActivationInfoComplete"];
-
-	NSString *base64 = [info objectForKey:@"ActivationInfoXML"];
-	if (base64.length)
-	{
-		NSData *xml = NSUtil::BASE64Decode(base64);
-		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.plist") atomically:NO];
-		
-		//[info setObject:base64 forKey:@"ActivationInfoXML"];
-	}
-
-	[info writeToFile:kBundleSubPath(@"ActivationInfo.plist") atomically:NO];
+	
+	[self performSelectorInBackground:@selector(activating:) withObject:info];
 }
 
+//
+- (void)activating:(NSDictionary *)info
+{
+	@autoreleasepool
+	{
+		//
+		NSData *xml = [info objectForKey:@"ActivationInfoXML"];
+		NSMutableDictionary *xml2 = [NSMutableDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML.plist")];
+		[xml2 setObject:@"Unactivated" forKey:@"ActivationState"];
+		[xml2 setObject:@"89860111281560277793" forKey:@"IntegratedCircuitCardIdentity"];
+		[xml2 setObject:@"460010358227962" forKey:@"InternationalMobileSubscriberIdentity"];
+		[xml2 setObject:@"kCTSIMSupportSIMStatusOperatorLocked" forKey:@"SIMStatus"];
+		[xml2 removeObjectForKey:@"PhoneNumber"];
+		[xml2 removeObjectForKey:@"SIMGID1"];
+		[xml2 removeObjectForKey:@"SIMGID2"];
+		
+		//
+		NSMutableDictionary *info2 = [NSMutableDictionary dictionaryWithDictionary:info];
+		[info2 removeObjectForKey:@"ActivationInfoErrors"];
+		[info2 setObject:[NSNumber numberWithBool:YES] forKey:@"ActivationInfoComplete"];
+
+		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.plist") atomically:NO];
+		[xml2 writeToFile:kBundleSubPath(@"ActivationInfoXML2.plist") atomically:NO];
+
+		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.plist") options:0 error:nil] forKey:@"ActivationInfoXML"];
+
+		[info writeToFile:kBundleSubPath(@"ActivationInfo.plist") atomically:NO];
+		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.plist") atomically:NO];
+		
+		BOOL ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.plist") options:0 error:nil], [xml2 objectForKey:@"SerialNumber"]);
+		[self performSelectorOnMainThread:@selector(activated:) withObject:[NSNumber numberWithBool:ret] waitUntilDone:YES];
+	}
+}
+
+//
+- (void)activated:(NSNumber *)ret
+{
+	NSRunAlertPanel(@"Activation Result", ret.boolValue ? @"Activation successfully." : @"Activation failed.", @"OK", nil, nil);
+}
 
 //
 - (IBAction)deploy:(id)sender

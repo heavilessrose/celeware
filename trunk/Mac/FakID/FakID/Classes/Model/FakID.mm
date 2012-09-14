@@ -209,3 +209,72 @@ BOOL FakID::Check()
 
 	return YES;
 }
+
+//
+BOOL FakID::active(NSData *data, NSString *sn)
+{
+	NSURL *URL = [NSURL URLWithString:@"https://albert.apple.com/WebObjects/ALUnbrick.woa/wa/deviceActivation"];//https://albert.apple.com/WebObjects/ALActivation.woa/wa/deviceActivation"];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+	request.timeoutInterval = 60;
+
+	// Just some random text that will never occur in the body
+	NSString *boundaryString = @"88EAC6C1-6127-45D9-8313-BA22B794951F";
+	NSMutableData *formData = [NSMutableData data];
+	
+	//
+	{
+		NSMutableString *formString = [NSMutableString string];
+		[formString appendFormat:@"--%@\r\n", boundaryString];
+		[formString appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"activation-info"];
+		[formData appendData:[formString dataUsingEncoding:NSUTF8StringEncoding]];
+		[formData appendData:data];
+	}
+	//
+	{
+		NSMutableString *formString = [NSMutableString string];
+		[formString appendFormat:@"\r\n--%@\r\n", boundaryString];
+		[formString appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"InStoreActivation"];
+		[formString appendString:@"false\r\n"];
+		[formData appendData:[formString dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+	//
+	{
+		NSMutableString *formString = [NSMutableString string];
+		[formString appendFormat:@"--%@\r\n", boundaryString];
+		[formString appendFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", @"AppleSerialNumber"];
+		[formString appendString:sn];
+		[formData appendData:[formString dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+	//
+	{
+		//
+		NSMutableString *formString = [NSMutableString string];
+		formString = [NSString stringWithFormat:@"\r\n--%@--\r\n", boundaryString];
+		[formData appendData:[formString dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+	
+	//
+	NSString *contentLength = [NSString stringWithFormat:@"%u", (unsigned int)formData.length];
+	NSString *contentType = [@"multipart/form-data; boundary=" stringByAppendingString:boundaryString];
+	[request setValue:contentLength forHTTPHeaderField:@"Content-Length"];
+	[request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+	[request setValue:@"iOS 5.1.1 9B206 iPhone Setup Assistant iOS Device Activator (MobileActivation-20 built on Jan 15 2012 at 19:07:28)" forHTTPHeaderField:@"User-Agent"];
+	request.HTTPMethod = @"POST";
+	request.HTTPBody = formData;
+
+	[formData writeToFile:kBundleSubPath(@"Request.htm") atomically:NO];
+
+	//
+	NSError *error = nil;
+	NSHTTPURLResponse *response = nil;
+	NSData *ret = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	if (error == nil)
+	{
+		[ret writeToFile:kBundleSubPath(@"Response.htm") atomically:NO];
+		if (response.statusCode == 200)
+		{
+			return YES;
+		}
+	}
+	return NO;
+}
