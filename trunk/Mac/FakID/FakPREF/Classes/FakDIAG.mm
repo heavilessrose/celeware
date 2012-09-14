@@ -118,19 +118,41 @@ void *MyCopyLogsToTempDirectory(NSURLConnection *self, SEL _cmd)
 	return ret;
 }
 
-	
+
 //
-extern "C" void FakPREFInitializeX()
+static IMP pMyConnectionWithRequest;
+NSURLConnection *MyConnectionWithRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request, NSURLRequest **outRequest)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	_Log(@"MyConnectionWithRequest: %@", self.description);
+	
+	NSURLConnection *ret = MyConnectionWithRequest(self, _cmd, request, outRequest);
+	if (request)
+		LogRequest(request);
+	if (outRequest && *outRequest)
+		LogRequest(*outRequest);
+	[pool release];
+	
+	return ret;
+}
+
+//
+extern "C" void FakPREFInitialize()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *msg = [[NSBundle mainBundle] bundleIdentifier];
 	_Log(@"FakPREFInitialize: %@", msg);
+	
+	//MSHookMessageEx(NSClassFromString(@"NSURLConnection")/*(Class)objc_getMetaClass("NSURLConnection")*/, @selector(connectionWithRequest: delegate:), (IMP)MyConnectionWithRequest, (IMP *)&pMyConnectionWithRequest);
 
 	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithRequest: delegate:), (IMP)MyInitWithRequest, (IMP *)&pInitWithRequest);
 	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithRequest: delegate: usesCache: maxContentLength: startImmediately: connectionProperties:), (IMP)MyInitWithRequest2, (IMP *)&pInitWithRequest2);
 	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithCFURLRequest:), (IMP)MyInitWithCFURLRequest, (IMP *)&pInitWithCFURLRequest);
 	MSHookMessageEx(NSClassFromString(@"NSURLRequest"), @selector(setHTTPBody:), (IMP)MySetHTTPBody, (IMP *)&pSetHTTPBody);
+
+	MSHookMessageEx(NSClassFromString(@"ActivationController"), @selector(_connectionWithRequest: outRequest:), (IMP)MyConnectionWithRequest, (IMP *)&pMyConnectionWithRequest);
 	
 	//MSHookMessageEx(NSClassFromString(@"MBSDevice"), @selector(copyLogsToTempDirectory), (IMP)MyCopyLogsToTempDirectory, (IMP *)&pCopyLogsToTempDirectory);
 

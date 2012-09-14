@@ -868,7 +868,7 @@
 							<string key="NSFrame">{{20, 19}, {481, 60}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="894670611"/>
+							<reference key="NSNextKeyView" ref="517202455"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="518509786">
@@ -893,7 +893,7 @@
 							<string key="NSFrame">{{121, 523}, {355, 2}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1025255151"/>
+							<reference key="NSNextKeyView" ref="622406769"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="489856097">
@@ -1052,7 +1052,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Serial Number</string>
+								<string key="NSPlaceholderString">序列号</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="19095329"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1088,7 +1088,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">IMEI Number</string>
+								<string key="NSPlaceholderString">IMEI 码</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="642930455"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1111,7 +1111,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Model</string>
+								<string key="NSPlaceholderString">型号</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="683158196"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1134,7 +1134,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Availiable Capcity</string>
+								<string key="NSPlaceholderString">可用容量</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="115654676"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1157,7 +1157,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">WiFi Address</string>
+								<string key="NSPlaceholderString">无线地址</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="803817559"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1180,7 +1180,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Bluetooth Address</string>
+								<string key="NSPlaceholderString">蓝牙地址</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="663725026"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1203,7 +1203,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Unique Device Identifier</string>
+								<string key="NSPlaceholderString">唯一设备标识符</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="620527854"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1226,7 +1226,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Region</string>
+								<string key="NSPlaceholderString">区域</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="841499323"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1241,7 +1241,7 @@
 							<string key="NSFrame">{{29, 109}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="972765386"/>
+							<reference key="NSNextKeyView" ref="669095944"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="1011254891">
@@ -1260,21 +1260,22 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSButton" id="91416603">
+						<object class="NSButton" id="669095944">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{191, 109}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="894670611"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="829555498">
+							<object class="NSButtonCell" key="NSCell" id="783235778">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">⚽ 伪造激活记录</string>
 								<reference key="NSSupport" ref="114801102"/>
 								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="91416603"/>
+								<reference key="NSControlView" ref="669095944"/>
 								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -1315,7 +1316,7 @@
 							<string key="NSFrame">{{344, 109}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="517202455"/>
+							<reference key="NSNextKeyView" ref="972765386"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSAntiCompressionPriority">{750, 750}</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1341,13 +1342,13 @@
 							<string key="NSFrame">{{344, 622}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="622406769"/>
+							<reference key="NSNextKeyView" ref="253544013"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="738990312">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">🔄 同步所有字段</string>
+								<string key="NSContents">🔄 自动同步字段</string>
 								<reference key="NSSupport" ref="114801102"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="1025255151"/>
@@ -1360,22 +1361,22 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSButton" id="612199230">
+						<object class="NSButton" id="434539251">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{27, 622}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="799838455"/>
+							<reference key="NSNextKeyView" ref="3801511"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="447497737">
+							<object class="NSButtonCell" key="NSCell" id="548323987">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">⏬ 从文件中重设</string>
 								<reference key="NSSupport" ref="114801102"/>
 								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="612199230"/>
+								<reference key="NSControlView" ref="434539251"/>
 								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -1420,7 +1421,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">iPhone Host Name or IP Address</string>
+								<string key="NSPlaceholderString">装有 OpenSSH 的 iPhone 主机名或 IP</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="90142481"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1464,7 +1465,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Total Capcity</string>
+								<string key="NSPlaceholderString">总容量</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="742505155"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1613,7 +1614,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Serial Number</string>
+								<string key="NSPlaceholderString">序列号</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="563884974"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1636,7 +1637,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Format IMEI Number</string>
+								<string key="NSPlaceholderString">带空格的 IMEI 码</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="891289308"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1659,7 +1660,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Model &amp; Region</string>
+								<string key="NSPlaceholderString">型号和区域</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="235814170"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1682,7 +1683,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">WiFi Address</string>
+								<string key="NSPlaceholderString">无线地址</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="357248231"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1705,7 +1706,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Bluetooth Address</string>
+								<string key="NSPlaceholderString">蓝牙地址</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="386941640"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1728,7 +1729,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Modem Version</string>
+								<string key="NSPlaceholderString">调制解调器固件版本</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="872229151"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1844,7 +1845,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">IMEI Number</string>
+								<string key="NSPlaceholderString">IMEI 码</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="896920502"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1859,7 +1860,7 @@
 							<string key="NSFrame">{{31, 584}, {81, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="612199230"/>
+							<reference key="NSNextKeyView" ref="799838455"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="923553444">
@@ -1880,7 +1881,7 @@
 							<string key="NSFrame">{{121, 354}, {355, 2}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="675200960"/>
+							<reference key="NSNextKeyView" ref="785904674"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="1060257">
@@ -1955,7 +1956,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Format IMEI Number</string>
+								<string key="NSPlaceholderString">带空格的 IMEI 码</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="611135868"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1999,7 +2000,7 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">Carrier Version</string>
+								<string key="NSPlaceholderString">运营商版本</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="449154136"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -2008,22 +2009,22 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSButton" id="675200960">
+						<object class="NSButton" id="3801511">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{191, 622}, {139, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="785904674"/>
+							<reference key="NSNextKeyView" ref="1025255151"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="752087896">
+							<object class="NSButtonCell" key="NSCell" id="390957612">
 								<int key="NSCellFlags">603979776</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">📞 从电话中读取</string>
 								<reference key="NSSupport" ref="114801102"/>
 								<string key="NSCellIdentifier">_NS:9</string>
-								<reference key="NSControlView" ref="675200960"/>
+								<reference key="NSControlView" ref="3801511"/>
 								<int key="NSButtonFlags">-2038284288</int>
 								<int key="NSButtonFlags2">129</int>
 								<string key="NSAlternateContents"/>
@@ -2037,7 +2038,7 @@
 					<string key="NSFrameSize">{521, 662}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="253544013"/>
+					<reference key="NSNextKeyView" ref="434539251"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
@@ -2632,7 +2633,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">fetch:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="675200960"/>
+						<reference key="destination" ref="3801511"/>
 					</object>
 					<int key="connectionID">3106</int>
 				</object>
@@ -2640,7 +2641,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">load:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="612199230"/>
+						<reference key="destination" ref="434539251"/>
 					</object>
 					<int key="connectionID">3151</int>
 				</object>
@@ -2648,7 +2649,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">active:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="91416603"/>
+						<reference key="destination" ref="669095944"/>
 					</object>
 					<int key="connectionID">3224</int>
 				</object>
@@ -2656,7 +2657,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">fetchButton</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="675200960"/>
+						<reference key="destination" ref="3801511"/>
 					</object>
 					<int key="connectionID">3225</int>
 				</object>
@@ -2935,15 +2936,15 @@
 							<reference ref="783593495"/>
 							<reference ref="449154136"/>
 							<reference ref="517202455"/>
-							<reference ref="90142481"/>
-							<reference ref="675200960"/>
+							<reference ref="3801511"/>
 							<reference ref="1025255151"/>
 							<reference ref="894670611"/>
 							<reference ref="94025066"/>
-							<reference ref="612199230"/>
+							<reference ref="434539251"/>
 							<reference ref="643996571"/>
-							<reference ref="91416603"/>
+							<reference ref="669095944"/>
 							<reference ref="972765386"/>
+							<reference ref="90142481"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3955,42 +3956,42 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3049</int>
-						<reference key="object" ref="612199230"/>
+						<reference key="object" ref="434539251"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="447497737"/>
+							<reference ref="548323987"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3050</int>
-						<reference key="object" ref="447497737"/>
-						<reference key="parent" ref="612199230"/>
+						<reference key="object" ref="548323987"/>
+						<reference key="parent" ref="434539251"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3103</int>
-						<reference key="object" ref="675200960"/>
+						<reference key="object" ref="3801511"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="752087896"/>
+							<reference ref="390957612"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3105</int>
-						<reference key="object" ref="752087896"/>
-						<reference key="parent" ref="675200960"/>
+						<reference key="object" ref="390957612"/>
+						<reference key="parent" ref="3801511"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3221</int>
-						<reference key="object" ref="91416603"/>
+						<reference key="object" ref="669095944"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="829555498"/>
+							<reference ref="783235778"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">3222</int>
-						<reference key="object" ref="829555498"/>
-						<reference key="parent" ref="91416603"/>
+						<reference key="object" ref="783235778"/>
+						<reference key="parent" ref="669095944"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">959</int>
