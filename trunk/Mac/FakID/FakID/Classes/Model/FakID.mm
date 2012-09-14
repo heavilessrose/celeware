@@ -275,7 +275,7 @@ NSString *FakID::active(NSData *data, NSString *sn)
 		{
 		//	return YES;
 		}
-		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+		return [[[NSString alloc] initWithData:ret encoding:NSUTF8StringEncoding] autorelease];
 	}
 	return error.localizedDescription;
 }
