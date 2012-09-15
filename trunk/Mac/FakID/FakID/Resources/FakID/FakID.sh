@@ -2,12 +2,11 @@
 cd `dirname $0`
 
 # Check arguments
-if [ $# != 1 ] ; then 
-	if [ ! -e FakID.host ]; then
-		echo "USAGE: $0 [Host]"
-		exit 1
-	fi
-	HOST=`cat FakID.host`
+clear
+if [ $# != 1 ] ; then
+#echo "USAGE: $0 [Host]"
+	echo "ENTER iPhone's host name or IP address:"
+	read HOST
 else
 	HOST=$1
 fi

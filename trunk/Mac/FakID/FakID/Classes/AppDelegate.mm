@@ -13,13 +13,13 @@
 - (void)deviceConnected:(AMDevice*)device;
 {
 	fetchButton.enabled = YES;
-	activeButton.enabled = YES;
+	writeButton.enabled = YES;
 }
 
 - (void)deviceDisconnected:(AMDevice*)device;
 {
 	fetchButton.enabled = NO;
-	activeButton.enabled = NO;
+	writeButton.enabled = NO;
 }
 
 
@@ -57,6 +57,10 @@
 	
 	//PREFFile pref;
 	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
+
+	imsiField.stringValue = @"460010358227962";
+	iccidField.stringValue = @"89860111281560277793";
+	pnumField.stringValue = @"+86 132-1033-9247";
 }
 
 //
@@ -88,8 +92,7 @@
 	{
 		pr_btField.stringValue = ld_btField.stringValue;
 	}
-	
-	
+
 	if ((ld_modelField.stringValue.length >= 5) && ld_regionField.stringValue.length)
 	{
 		pr_modelField.stringValue = [[ld_modelField.stringValue stringByAppendingString:ld_regionField.stringValue] stringByDeletingLastPathComponent];
@@ -145,7 +148,7 @@
 		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
 		return;
 	}
-	
+
 	sb_imeiField.stringValue = @"";
 	sb_imei2Field.stringValue = @"";
 	
@@ -166,6 +169,10 @@
 	pr_tcField.stringValue = @"";
 	pr_acField.stringValue = @"";
 	pr_carrierField.stringValue = @"";
+
+	pnumField.stringValue = @"";
+	iccidField.stringValue = @"";
+	imsiField.stringValue = @"";
 	
 	AMDevice *device = [devices objectAtIndex:0];
 	
@@ -182,6 +189,13 @@
 	FillValue(ld_udidField, @"UniqueDeviceID");
 	FillValue(pr_modemField, @"BasebandVersion");
 	//FillValue(pr_carrierField, @"FirmwareVersion");
+	
+	FillValue(pnumField, @"PhoneNumber");
+	FillValue(iccidField, @"IntegratedCircuitCardIdentity");
+	FillValue(imsiField, @"InternationalMobileSubscriberIdentity");
+	
+	// TODO: Cap. & Carr.
+	
 	return [self sync:nil];
 }
 
@@ -246,54 +260,85 @@
 }
 
 //
-- (IBAction)active:(id)sender
+- (IBAction)write:(id)sender
+{
+	NSRunAlertPanel(@"Done", @"尚未实现", @"OK", nil, nil);
+}
+
+//
+- (IBAction)deploy:(id)sender
 {
 	//
-	NSArray *devices = MobileDeviceAccess.singleton.devices;
-	if (devices.count == 0)
-	{
-		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
-		return;
-	}
+	[self fake:nil];
 	
 	//
-	AMDevice *device = [devices objectAtIndex:0];
-	NSMutableDictionary *info = [device deviceValueForKey:@"ActivationInfo" inDomain:nil];
-	if (info == nil)
+	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
+	//system(cmd.UTF8String);
+	
+	FakID::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
+			   [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
+			   nil,
+			   NO);
+}
+
+
+#pragma mark -
+
+//
+- (IBAction)active:(id)sender
+{
+	if (netIndicator.isHidden == NO)
 	{
-		NSRunAlertPanel(@"Error", @"Failed to read activation info", @"OK", nil, nil);
 		return;
 	}
+	netIndicator.hidden = NO;
+	[netIndicator startAnimation:nil];
 	
-	[self performSelectorInBackground:@selector(activating:) withObject:info];
+	//
+	NSMutableDictionary *info = nil;
+	NSArray *devices = MobileDeviceAccess.singleton.devices;
+	if (devices.count)
+	{
+		//
+		AMDevice *device = [devices objectAtIndex:0];
+		info = [device deviceValueForKey:@"ActivationInfo" inDomain:nil];
+	}
+	//
+	if (info == nil)
+	{
+		info = [NSDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"Contents/Resources/ActivationInfo.plist")];
+	}
+	if (info)
+	{
+		[self performSelectorInBackground:@selector(activating:) withObject:info];
+	}
 }
 
 //
 - (void)activating:(NSDictionary *)info
 {
 	@autoreleasepool
-	{
-		//
+	{			
 		NSData *xml = [info objectForKey:@"ActivationInfoXML"];
+		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.plist") atomically:NO];
 		NSMutableDictionary *xml2 = [NSMutableDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML.plist")];
 		[xml2 setObject:@"Unactivated" forKey:@"ActivationState"];
-		[xml2 setObject:@"89860111281560277793" forKey:@"IntegratedCircuitCardIdentity"];
-		[xml2 setObject:@"460010358227962" forKey:@"InternationalMobileSubscriberIdentity"];
+		[xml2 setObject:iccidField.stringValue forKey:@"IntegratedCircuitCardIdentity"];
+		[xml2 setObject:imsiField.stringValue forKey:@"InternationalMobileSubscriberIdentity"];
 		[xml2 setObject:@"kCTSIMSupportSIMStatusOperatorLocked" forKey:@"SIMStatus"];
 		[xml2 removeObjectForKey:@"PhoneNumber"];
 		[xml2 removeObjectForKey:@"SIMGID1"];
 		[xml2 removeObjectForKey:@"SIMGID2"];
-		
+
 		//
 		NSMutableDictionary *info2 = [NSMutableDictionary dictionaryWithDictionary:info];
 		[info2 removeObjectForKey:@"ActivationInfoErrors"];
 		[info2 setObject:[NSNumber numberWithBool:YES] forKey:@"ActivationInfoComplete"];
-
-		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.plist") atomically:NO];
+		
 		[xml2 writeToFile:kBundleSubPath(@"ActivationInfoXML2.plist") atomically:NO];
 
 		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.plist") options:0 error:nil] forKey:@"ActivationInfoXML"];
-
+		
 		[info writeToFile:kBundleSubPath(@"ActivationInfo.plist") atomically:NO];
 		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.plist") atomically:NO];
 		
@@ -305,39 +350,11 @@
 //
 - (void)activated:(NSString *)ret
 {
-	NSRunAlertPanel(@"Activation Result", ret, @"OK", nil, nil);
-}
+	netIndicator.hidden = YES;
+	[netIndicator stopAnimation:nil];
 
-//
-- (IBAction)deploy:(id)sender
-{
-	//
-	if (hostField.stringValue.length == 0)
-	{
-		NSRunAlertPanel(@"Error", @"iPhone host name or ip address should not be empty.", @"OK", nil, nil);
-		return;
-	}
-	
-	//
-	[self fake:nil];
-	
-	//
-	FILE *fp = fopen(kBundleSubPath(@"Contents/Resources/FakID/FakID.host").UTF8String, "w");
-	if (!fp)
-	{
-		NSRunAlertPanel(@"Error", @"Create signal file error.", @"OK", nil, nil);
-	}
-	fputs(hostField.stringValue.UTF8String, fp);
-	fclose(fp);
-	
-	//
-	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
-	//system(cmd.UTF8String);
-	
-	FakID::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
-			   [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
-			   nil,
-			   NO);
+	if (ret.length > 500) ret = [ret substringToIndex:500];
+	NSRunAlertPanel(@"Activation Result", ret, @"OK", nil, nil);
 }
 
 

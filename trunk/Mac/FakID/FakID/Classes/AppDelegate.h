@@ -31,10 +31,13 @@
 	IBOutlet NSTextField *pr_acField;
 	IBOutlet NSTextField *pr_carrierField;
 
-	IBOutlet NSTextField *hostField;
-	
+	IBOutlet NSTextField *iccidField;
+	IBOutlet NSTextField *imsiField;
+	IBOutlet NSTextField *pnumField;
+
 	IBOutlet NSButton *fetchButton;
-	IBOutlet NSButton *activeButton;
+	IBOutlet NSButton *writeButton;
+	IBOutlet NSProgressIndicator *netIndicator;
 }
 
 @property (assign) NSWindow *window;
