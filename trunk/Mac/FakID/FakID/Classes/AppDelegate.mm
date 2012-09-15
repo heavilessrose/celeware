@@ -194,8 +194,24 @@
 	FillValue(iccidField, @"IntegratedCircuitCardIdentity");
 	FillValue(imsiField, @"InternationalMobileSubscriberIdentity");
 	
-	// TODO: Cap. & Carr.
-	
+	// 
+	AFCMediaDirectory *media = device.newAFCMediaDirectory;
+	if (media)
+	{
+		NSDictionary *info = media.deviceInfo;
+		if (info)
+		{
+			NSNumber *freeBytes = [info objectForKey:@"FSFreeBytes"];
+			NSNumber *totalBytes = [info objectForKey:@"FSTotalBytes"];
+			pr_acField.stringValue = [NSString stringWithFormat:@"%.1f G", freeBytes.longLongValue / 1024.0 / 1024.0 / 1024.0];
+			pr_tcField.stringValue = [NSString stringWithFormat:@"%.1f G", totalBytes.longLongValue / 1024.0 / 1024.0 / 1024.0];
+		}
+		[media release];
+	}
+
+	SBLDFile pr(kPreferencesFile);
+	pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
+
 	return [self sync:nil];
 }
 
@@ -262,7 +278,25 @@
 //
 - (IBAction)write:(id)sender
 {
-	NSRunAlertPanel(@"Done", @"尚未实现", @"OK", nil, nil);
+	//
+	NSArray *devices = MobileDeviceAccess.singleton.devices;
+	for (AMDevice *device in devices)
+	{
+		AFCRootDirectory *root = device.newAFCRootDirectory;
+		if (root == nil)
+		{
+			NSRunAlertPanel(@"Error", @"Please jailbreak first.", @"OK", nil, nil);
+		}
+		else
+		{
+			[root copyLocalFile:kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd") toRemoteFile:@"/usr/libexec/lockdownd"];
+			[root copyLocalFile:kBundleSubPath(@"Contents/Resources/Preferences/Preferences") toRemoteFile:@"/Applications/Preferences.app/Preferences"];
+			[root copyLocalFile:kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard") toRemoteFile:@"/System/Library/CoreServices/SpringBoard.app/SpringBoard"];
+			
+			NSRunAlertPanel(@"Done", [NSString stringWithFormat:@"Copy all file to %@", device.deviceName], @"OK", nil, nil);
+			[root release];
+		}
+	}
 }
 
 //
