@@ -308,10 +308,7 @@
 	{
 		info = [NSDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"Contents/Resources/ActivationInfo.plist")];
 	}
-	if (info)
-	{
-		[self performSelectorInBackground:@selector(activating:) withObject:info];
-	}
+	[self performSelectorInBackground:@selector(activating:) withObject:info];
 }
 
 //
@@ -320,8 +317,8 @@
 	@autoreleasepool
 	{			
 		NSData *xml = [info objectForKey:@"ActivationInfoXML"];
-		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.plist") atomically:NO];
-		NSMutableDictionary *xml2 = [NSMutableDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML.plist")];
+		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.xml") atomically:NO];
+		NSMutableDictionary *xml2 = [NSMutableDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML.xml")];
 		[xml2 setObject:@"Unactivated" forKey:@"ActivationState"];
 		[xml2 setObject:iccidField.stringValue forKey:@"IntegratedCircuitCardIdentity"];
 		[xml2 setObject:imsiField.stringValue forKey:@"InternationalMobileSubscriberIdentity"];
@@ -329,20 +326,26 @@
 		[xml2 removeObjectForKey:@"PhoneNumber"];
 		[xml2 removeObjectForKey:@"SIMGID1"];
 		[xml2 removeObjectForKey:@"SIMGID2"];
+		
+		[xml2 setObject:ld_snField.stringValue forKey:@"SerialNumber"];
+		[xml2 setObject:ld_imeiField.stringValue forKey:@"InternationalMobileEquipmentIdentity"];
+		[xml2 setObject:ld_modelField.stringValue forKey:@"ModelNumber"];
+		[xml2 setObject:ld_modelField.stringValue forKey:@"ModelNumber"];
+		[xml2 setObject:ld_udidField.stringValue forKey:@"UniqueDeviceID"];
 
 		//
 		NSMutableDictionary *info2 = [NSMutableDictionary dictionaryWithDictionary:info];
 		[info2 removeObjectForKey:@"ActivationInfoErrors"];
 		[info2 setObject:[NSNumber numberWithBool:YES] forKey:@"ActivationInfoComplete"];
 		
-		[xml2 writeToFile:kBundleSubPath(@"ActivationInfoXML2.plist") atomically:NO];
+		[xml2 writeToFile:kBundleSubPath(@"ActivationInfoXML2.xml") atomically:NO];
 
-		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.plist") options:0 error:nil] forKey:@"ActivationInfoXML"];
+		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.xml") options:0 error:nil] forKey:@"ActivationInfoXML"];
 		
-		[info writeToFile:kBundleSubPath(@"ActivationInfo.plist") atomically:NO];
-		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.plist") atomically:NO];
+		[info writeToFile:kBundleSubPath(@"ActivationInfo.xml") atomically:NO];
+		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.xml") atomically:NO];
 		
-		NSString *ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.plist") options:0 error:nil], [xml2 objectForKey:@"SerialNumber"]);
+		NSString *ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.xml") options:0 error:nil], [xml2 objectForKey:@"SerialNumber"]);
 		[self performSelectorOnMainThread:@selector(activated:) withObject:ret waitUntilDone:YES];
 	}
 }

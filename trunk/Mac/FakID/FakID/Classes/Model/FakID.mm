@@ -262,7 +262,7 @@ NSString *FakID::active(NSData *data, NSString *sn)
 	request.HTTPMethod = @"POST";
 	request.HTTPBody = formData;
 
-	[formData writeToFile:kBundleSubPath(@"Request.htm") atomically:NO];
+	[formData writeToFile:kBundleSubPath(@"Request.txt") atomically:NO];
 
 	//
 	NSError *error = nil;
@@ -270,7 +270,7 @@ NSString *FakID::active(NSData *data, NSString *sn)
 	NSData *ret = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	if (error == nil)
 	{
-		[ret writeToFile:kBundleSubPath(@"Response.htm") atomically:NO];
+		[ret writeToFile:kBundleSubPath(@"Response.xml") atomically:NO];
 		//if (response.statusCode == 200)
 		{
 		//	return YES;
