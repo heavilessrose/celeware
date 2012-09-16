@@ -331,22 +331,46 @@
 				{@"Contents/Resources/Preferences/Preferences", @"/Applications/Preferences.app/Preferences"},
 				{@"Contents/Resources/SpringBoard/SpringBoard", @"/System/Library/CoreServices/SpringBoard.app/SpringBoard"},
 			};
-			for (NSUInteger i = 0; i < 3; i++)
+			NSString *error = nil;
+			for (NSUInteger i = 0; (i < 3) && (error == nil); i++)
 			{
 				AFCFileReference *file = [root openForWrite:c_files[i].to];
 				NSData *data = [[NSData alloc] initWithContentsOfFile:kBundleSubPath(c_files[i].from)];
 				if ([file writeNSData:data] == 0)
 				{
-					NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"Copy file error: %@", c_files[i].to], @"OK", nil, nil);
-					[file closeFile];
-					[data release];
-					return;
+					error = [NSString stringWithFormat:@"Copy file error: %@", c_files[i].to];
 				}
 				[file closeFile];
 				[data release];
 			}
 
-			NSRunAlertPanel(@"Done", [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect.", device.deviceName], @"OK", nil, nil);
+			static NSString *c_logs[] = {@"/private/var/logs/AppleSupport/general.log", @"/private/var/mobile/Library/Logs/AppleSupport/general.log"};
+			for (NSUInteger i = 0; (i < 2) && (error == nil); i++)
+			{
+				NSString *temp = kBundleSubPath(@"general.log");
+				if ([root copyRemoteFile:c_logs[i] toLocalFile:temp])
+				{
+					error = FakID::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
+					if (error == nil)
+					{
+						AFCFileReference *file = [root openForWrite:c_logs[i]];
+						NSData *data = [[NSData alloc] initWithContentsOfFile:temp];
+						if ([file writeNSData:data] == 0)
+						{
+							error = [NSString stringWithFormat:@"Write log file error %@", c_logs[i]];
+						}
+						[file closeFile];
+						[data release];
+					}
+				}
+				else
+				{
+					error = [NSString stringWithFormat:@"Error on copying %@", c_logs[i]];
+				}
+				[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
+			}
+
+			NSRunAlertPanel((error ? @"Error" : @"Done"), (error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect.", device.deviceName]), @"OK", nil, nil);
 			[root release];
 		}
 	}

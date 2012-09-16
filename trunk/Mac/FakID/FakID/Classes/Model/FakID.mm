@@ -279,3 +279,47 @@ NSString *FakID::active(NSData *data, NSString *sn)
 	}
 	return error.localizedDescription;
 }
+
+//
+NSString *FakID::FakLog(const char *file, const char *sn)
+{
+	NSString *ret = NO;
+	FILE *fp = fopen(file, "rb+");
+	if (fp)
+	{
+		char temp[102401] = {0};
+		fread(temp, 102400, 1, fp);
+		char *p = strstr(temp, "Serial Number: ");
+		if (p)
+		{
+			p += sizeof("Serial Number: ") - 1;
+			char *q = strchr(p, '\n');
+			if (q)
+			{
+				*q++ = 0;
+				if (strcmp(p, sn))
+				{
+					fseek(fp, p - temp, SEEK_SET);
+					fprintf(fp, "%s\n", sn);
+					fwrite(q, strlen(q), 1, fp);
+					ftruncate(fileno(fp), ftell(fp));
+				}
+				ret = nil;
+			}
+			else
+			{
+				ret = [NSString stringWithFormat:@"WARNING: Coult not find SN ended at %s\n%s", file, temp];
+			}
+		}
+		else
+		{
+			ret = [NSString stringWithFormat:@"WARNING: Coult not find SN at %s\n%s", file, temp];
+		}
+		fclose(fp);
+	}
+	else
+	{
+		ret = [NSString stringWithFormat:@"ERROR: Cound not open %s", file];
+	}
+	return ret;
+}

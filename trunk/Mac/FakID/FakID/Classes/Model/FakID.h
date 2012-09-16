@@ -1,6 +1,7 @@
 
 
 #import <AppKit/AppKit.h>
+#import "MobileDeviceAccess.h"
 #import "PREFFile.h"
 #import "SBLDFile.h"
 
@@ -19,6 +20,7 @@ class FakID
 public:
 	static BOOL Check();
 	static NSString *active(NSData *data, NSString *sn);
+	static NSString *FakLog(const char *file, const char *sn);
 	static NSString *Fake(NSString *sb_imei,
 						  NSString *sb_imei2,
 						  
@@ -39,6 +41,7 @@ public:
 						  NSString *pr_tc,
 						  NSString *pr_ac,
 						  NSString *pr_carrier);
+
 	
 	//private:
 	static NSString *Sign(NSString *appPath);
