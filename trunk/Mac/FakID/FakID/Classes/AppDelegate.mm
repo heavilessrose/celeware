@@ -334,7 +334,7 @@
 			for (NSUInteger i = 0; i < 3; i++)
 			{
 				AFCFileReference *file = [root openForWrite:c_files[i].to];
-				NSData *data = [[NSData alloc] initWithContentsOfFile:c_files[i].from];
+				NSData *data = [[NSData alloc] initWithContentsOfFile:kBundleSubPath(c_files[i].from)];
 				if ([file writeNSData:data] == 0)
 				{
 					NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"Copy file error: %@", c_files[i].to], @"OK", nil, nil);
