@@ -254,30 +254,66 @@
 {
 	[self fake:nil];
 	
+	NSString *path;
+	if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/PwnageTool.app"])
+	{
+		path = @"/Applications/PwnageTool.app";
+	}
+	else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/MyTools/PwnageTool.app"])
+	{
+		path = @"/Applications/MyTools/PwnageTool.app";
+	}
+	else
+	{
+		NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+
+		//[openDlg setCanChooseFiles:TRUE];
+		[openDlg setCanChooseDirectories:TRUE];
+		[openDlg setAllowsMultipleSelection:FALSE];
+		[openDlg setAllowsOtherFileTypes:FALSE];
+		if ([openDlg runModalForTypes:[NSArray arrayWithObject:@"app"]] != NSOKButton)
+		{
+			return;
+		}
+		path = [[openDlg filenames] objectAtIndex:0];
+	}
+	
 	NSString *from_sb = kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard");
 	NSString *from_ld = kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd");
 	NSString *from_pr = kBundleSubPath(@"Contents/Resources/Preferences/Preferences");
-	NSString *to_sb = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
-	NSString *to_ld = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/usr/libexec/lockdownd");
-	NSString *to_pr = kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/Resources/CustomPackages/FakID.bundle/files/Applications/Preferences.app/Preferences");
+	NSString *to_sb = kBundleSubPath(@"Contents/Resources/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
+	NSString *to_ld = kBundleSubPath(@"Contents/Resources/FakID.bundle/files/usr/libexec/lockdownd");
+	NSString *to_pr = kBundleSubPath(@"Contents/Resources/FakID.bundle/files/Applications/Preferences.app/Preferences");
+
+	
+	NSString *from_pt = kBundleSubPath(@"Contents/Resources/FakID.bundle");
+	NSString *to_pt = [path stringByAppendingPathComponent:@"Contents/Resources/CustomPackages/FakeID.bundle"];
 	
 	[[NSFileManager defaultManager] removeItemAtPath:to_sb error:nil];
 	[[NSFileManager defaultManager] removeItemAtPath:to_ld error:nil];
 	[[NSFileManager defaultManager] removeItemAtPath:to_pr error:nil];
-	
-	[[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil];
-	
-	FakID::Run(kBundleSubPath(@"Contents/Resources/PwnageTool.app/Contents/MacOS/PwnageTool"),
-			   [NSArray array],
-			   nil,
-			   NO);
+	[[NSFileManager defaultManager] removeItemAtPath:to_pt error:nil];
+		
+	if ([[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil] &&
+		[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil] &&
+		[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil] &&
+		[[NSFileManager defaultManager] copyItemAtPath:from_pt toPath:to_pt error:nil])
+	{
+		FakID::Run([path stringByAppendingPathComponent:@"Contents/MacOS/PwnageTool"],
+				   [NSArray array],
+				   nil,
+				   NO);
+	}
+	else
+	{
+		NSRunAlertPanel(@"Error", @"Copy file error.", @"OK", nil, nil);
+	}
 }
 
 //
 - (IBAction)write:(id)sender
 {
+	[self fake:nil];
 	//
 	NSArray *devices = MobileDeviceAccess.singleton.devices;
 	for (AMDevice *device in devices)
@@ -289,11 +325,28 @@
 		}
 		else
 		{
-			[root copyLocalFile:kBundleSubPath(@"Contents/Resources/lockdownd/lockdownd") toRemoteFile:@"/usr/libexec/lockdownd"];
-			[root copyLocalFile:kBundleSubPath(@"Contents/Resources/Preferences/Preferences") toRemoteFile:@"/Applications/Preferences.app/Preferences"];
-			[root copyLocalFile:kBundleSubPath(@"Contents/Resources/SpringBoard/SpringBoard") toRemoteFile:@"/System/Library/CoreServices/SpringBoard.app/SpringBoard"];
-			
-			NSRunAlertPanel(@"Done", [NSString stringWithFormat:@"Copy all file to %@", device.deviceName], @"OK", nil, nil);
+			static const struct {NSString *from; NSString *to;} c_files[] =
+			{
+				{@"Contents/Resources/lockdownd/lockdownd", @"/usr/libexec/lockdownd"},
+				{@"Contents/Resources/Preferences/Preferences", @"/Applications/Preferences.app/Preferences"},
+				{@"Contents/Resources/SpringBoard/SpringBoard", @"/System/Library/CoreServices/SpringBoard.app/SpringBoard"},
+			};
+			for (NSUInteger i = 0; i < 3; i++)
+			{
+				AFCFileReference *file = [root openForWrite:c_files[i].to];
+				NSData *data = [[NSData alloc] initWithContentsOfFile:c_files[i].from];
+				if ([file writeNSData:data] == 0)
+				{
+					NSRunAlertPanel(@"Error", [NSString stringWithFormat:@"Copy file error: %@", c_files[i].to], @"OK", nil, nil);
+					[file closeFile];
+					[data release];
+					return;
+				}
+				[file closeFile];
+				[data release];
+			}
+
+			NSRunAlertPanel(@"Done", [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect.", device.deviceName], @"OK", nil, nil);
 			[root release];
 		}
 	}
@@ -374,12 +427,12 @@
 		
 		[xml2 writeToFile:kBundleSubPath(@"ActivationInfoXML2.xml") atomically:NO];
 
-		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.xml") options:0 error:nil] forKey:@"ActivationInfoXML"];
+		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.xml")] forKey:@"ActivationInfoXML"];
 		
 		[info writeToFile:kBundleSubPath(@"ActivationInfo.xml") atomically:NO];
 		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.xml") atomically:NO];
 		
-		NSString *ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.xml") options:0 error:nil], [xml2 objectForKey:@"SerialNumber"]);
+		NSString *ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.xml")], [xml2 objectForKey:@"SerialNumber"]);
 		[self performSelectorOnMainThread:@selector(activated:) withObject:ret waitUntilDone:YES];
 	}
 }

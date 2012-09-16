@@ -15,11 +15,11 @@
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
-		24671CDD15FCDB5C00BEE615 /* PwnageTool.app in Resources */ = {isa = PBXBuildFile; fileRef = 24671CDC15FCDB5C00BEE615 /* PwnageTool.app */; };
 		24D0AC8715F2448600398D3C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D0AC8615F2448600398D3C /* MainMenu.xib */; };
 		24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 24E0393D14C987BB003AA3D9 /* Icon.icns */; };
 		24E5F6EC15F28080003B48CE /* SBLDFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24E5F6E915F28080003B48CE /* SBLDFile.mm */; };
 		24E5F6ED15F28080003B48CE /* PREFFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24E5F6EB15F28080003B48CE /* PREFFile.mm */; };
+		24F328D1160563C500B850C9 /* FakID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 24F328D0160563C400B850C9 /* FakID.bundle */; };
 		24F4047115FC270300086E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F4047015FC270300086E1C /* Security.framework */; };
 		24F666CA15F1FFDE0047BA9D /* FakID in Resources */ = {isa = PBXBuildFile; fileRef = 24F666C715F1FFDE0047BA9D /* FakID */; };
 		24F666CC15F1FFDE0047BA9D /* SpringBoard in Resources */ = {isa = PBXBuildFile; fileRef = 24F666C915F1FFDE0047BA9D /* SpringBoard */; };
@@ -54,13 +54,13 @@
 		2447BD1114C9830000A34F0F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2447BD1314C9830000A34F0F /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		2447BD1414C9830000A34F0F /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
-		24671CDC15FCDB5C00BEE615 /* PwnageTool.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = PwnageTool.app; sourceTree = "<group>"; };
 		24D0AC8615F2448600398D3C /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		24E0393D14C987BB003AA3D9 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		24E5F6E815F28080003B48CE /* SBLDFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLDFile.h; sourceTree = "<group>"; };
 		24E5F6E915F28080003B48CE /* SBLDFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SBLDFile.mm; sourceTree = "<group>"; };
 		24E5F6EA15F28080003B48CE /* PREFFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PREFFile.h; sourceTree = "<group>"; };
 		24E5F6EB15F28080003B48CE /* PREFFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PREFFile.mm; sourceTree = "<group>"; };
+		24F328D0160563C400B850C9 /* FakID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FakID.bundle; sourceTree = "<group>"; };
 		24F4047015FC270300086E1C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		24F666C715F1FFDE0047BA9D /* FakID */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FakID; sourceTree = "<group>"; };
 		24F666C915F1FFDE0047BA9D /* SpringBoard */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpringBoard; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 				24F666CD15F202570047BA9D /* lockdownd */,
 				24F666C915F1FFDE0047BA9D /* SpringBoard */,
 				24FC1C2815F6FC31002821EC /* Preferences */,
-				24671CDC15FCDB5C00BEE615 /* PwnageTool.app */,
+				24F328D0160563C400B850C9 /* FakID.bundle */,
 				2447BD1114C9830000A34F0F /* Info.plist */,
 				24E0393D14C987BB003AA3D9 /* Icon.icns */,
 				24D0AC8615F2448600398D3C /* MainMenu.xib */,
@@ -285,8 +285,8 @@
 				24F666D015F20EF00047BA9D /* FakPREF in Resources */,
 				24D0AC8715F2448600398D3C /* MainMenu.xib in Resources */,
 				24FC1C2915F6FC31002821EC /* Preferences in Resources */,
-				24671CDD15FCDB5C00BEE615 /* PwnageTool.app in Resources */,
 				240219991603BDC7008AE6BB /* ActivationInfo.plist in Resources */,
+				24F328D1160563C500B850C9 /* FakID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
