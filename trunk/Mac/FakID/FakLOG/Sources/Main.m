@@ -57,6 +57,24 @@ BOOL FakLog(const char *file, const char *sn)
 	return ret;
 }
 
+//
+void HideApp(NSString *path)
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+	if (dict)
+	{
+		[dict setObject:[NSArray arrayWithObject:@"hidden"] forKey:@"SBAppTags"];
+		
+		//[dict removeObjectForKey:@"CFBundleIcons"];
+		//[dict removeObjectForKey:@"CFBundleIconFiles"];
+		//[dict removeObjectForKey:@"CFBundleDisplayName"];
+		if ([dict writeToFile:path atomically:YES] == NO)
+		{
+			printf("Error on modifying YouTube: %s\n", path.UTF8String);
+		}
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	@autoreleasepool
@@ -108,7 +126,9 @@ int main(int argc, char *argv[])
 			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
 			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
 		}
-			
+
+		HideApp(@"/Applications/YouTube.app/Info.plist");
+		HideApp(@"/Applications/MobileStore.app/Info.plist");
 		
 	    return 0;
 	}
