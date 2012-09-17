@@ -344,20 +344,45 @@
 				[data release];
 			}
 
-			static NSString *c_logs[] = {@"/private/var/logs/AppleSupport/general.log", @"/private/var/mobile/Library/Logs/AppleSupport/general.log"};
-			for (NSUInteger i = 0; (i < 2) && (error == nil); i++)
+			static NSString *c_mods[] =
 			{
-				NSString *temp = kBundleSubPath(@"general.log");
-				if ([root copyRemoteFile:c_logs[i] toLocalFile:temp])
+				@"/private/var/logs/AppleSupport/general.log",
+				@"/private/var/mobile/Library/Logs/AppleSupport/general.log",
+				@"/Applications/YouTube.app/Info.plist",
+				@"/Applications/MobileStore.app/Info.plist",
+			};
+			for (NSUInteger i = 0; (i < 4) && (error == nil); i++)
+			{
+				NSString *temp = kBundleSubPath([c_mods[i] lastPathComponent]);
+				if ([root copyRemoteFile:c_mods[i] toLocalFile:temp])
 				{
-					error = FakID::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
+					if (i < 2)
+					{
+						error = FakID::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
+					}
+					else
+					{
+						NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:temp];
+						if (dict)
+						{
+							[dict setObject:[NSArray arrayWithObject:@"hidden"] forKey:@"SBAppTags"];
+							if ([dict writeToFile:temp atomically:YES] == NO)
+							{
+								error = [NSString stringWithFormat:@"Error on modifying: %@\n", temp];
+							}
+						}
+						else
+						{
+							error = [NSString stringWithFormat:@"Error on opeing: %@\n", temp];
+						}
+					}
 					if (error == nil)
 					{
-						AFCFileReference *file = [root openForWrite:c_logs[i]];
+						AFCFileReference *file = [root openForWrite:c_mods[i]];
 						NSData *data = [[NSData alloc] initWithContentsOfFile:temp];
 						if ([file writeNSData:data] == 0)
 						{
-							error = [NSString stringWithFormat:@"Write log file error %@", c_logs[i]];
+							error = [NSString stringWithFormat:@"Write log file error %@", c_mods[i]];
 						}
 						[file closeFile];
 						[data release];
@@ -365,7 +390,7 @@
 				}
 				else
 				{
-					error = [NSString stringWithFormat:@"Error on copying %@", c_logs[i]];
+					error = [NSString stringWithFormat:@"Error on copying %@", c_mods[i]];
 				}
 				[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
 			}
