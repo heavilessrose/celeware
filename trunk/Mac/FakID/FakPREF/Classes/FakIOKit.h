@@ -3,7 +3,7 @@
 #import <UIKit/UIKit.h>
 #import <mach/mach_host.h>
 #import <dlfcn.h>
-#import "liblockdown.h"
+#import "../../FakLOG/Headers/liblockdown.h"
 
 //
 #define kIODeviceTreePlane "IODeviceTree"
@@ -26,5 +26,11 @@ typedef kern_return_t (*PIOMasterPort)(mach_port_t bootstrapPort, mach_port_t *m
 typedef io_registry_entry_t (*PIORegistryGetRootEntry)(mach_port_t masterPort );
 typedef CFTypeRef (*PIORegistryEntrySearchCFProperty)(io_registry_entry_t entry, const io_name_t plane, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
 typedef kern_return_t (*Pmach_port_deallocate)(ipc_space_t task, mach_port_name_t name);
+typedef CFTypeRef (*PIORegistryEntryCreateCFProperty)(io_registry_entry_t entry, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
 
 
+extern "C" kern_return_t IOMasterPort(mach_port_t bootstrapPort, mach_port_t *masterPort);
+extern "C" io_registry_entry_t IORegistryGetRootEntry(mach_port_t masterPort );
+extern "C" CFTypeRef IORegistryEntrySearchCFProperty(io_registry_entry_t entry, const io_name_t plane, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
+extern "C" kern_return_t mach_port_deallocate(ipc_space_t task, mach_port_name_t name);
+extern "C" CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);

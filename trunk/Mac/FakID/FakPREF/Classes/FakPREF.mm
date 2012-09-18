@@ -20,6 +20,40 @@ NSString *DecryptString(NSString *str)
 	return str2;
 }
 
+NSDictionary *items = nil;
+void LoadItems()
+{
+	if (items == nil)
+	{
+		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakPREFPlist];
+		//items = [[dict objectForKey:@"Items"] retain];
+		//if (items == nil)
+		{
+			NSString *temp = NSTemporaryDirectory();
+			if (temp.length == 0) temp = @"/private/var/mobile/Media";
+				temp = [temp stringByAppendingPathComponent:@"FakPREFTemp"];
+				
+				_Log(@"FakPREF Unzip: %@ --> %@ -> %@", kZipFile, kZipPass, temp);
+				ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
+				if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
+				{
+					if ([zip UnzipFileTo:temp overWrite:YES])
+					{
+						temp = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
+						_Log(@"FakPREF Unzip OK: -> %@", temp);
+						NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:temp];
+						items = [[dict objectForKey:@"Items"] retain];
+					}
+					[zip UnzipCloseFile];
+				}
+			
+			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
+		}
+		
+		//NoSIMTweak();
+	}
+}
+
 //
 NSInteger _orginRowsInSection1;
 NSInteger _totalRowsInSection1;
@@ -38,7 +72,6 @@ NSInteger MyNumberOfRowsInSection(id<UITableViewDataSource> self, SEL _cmd, UITa
 }
 
 //
-NSDictionary *items = nil;
 static IMP pCellForRowAtIndexPath;
 UITableViewCell *MyCellForRowAtIndexPath(id<UITableViewDataSource> self, SEL _cmd, UITableView *tableView, NSIndexPath *indexPath)
 {
@@ -167,36 +200,6 @@ extern "C" void FakPREFInitializeX()
 	
 	NSString *msg = [[NSBundle mainBundle] bundleIdentifier];
 	_Log(@"FakPREFInitialize: %@", msg);
-
-	if (items == nil)
-	{
-		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakPREFPlist];
-		//items = [[dict objectForKey:@"Items"] retain];
-		//if (items == nil)
-		{
-			NSString *temp = NSTemporaryDirectory();
-			if (temp.length == 0) temp = @"/private/var/mobile/Media";
-			temp = [temp stringByAppendingPathComponent:@"FakPREFTemp"];
-
-			_Log(@"FakPREF Unzip: %@ --> %@ -> %@", kZipFile, kZipPass, temp);
-			ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
-			if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
-			{
-				if ([zip UnzipFileTo:temp overWrite:YES])
-				{
-					temp = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
-					_Log(@"FakPREF Unzip OK: -> %@", temp);
-					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:temp];
-					items = [[dict objectForKey:@"Items"] retain];
-				}
-				[zip UnzipCloseFile];
-			}			
-			
-			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
-		}
-		
-		//NoSIMTweak();
-	}
 	
 	MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPath, (IMP *)&pCellForRowAtIndexPath);
 	MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: numberOfRowsInSection:), (IMP)MyNumberOfRowsInSection, (IMP *)&pNumberOfRowsInSection);

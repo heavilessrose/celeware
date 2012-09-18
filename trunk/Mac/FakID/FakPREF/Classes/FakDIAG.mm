@@ -138,7 +138,7 @@ NSURLConnection *MyConnectionWithRequest(NSURLConnection *self, SEL _cmd, NSURLR
 }
 
 //
-extern "C" void FakPREFInitialize()
+extern "C" void FakPREFInitializeX2()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	

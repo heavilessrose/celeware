@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */; };
+		2491D07D160868A0009742C5 /* libIOKit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2491D07C160868A0009742C5 /* libIOKit.dylib */; };
 		24A1DEB7160230960039139C /* FakDIAG.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A1DE9B160230960039139C /* FakDIAG.mm */; };
 		24A1DEB8160230960039139C /* FakIOKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A1DE9C160230960039139C /* FakIOKit.h */; };
 		24A1DEB9160230960039139C /* FakIOKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A1DE9D160230960039139C /* FakIOKit.mm */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		2491D07C160868A0009742C5 /* libIOKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIOKit.dylib; path = usr/lib/libIOKit.dylib; sourceTree = SDKROOT; };
 		24A1DE9B160230960039139C /* FakDIAG.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakDIAG.mm; sourceTree = "<group>"; };
 		24A1DE9C160230960039139C /* FakIOKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakIOKit.h; sourceTree = "<group>"; };
 		24A1DE9D160230960039139C /* FakIOKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakIOKit.mm; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2491D07D160868A0009742C5 /* libIOKit.dylib in Frameworks */,
 				24F666AF15F1F8CC0047BA9D /* liblockdown.dylib in Frameworks */,
 				2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */,
 				24C1807615104BF100951174 /* UIKit.framework in Frameworks */,
@@ -172,6 +175,7 @@
 		24CADA8F1510492B00B22162 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2491D07C160868A0009742C5 /* libIOKit.dylib */,
 				24F666AE15F1F8CC0047BA9D /* liblockdown.dylib */,
 				2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */,
 				24C1807515104BF100951174 /* UIKit.framework */,
