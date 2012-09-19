@@ -2,59 +2,19 @@
 #import "FakIOKit.h"
 #import "FakPREF.h"
 
-//
-inline NSArray *getValue(NSString *iosearch)
-{
-	void *lib = dlopen("/System/Library/Frameworks/IOKit.framework/IOKit", RTLD_LAZY);
-	
-	PIOMasterPort pIOMasterPort = (PIOMasterPort)dlsym(lib, "IOMasterPort");
-	PIORegistryGetRootEntry pIORegistryGetRootEntry = (PIORegistryGetRootEntry)dlsym(lib, "IORegistryGetRootEntry");
-	PIORegistryEntrySearchCFProperty pIORegistryEntrySearchCFProperty = (PIORegistryEntrySearchCFProperty)dlsym(lib, "IORegistryEntrySearchCFProperty");
-	Pmach_port_deallocate pmach_port_deallocate = (Pmach_port_deallocate)dlsym(lib, "mach_port_deallocate");
-	
-    mach_port_t          masterPort;
-    CFTypeID             propID = (CFTypeID) NULL;
-    unsigned int         bufSize;
-    
-    kern_return_t kr = pIOMasterPort(MACH_PORT_NULL, &masterPort);
-    if (kr != noErr) return nil;
-    
-    io_registry_entry_t entry = pIORegistryGetRootEntry(masterPort);
-    if (entry == MACH_PORT_NULL) return nil;
-    
-    CFTypeRef prop = pIORegistryEntrySearchCFProperty(entry, kIODeviceTreePlane, (CFStringRef) iosearch, nil, kIORegistryIterateRecursively);
-    if (!prop) return nil;
-    
-    propID = CFGetTypeID(prop);
-    if (!(propID == CFDataGetTypeID()))
-    {
-        pmach_port_deallocate(mach_task_self(), masterPort);
-        return nil;
-    }
-    
-    CFDataRef propData = (CFDataRef) prop;
-    if (!propData) return nil;
-    
-    bufSize = CFDataGetLength(propData);
-    if (!bufSize) return nil;
-    
-    NSString *p1 = [[[NSString alloc] initWithBytes:CFDataGetBytePtr(propData) length:bufSize encoding:1] autorelease];
-    pmach_port_deallocate(mach_task_self(), masterPort);
-    return [p1 componentsSeparatedByString:@"/0"];
-}
 
 //
-CFTypeRef ReplaceSN(CFTypeRef ret, CFStringRef key1, CFAllocatorRef allocator = kCFAllocatorDefault, NSString *key2 = @"IOPlatformSerialNumber")
+CFTypeRef ReplaceSN(CFTypeRef ret, CFStringRef query, CFAllocatorRef allocator = kCFAllocatorDefault)
 {
-	if (ret && [(NSString *)key1 isEqualToString:key2])
+	for (NSString *key in items.allKeys)
 	{
-		NSString *sn = [items objectForKey:@"SerialNumber"];
-		if (sn)
+		if ([(NSString*)query isEqualToString:key])
 		{
+			NSString *sn = [items objectForKey:key];
 			CFTypeRef ret2 = CFStringCreateWithCString(allocator, sn.UTF8String, kCFStringEncodingUTF8);
-			_Log(@"\nFakPREF ReplaceSN(%@): from %@ to %@", key1, ret, ret2);
-			CFRelease(ret);
-			ret = ret2;
+			_Log(@"\nFakPREF ReplaceSN(%@): from %@ to %@", query, ret, ret2);
+			if (ret) CFRelease(ret);
+			return ret2;
 		}
 	}
 	return ret;
@@ -89,7 +49,7 @@ CFPropertyListRef Mylockdown_copy_value(LockdownConnectionRef connection, CFStri
 {
 	CFTypeRef ret = plockdown_copy_value(connection, domain, key);
 	_Log(@"\nFakPREF: Mylockdown_copy_value %@ -> %@ = %@", domain, key, ret);
-	ret = ReplaceSN(ret, key, kCFAllocatorDefault, @"SerialNumber");
+	ret = ReplaceSN(ret, key);
 	return ret;
 }
 
@@ -99,11 +59,7 @@ CFPropertyListRef Mylockdown_copy_value(LockdownConnectionRef connection, CFStri
 extern "C" void FakPREFInitialize()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
-	NSString *msg = [[NSBundle mainBundle] bundleIdentifier];
-	_Log(@"FakPREFInitialize: %@", msg);
-	
-	NSString *name = NSProcessInfo.processInfo.processName;
+
 	static NSString *c_names[] =
 	{
 		@"OTACrashCopier",
@@ -125,6 +81,9 @@ extern "C" void FakPREFInitialize()
 		@"ptpd",
 	};
 	
+	NSString *name = NSProcessInfo.processInfo.processName;
+	_Log(@"FakPREFInitialize: %@", name);
+
 	for (NSInteger i = 0; i < sizeof(c_names) / sizeof(c_names[0]); i++)
 	{
 		if ([name isEqualToString:c_names[i]])
@@ -132,9 +91,9 @@ extern "C" void FakPREFInitialize()
 			_Log(@"FakPREFInitialize and Enabled in: %@", c_names[i]);
 
 			LoadItems();
-			//MSHookFunction(IORegistryEntrySearchCFProperty, MyIORegistryEntrySearchCFProperty, &pIORegistryEntrySearchCFProperty);
+			MSHookFunction(IORegistryEntrySearchCFProperty, MyIORegistryEntrySearchCFProperty, &pIORegistryEntrySearchCFProperty);
 			MSHookFunction(IORegistryEntryCreateCFProperty, MyIORegistryEntryCreateCFProperty, &pIORegistryEntryCreateCFProperty);
-			//MSHookFunction(lockdown_copy_value, Mylockdown_copy_value, &plockdown_copy_value);
+			MSHookFunction(lockdown_copy_value, Mylockdown_copy_value, &plockdown_copy_value);
 			break;
 		}
 	}

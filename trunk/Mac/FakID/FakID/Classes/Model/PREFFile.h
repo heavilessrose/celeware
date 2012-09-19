@@ -39,6 +39,7 @@ public:
 	inline void Set(NSString *sn, NSString *imei, NSString *model, NSString *wifi, NSString *bt, NSString *carrier = nil)
 	{
 		[items setObject:sn forKey:@"SerialNumber"];
+		[items setObject:sn forKey:@"IOPlatformSerialNumber"];
 		[items setObject:imei forKey:@"IMEI"];
 		[items setObject:model forKey:@"ProductModel"];
 		[items setObject:wifi forKey:@"MACAddress"];
