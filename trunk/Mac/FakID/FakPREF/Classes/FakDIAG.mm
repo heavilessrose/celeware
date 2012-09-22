@@ -68,6 +68,18 @@ id MyInitWithRequest2(NSURLConnection *self, SEL _cmd, NSURLRequest *request, id
 	return ret;
 }
 
+
+//
+static IMP pInitWithRequest3;
+id MyInitWithRequest3(NSURLConnection *self, SEL _cmd, NSURLRequest *request, id delegate, void *startImmediately, void *connectionProperties)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	id ret = pInitWithRequest3(self, _cmd, request, delegate, startImmediately, connectionProperties);
+	LogRequest(request);
+	[pool release];
+	return ret;
+}
+
 //
 static IMP pSetHTTPBody;
 id MySetHTTPBody(NSURLRequest *self, SEL _cmd, NSData *body)
@@ -99,27 +111,6 @@ id MyInitWithCFURLRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request
 
 
 //
-static IMP pCopyLogsToTempDirectory;
-void *MyCopyLogsToTempDirectory(NSURLConnection *self, SEL _cmd)
-{
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
-	_Log(@"MyCopyLogsToTempDirectory: %@", self.description);
-	
-	void *ret = pCopyLogsToTempDirectory(self, _cmd);
-	
-	[[NSFileManager defaultManager] copyItemAtPath:@"/private/var/mobile/Library/Logs/AppleSupport" toPath:@"/var/mobile/Copy.AppleSupport" error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:@"/tmp/r3" toPath:@"/var/mobile/Copy.r3" error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:@"/private/var/logs/AppleSupport/general.log" toPath:@"/var/mobile/Copy.general.log" error:nil];
-	[[NSFileManager defaultManager] copyItemAtPath:@"/private/var/mobile/Library/Logs/AppleSupport/general.log" toPath:@"/var/mobile/Copy.AppleSupport.general.log" error:nil];
-
-	[pool release];
-	
-	return ret;
-}
-
-
-//
 static IMP pMyConnectionWithRequest;
 NSURLConnection *MyConnectionWithRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request, NSURLRequest **outRequest)
 {
@@ -127,7 +118,7 @@ NSURLConnection *MyConnectionWithRequest(NSURLConnection *self, SEL _cmd, NSURLR
 	
 	_Log(@"MyConnectionWithRequest: %@", self.description);
 	
-	NSURLConnection *ret = MyConnectionWithRequest(self, _cmd, request, outRequest);
+	NSURLConnection *ret = pMyConnectionWithRequest(self, _cmd, request, outRequest);
 	if (request)
 		LogRequest(request);
 	if (outRequest && *outRequest)
@@ -137,24 +128,61 @@ NSURLConnection *MyConnectionWithRequest(NSURLConnection *self, SEL _cmd, NSURLR
 	return ret;
 }
 
+
 //
-extern "C" void FakPREFInitializeX2()
+static IMP pSendSynchronousRequest;
+NSURLConnection *MySendSynchronousRequest(NSURLConnection *self, SEL _cmd, NSURLRequest *request, NSURLResponse **reponse, NSError **error)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	_Log(@"MyConnectionWithRequest: %@", self.description);
+	
+	NSURLConnection *ret = pSendSynchronousRequest(self, _cmd, request, reponse, error);
+	if (request)
+		LogRequest(request);
+	[pool release];
+	
+	return ret;
+}
+
+//
+static IMP pStart;
+NSURLConnection *MyStart(NSURLConnection *self, SEL _cmd)
+{
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	
+	_Log(@"MyStart: %@", self.description);
+	
+	NSURLConnection *ret = pStart(self, _cmd);
+	if (self.originalRequest)
+		LogRequest(self.originalRequest);
+	if (self.currentRequest)
+		LogRequest(self.currentRequest);
+	[pool release];
+	
+	return ret;
+}
+
+
+//
+extern "C" void FakPREFInitializeDEL()
 {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *msg = [[NSBundle mainBundle] bundleIdentifier];
 	_Log(@"FakPREFInitialize: %@", msg);
 	
-	//MSHookMessageEx(NSClassFromString(@"NSURLConnection")/*(Class)objc_getMetaClass("NSURLConnection")*/, @selector(connectionWithRequest: delegate:), (IMP)MyConnectionWithRequest, (IMP *)&pMyConnectionWithRequest);
+	MSHookMessageEx(objc_getMetaClass("NSURLConnection"), @selector(connectionWithRequest: delegate:), (IMP)MyConnectionWithRequest, (IMP *)&pMyConnectionWithRequest);
 
-	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithRequest: delegate:), (IMP)MyInitWithRequest, (IMP *)&pInitWithRequest);
-	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithRequest: delegate: usesCache: maxContentLength: startImmediately: connectionProperties:), (IMP)MyInitWithRequest2, (IMP *)&pInitWithRequest2);
-	MSHookMessageEx(NSClassFromString(@"NSURLConnection"), @selector(initWithCFURLRequest:), (IMP)MyInitWithCFURLRequest, (IMP *)&pInitWithCFURLRequest);
-	MSHookMessageEx(NSClassFromString(@"NSURLRequest"), @selector(setHTTPBody:), (IMP)MySetHTTPBody, (IMP *)&pSetHTTPBody);
+	MSHookMessageEx([NSURLConnection class], @selector(start), (IMP)MyStart, (IMP *)&pStart);
+	MSHookMessageEx([NSURLConnection class], @selector(initWithRequest:delegate:), (IMP)MyInitWithRequest, (IMP *)&pInitWithRequest);
+	MSHookMessageEx([NSURLConnection class], @selector(initWithRequest: delegate: usesCache: maxContentLength: startImmediately: connectionProperties:), (IMP)MyInitWithRequest2, (IMP *)&pInitWithRequest2);
+	MSHookMessageEx([NSURLConnection class], @selector(initWithRequest: delegate: startImmediately: connectionProperties:), (IMP)MyInitWithRequest3, (IMP *)&pInitWithRequest3);
+	MSHookMessageEx([NSURLConnection class], @selector(initWithCFURLRequest:), (IMP)MyInitWithCFURLRequest, (IMP *)&pInitWithCFURLRequest);
 
-	MSHookMessageEx(NSClassFromString(@"ActivationController"), @selector(_connectionWithRequest: outRequest:), (IMP)MyConnectionWithRequest, (IMP *)&pMyConnectionWithRequest);
-	
-	//MSHookMessageEx(NSClassFromString(@"MBSDevice"), @selector(copyLogsToTempDirectory), (IMP)MyCopyLogsToTempDirectory, (IMP *)&pCopyLogsToTempDirectory);
+	MSHookMessageEx([NSURLConnection class], @selector(sendSynchronousRequest:returningResponse:response:error:),(IMP)MySendSynchronousRequest, (IMP *)&pSendSynchronousRequest);
+
+	MSHookMessageEx([NSURLConnection class], @selector(setHTTPBody:), (IMP)MySetHTTPBody, (IMP *)&pSetHTTPBody);
 
 	[pool release];
 }
