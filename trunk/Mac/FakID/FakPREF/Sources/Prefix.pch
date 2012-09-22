@@ -10,13 +10,13 @@
 inline void WriteLog(const char *str)
 {
 	puts(str);
-	FILE *fp = fopen("/private/var/mobile/CeleWare.log", "a");
+	/*FILE *fp = fopen("/private/var/mobile/CeleWare.log", "a");
 	if (fp)
 	{
 		fputs(str, fp);
 		fputs("\n", fp);
 		fclose(fp);
-	}
+	}*/
 }
 
 //
