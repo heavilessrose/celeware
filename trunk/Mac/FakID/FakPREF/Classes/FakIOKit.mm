@@ -136,7 +136,7 @@ void MySBTextDisplayViewSetText(id self, SEL cmd, NSString *text)
 	@autoreleasepool
 	{
 		_LogObj(text);
-		/for (NSS)
+		//for (NSS)
 		if ([text isEqualToString:@""])
 		{
 			text = @"";
@@ -177,10 +177,10 @@ extern "C" void FakIOKitInitialize()
 			@"itunesstored",
 		};
 		
-		
+		NSString *processName = NSProcessInfo.processInfo.processName;
 		//for (NSInteger i = 0; i < sizeof(c_names) / sizeof(c_names[0]); i++)
 		{
-			//if ([name isEqualToString:c_names[i]])
+			//if ([processName isEqualToString:c_names[i]])
 			{
 				//_Log(@"FakPREFInitialize and Enabled in: %@", c_names[i]);
 				
@@ -191,7 +191,7 @@ extern "C" void FakIOKitInitialize()
 				MSHookFunction(_CTServerConnectionCopyMobileIdentity, MyCTServerConnectionCopyMobileIdentity, &pCTServerConnectionCopyMobileIdentity);
 				MSHookFunction(_CTServerConnectionCopyMobileEquipmentInfo, MyCTServerConnectionCopyMobileEquipmentInfo, &pCTServerConnectionCopyMobileEquipmentInfo);
 				
-				if ([NSProcessInfo.processInfo.processName isEqualToString:@"SpringBoard"])
+				if ([processName isEqualToString:@"SpringBoard"])
 				{
 					MSHookMessageEx(NSClassFromString(@"SBTextDisplayView"), @selector(setText:), (IMP)MySBTextDisplayViewSetText, (IMP *)&pSBTextDisplayViewSetText);
 				}
