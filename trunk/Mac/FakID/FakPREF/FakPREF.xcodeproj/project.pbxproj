@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */; };
 		2491D07D160868A0009742C5 /* libIOKit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2491D07C160868A0009742C5 /* libIOKit.dylib */; };
-		24A1DEB7160230960039139C /* FakDIAG.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A1DE9B160230960039139C /* FakDIAG.mm */; };
+		24A1DEB7160230960039139C /* FakREQ.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A1DE9B160230960039139C /* FakREQ.mm */; };
 		24A1DEB8160230960039139C /* FakIOKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A1DE9C160230960039139C /* FakIOKit.h */; };
 		24A1DEB9160230960039139C /* FakIOKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A1DE9D160230960039139C /* FakIOKit.mm */; };
 		24A1DEBA160230960039139C /* FakPREF.h in Headers */ = {isa = PBXBuildFile; fileRef = 24A1DE9E160230960039139C /* FakPREF.h */; };
@@ -33,13 +33,21 @@
 		24A1DECC160230960039139C /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24A1DEB6160230960039139C /* ZipArchive.mm */; };
 		24C1807615104BF100951174 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C1807515104BF100951174 /* UIKit.framework */; };
 		24CADA911510492B00B22162 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CADA901510492B00B22162 /* Foundation.framework */; };
+		24EFFDB716104142000C0CD9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24EFFDB616104142000C0CD9 /* CoreTelephony.framework */; };
+		24EFFDBD1611203D000C0CD9 /* FakREQ.h in Headers */ = {isa = PBXBuildFile; fileRef = 24EFFDB91611203D000C0CD9 /* FakREQ.h */; };
+		24EFFDBE1611203D000C0CD9 /* FakID.h in Headers */ = {isa = PBXBuildFile; fileRef = 24EFFDBA1611203D000C0CD9 /* FakID.h */; };
+		24EFFDBF1611203D000C0CD9 /* FakID.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EFFDBB1611203D000C0CD9 /* FakID.mm */; };
+		24EFFDC01611203D000C0CD9 /* NoSIMTweak.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24EFFDBC1611203D000C0CD9 /* NoSIMTweak.mm */; };
+		24EFFE151611265D000C0CD9 /* Availability2.h in Headers */ = {isa = PBXBuildFile; fileRef = 24EFFE121611265D000C0CD9 /* Availability2.h */; };
+		24EFFE161611265D000C0CD9 /* liblockdown.h in Headers */ = {isa = PBXBuildFile; fileRef = 24EFFE131611265D000C0CD9 /* liblockdown.h */; };
+		24EFFE171611265D000C0CD9 /* SBApplicationIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 24EFFE141611265D000C0CD9 /* SBApplicationIcon.h */; };
 		24F666AF15F1F8CC0047BA9D /* liblockdown.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F666AE15F1F8CC0047BA9D /* liblockdown.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		2491D07C160868A0009742C5 /* libIOKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIOKit.dylib; path = usr/lib/libIOKit.dylib; sourceTree = SDKROOT; };
-		24A1DE9B160230960039139C /* FakDIAG.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakDIAG.mm; sourceTree = "<group>"; };
+		24A1DE9B160230960039139C /* FakREQ.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakREQ.mm; sourceTree = "<group>"; };
 		24A1DE9C160230960039139C /* FakIOKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakIOKit.h; sourceTree = "<group>"; };
 		24A1DE9D160230960039139C /* FakIOKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakIOKit.mm; sourceTree = "<group>"; };
 		24A1DE9E160230960039139C /* FakPREF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakPREF.h; sourceTree = "<group>"; };
@@ -65,6 +73,14 @@
 		24C1807515104BF100951174 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24CADA8D1510492B00B22162 /* FakPREF.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FakPREF.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		24CADA901510492B00B22162 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		24EFFDB616104142000C0CD9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		24EFFDB91611203D000C0CD9 /* FakREQ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakREQ.h; sourceTree = "<group>"; };
+		24EFFDBA1611203D000C0CD9 /* FakID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakID.h; sourceTree = "<group>"; };
+		24EFFDBB1611203D000C0CD9 /* FakID.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FakID.mm; sourceTree = "<group>"; };
+		24EFFDBC1611203D000C0CD9 /* NoSIMTweak.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NoSIMTweak.mm; sourceTree = "<group>"; };
+		24EFFE121611265D000C0CD9 /* Availability2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Availability2.h; sourceTree = "<group>"; };
+		24EFFE131611265D000C0CD9 /* liblockdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = liblockdown.h; sourceTree = "<group>"; };
+		24EFFE141611265D000C0CD9 /* SBApplicationIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBApplicationIcon.h; sourceTree = "<group>"; };
 		24F666AE15F1F8CC0047BA9D /* liblockdown.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblockdown.dylib; path = usr/lib/liblockdown.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -73,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24EFFDB716104142000C0CD9 /* CoreTelephony.framework in Frameworks */,
 				2491D07D160868A0009742C5 /* libIOKit.dylib in Frameworks */,
 				24F666AF15F1F8CC0047BA9D /* liblockdown.dylib in Frameworks */,
 				2413EF83151B0D1200AF18A8 /* libz.1.2.5.dylib in Frameworks */,
@@ -88,12 +105,16 @@
 		24A1DE9A160230960039139C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				24A1DE9B160230960039139C /* FakDIAG.mm */,
+				24EFFDBA1611203D000C0CD9 /* FakID.h */,
+				24EFFDBB1611203D000C0CD9 /* FakID.mm */,
 				24A1DE9C160230960039139C /* FakIOKit.h */,
 				24A1DE9D160230960039139C /* FakIOKit.mm */,
 				24A1DE9E160230960039139C /* FakPREF.h */,
 				24A1DE9F160230960039139C /* FakPREF.mm */,
+				24EFFDB91611203D000C0CD9 /* FakREQ.h */,
+				24A1DE9B160230960039139C /* FakREQ.mm */,
 				24A1DEA0160230960039139C /* NoSIMTweak.h */,
+				24EFFDBC1611203D000C0CD9 /* NoSIMTweak.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -159,6 +180,7 @@
 				24A1DE9A160230960039139C /* Classes */,
 				24A1DEA1160230960039139C /* Resources */,
 				24A1DEA3160230960039139C /* Sources */,
+				24EFFE111611265D000C0CD9 /* Headers */,
 				24CADA8F1510492B00B22162 /* Frameworks */,
 				24CADA8E1510492B00B22162 /* Products */,
 			);
@@ -180,8 +202,19 @@
 				2413EF82151B0D1200AF18A8 /* libz.1.2.5.dylib */,
 				24C1807515104BF100951174 /* UIKit.framework */,
 				24CADA901510492B00B22162 /* Foundation.framework */,
+				24EFFDB616104142000C0CD9 /* CoreTelephony.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		24EFFE111611265D000C0CD9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				24EFFE121611265D000C0CD9 /* Availability2.h */,
+				24EFFE131611265D000C0CD9 /* liblockdown.h */,
+				24EFFE141611265D000C0CD9 /* SBApplicationIcon.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +236,11 @@
 				24A1DEC8160230960039139C /* unzip.h in Headers */,
 				24A1DECA160230960039139C /* zip.h in Headers */,
 				24A1DECB160230960039139C /* ZipArchive.h in Headers */,
+				24EFFDBD1611203D000C0CD9 /* FakREQ.h in Headers */,
+				24EFFDBE1611203D000C0CD9 /* FakID.h in Headers */,
+				24EFFE151611265D000C0CD9 /* Availability2.h in Headers */,
+				24EFFE161611265D000C0CD9 /* liblockdown.h in Headers */,
+				24EFFE171611265D000C0CD9 /* SBApplicationIcon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24A1DEB7160230960039139C /* FakDIAG.mm in Sources */,
+				24A1DEB7160230960039139C /* FakREQ.mm in Sources */,
 				24A1DEB9160230960039139C /* FakIOKit.mm in Sources */,
 				24A1DEBB160230960039139C /* FakPREF.mm in Sources */,
 				24A1DEC1160230960039139C /* NSUtil.mm in Sources */,
@@ -265,6 +303,8 @@
 				24A1DEC7160230960039139C /* unzip.c in Sources */,
 				24A1DEC9160230960039139C /* zip.c in Sources */,
 				24A1DECC160230960039139C /* ZipArchive.mm in Sources */,
+				24EFFDBF1611203D000C0CD9 /* FakID.mm in Sources */,
+				24EFFDC01611203D000C0CD9 /* NoSIMTweak.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +333,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INIT_ROUTINE = _FakPREFInitialize;
+				INIT_ROUTINE = _FakIDInitialize;
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				MACH_O_TYPE = mh_dylib;
@@ -318,7 +358,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INIT_ROUTINE = _FakPREFInitialize;
+				INIT_ROUTINE = _FakIDInitialize;
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				MACH_O_TYPE = mh_dylib;

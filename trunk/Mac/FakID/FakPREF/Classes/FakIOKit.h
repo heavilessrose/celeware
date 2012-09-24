@@ -1,12 +1,15 @@
 
 
-#import <UIKit/UIKit.h>
-#import <mach/mach_host.h>
-#import <dlfcn.h>
-#import "../../FakLOG/Headers/liblockdown.h"
+#import "liblockdown.h"
+
+
+//
+extern "C" void FakIOKitInitialize();
+
 
 //
 #define kIODeviceTreePlane "IODeviceTree"
+
 
 //
 enum
@@ -15,11 +18,13 @@ enum
     kIORegistryIterateParents        = 0x00000002
 };
 
+
 //
 typedef mach_port_t		io_object_t;
 typedef io_object_t		io_registry_entry_t;
 typedef char			io_name_t[128];
 typedef UInt32			IOOptionBits;
+
 
 //
 typedef kern_return_t (*PIOMasterPort)(mach_port_t bootstrapPort, mach_port_t *masterPort);
@@ -29,15 +34,16 @@ typedef kern_return_t (*Pmach_port_deallocate)(ipc_space_t task, mach_port_name_
 typedef CFTypeRef (*PIORegistryEntryCreateCFProperty)(io_registry_entry_t entry, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
 
 
+//
 extern "C" kern_return_t IOMasterPort(mach_port_t bootstrapPort, mach_port_t *masterPort);
 extern "C" io_registry_entry_t IORegistryGetRootEntry(mach_port_t masterPort );
 extern "C" CFTypeRef IORegistryEntrySearchCFProperty(io_registry_entry_t entry, const io_name_t plane, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
 extern "C" kern_return_t mach_port_deallocate(ipc_space_t task, mach_port_name_t name);
 extern "C" CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry, CFStringRef key, CFAllocatorRef allocator, IOOptionBits options);
 
-#if 0
 
 //
+#if 0
 inline NSArray *getValue(NSString *iosearch)
 {
 	void *lib = dlopen("/System/Library/Frameworks/IOKit.framework/IOKit", RTLD_LAZY);
@@ -78,3 +84,33 @@ inline NSArray *getValue(NSString *iosearch)
     return [p1 componentsSeparatedByString:@"/0"];
 }
 #endif
+
+
+//
+struct CTServerConnection
+{
+	int a;
+	int b;
+	CFMachPortRef myport;
+	int c;
+	int d;
+	int e;
+	int f;
+	int g;
+	int h;
+	int i;
+};
+
+struct CTResult
+{
+	int flag;
+	int a;
+};
+
+extern "C" NSString *CTSettingCopyMyPhoneNumber();
+extern "C" void _CTServerConnectionCopyMobileIdentity(struct CTResult *, struct CTServerConnection *, NSString **);
+extern "C" int *  _CTServerConnectionCopyMobileEquipmentInfo(struct CTResult * Status, struct CTServerConnection * Connection, CFMutableDictionaryRef *Dictionary);
+
+typedef NSString* (*PCTSettingCopyMyPhoneNumber)();
+typedef void (*PCTServerConnectionCopyMobileIdentity)(struct CTResult *, struct CTServerConnection *, NSString **);
+typedef int* (*PCTServerConnectionCopyMobileEquipmentInfo)(struct CTResult * Status, struct CTServerConnection * Connection, CFMutableDictionaryRef *Dictionary);

@@ -2,27 +2,28 @@
 
 #ifdef __OBJC__
 	#import <Foundation/Foundation.h>
+	#import <Foundation/NSProcessInfo.h>
 #endif
-
-#import "substrate.h"
-
-//
-inline void WriteLog(const char *str)
-{
-	puts(str);
-	/*FILE *fp = fopen("/private/var/mobile/CeleWare.log", "a");
-	if (fp)
-	{
-		fputs(str, fp);
-		fputs("\n", fp);
-		fclose(fp);
-	}*/
-}
 
 //
 #ifdef DEBUG
-#define _Log(s, ...)	NSLog(s, ##__VA_ARGS__); {NSString *str = [NSString stringWithFormat:s, ##__VA_ARGS__]; WriteLog(str.UTF8String);}
+#define _Log(s, ...)	\
+{	\
+	/*NSLog(s, ##__VA_ARGS__); */	\
+	NSString *str = [NSString stringWithFormat:s, ##__VA_ARGS__];	\
+	puts(str.UTF8String);	\
+	FILE *fp = fopen("/private/var/mobile/FakID.log", "a");	\
+	if (fp)	\
+	{	\
+		fputs(str.UTF8String, fp);	\
+		fputs("\n", fp);	\
+		fclose(fp);	\
+	}	\
+}
+#define _LogLine()		_Log(@"FakID:%s:%u", __FUNCTION__, __LINE__)
+#define _LogObj(obj)	if (obj) _Log(@"FakID:%s:%u => %@ => %@", __FUNCTION__, __LINE__, NSStringFromClass([obj class]), obj)
 #else
 #define _Log(s, ...)	((void) 0)
+#define _LogLine()		((void) 0)
+#define _LogObj(obj)	((void) 0)
 #endif
-
