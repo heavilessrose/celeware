@@ -40,7 +40,7 @@ void LoadItems()
 			if (temp.length == 0) temp = @"/private/var/mobile/Media";
 			temp = [temp stringByAppendingPathComponent:@"FakPREFTemp"];
 			_LogObj(temp);
-
+			
 			ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
 			if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
 			{
@@ -48,7 +48,7 @@ void LoadItems()
 				{
 					temp = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
 					_LogObj(temp);
-
+					
 					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:temp];
 					_items = [[dict objectForKey:@"Items"] retain];
 				}
@@ -60,15 +60,103 @@ void LoadItems()
 	}
 }
 
+//
+BOOL FakLog(const char *file, const char *sn)
+{
+	BOOL ret = NO;
+	FILE *fp = fopen(file, "rb+");
+	if (fp)
+	{
+		char temp[102401] = {0};
+		fread(temp, 102400, 1, fp);
+		char *p = strstr(temp, "Serial Number: ");
+		if (p)
+		{
+			p += sizeof("Serial Number: ") - 1;
+			char *q = strchr(p, '\n');
+			if (q)
+			{
+				*q++ = 0;
+				if (strcmp(p, sn) == 0)
+				{
+					_Log(@"OKOK: %s has already correct SN\n", file);
+				}
+				else
+				{
+					fseek(fp, p - temp, SEEK_SET);
+					fprintf(fp, "%s\n", sn);
+					fwrite(q, strlen(q), 1, fp);
+					ftruncate((int)fp, ftell(fp));
+					_Log(@"OK: %s has been modified from %s to %s\n", file, p, sn);
+				}
+				ret = YES;
+			}
+			else
+			{
+				_Log(@"WARNING: Coult not find SN ended at %s\n%s\n", file, temp);
+			}
+		}
+		else
+		{
+			_Log(@"WARNING: Coult not find SN at %s\n%s\n", file, temp);
+		}
+		fclose(fp);
+	}
+	else
+	{
+		_Log(@"ERROR: Cound not open /private/var/mobile/Library/Logs/AppleSupport/general.log\n");
+	}
+	return ret;
+}
+
+
+//
+BOOL HideApp(NSString *path)
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+	if (dict)
+	{
+		if ([dict objectForKey:@"SBAppTags"] == nil)
+		{
+			[dict setObject:[NSArray arrayWithObject:@"hidden"] forKey:@"SBAppTags"];
+			if ([dict writeToFile:path atomically:YES])
+			{
+				_Log(@"Done on modifying SBAppTags: %@\n", path);
+				return YES;
+			}
+			_Log(@"Error on modifying SBAppTags: %@\n", path);
+		}
+	}
+	return NO;
+}
 
 //
 extern "C" void FakIDInitialize()
 {
 	@autoreleasepool
 	{
+		//
 		_LogObj(NSProcessInfo.processInfo.processName);
 		LoadItems();
 
+		//
+		if (HideApp(@"/Applications/YouTube.app/Info.plist") || HideApp(@"/Applications/MobileStore.app/Info.plist"))
+		{
+			// KEY: SerialNumber
+			NSString *sn = [_items objectForKey:@"SerialNumber"];
+			if (sn)
+			{
+				// Check general.log
+				if (FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", sn.UTF8String) &&
+					FakLog("/private/var/logs/AppleSupport/general.log", sn.UTF8String))
+				{
+					[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
+					[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
+				}
+			}
+		}
+		
+		//
 		FakPREFInitialize();
 		FakIOKitInitialize();
 	}

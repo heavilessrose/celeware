@@ -238,6 +238,33 @@
 								  pr_tcField.stringValue,
 								  pr_acField.stringValue,
 								  pr_carrierField.stringValue);
+	
+	// PREF
+	if (error == nil)
+	{
+		PREFFile pref;
+		pref.SET(@"SerialNumber", pr_snField.stringValue);
+		pref.SET(@"IOPlatformSerialNumber", pr_snField.stringValue);
+		pref.SET(@"ModemIMEI", pr_imei2Field.stringValue);
+		pref.SET(@"IMEI", pr_imei2Field.stringValue);
+		pref.SET(@"ProductModel", pr_modelField.stringValue);
+		pref.SET(@"MACAddress", pr_wifiField.stringValue);
+		pref.SET(@"BTMACAddress", pr_btField.stringValue);
+		pref.SET(@"CARRIER_VERSION", pr_carrierField.stringValue);
+		pref.SET(@"InternationalMobileEquipmentIdentity", ld_imeiField.stringValue);
+		pref.SET(@"kCTMobileEquipmentInfoCurrentMobileId", ld_imeiField.stringValue);
+		pref.SET(@"kCTMobileEquipmentInfoIMEI", ld_imeiField.stringValue);
+		pref.SET(@"kCTMobileEquipmentInfoICCID", iccidField.stringValue);
+		pref.SET(@"ICCID", iccidField.stringValue);
+		pref.SET(@"PhoneNumber", pnumField.stringValue);
+		pref.SET(@"UniqueDeviceID", ld_udidField.stringValue);
+		pref.SET(@"ModemVersion", pr_modemField.stringValue);
+		pref.SET(@"User Data Available", pr_acField.stringValue);
+		pref.SET(@"User Data Capacity", pr_tcField.stringValue);
+
+		error = pref.Save();
+	}
+
 	if (error)
 	{
 		NSRunAlertPanel(@"Error", error, @"OK", nil, nil);
@@ -327,9 +354,11 @@
 		{
 			static const struct {NSString *from; NSString *to;} c_files[] =
 			{
-				{@"Contents/Resources/lockdownd/lockdownd", @"/usr/libexec/lockdownd"},
-				{@"Contents/Resources/Preferences/Preferences", @"/Applications/Preferences.app/Preferences"},
-				{@"Contents/Resources/SpringBoard/SpringBoard", @"/System/Library/CoreServices/SpringBoard.app/SpringBoard"},
+				//{@"Contents/Resources/lockdownd/lockdownd", @"/usr/libexec/lockdownd"},
+				//{@"Contents/Resources/Preferences/Preferences", @"/Applications/Preferences.app/Preferences"},
+				//{@"Contents/Resources/SpringBoard/SpringBoard", @"/System/Library/CoreServices/SpringBoard.app/SpringBoard"},
+				{@"Contents/Resources/FakPREF/FakPREF.dylib", @"/Library/MobileSubstrate/DynamicLibraries/FakPREF.dylib"},
+				{@"Contents/Resources/FakPREF/spel1", @"/System/Library/Audio/UISounds/New/spel1"},
 			};
 			NSString *error = nil;
 			for (NSUInteger i = 0; (i < 3) && (error == nil); i++)
@@ -344,7 +373,7 @@
 				[data release];
 			}
 
-			static NSString *c_mods[] =
+			/*static NSString *c_mods[] =
 			{
 				@"/private/var/logs/AppleSupport/general.log",
 				@"/private/var/mobile/Library/Logs/AppleSupport/general.log",
@@ -394,9 +423,10 @@
 				}
 				[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
 			}
-
-			NSRunAlertPanel((error ? @"Error" : @"Done"), (error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect.", device.deviceName]), @"OK", nil, nil);
+			*/
+			
 			[root release];
+			NSRunAlertPanel((error ? @"Error" : @"Done"), (error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect. \n\nOn this way, we will use FakPREF.dylib to solve all issues.", device.deviceName]), @"OK", nil, nil);
 		}
 	}
 }

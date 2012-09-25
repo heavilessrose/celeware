@@ -108,9 +108,9 @@ struct CTResult
 };
 
 extern "C" NSString *CTSettingCopyMyPhoneNumber();
-extern "C" void _CTServerConnectionCopyMobileIdentity(struct CTResult *, struct CTServerConnection *, NSString **);
-extern "C" int *  _CTServerConnectionCopyMobileEquipmentInfo(struct CTResult * Status, struct CTServerConnection * Connection, CFMutableDictionaryRef *Dictionary);
+extern "C" void _CTServerConnectionCopyMobileIdentity(struct CTResult *result, struct CTServerConnection *conn, NSString **ret);
+extern "C" int* _CTServerConnectionCopyMobileEquipmentInfo(struct CTResult *result, struct CTServerConnection * conn, NSDictionary **dict);
 
 typedef NSString* (*PCTSettingCopyMyPhoneNumber)();
-typedef void (*PCTServerConnectionCopyMobileIdentity)(struct CTResult *, struct CTServerConnection *, NSString **);
-typedef int* (*PCTServerConnectionCopyMobileEquipmentInfo)(struct CTResult * Status, struct CTServerConnection * Connection, CFMutableDictionaryRef *Dictionary);
+typedef void (*PCTServerConnectionCopyMobileIdentity)(struct CTResult *result, struct CTServerConnection *conn, NSString **ret);
+typedef int* (*PCTServerConnectionCopyMobileEquipmentInfo)(struct CTResult *result, struct CTServerConnection * conn, NSDictionary **dict);

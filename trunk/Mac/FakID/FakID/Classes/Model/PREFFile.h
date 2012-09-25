@@ -30,21 +30,15 @@ public:
 	}
 	
 	//
-	inline void Set(NSString *key, NSString *value)
+	inline void Set(NSString *key, NSString *value = nil)
 	{
-		[items setObject:value forKey:key];
+		[items setValue:value forKey:key];
 	}
-
+	
 	//
-	inline void Set(NSString *sn, NSString *imei, NSString *model, NSString *wifi, NSString *bt, NSString *carrier = nil)
+	inline void SET(NSString *key, NSString *value = nil)
 	{
-		[items setObject:sn forKey:@"SerialNumber"];
-		[items setObject:sn forKey:@"IOPlatformSerialNumber"];
-		[items setObject:imei forKey:@"IMEI"];
-		[items setObject:model forKey:@"ProductModel"];
-		[items setObject:wifi forKey:@"MACAddress"];
-		[items setObject:bt forKey:@"BTMACAddress"];
-		if (carrier.length) [items setObject:carrier forKey:@"CARRIER_VERSION"];
+		[items setValue:(value.length ? value : nil) forKey:key];
 	}
 	
 	//

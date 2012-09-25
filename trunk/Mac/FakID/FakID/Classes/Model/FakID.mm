@@ -151,14 +151,6 @@ NSString *FakID::Fake(
 	{
 		error = Sign(@"Preferences");
 	}
-
-	// PREF
-	if (error == nil)
-	{
-		PREFFile pref;
-		pref.Set(pr_sn, pr_imei, pr_model, pr_wifi, pr_bt, pr_carrier);
-		error = pref.Save();
-	}
 	
 	return error;
 }

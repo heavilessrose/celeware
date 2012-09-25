@@ -114,16 +114,31 @@ UITableViewCell *MyCellForRowAtIndexPathForRoot(id<UITableViewDataSource> self, 
 		_Log(@"\n\nFakPREF MyCellForRowAtIndexPathForRoot %d", 1212);
 		
 		UITableViewCell *cell = pCellForRowAtIndexPathForRoot(self, cmd, tableView, indexPath);
-		if ((indexPath.section == 0) && (indexPath.row == 1) && (cell.accessoryType == UITableViewCellAccessoryNone))
+		if ((indexPath.section == 0) && (indexPath.row == 1))
 		{
-			cell.textLabel.enabled = YES;
-			cell.detailTextLabel.enabled = YES;
-			cell.textLabel.textColor = UIColor.blackColor;
-			cell.detailTextLabel.textColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1];
-			_Log(@"FakPREF MyCellForRowAtIndexPathForGeneral: %@", cell.detailTextLabel.text);
-			cell.detailTextLabel.text = NSLocalizedString(@"Off", @"Off");
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+			if (cell.accessoryType == UITableViewCellAccessoryNone)
+			{
+				cell.textLabel.enabled = YES;
+				cell.detailTextLabel.enabled = YES;
+				cell.textLabel.textColor = UIColor.blackColor;
+				cell.detailTextLabel.textColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1];
+				_Log(@"FakPREF MyCellForRowAtIndexPathForGeneral: %@", cell.detailTextLabel.text);
+				cell.detailTextLabel.text = NSLocalizedString(@"Off", @"Off");
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+			}
+			_LogObj(cell.textLabel.text);
+			if ([cell.textLabel.text isEqualToString:@"Wi-Fi"])
+			{
+				if ([NSUtil::DefaultLanguage() hasPrefix:@"en"])
+				{
+					cell.textLabel.text = @"WLan";
+				}
+				else if ([NSUtil::DefaultLanguage() hasPrefix:@"zh"])
+				{
+					cell.textLabel.text = @"无线局域网";
+				}
+			}
 		}
 		
 		return cell;
@@ -154,14 +169,19 @@ extern "C" void FakPREFInitialize()
 	@autoreleasepool
 	{
 		_LogLine();
-		LoadItems();
-
-		MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPath, (IMP *)&pCellForRowAtIndexPath);
-		MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: numberOfRowsInSection:), (IMP)MyNumberOfRowsInSection, (IMP *)&pNumberOfRowsInSection);
 		
-		MSHookMessageEx(NSClassFromString(@"GeneralController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPathForGeneral, (IMP *)&pCellForRowAtIndexPathForGeneral);
-		MSHookMessageEx(NSClassFromString(@"PrefsListController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPathForRoot, (IMP *)&pCellForRowAtIndexPathForRoot);
-		
-		MSHookMessageEx(NSClassFromString(@"ResetPrefController"), @selector(tableView: didSelectRowAtIndexPath:), (IMP)MyDidSelectRowAtIndexPathForReset, (IMP *)&pDidSelectRowAtIndexPathForReset);
+		if ([NSProcessInfo.processInfo.processName isEqualToString:@"Preferences"])
+		{
+			LoadItems();
+			_LogLine();
+			
+			MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPath, (IMP *)&pCellForRowAtIndexPath);
+			MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: numberOfRowsInSection:), (IMP)MyNumberOfRowsInSection, (IMP *)&pNumberOfRowsInSection);
+			
+			MSHookMessageEx(NSClassFromString(@"GeneralController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPathForGeneral, (IMP *)&pCellForRowAtIndexPathForGeneral);
+			MSHookMessageEx(NSClassFromString(@"PrefsListController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPathForRoot, (IMP *)&pCellForRowAtIndexPathForRoot);
+			
+			MSHookMessageEx(NSClassFromString(@"ResetPrefController"), @selector(tableView: didSelectRowAtIndexPath:), (IMP)MyDidSelectRowAtIndexPathForReset, (IMP *)&pDidSelectRowAtIndexPathForReset);
+		}
 	}
 }
