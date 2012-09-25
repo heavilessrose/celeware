@@ -261,6 +261,12 @@
 		pref.SET(@"ModemVersion", pr_modemField.stringValue);
 		pref.SET(@"User Data Available", pr_acField.stringValue);
 		pref.SET(@"User Data Capacity", pr_tcField.stringValue);
+		
+		pref.SED(@"region-info", ld_regionField.stringValue, 32);
+		pref.SED(@"model-number", ld_modelField.stringValue, 32);
+
+		//pref.SED(@"region-info", ld_regionField.stringValue, 32);
+		//pref.SED(@"model-number", ld_modelField.stringValue, 32);
 
 		error = pref.Save();
 	}

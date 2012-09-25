@@ -30,17 +30,35 @@ public:
 	}
 	
 	//
-	inline void Set(NSString *key, NSString *value = nil)
+	inline void Set(NSString *key, id value = nil)
 	{
 		[items setValue:value forKey:key];
 	}
 	
 	//
-	inline void SET(NSString *key, NSString *value = nil)
+	inline void SET(NSString *key, id value = nil)
 	{
-		[items setValue:(value.length ? value : nil) forKey:key];
+		[items setValue:([value length] ? value : nil) forKey:key];
 	}
 	
+	//
+	inline void SED(NSString *key, NSString *value, long length = -1)
+	{
+		if (value.length == 0)
+		{
+			[items setValue:nil forKey:key];
+			return;
+		}
+		
+		char temp[1024] = {0};
+		strcpy(temp, value.UTF8String);
+		if (length == -1)
+		{
+			length = strlen(temp);
+		}
+		[items setValue:[NSData dataWithBytes:temp length:length] forKey:key];
+	}
+
 	//
 	NSString *Save();
 };

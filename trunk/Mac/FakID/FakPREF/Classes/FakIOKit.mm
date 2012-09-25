@@ -17,8 +17,11 @@ CFTypeRef ReplaceValue(CFTypeRef ret, CFStringRef query, CFAllocatorRef allocato
 		NSString *value = [_items objectForKey:(NSString *)query];
 		if (value)
 		{
+			_LogObj(ret);
+			
 			CFTypeRef ret2 = CFStringCreateWithCString(allocator, value.UTF8String, kCFStringEncodingUTF8);
 			_Log(@"FakPREF Replace (%@): from %@ to %@", query, ret, ret2);
+
 			if (ret) CFRelease(ret);
 			ret = ret2;
 		}
@@ -212,6 +215,7 @@ extern "C" void FakIOKitInitialize()
 			@"ptpd",
 			
 			@"itunesstored",
+			@"FakLOG",
 		};
 		
 		NSString *processName = NSProcessInfo.processInfo.processName;

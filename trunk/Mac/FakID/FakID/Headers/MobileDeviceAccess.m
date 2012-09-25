@@ -38,14 +38,14 @@ typedef void (*am_device_notification_callback)(struct am_device_notification_ca
 
 // notification related functions
 mach_error_t AMDeviceNotificationSubscribe(
-	am_device_notification_callback callback,
-	uint32_t unused0,
-	uint32_t unused1,
-	void *callback_data,
-	am_device_notification *notification);
+										   am_device_notification_callback callback,
+										   uint32_t unused0,
+										   uint32_t unused1,
+										   void *callback_data,
+										   am_device_notification *notification);
 
 mach_error_t AMDeviceNotificationUnsubscribe(
-	am_device_notification subscription);
+											 am_device_notification subscription);
 
 // device related functions
 mach_error_t	AMDeviceConnect(am_device device);
@@ -267,9 +267,9 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 	id result = nil;
 	int sock = (int)((ssize_t)_service);
 	size_t sz;
-
+	
 	/* now wait for the reply */
-
+	
 	if (sizeof(long) != recv(sock, &sz, sizeof(sz), 0)) {
 		[self setLastError:@"Can't receive reply size"];
 	} else {
@@ -294,7 +294,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 			}
 			CFDataRef r = CFDataCreateWithBytesNoCopy(0,buff,sz,kCFAllocatorNull);
 			CFPropertyListRef reply = CFPropertyListCreateFromXMLData(0,r,0,0);
-//			CFPropertyListRef reply = CFPropertyListCreateWithData(0,(CFDataRef)plistdata, kCFPropertyListImmutable, NULL, NULL);
+			//			CFPropertyListRef reply = CFPropertyListCreateWithData(0,(CFDataRef)plistdata, kCFPropertyListImmutable, NULL, NULL);
 			CFRelease(r);
 			free(buff);
 			result = [[(id)reply copy] autorelease];
@@ -302,7 +302,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 			[self clearLastError];
 		}
 	}
-
+	
 	return(result);
 }
 
@@ -310,19 +310,19 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 {
 	CFReadStreamRef s;
 	int sock = (int)((ssize_t)_service);
-
+	
 	CFStreamCreatePairWithSocket(
-		kCFAllocatorDefault, (CFSocketNativeHandle)sock, &s, NULL);
+								 kCFAllocatorDefault, (CFSocketNativeHandle)sock, &s, NULL);
 	return [(NSInputStream*)s autorelease];
 }
 
 /*
-am_service socket;
-AMDeviceStartService(dev, CFSTR("com.apple.mobile.notification_proxy"), &socket, NULL);
-AMDPostNotification(socket, CFSTR("com.apple.itunes-mobdev.syncWillStart"), NULL);
-AMDPostNotification(socket, &CFSTR("com.apple.itunes-mobdev.syncDidFinish"), NULL);
-AMDShutdownNotificationProxy(socket);
-*/
+ am_service socket;
+ AMDeviceStartService(dev, CFSTR("com.apple.mobile.notification_proxy"), &socket, NULL);
+ AMDPostNotification(socket, CFSTR("com.apple.itunes-mobdev.syncWillStart"), NULL);
+ AMDPostNotification(socket, &CFSTR("com.apple.itunes-mobdev.syncDidFinish"), NULL);
+ AMDShutdownNotificationProxy(socket);
+ */
 @end
 
 @implementation AFCFileReference
@@ -469,7 +469,7 @@ AMDShutdownNotificationProxy(socket);
 	while (0 == AFCKeyValueRead(dict, &k, &v)) {
 		if (!k) break;
 		if (!v) break;
-
+		
 		// if all the characters in the value are digits, pass it back as
 		// as 'long long' in a dictionary - else pass it back as a string
 		const char *p;
@@ -505,20 +505,20 @@ AMDShutdownNotificationProxy(socket);
 }
 
 /***
-
-/dev/console
-2009-08-07 20:10:11.331 MobileDeviceAccess[7284:10b]  st_blocks = 0
-2009-08-07 20:10:11.331 MobileDeviceAccess[7284:10b]  st_nlink = 1
-2009-08-07 20:10:11.332 MobileDeviceAccess[7284:10b]  st_size = 0
-2009-08-07 20:10:11.333 MobileDeviceAccess[7284:10b]  st_ifmt = S_IFCHR
-
-/dev/disk1
-2009-08-07 20:11:35.842 MobileDeviceAccess[7296:10b]  st_blocks = 0
-2009-08-07 20:11:35.843 MobileDeviceAccess[7296:10b]  st_nlink = 1
-2009-08-07 20:11:35.844 MobileDeviceAccess[7296:10b]  st_size = 0
-2009-08-07 20:11:35.844 MobileDeviceAccess[7296:10b]  st_ifmt = S_IFBLK
-
-****/
+ 
+ /dev/console
+ 2009-08-07 20:10:11.331 MobileDeviceAccess[7284:10b]  st_blocks = 0
+ 2009-08-07 20:10:11.331 MobileDeviceAccess[7284:10b]  st_nlink = 1
+ 2009-08-07 20:10:11.332 MobileDeviceAccess[7284:10b]  st_size = 0
+ 2009-08-07 20:10:11.333 MobileDeviceAccess[7284:10b]  st_ifmt = S_IFCHR
+ 
+ /dev/disk1
+ 2009-08-07 20:11:35.842 MobileDeviceAccess[7296:10b]  st_blocks = 0
+ 2009-08-07 20:11:35.843 MobileDeviceAccess[7296:10b]  st_nlink = 1
+ 2009-08-07 20:11:35.844 MobileDeviceAccess[7296:10b]  st_size = 0
+ 2009-08-07 20:11:35.844 MobileDeviceAccess[7296:10b]  st_ifmt = S_IFBLK
+ 
+ ****/
 // var/mobile/Media
 // 2009-08-06 23:38:04.070 MobileDeviceAccess[1823:813]  st_blocks = 0
 // 2009-08-06 23:38:04.071 MobileDeviceAccess[1823:813]  st_nlink = 11
@@ -544,7 +544,7 @@ AMDShutdownNotificationProxy(socket);
 		[self setLastError:@"Input path is nil"];
 		return nil;
 	}
-
+	
 	if ([self ensureConnectionIsOpen]) {
 		afc_dictionary dict;
 		if ([self checkStatus:AFCFileInfoOpen(_afc, [path UTF8String], &dict) from:"AFCFileInfoOpen"]) {
@@ -581,7 +581,7 @@ AMDShutdownNotificationProxy(socket);
 		[self setLastError:@"Input path is nil"];
 		return nil;
 	}
-
+	
 	if (![self ensureConnectionIsOpen]) return nil;
 	afc_directory dir;
 	if ([self checkStatus:AFCDirectoryOpen(_afc,[path UTF8String],&dir) from:"AFCDirectoryOpen"]) {
@@ -602,7 +602,7 @@ AMDShutdownNotificationProxy(socket);
 		[self clearLastError];
 		return [NSArray arrayWithArray:[result autorelease]];
 	}
-
+	
 	// ret=4: path is a file
 	// ret=8: can't open path
 	return nil;
@@ -827,10 +827,10 @@ AMDShutdownNotificationProxy(socket);
 	if (self = [super initWithName:@"com.apple.mobile.house_arrest" onDevice:device]) {
 		NSDictionary *message;
 		message = [NSDictionary dictionaryWithObjectsAndKeys:
-						// value			key
-						@"VendContainer",	@"Command",
-						identifier,			@"Identifier",
-						nil];
+				   // value			key
+				   @"VendContainer",	@"Command",
+				   identifier,			@"Identifier",
+				   nil];
 		if ([self sendXMLRequest:message]) {
 			NSDictionary *reply = [self readXMLReply];
 			if (reply) {
@@ -887,7 +887,7 @@ AMDShutdownNotificationProxy(socket);
 	if (self=[super init]) {
 		_info = [info retain];
 		_bundleid = [[_info objectForKey:@"CFBundleIdentifier"] retain];
-
+		
 		// appname is harder than you think, for some reason many apps don't
 		// seem to populate the correct keys.  Way to go, Apples validation team...
 		_appname = nil;
@@ -965,12 +965,12 @@ AMDShutdownNotificationProxy(socket);
 {
 	NSDictionary *message;
 	NSArray *result = nil;
-
+	
 	message = [NSDictionary dictionaryWithObjectsAndKeys:
-					// value																key
-					@"Browse",																@"Command",
-					[NSDictionary dictionaryWithObject:@"Any" forKey:@"ApplicationType"],	@"ClientOptions",
-					nil];
+			   // value																key
+			   @"Browse",																@"Command",
+			   [NSDictionary dictionaryWithObject:@"Any" forKey:@"ApplicationType"],	@"ClientOptions",
+			   nil];
 	if ([self sendXMLRequest:message]) {
 		//
 		// we return all applications in a single array.  However,
@@ -984,10 +984,10 @@ AMDShutdownNotificationProxy(socket);
 			// read next slab of information
 			NSDictionary *reply = [self readXMLReply];
 			if (!reply) break;
-
+			
 			// first time through, thelist will be nil so we'll allocate it.
 			if (nil == thelist) {
-				// each reply that comes back has a list size in the Total key, so we can 
+				// each reply that comes back has a list size in the Total key, so we can
 				// ask for an array of the correct size up front...  If we have a filter,
 				// then we'll be over-estimating but thats not that big a deal...
 				NSNumber *total = [reply objectForKey:@"Total"];
@@ -998,7 +998,7 @@ AMDShutdownNotificationProxy(socket);
 					thelist = [[NSMutableArray alloc] init];
 				}
 			}
-
+			
 			// now, this reply might not have a current list in it so we need to be careful
 			NSArray *currentlist = [reply objectForKey:@"CurrentList"];
 			if (currentlist) {
@@ -1010,11 +1010,11 @@ AMDShutdownNotificationProxy(socket);
 					[app release];
 				}
 			}
-
+			
 			NSString *s = [reply objectForKey:@"Status"];
 			if (![s isEqual:@"BrowsingApplications"]) break;
 		}
-
+		
 		// all finished, make it immutable and return
 		if (thelist) {
 			result = [NSArray arrayWithArray:thelist];
@@ -1038,13 +1038,13 @@ AMDShutdownNotificationProxy(socket);
 	NSDictionary *message;
 	if (type == nil) type = @"Any";
 	message = [NSDictionary dictionaryWithObjectsAndKeys:
-					// value					key
-					@"Lookup",				@"Command",
-					[NSDictionary dictionaryWithObjectsAndKeys:
-						type, @"ApplicationType",
-						attr, @"Attribute",
-						nil],				@"ClientOptions",
-					nil];
+			   // value					key
+			   @"Lookup",				@"Command",
+			   [NSDictionary dictionaryWithObjectsAndKeys:
+				type, @"ApplicationType",
+				attr, @"Attribute",
+				nil],				@"ClientOptions",
+			   nil];
 	if ([self sendXMLRequest:message]) {
 		NSDictionary *reply = [self readXMLReply];
 		if (reply) {
@@ -1095,21 +1095,21 @@ http://libiphone.lighthouseapp.com/projects/27916/tickets/104/a/365185/0001-new-
 // to read out of it.
 static
 void AMSyslogRelayCallBack (
-	CFReadStreamRef stream,
-	CFStreamEventType eventType,
-	void *clientCallBackInfo )
+							CFReadStreamRef stream,
+							CFStreamEventType eventType,
+							void *clientCallBackInfo )
 {
 	AMSyslogRelay *relay = (AMSyslogRelay*)clientCallBackInfo;
-
+	
 	switch (eventType) {
-	case kCFStreamEventNone:
-	case kCFStreamEventOpenCompleted:
-	case kCFStreamEventCanAcceptBytes: 
-	case kCFStreamEventErrorOccurred:
-	case kCFStreamEventEndEncountered:
-		break;
-
-	case kCFStreamEventHasBytesAvailable:
+		case kCFStreamEventNone:
+		case kCFStreamEventOpenCompleted:
+		case kCFStreamEventCanAcceptBytes:
+		case kCFStreamEventErrorOccurred:
+		case kCFStreamEventEndEncountered:
+			break;
+			
+		case kCFStreamEventHasBytesAvailable:
 		{
 			// The relay has a maximum buffer size of 0x4000, so we might as
 			// well match it.  The buffer consists of multiple syslog records
@@ -1197,15 +1197,15 @@ void AMSyslogRelayCallBack (
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	bool result = NO;
 	UInt8 buf[1024];
-
+	
 	// make sure they remembered to open the stream
 	bool opened = NO;
 	if ([writestream streamStatus] == NSStreamStatusNotOpen) {
 		[writestream open];
 		opened = YES;
 	}
-
-	// create an input stream to read from the socket 
+	
+	// create an input stream to read from the socket
 	// loop around reading till its all done
 	NSInputStream *readstream = [self inputStreamFromSocket];
 	[readstream open];
@@ -1227,10 +1227,10 @@ void AMSyslogRelayCallBack (
 		}
 	}
 	[readstream close];
-
+	
 	// if we opened the stream, we close it as well
 	if (opened) [writestream close];
-
+	
 	[pool drain];
 	return(result);
 }
@@ -1250,7 +1250,7 @@ void AMSyslogRelayCallBack (
 		return NO;
 	}
 	_used = YES;
-
+	
 	NSDictionary *message;
 	message = [NSDictionary dictionaryWithObject:set forKey:@"Sources"];
 	if ([self sendXMLRequest:message]) {
@@ -1272,35 +1272,35 @@ void AMSyslogRelayCallBack (
 - (bool)getFileSet:(NSString*)name into:(NSOutputStream*)output
 {
 	return [self getFileSets:[NSArray arrayWithObject:name] into:output];
-} 
+}
 
 @end
 
 @implementation AMNotificationProxy
 
 /*
-
-http://matt.colyer.name/projects/iphone-linux/index.php?title=Banana's_lockdownd_session
-
-+// NotificationProxy related
-+// notifications for use with post_notification (client --> device)
-+#define NP_SYNC_WILL_START      "com.apple.itunes-mobdev.syncWillStart"
-+#define NP_SYNC_DID_START       "com.apple.itunes-mobdev.syncDidStart"
-+#define NP_SYNC_DID_FINISH      "com.apple.itunes-mobdev.syncDidFinish"
-+
-+// notifications for use with observe_notification (device --> client)
-+#define NP_SYNC_CANCEL_REQUEST  "com.apple.itunes-client.syncCancelRequest"
-+#define NP_SYNC_SUSPEND_REQUEST "com.apple.itunes-client.syncSuspendRequest"
-+#define NP_SYNC_RESUME_REQUEST  "com.apple.itunes-client.syncResumeRequest"
-+#define NP_PHONE_NUMBER_CHANGED "com.apple.mobile.lockdown.phone_number_changed"
-+#define NP_DEVICE_NAME_CHANGED  "com.apple.mobile.lockdown.device_name_changed"
-+#define NP_ATTEMPTACTIVATION    "com.apple.springboard.attemptactivation"
-+#define NP_DS_DOMAIN_CHANGED    "com.apple.mobile.data_sync.domain_changed"
-+#define NP_APP_INSTALLED        "com.apple.mobile.application_installed"
-+#define NP_APP_UNINSTALLED      "com.apple.mobile.application_uninstalled"
-+
-
-*/
+ 
+ http://matt.colyer.name/projects/iphone-linux/index.php?title=Banana's_lockdownd_session
+ 
+ +// NotificationProxy related
+ +// notifications for use with post_notification (client --> device)
+ +#define NP_SYNC_WILL_START      "com.apple.itunes-mobdev.syncWillStart"
+ +#define NP_SYNC_DID_START       "com.apple.itunes-mobdev.syncDidStart"
+ +#define NP_SYNC_DID_FINISH      "com.apple.itunes-mobdev.syncDidFinish"
+ +
+ +// notifications for use with observe_notification (device --> client)
+ +#define NP_SYNC_CANCEL_REQUEST  "com.apple.itunes-client.syncCancelRequest"
+ +#define NP_SYNC_SUSPEND_REQUEST "com.apple.itunes-client.syncSuspendRequest"
+ +#define NP_SYNC_RESUME_REQUEST  "com.apple.itunes-client.syncResumeRequest"
+ +#define NP_PHONE_NUMBER_CHANGED "com.apple.mobile.lockdown.phone_number_changed"
+ +#define NP_DEVICE_NAME_CHANGED  "com.apple.mobile.lockdown.device_name_changed"
+ +#define NP_ATTEMPTACTIVATION    "com.apple.springboard.attemptactivation"
+ +#define NP_DS_DOMAIN_CHANGED    "com.apple.mobile.data_sync.domain_changed"
+ +#define NP_APP_INSTALLED        "com.apple.mobile.application_installed"
+ +#define NP_APP_UNINSTALLED      "com.apple.mobile.application_uninstalled"
+ +
+ 
+ */
 - (void)dealloc
 {
 	NSLog(@"deallocating %@",self);
@@ -1315,7 +1315,7 @@ http://matt.colyer.name/projects/iphone-linux/index.php?title=Banana's_lockdownd
 // Note, sometimes we get called with "AMDNotificationFaceplant" - that happens
 // when the connection to the device goes away.  We may have a race condition in
 // here because we may have killed the AMDevice which will close all the services
-static 
+static
 void AMNotificationProxy_callback(CFStringRef notification, void* data)
 {
 	AMNotificationProxy *proxy = (AMNotificationProxy*)data;
@@ -1369,7 +1369,7 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 		[sig numberOfArguments] != 3
 		||
 		strcmp([sig getArgumentTypeAtIndex:2],"@")!=0
-	) {
+		) {
 		NSString *c = NSStringFromClass([notificationObserver class]);
 		NSString *s = NSStringFromSelector(notificationSelector);
 		NSLog(@"%@.%@ defined incorrectly for AMNotificationCenter.addObserver:selector:name:",c,s);
@@ -1377,7 +1377,7 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 		NSLog(@"-(void)%@: (id)notificationname;",s,s);
 		return;
 	}
-
+	
 	if ([notificationObserver respondsToSelector:notificationSelector]) {
 		// we keep an array of observers in a dictionary indexed by notificationName.
 		// each observer is recorded as an array containing { object, "selector-as-string" }
@@ -1392,7 +1392,7 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 			mach_error_t status;
 			status = AMDObserveNotification(_service, (CFStringRef)notificationName);
 			if (status != ERR_SUCCESS) NSLog(@"AMDObserveNotification returned %lx",status);
-
+			
 			message_observers = [NSMutableArray new];
 			[_messages setObject:message_observers forKey:notificationName];
 		}
@@ -1445,10 +1445,10 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 {
 	NSDictionary *message;
 	message = [NSDictionary dictionaryWithObjectsAndKeys:
-					// value			key
-					@"getIconPNGData",	@"command",
-					bundleId,			@"bundleId",
-					nil];
+			   // value			key
+			   @"getIconPNGData",	@"command",
+			   bundleId,			@"bundleId",
+			   nil];
 	if ([self sendXMLRequest:message]) {
 		return [self readXMLReply];
 	}
@@ -1490,12 +1490,12 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
  -               iconModDate = 2009-09-26 20:45:29 +1000;
  -       or a zero (for an unused slot)
  -       padded to a multiple of four.
-
+ 
  {	"command" = "getIconPNGData"; "bundleId" = ... };
  
  {	"command" = "setIconState"; }
-	perhaps expects to be passed a follow up plist with the new state
-*/
+ perhaps expects to be passed a follow up plist with the new state
+ */
 @end
 
 #if 0
@@ -1524,7 +1524,7 @@ __cfstring:00002150 cfstr_Response  __CFString <0, 0x7C8, aResponse, 8> ; "Respo
 		NSLog(@"%@", [self readXMLReply]);
 		NSLog(@"sending OK");
 		[self sendXMLRequest:[NSArray arrayWithObjects:@"DLMessageVersionExchange", @"DLVersionsOk",
-			[NSNumber numberWithInt:100],[NSNumber numberWithInt:100],nil]];
+							  [NSNumber numberWithInt:100],[NSNumber numberWithInt:100],nil]];
 		NSLog(@"%@", [self readXMLReply]);
 	}
 	return self;
@@ -1540,8 +1540,8 @@ __cfstring:00002150 cfstr_Response  __CFString <0, 0x7C8, aResponse, 8> ; "Respo
 {
 	NSDictionary *message;
 	message = [NSArray arrayWithObjects:
-			@"DLMessageProcessMessage",
-			[NSArray arrayWithObjects:
+			   @"DLMessageProcessMessage",
+			   [NSArray arrayWithObjects:
 				@"SDMessageGetAllRecordsFromDevice",
 				@"com.apple.Contacts",
 				@"---",
@@ -1549,7 +1549,7 @@ __cfstring:00002150 cfstr_Response  __CFString <0, 0x7C8, aResponse, 8> ; "Respo
 				[NSNumber numberWithInt:106],		// protocol version 106
 				@"___EmptyParameterString___",
 				nil ],
-			nil];
+			   nil];
 	NSLog(@"sending %@",message);
 	if ([self sendXMLRequest:message]) {
 		NSLog(@"waiting reply");
@@ -1574,14 +1574,14 @@ After which it will accept commands (in the form [“DLMessageProcessMessage”,
 < ["DLMessageProcessMessage", {"MessageType" => "ScreenShotRequest"}]
 > ["DLMessageProcessMessage", {"MessageType" => "ScreenShotReply", "ScreenShotData" => png_data}]
 
-	message = [NSArray arrayWithObjects:
-				@"SDMessageGetAllRecordsFromDevice",
-				@"com.apple.Contacts",
-				@"---",
-				[NSDate date],
-				[NSNumber numberWithInt:106],		// protocol version 106
-				@"___EmptyParameterString___",
-				nil ];
+message = [NSArray arrayWithObjects:
+		   @"SDMessageGetAllRecordsFromDevice",
+		   @"com.apple.Contacts",
+		   @"---",
+		   [NSDate date],
+		   [NSNumber numberWithInt:106],		// protocol version 106
+		   @"___EmptyParameterString___",
+		   nil ];
 
 __cstring:00007008 aSyncsubscribed DCB "SyncSubscribedCalendars",0
 
@@ -1613,53 +1613,53 @@ __text:00006920						; "SDMessageDeviceFinishedSession"
 __text:00006924						; "SDMessageCancelSession"
 
 
-	plist_t array = build_contact_hello_msg(env);
-	ret = iphone_msync_send(env->msync, array);
-	plist_free(array);
-	array = NULL;
-	ret = iphone_msync_recv(env->msync, &array);
+plist_t array = build_contact_hello_msg(env);
+ret = iphone_msync_send(env->msync, array);
+plist_free(array);
+array = NULL;
+ret = iphone_msync_recv(env->msync, &array);
 
-		array = plist_new_array();
-		plist_add_sub_string_el(array, "SDMessageAcknowledgeChangesFromDevice");
-		plist_add_sub_string_el(array, "com.apple.Contacts");
+array = plist_new_array();
+plist_add_sub_string_el(array, "SDMessageAcknowledgeChangesFromDevice");
+plist_add_sub_string_el(array, "com.apple.Contacts");
 
-		ret = iphone_msync_send(env->msync, array);
-		plist_free(array);
-		array = NULL;
+ret = iphone_msync_send(env->msync, array);
+plist_free(array);
+array = NULL;
 
 
-	array = plist_new_array();
-	plist_add_sub_string_el(array, "DLMessagePing");
-	plist_add_sub_string_el(array, "Preparing to get changes for device");
+array = plist_new_array();
+plist_add_sub_string_el(array, "DLMessagePing");
+plist_add_sub_string_el(array, "Preparing to get changes for device");
 
-	ret = iphone_msync_send(env->msync, array);
-	plist_free(array);
-	array = NULL;
+ret = iphone_msync_send(env->msync, array);
+plist_free(array);
+array = NULL;
 
-	array = plist_new_array();
-	plist_add_sub_string_el(array, "SDMessageFinishSessionOnDevice");
-	plist_add_sub_string_el(array, "com.apple.Contacts");
+array = plist_new_array();
+plist_add_sub_string_el(array, "SDMessageFinishSessionOnDevice");
+plist_add_sub_string_el(array, "com.apple.Contacts");
 
-	ret = iphone_msync_send(env->msync, array);
-	plist_free(array);
-	array = NULL;
+ret = iphone_msync_send(env->msync, array);
+plist_free(array);
+array = NULL;
 
-	ret = iphone_msync_recv(env->msync, &array);
+ret = iphone_msync_recv(env->msync, &array);
 
 plist_t build_contact_hello_msg(iphone_env *env)
 {
 	plist_t array = NULL;
-
+	
 	array = plist_new_array();
 	plist_add_sub_string_el(array, "SDMessageSyncDataClassWithDevice");
 	plist_add_sub_string_el(array, "com.apple.Contacts");
-
+	
 	//get last anchor and send new one
 	OSyncError *anchor_error;
 	char *timestamp = NULL;
 	timestamp = osync_anchor_retrieve(osync_objtype_sink_get_anchor(env->contact_sink),
-					  &anchor_error);
-
+									  &anchor_error);
+	
 	if (timestamp && strlen(timestamp) > 0)
 		osync_trace(TRACE_INTERNAL, "timestamp is: %s\n", timestamp);
 	else {
@@ -1668,17 +1668,17 @@ plist_t build_contact_hello_msg(iphone_env *env)
 		timestamp = strdup("---");
 		osync_trace(TRACE_INTERNAL, "first sync!\n");
 	};
-
+	
 	time_t t = time(NULL);
-
+	
 	char* new_timestamp = osync_time_unix2vtime(&t);
-
+	
 	plist_add_sub_string_el(array, timestamp);
 	plist_add_sub_string_el(array, new_timestamp);
-
+	
 	plist_add_sub_uint_el(array, 106);
 	plist_add_sub_string_el(array, "___EmptyParameterString___");
-
+	
 	return array;
 }
 
@@ -1795,22 +1795,22 @@ plist_t build_contact_hello_msg(iphone_env *env)
 	BOOL opened_connection = NO;
 	BOOL opened_session = NO;
 	id result = nil;
-
+	
 	// first, check for a connection
 	if (!_connected) {
 		if (![self deviceConnect]) goto bail;
 		opened_connection = YES;
 	}
-
+	
 	// one way or another, we have a connection, look for a session
 	if (!_insession) {
 		if (![self startSession]) goto bail;
 		opened_session = YES;
 	}
-
+	
 	// ok we have a session running, just query and set up to return
 	result = (id)AMDeviceCopyValue(_device,(CFStringRef)domain,(CFStringRef)key);
-
+	
 bail:
 	if (opened_session) [self stopSession];
 	if (opened_connection) [self deviceDisconnect];
@@ -1857,15 +1857,15 @@ bail:
 			[self release];
 			return nil;
 		}
-
+		
 		// we can access device values once we are connected
 		_deviceName = (NSString*)AMDeviceCopyValue(_device, 0, CFSTR("DeviceName"));
 		_udid = (NSString*)AMDeviceCopyValue(_device, 0, CFSTR("UniqueDeviceID"));
-
+		
 		// NSLog(@"AMDeviceGetInterfaceType() returns %d",AMDeviceGetInterfaceType(device));
 		// NSLog(@"AMDeviceGetInterfaceSpeed() returns %.0fK",AMDeviceGetInterfaceSpeed(device)/1024.0);
 		// NSLog(@"AMDeviceGetConnectionID() returns %d",AMDeviceGetConnectionID(device));
-
+		
 		// apparently we need to disconnect whenever we aren't doing anything or
 		// the connection will time-out at the other end???
 		[self deviceDisconnect];
@@ -2022,7 +2022,7 @@ bail:
 				// "User", "System", "Internal" ??
 				[self checkStatus:AMDeviceLookupApplications(_device, nil, &dict)
 							 from:"AMDeviceLookupApplications"]
-			) {
+				) {
 				result = [[NSMutableArray new] autorelease];
 				for (NSString *key in (NSDictionary*)dict) {
 					NSDictionary *info = [(NSDictionary*)dict objectForKey:key];
@@ -2052,43 +2052,46 @@ bail:
 - (void)Notify:(struct am_device_notification_callback_info*)info
 {
 	AMDevice *d;
-
+	
 	switch (info->msg) {
-	default:
-		NSLog(@"Ignoring unknown message: %d",info->msg);
-		return;
-
-	case ADNCI_MSG_UNSUBSCRIBED:
-		return;
-
-	case ADNCI_MSG_CONNECTED:
-		d = [AMDevice deviceFrom:info->dev];
-		[_devices addObject:d];
-		if (_listener && [_listener respondsToSelector:@selector(deviceConnected:)]) {
-			[_listener deviceConnected:d];
-		}
-		break;
-
-	case ADNCI_MSG_DISCONNECTED:
-		for (d in _devices) {
-			if ([d isDevice:info->dev]) {
-				[d forgetDevice];
-				if (_listener && [_listener respondsToSelector:@selector(deviceDisconnected:)]) {
-					[_listener deviceDisconnected:d];
+		default:
+			NSLog(@"Ignoring unknown message: %d",info->msg);
+			return;
+			
+		case ADNCI_MSG_UNSUBSCRIBED:
+			return;
+			
+		case ADNCI_MSG_CONNECTED:
+			d = [AMDevice deviceFrom:info->dev];
+			if (d)
+			{
+				[_devices addObject:d];
+				if (_listener && [_listener respondsToSelector:@selector(deviceConnected:)]) {
+					[_listener deviceConnected:d];
 				}
-				[_devices removeObject:d];
-				break;
 			}
-		}
-		break;
+			break;
+			
+		case ADNCI_MSG_DISCONNECTED:
+			for (d in _devices) {
+				if ([d isDevice:info->dev]) {
+					[d forgetDevice];
+					if (_listener && [_listener respondsToSelector:@selector(deviceDisconnected:)]) {
+						[_listener deviceDisconnected:d];
+					}
+					[_devices removeObject:d];
+					break;
+				}
+			}
+			break;
 	}
-
+	
 	// if he's waiting for us to do something, break him
 	if (_waitingInRunLoop) CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 // someone outside us wants to detach a device - perhaps they've closed the window.
-// 
+//
 - (void)detachDevice:(AMDevice*)d
 {
 	[_devices removeObject:d];
@@ -2115,14 +2118,14 @@ void notify_callback(struct am_device_notification_callback_info *info, void* ar
 		_subscribed = NO;					// we are not subscribed yet
 		_devices = [NSMutableArray new];	// we have no device connected
 		_waitingInRunLoop = NO;			// we are not currently waiting in a runloop
-
+		
 		// we opened, we need to ensure that we get closed or our
 		// services stay running on the ipod
-		[[NSNotificationCenter defaultCenter] 
-			addObserver: self
-			   selector: @selector(applicationWillTerminate:)
-				   name: NSApplicationWillTerminateNotification
-				 object: nil];
+		[[NSNotificationCenter defaultCenter]
+		 addObserver: self
+		 selector: @selector(applicationWillTerminate:)
+		 name: NSApplicationWillTerminateNotification
+		 object: nil];
     }
 	return self;
 }
@@ -2149,13 +2152,13 @@ void notify_callback(struct am_device_notification_callback_info *info, void* ar
 - (void)dealloc
 {
 	NSLog(@"deallocating %@",self);
-
+	
 	// we must stop observing everything before we evaporate
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-
+	
 	// if we are currently waiting, stop now
 	if (_waitingInRunLoop) CFRunLoopStop(CFRunLoopGetCurrent());
-
+	
 	[_devices release];
 	[super dealloc];
 }
@@ -2165,19 +2168,19 @@ void notify_callback(struct am_device_notification_callback_info *info, void* ar
 	// we didn't manage to subscribe for notifications so there is no
 	// point waiting
 	if (!_subscribed) return NO;
-
+	
 	NSLog(@"calling CFRunLoopRun(), plug iPod in now!!!");
 	_waitingInRunLoop = YES;
 	CFRunLoopRun();
 	_waitingInRunLoop = NO;
 	NSLog(@"back from calling CFRunLoopRun()");
-
-// while (something?) {
-// 		_waitingInRunLoop = YES;
-//		CFRunLoopRunInMode (@"waiting for connection", 5/*seconds*/, NO/*returnAfterSourceHandled*/);
-//		_waitingInRunLoop = NO;
-//		if (_device) return YES;
-// }
+	
+	// while (something?) {
+	// 		_waitingInRunLoop = YES;
+	//		CFRunLoopRunInMode (@"waiting for connection", 5/*seconds*/, NO/*returnAfterSourceHandled*/);
+	//		_waitingInRunLoop = NO;
+	//		if (_device) return YES;
+	// }
 	return YES;
 }
 
@@ -2189,7 +2192,7 @@ void notify_callback(struct am_device_notification_callback_info *info, void* ar
 + (MobileDeviceAccess*)singleton
 {
 	static MobileDeviceAccess *_singleton = nil;
-
+	
 	if (_singleton == nil) {
 		_singleton = [[MobileDeviceAccess alloc] init];
 		
