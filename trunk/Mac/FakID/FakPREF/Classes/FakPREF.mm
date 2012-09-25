@@ -64,15 +64,15 @@ UITableViewCell *MyCellForRowAtIndexPath(id<UITableViewDataSource> self, SEL cmd
 		}
 		
 		_Log(@"FakPREF Name: %@, Value: %@", cell.textLabel.text, cell.detailTextLabel.text);
-		for (NSString *key in _items.allKeys)
+		for (NSString *key in ITEMS().allKeys)
 		{
 			//_Log(@"FakPREF Key: %@ -> %@", key, NSLocalizedString(key, key));
 			if ([cell.textLabel.text isEqualToString:NSLocalizedString(key, key)])
 			{
-				NSString *value = [_items objectForKey:key];
+				NSString *value = [ITEMS() objectForKey:key];
 				if ([key isEqualToString:@"ProductVersion"])
 				{
-					NSString *build = [_items objectForKey:@"BuildVersion"];
+					NSString *build = [ITEMS() objectForKey:@"BuildVersion"];
 					if (build)
 					{
 						value = [value stringByAppendingFormat:@" (%@)", build];
@@ -180,7 +180,6 @@ extern "C" void FakPREFInitialize()
 		
 		if ([NSProcessInfo.processInfo.processName isEqualToString:@"Preferences"])
 		{
-			LoadItems();
 			_LogLine();
 			
 			MSHookMessageEx(NSClassFromString(@"AboutController"), @selector(tableView: cellForRowAtIndexPath:), (IMP)MyCellForRowAtIndexPath, (IMP *)&pCellForRowAtIndexPath);

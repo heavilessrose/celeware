@@ -14,7 +14,7 @@ CFTypeRef ReplaceValue(CFTypeRef ret, CFStringRef query, CFAllocatorRef allocato
 		// KEY: InternationalMobileEquipmentIdentity
 		// KEY: region-info NSData 32-bytes
 		// KEY: model-number NSData 32-bytes
-		NSString *value = [_items objectForKey:(NSString *)query];
+		NSString *value = [ITEMS() objectForKey:(NSString *)query];
 		if (value)
 		{
 			_LogObj((NSObject *)ret);
@@ -95,7 +95,7 @@ NSString *MyCTSettingCopyMyPhoneNumber()
 	@autoreleasepool
 	{
 		// KEY: PhoneNumber
-		NSString *value = [_items objectForKey:@"PhoneNumber"];
+		NSString *value = [ITEMS() objectForKey:@"PhoneNumber"];
 		if (value)
 		{
 			_LogObj(value);
@@ -118,7 +118,7 @@ void MyCTServerConnectionCopyMobileIdentity(struct CTResult *result, struct CTSe
 		_LogObj(*ret);
 
 		// KEY: kCTMobileEquipmentInfoIMEI
-		NSString *value = [_items objectForKey:@"kCTMobileEquipmentInfoIMEI"];
+		NSString *value = [ITEMS() objectForKey:@"kCTMobileEquipmentInfoIMEI"];
 		if (value)
 		{
 			[*ret release];
@@ -146,7 +146,7 @@ int* MyCTServerConnectionCopyMobileEquipmentInfo(struct CTResult *result, struct
 				// KEY: kCTMobileEquipmentInfoCurrentMobileId
 				// KEY: kCTMobileEquipmentInfoIMEI
 				// KEY: kCTMobileEquipmentInfoICCID
-				NSString *value = [_items objectForKey:key];
+				NSString *value = [ITEMS() objectForKey:key];
 				if (value)
 				{
 					replace = YES;
@@ -175,14 +175,14 @@ void MySBTextDisplayViewSetText(id self, SEL cmd, NSString *text)
 		_LogObj(text);
 		if (text && (text.length == 15))
 		{
-			NSString *value = [_items objectForKey:text];
+			NSString *value = [ITEMS() objectForKey:text];
 			if (value)
 			{
 				text = (NSString *)CFStringCreateWithCString(kCFAllocatorDefault, value.UTF8String, kCFStringEncodingUTF8);
 				_LogObj(value);
 			}
 			// KEY: InternationalMobileEquipmentIdentity
-			else if ((value = [_items objectForKey:@"InternationalMobileEquipmentIdentity"]) != nil)
+			else if ((value = [ITEMS() objectForKey:@"InternationalMobileEquipmentIdentity"]) != nil)
 			{
 				_LogObj(value);
 				//LockdownConnectionRef connection = lockdown_connect();
@@ -207,7 +207,6 @@ extern "C" void FakIOKitInitialize()
 	@autoreleasepool
 	{
 		_LogLine();
-		LoadItems();
 		
 		static NSString *c_names[] =
 		{
@@ -231,6 +230,8 @@ extern "C" void FakIOKitInitialize()
 			
 			@"itunesstored",
 			@"FakLOG",
+			@"Setup",
+			
 		};
 		
 		NSString *processName = NSProcessInfo.processInfo.processName;

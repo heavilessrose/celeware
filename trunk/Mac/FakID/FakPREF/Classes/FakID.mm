@@ -28,13 +28,14 @@ NSString *DecryptString(NSString *str)
 
 //
 NSDictionary *_items = nil;
-void LoadItems()
+NSDictionary *ITEMS()
 {
 	if (_items == nil)
 	{
 		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakPREFPlist];
-		//items = [[dict objectForKey:@"Items"] retain];
-		//if (items == nil)
+		//_items = [[dict objectForKey:@"Items"] retain];
+		//_LogObj(_items);
+		//if (_items == nil)
 		{
 			NSString *temp = NSTemporaryDirectory();
 			if (temp.length == 0) temp = @"/private/var/mobile/Media";
@@ -46,11 +47,12 @@ void LoadItems()
 			{
 				if ([zip UnzipFileTo:temp overWrite:YES])
 				{
-					temp = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
-					_LogObj(temp);
+					NSString *file = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
+					_LogObj(file);
 					
-					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:temp];
+					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
 					_items = [[dict objectForKey:@"Items"] retain];
+					_LogObj(_items);
 				}
 				[zip UnzipCloseFile];
 			}
@@ -58,6 +60,7 @@ void LoadItems()
 			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
 		}
 	}
+	return _items;
 }
 
 //
@@ -137,13 +140,12 @@ extern "C" void FakIDInitialize()
 	{
 		//
 		_LogObj(NSProcessInfo.processInfo.processName);
-		LoadItems();
 
 		//
 		if (HideApp(@"/Applications/YouTube.app/Info.plist") || HideApp(@"/Applications/MobileStore.app/Info.plist"))
 		{
 			// KEY: SerialNumber
-			NSString *sn = [_items objectForKey:@"SerialNumber"];
+			NSString *sn = [ITEMS() objectForKey:@"SerialNumber"];
 			if (sn)
 			{
 				// Check general.log
