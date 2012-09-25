@@ -63,11 +63,12 @@
 
 	PREFFile pref;
 	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
-	pr_verField.stringValue = pref.Get(@"ProductVersion");
+	pr_verField.stringValue = pref.Get(@"ProductVersion", @"5.1.1");
+	pr_buildField.stringValue = pref.Get(@"BuildVersion", @"9B206");
 	
-	imsiField.stringValue = pref.Get(@"IMSI");//@"460010358227962";
-	iccidField.stringValue = pref.Get(@"ICCID"); //@"89860111281560277793";
-	pnumField.stringValue = pref.Get(@"PhoneNumber");//@"+86 132-1033-9247";
+	imsiField.stringValue = pref.Get(@"IMSI", @"460010358227962");
+	iccidField.stringValue = pref.Get(@"ICCID", @"89860111281560277793");
+	pnumField.stringValue = pref.Get(@"PhoneNumber", @"+86 132-1033-9247");
 }
 
 //
@@ -201,6 +202,9 @@
 	FillValue(iccidField, @"IntegratedCircuitCardIdentity");
 	FillValue(imsiField, @"InternationalMobileSubscriberIdentity");
 	
+	FillValue(pr_verField, @"ProductVersion");
+	FillValue(pr_buildField, @"BuildVersion");
+
 	//
 	AFCMediaDirectory *media = device.newAFCMediaDirectory;
 	if (media)
@@ -273,6 +277,7 @@
 		pref.SED(@"model-number", ld_modelField.stringValue, 32);
 		
 		pref.SET(@"ProductVersion", pr_verField.stringValue);
+		pref.SET(@"BuildVersion", pr_buildField.stringValue);
 		
 		//pref.SED(@"local-mac-address", ld_modelField.stringValue, 10);
 		

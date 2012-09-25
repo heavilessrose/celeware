@@ -70,6 +70,14 @@ UITableViewCell *MyCellForRowAtIndexPath(id<UITableViewDataSource> self, SEL cmd
 			if ([cell.textLabel.text isEqualToString:NSLocalizedString(key, key)])
 			{
 				NSString *value = [_items objectForKey:key];
+				if ([key isEqualToString:@"ProductVersion"])
+				{
+					NSString *build = [_items objectForKey:@"BuildVersion"];
+					if (build)
+					{
+						value = [value stringByAppendingFormat:@" (%@)", build];
+					}
+				}
 				_Log(@"FakPREF Value: %@", value);
 				cell.detailTextLabel.text = value;
 				break;

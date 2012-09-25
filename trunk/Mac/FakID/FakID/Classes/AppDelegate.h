@@ -30,6 +30,7 @@
 	IBOutlet NSTextField *pr_acField;
 	IBOutlet NSTextField *pr_carrierField;
 	IBOutlet NSTextField *pr_verField;
+	IBOutlet NSTextField *pr_buildField;
 
 	IBOutlet NSTextField *iccidField;
 	IBOutlet NSTextField *imsiField;

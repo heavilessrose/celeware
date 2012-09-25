@@ -26,7 +26,14 @@ public:
 	//
 	inline NSString *Get(NSString *key)
 	{
-		return[items objectForKey:key];
+		return [items objectForKey:key];
+	}
+	
+	//
+	inline NSString *Get(NSString *key, id def)
+	{
+		NSString *value = [items objectForKey:key];
+		return value ? value : def;
 	}
 	
 	//
