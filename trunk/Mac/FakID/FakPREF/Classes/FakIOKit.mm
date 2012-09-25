@@ -17,13 +17,28 @@ CFTypeRef ReplaceValue(CFTypeRef ret, CFStringRef query, CFAllocatorRef allocato
 		NSString *value = [_items objectForKey:(NSString *)query];
 		if (value)
 		{
-			_LogObj(ret);
+			_LogObj((NSObject *)ret);
 			
-			CFTypeRef ret2 = CFStringCreateWithCString(allocator, value.UTF8String, kCFStringEncodingUTF8);
+			CFTypeRef ret2;
+			if ([value isKindOfClass:[NSString class]])
+			{
+				ret2 = CFStringCreateWithCString(allocator, value.UTF8String, kCFStringEncodingUTF8);
+			}
+			else if ([value isKindOfClass:[NSData class]])
+			{
+				ret2 = CFDataCreate(allocator, (const UInt8 *)((NSData *)value).bytes, ((NSData *)value).length);
+			}
+			else
+			{
+				ret2 = ret;
+			}
 			_Log(@"FakPREF Replace (%@): from %@ to %@", query, ret, ret2);
 
-			if (ret) CFRelease(ret);
-			ret = ret2;
+			if (ret != ret2)
+			{
+				if (ret) CFRelease(ret);
+				ret = ret2;
+			}
 		}
 	}
 	return ret;
@@ -223,7 +238,7 @@ extern "C" void FakIOKitInitialize()
 		{
 			if ([processName isEqualToString:c_names[i]])
 			{
-				//_Log(@"FakPREFInitialize and Enabled in: %@", c_names[i]);
+				_Log(@"FakPREFInitialize and Enabled in: %@", c_names[i]);
 				
 				MSHookFunction(lockdown_copy_value, Mylockdown_copy_value, &plockdown_copy_value);
 				MSHookFunction(IORegistryEntrySearchCFProperty, MyIORegistryEntrySearchCFProperty, &pIORegistryEntrySearchCFProperty);
@@ -237,7 +252,7 @@ extern "C" void FakIOKitInitialize()
 				{
 					MSHookMessageEx(NSClassFromString(@"SBTextDisplayView"), @selector(setText:), (IMP)MySBTextDisplayViewSetText, (IMP *)&pSBTextDisplayViewSetText);
 				}
-				//break;
+				break;
 			}
 		}
 	}

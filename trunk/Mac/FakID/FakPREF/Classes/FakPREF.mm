@@ -132,7 +132,7 @@ UITableViewCell *MyCellForRowAtIndexPathForRoot(id<UITableViewDataSource> self, 
 			{
 				if ([NSUtil::DefaultLanguage() hasPrefix:@"en"])
 				{
-					cell.textLabel.text = @"WLan";
+					cell.textLabel.text = @"WLAN";
 				}
 				else if ([NSUtil::DefaultLanguage() hasPrefix:@"zh"])
 				{
@@ -168,7 +168,7 @@ extern "C" void FakPREFInitialize()
 {
 	@autoreleasepool
 	{
-		_LogLine();
+		_LogObj(NSBundle.mainBundle.bundleIdentifier);
 		
 		if ([NSProcessInfo.processInfo.processName isEqualToString:@"Preferences"])
 		{

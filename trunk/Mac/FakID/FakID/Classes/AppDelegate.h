@@ -29,11 +29,12 @@
 	IBOutlet NSTextField *pr_tcField;
 	IBOutlet NSTextField *pr_acField;
 	IBOutlet NSTextField *pr_carrierField;
+	IBOutlet NSTextField *pr_verField;
 
 	IBOutlet NSTextField *iccidField;
 	IBOutlet NSTextField *imsiField;
 	IBOutlet NSTextField *pnumField;
-
+	
 	IBOutlet NSButton *fetchButton;
 	IBOutlet NSButton *writeButton;
 	IBOutlet NSProgressIndicator *netIndicator;

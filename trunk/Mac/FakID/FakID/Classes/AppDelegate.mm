@@ -55,12 +55,19 @@
 	pr_acField.stringValue = pr.Read(0x1776);
 	pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
 	
-	//PREFFile pref;
-	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
+	//FakPREF: Mylockdown_copy_value (null) -> ProductType = iPhone3,1
+	//FakPREF: Mylockdown_copy_value (null) -> BuildVersion = 9B206
+	//FakPREF: Mylockdown_copy_value (null) -> ProductVersion = 5.1.1
+	//FakPREF: Mylockdown_copy_value (null) -> DeviceColor = black
+	//FakPREF: Mylockdown_copy_value (null) -> HardwareModel = N90AP
 
-	imsiField.stringValue = @"460010358227962";
-	iccidField.stringValue = @"89860111281560277793";
-	pnumField.stringValue = @"+86 132-1033-9247";
+	PREFFile pref;
+	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
+	pr_verField.stringValue = pref.Get(@"ProductVersion");
+	
+	imsiField.stringValue = pref.Get(@"IMSI");//@"460010358227962";
+	iccidField.stringValue = pref.Get(@"ICCID"); //@"89860111281560277793";
+	pnumField.stringValue = pref.Get(@"PhoneNumber");//@"+86 132-1033-9247";
 }
 
 //
@@ -92,7 +99,7 @@
 	{
 		pr_btField.stringValue = ld_btField.stringValue;
 	}
-
+	
 	if ((ld_modelField.stringValue.length >= 5) && ld_regionField.stringValue.length)
 	{
 		pr_modelField.stringValue = [[ld_modelField.stringValue stringByAppendingString:ld_regionField.stringValue] stringByDeletingLastPathComponent];
@@ -148,7 +155,7 @@
 		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
 		return;
 	}
-
+	
 	sb_imeiField.stringValue = @"";
 	sb_imei2Field.stringValue = @"";
 	
@@ -169,7 +176,7 @@
 	pr_tcField.stringValue = @"";
 	pr_acField.stringValue = @"";
 	pr_carrierField.stringValue = @"";
-
+	
 	pnumField.stringValue = @"";
 	iccidField.stringValue = @"";
 	imsiField.stringValue = @"";
@@ -194,7 +201,7 @@
 	FillValue(iccidField, @"IntegratedCircuitCardIdentity");
 	FillValue(imsiField, @"InternationalMobileSubscriberIdentity");
 	
-	// 
+	//
 	AFCMediaDirectory *media = device.newAFCMediaDirectory;
 	if (media)
 	{
@@ -208,10 +215,10 @@
 		}
 		[media release];
 	}
-
+	
 	SBLDFile pr(kPreferencesFile);
 	pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
-
+	
 	return [self sync:nil];
 }
 
@@ -264,13 +271,14 @@
 		
 		pref.SED(@"region-info", ld_regionField.stringValue, 32);
 		pref.SED(@"model-number", ld_modelField.stringValue, 32);
-
-		//pref.SED(@"region-info", ld_regionField.stringValue, 32);
-		//pref.SED(@"model-number", ld_modelField.stringValue, 32);
-
+		
+		pref.SET(@"ProductVersion", pr_verField.stringValue);
+		
+		//pref.SED(@"local-mac-address", ld_modelField.stringValue, 10);
+		
 		error = pref.Save();
 	}
-
+	
 	if (error)
 	{
 		NSRunAlertPanel(@"Error", error, @"OK", nil, nil);
@@ -299,7 +307,7 @@
 	else
 	{
 		NSOpenPanel* openDlg = [NSOpenPanel openPanel];
-
+		
 		//[openDlg setCanChooseFiles:TRUE];
 		[openDlg setCanChooseDirectories:TRUE];
 		[openDlg setAllowsMultipleSelection:FALSE];
@@ -317,7 +325,7 @@
 	NSString *to_sb = kBundleSubPath(@"Contents/Resources/FakID.bundle/files/System/Library/CoreServices/SpringBoard.app/SpringBoard");
 	NSString *to_ld = kBundleSubPath(@"Contents/Resources/FakID.bundle/files/usr/libexec/lockdownd");
 	NSString *to_pr = kBundleSubPath(@"Contents/Resources/FakID.bundle/files/Applications/Preferences.app/Preferences");
-
+	
 	
 	NSString *from_pt = kBundleSubPath(@"Contents/Resources/FakID.bundle");
 	NSString *to_pt = [path stringByAppendingPathComponent:@"Contents/Resources/CustomPackages/FakeID.bundle"];
@@ -326,7 +334,7 @@
 	[[NSFileManager defaultManager] removeItemAtPath:to_ld error:nil];
 	[[NSFileManager defaultManager] removeItemAtPath:to_pr error:nil];
 	[[NSFileManager defaultManager] removeItemAtPath:to_pt error:nil];
-		
+	
 	if ([[NSFileManager defaultManager] copyItemAtPath:from_sb toPath:to_sb error:nil] &&
 		[[NSFileManager defaultManager] copyItemAtPath:from_ld toPath:to_ld error:nil] &&
 		[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil] &&
@@ -378,58 +386,58 @@
 				[file closeFile];
 				[data release];
 			}
-
+			
 			/*static NSString *c_mods[] =
-			{
-				@"/private/var/logs/AppleSupport/general.log",
-				@"/private/var/mobile/Library/Logs/AppleSupport/general.log",
-				@"/Applications/YouTube.app/Info.plist",
-				@"/Applications/MobileStore.app/Info.plist",
-			};
-			for (NSUInteger i = 0; (i < 4) && (error == nil); i++)
-			{
-				NSString *temp = kBundleSubPath([c_mods[i] lastPathComponent]);
-				if ([root copyRemoteFile:c_mods[i] toLocalFile:temp])
-				{
-					if (i < 2)
-					{
-						error = FakID::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
-					}
-					else
-					{
-						NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:temp];
-						if (dict)
-						{
-							[dict setObject:[NSArray arrayWithObject:@"hidden"] forKey:@"SBAppTags"];
-							if ([dict writeToFile:temp atomically:YES] == NO)
-							{
-								error = [NSString stringWithFormat:@"Error on modifying: %@\n", temp];
-							}
-						}
-						else
-						{
-							error = [NSString stringWithFormat:@"Error on opeing: %@\n", temp];
-						}
-					}
-					if (error == nil)
-					{
-						AFCFileReference *file = [root openForWrite:c_mods[i]];
-						NSData *data = [[NSData alloc] initWithContentsOfFile:temp];
-						if ([file writeNSData:data] == 0)
-						{
-							error = [NSString stringWithFormat:@"Write log file error %@", c_mods[i]];
-						}
-						[file closeFile];
-						[data release];
-					}
-				}
-				else
-				{
-					error = [NSString stringWithFormat:@"Error on copying %@", c_mods[i]];
-				}
-				[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
-			}
-			*/
+			 {
+			 @"/private/var/logs/AppleSupport/general.log",
+			 @"/private/var/mobile/Library/Logs/AppleSupport/general.log",
+			 @"/Applications/YouTube.app/Info.plist",
+			 @"/Applications/MobileStore.app/Info.plist",
+			 };
+			 for (NSUInteger i = 0; (i < 4) && (error == nil); i++)
+			 {
+			 NSString *temp = kBundleSubPath([c_mods[i] lastPathComponent]);
+			 if ([root copyRemoteFile:c_mods[i] toLocalFile:temp])
+			 {
+			 if (i < 2)
+			 {
+			 error = FakID::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
+			 }
+			 else
+			 {
+			 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:temp];
+			 if (dict)
+			 {
+			 [dict setObject:[NSArray arrayWithObject:@"hidden"] forKey:@"SBAppTags"];
+			 if ([dict writeToFile:temp atomically:YES] == NO)
+			 {
+			 error = [NSString stringWithFormat:@"Error on modifying: %@\n", temp];
+			 }
+			 }
+			 else
+			 {
+			 error = [NSString stringWithFormat:@"Error on opeing: %@\n", temp];
+			 }
+			 }
+			 if (error == nil)
+			 {
+			 AFCFileReference *file = [root openForWrite:c_mods[i]];
+			 NSData *data = [[NSData alloc] initWithContentsOfFile:temp];
+			 if ([file writeNSData:data] == 0)
+			 {
+			 error = [NSString stringWithFormat:@"Write log file error %@", c_mods[i]];
+			 }
+			 [file closeFile];
+			 [data release];
+			 }
+			 }
+			 else
+			 {
+			 error = [NSString stringWithFormat:@"Error on copying %@", c_mods[i]];
+			 }
+			 [[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
+			 }
+			 */
 			
 			[root release];
 			NSRunAlertPanel((error ? @"Error" : @"Done"), (error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect. \n\nOn this way, we will use FakPREF.dylib to solve all issues.", device.deviceName]), @"OK", nil, nil);
@@ -487,7 +495,7 @@
 - (void)activating:(NSDictionary *)info
 {
 	@autoreleasepool
-	{			
+	{
 		NSData *xml = [info objectForKey:@"ActivationInfoXML"];
 		[xml writeToFile:kBundleSubPath(@"ActivationInfoXML.xml") atomically:NO];
 		NSMutableDictionary *xml2 = [NSMutableDictionary dictionaryWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML.xml")];
@@ -504,14 +512,14 @@
 		[xml2 setObject:ld_modelField.stringValue forKey:@"ModelNumber"];
 		[xml2 setObject:ld_modelField.stringValue forKey:@"ModelNumber"];
 		[xml2 setObject:ld_udidField.stringValue forKey:@"UniqueDeviceID"];
-
+		
 		//
 		NSMutableDictionary *info2 = [NSMutableDictionary dictionaryWithDictionary:info];
 		[info2 removeObjectForKey:@"ActivationInfoErrors"];
 		[info2 setObject:[NSNumber numberWithBool:YES] forKey:@"ActivationInfoComplete"];
 		
 		[xml2 writeToFile:kBundleSubPath(@"ActivationInfoXML2.xml") atomically:NO];
-
+		
 		[info2 setObject:[NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfoXML2.xml")] forKey:@"ActivationInfoXML"];
 		
 		[info writeToFile:kBundleSubPath(@"ActivationInfo.xml") atomically:NO];
@@ -527,7 +535,7 @@
 {
 	netIndicator.hidden = YES;
 	[netIndicator stopAnimation:nil];
-
+	
 	if (ret.length > 500) ret = [ret substringToIndex:500];
 	NSRunAlertPanel(@"Activation Result", ret, @"OK", nil, nil);
 }
