@@ -198,33 +198,40 @@ public:
 		return;
 	}
 
-	DeviceReader dev([devices objectAtIndex:0]);
-	
-	//
-	modelField.stringValue = dev.Get(@"ModelNumber");
-	regionField.stringValue = dev.Get(@"RegionInfo");
-	tcapField.stringValue = dev.GET(@"FSTotalBytes");
-	acapField.stringValue = dev.GET(@"FSFreeBytes");
-	
-	imeiField.stringValue = dev.Get(@"InternationalMobileEquipmentIdentity");
-	snField.stringValue = dev.Get(@"SerialNumber");
-	wifiField.stringValue = dev.Get(@"WiFiAddress");
-	btField.stringValue = dev.Get(@"BluetoothAddress");
-	
-	//carrierField.stringValue = dev.Get(@"CARRIER_VERSION");
-	modemField.stringValue = dev.Get(@"BasebandVersion");
-	
-	typeField.stringValue = dev.Get(@"ProductType");
-	verField.stringValue = dev.Get(@"ProductVersion");
-	buildField.stringValue = dev.Get(@"BuildVersion");
-	
-	udidField.stringValue = dev.Get(@"UniqueDeviceID");
-	
-	imsiField.stringValue = dev.Get(@"InternationalMobileSubscriberIdentity");
-	iccidField.stringValue = dev.Get(@"IntegratedCircuitCardIdentity");
-	pnumField.stringValue = dev.Get(@"PhoneNumber");
-	
-	if ([typeField.stringValue hasPrefix:@"iPhone"]) typeField.stringValue = [typeField.stringValue substringFromIndex:6];
+	for (AMDevice *device in devices)
+	{
+		if (device.deviceName)
+		{
+			DeviceReader dev(device);
+
+			//
+			modelField.stringValue = dev.Get(@"ModelNumber");
+			regionField.stringValue = dev.Get(@"RegionInfo");
+			tcapField.stringValue = dev.GET(@"FSTotalBytes");
+			acapField.stringValue = dev.GET(@"FSFreeBytes");
+			
+			imeiField.stringValue = dev.Get(@"InternationalMobileEquipmentIdentity");
+			snField.stringValue = dev.Get(@"SerialNumber");
+			wifiField.stringValue = dev.Get(@"WiFiAddress");
+			btField.stringValue = dev.Get(@"BluetoothAddress");
+			
+			//carrierField.stringValue = dev.Get(@"CARRIER_VERSION");
+			modemField.stringValue = dev.Get(@"BasebandVersion");
+			
+			typeField.stringValue = dev.Get(@"ProductType");
+			verField.stringValue = dev.Get(@"ProductVersion");
+			buildField.stringValue = dev.Get(@"BuildVersion");
+			
+			udidField.stringValue = dev.Get(@"UniqueDeviceID");
+			
+			imsiField.stringValue = dev.Get(@"InternationalMobileSubscriberIdentity");
+			iccidField.stringValue = dev.Get(@"IntegratedCircuitCardIdentity");
+			pnumField.stringValue = dev.Get(@"PhoneNumber");
+			
+			if ([typeField.stringValue hasPrefix:@"iPhone"]) typeField.stringValue = [typeField.stringValue substringFromIndex:6];
+			break;
+		}
+	}
 }
 
 //
