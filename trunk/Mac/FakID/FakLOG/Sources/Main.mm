@@ -34,8 +34,7 @@ int main(int argc, char *argv[])
 		printf("WIFI: %s\n", wifi.UTF8String);
 		printf("BT: %s\n", bt.UTF8String);
 		printf("UDID: %s\n\n", udid.UTF8String);
-		printf("VER: %s\n\n", version.UTF8String);
-		printf("BUILD: %s\n\n", build.UTF8String);
+		printf("VER: %s (%s)\n", version.UTF8String, build.UTF8String);
 
 		/*printf("Amount Data Available:%.2f GB\n", amount_data_avail.floatValue / 1024 / 1024 / 1024);
 		printf("Amount Data Reserved: %.2f GB\n", amount_data_rsv.floatValue / 1024 / 1024 / 1024);

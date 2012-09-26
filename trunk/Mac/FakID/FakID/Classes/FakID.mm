@@ -1,9 +1,9 @@
 
 #import "FakID.h"
-#import "ZipArchive.h"
+#import "FakPREF.h"
 #import "FakIOKit.h"
-#import "FakID.h"
 #import "substrate.h"
+#import "ZipArchive.h"
 
 
 //
@@ -107,43 +107,6 @@ BOOL HideApp(NSString *path)
 
 
 //
-#define kSystemVersionPlist	 @"/System/Library/CoreServices/SystemVersion.plist"
-void TWEAK()
-{
-	//
-	HideApp(@"/Applications/YouTube.app/Info.plist");
-	HideApp(@"/Applications/MobileStore.app/Info.plist");
-	
-	// KEY: SerialNumber
-	FakLog("/private/var/logs/AppleSupport/general.log", @"Serial Number: ");
-	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
-	
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kSystemVersionPlist];
-	NSString *version = [ITEMS() objectForKey:@"ProductVersion"];
-	NSString *build = [ITEMS() objectForKey:@"BuildVersion"];
-	if (version && build)
-	{
-		if (![[dict objectForKey:@"ProductVersion"] isEqualToString:version] ||
-			![[dict objectForKey:@"ProductBuildVersion"] isEqualToString:build])
-		{
-			[dict setObject:version forKey:@"ProductVersion"];
-			[dict setObject:build forKey:@"ProductBuildVersion"];
-			[dict writeToFile:kSystemVersionPlist atomically:YES];
-
-			FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
-			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
-			
-			FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
-			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
-		}
-	}
-	
-	//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/logs/AppleSupport/general.log" error:nil];
-	//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/mobile/Library/Logs/AppleSupport/general.log" error:nil];
-}
-
-
-//
 NSDictionary *_items = nil;
 NSDictionary *ITEMS()
 {
@@ -182,19 +145,67 @@ NSDictionary *ITEMS()
 
 
 //
+#define kSystemVersionPlist	 @"/System/Library/CoreServices/SystemVersion.plist"
+void TWEAK()
+{
+	NSString *processName = NSProcessInfo.processInfo.processName;
+
+	//
+	if ([processName isEqualToString:@"lockdownd"] ||
+		[processName isEqualToString:@"FakLOG"])
+	{
+		HideApp(@"/Applications/YouTube.app/Info.plist");
+		HideApp(@"/Applications/MobileStore.app/Info.plist");
+	}
+
+	//
+	if ([processName isEqualToString:@"iOS Diagnostics"] ||
+		//[processName isEqualToString:@"lockdownd"] ||
+		[processName isEqualToString:@"FakLOG"])
+	{
+		//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/logs/AppleSupport/general.log" error:nil];
+		//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/mobile/Library/Logs/AppleSupport/general.log" error:nil];
+		
+		// KEY: SerialNumber :
+		FakLog("/private/var/logs/AppleSupport/general.log", @"Serial Number: ");
+		FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
+		
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kSystemVersionPlist];
+		NSString *version = [ITEMS() objectForKey:@"ProductVersion"];
+		NSString *build = [ITEMS() objectForKey:@"BuildVersion"];
+		if (version && build)
+		{
+			if (![[dict objectForKey:@"ProductVersion"] isEqualToString:version] ||
+				![[dict objectForKey:@"ProductBuildVersion"] isEqualToString:build])
+			{
+				[dict setObject:version forKey:@"ProductVersion"];
+				[dict setObject:build forKey:@"ProductBuildVersion"];
+				[dict writeToFile:kSystemVersionPlist atomically:YES];
+				
+				// KEY: SerialNumber :
+				FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
+				FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
+				
+				// KEY: OS-Version:
+				FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
+				FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
+			}
+		}
+	}
+}
+
+
+//
 extern "C" void FakIDInitialize()
 {
 	@autoreleasepool
 	{
 		//
 		_LogObj(NSProcessInfo.processInfo.processName);
-		if ([NSProcessInfo.processInfo.processName isEqualToString:@"lockdownd"])
-		{
-			TWEAK();
-		}
 		
 		//
-		FakIDInitialize();
+		TWEAK();
+		FakPREFInitialize();
 		FakIOKitInitialize();
 	}
 }
