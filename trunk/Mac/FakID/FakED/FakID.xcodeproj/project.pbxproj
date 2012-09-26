@@ -1,0 +1,423 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2402197C16036DE0008AE6BB /* MobileDeviceAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2402197916036DE0008AE6BB /* MobileDeviceAccess.m */; };
+		2402197F16036E40008AE6BB /* MobileDevice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2402197E16036E40008AE6BB /* MobileDevice.framework */; };
+		2402198516039757008AE6BB /* NSUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2402198216039757008AE6BB /* NSUtil.mm */; };
+		2402198916039865008AE6BB /* SettingUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2402198816039865008AE6BB /* SettingUtil.mm */; };
+		240219991603BDC7008AE6BB /* ActivationInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 240219981603BDC7008AE6BB /* ActivationInfo.plist */; };
+		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
+		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
+		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
+		24D0AC8715F2448600398D3C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D0AC8615F2448600398D3C /* MainMenu.xib */; };
+		24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 24E0393D14C987BB003AA3D9 /* Icon.icns */; };
+		24E5F6EC15F28080003B48CE /* SBLDFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24E5F6E915F28080003B48CE /* SBLDFile.mm */; };
+		24E5F6ED15F28080003B48CE /* PREFFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24E5F6EB15F28080003B48CE /* PREFFile.mm */; };
+		24F328D1160563C500B850C9 /* FakID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 24F328D0160563C400B850C9 /* FakID.bundle */; };
+		24F4047115FC270300086E1C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F4047015FC270300086E1C /* Security.framework */; };
+		24F666CA15F1FFDE0047BA9D /* FakID in Resources */ = {isa = PBXBuildFile; fileRef = 24F666C715F1FFDE0047BA9D /* FakID */; };
+		24F666CC15F1FFDE0047BA9D /* SpringBoard in Resources */ = {isa = PBXBuildFile; fileRef = 24F666C915F1FFDE0047BA9D /* SpringBoard */; };
+		24F666CE15F202570047BA9D /* lockdownd in Resources */ = {isa = PBXBuildFile; fileRef = 24F666CD15F202570047BA9D /* lockdownd */; };
+		24F666D015F20EF00047BA9D /* FakPREF in Resources */ = {isa = PBXBuildFile; fileRef = 24F666CF15F20EF00047BA9D /* FakPREF */; };
+		24F666E215F231C90047BA9D /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 24F666DA15F231C90047BA9D /* ioapi.c */; };
+		24F666E315F231C90047BA9D /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24F666DC15F231C90047BA9D /* unzip.c */; };
+		24F666E415F231C90047BA9D /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24F666DE15F231C90047BA9D /* zip.c */; };
+		24F666E515F231C90047BA9D /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F666E115F231C90047BA9D /* ZipArchive.mm */; };
+		24F666E815F231FC0047BA9D /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F666E715F231FB0047BA9D /* libz.1.2.5.dylib */; };
+		24F7531F14C9AE540007E549 /* FakID.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F7531E14C9AE540007E549 /* FakID.mm */; };
+		24FC1C2915F6FC31002821EC /* Preferences in Resources */ = {isa = PBXBuildFile; fileRef = 24FC1C2815F6FC31002821EC /* Preferences */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2402197516035F86008AE6BB /* MobileDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDevice.h; sourceTree = "<group>"; };
+		2402197816036DE0008AE6BB /* MobileDeviceAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileDeviceAccess.h; sourceTree = "<group>"; };
+		2402197916036DE0008AE6BB /* MobileDeviceAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileDeviceAccess.m; sourceTree = "<group>"; };
+		2402197E16036E40008AE6BB /* MobileDevice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileDevice.framework; path = /System/Library/PrivateFrameworks/MobileDevice.framework; sourceTree = "<absolute>"; };
+		2402198116039757008AE6BB /* NSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUtil.h; sourceTree = "<group>"; };
+		2402198216039757008AE6BB /* NSUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSUtil.mm; sourceTree = "<group>"; };
+		2402198716039865008AE6BB /* SettingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUtil.h; sourceTree = "<group>"; };
+		2402198816039865008AE6BB /* SettingUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingUtil.mm; sourceTree = "<group>"; };
+		240219981603BDC7008AE6BB /* ActivationInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ActivationInfo.plist; sourceTree = "<group>"; };
+		2447BCE314C9824400A34F0F /* FakID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakID.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2447BCE714C9824400A34F0F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		2447BCEA14C9824400A34F0F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		2447BCEB14C9824400A34F0F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2447BCEC14C9824400A34F0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2447BD0514C9830000A34F0F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2447BD0614C9830000A34F0F /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		2447BD1114C9830000A34F0F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2447BD1314C9830000A34F0F /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		2447BD1414C9830000A34F0F /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
+		24D0AC8615F2448600398D3C /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		24E0393D14C987BB003AA3D9 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		24E5F6E815F28080003B48CE /* SBLDFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLDFile.h; sourceTree = "<group>"; };
+		24E5F6E915F28080003B48CE /* SBLDFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SBLDFile.mm; sourceTree = "<group>"; };
+		24E5F6EA15F28080003B48CE /* PREFFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PREFFile.h; sourceTree = "<group>"; };
+		24E5F6EB15F28080003B48CE /* PREFFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PREFFile.mm; sourceTree = "<group>"; };
+		24F328D0160563C400B850C9 /* FakID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FakID.bundle; sourceTree = "<group>"; };
+		24F4047015FC270300086E1C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		24F666C715F1FFDE0047BA9D /* FakID */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FakID; sourceTree = "<group>"; };
+		24F666C915F1FFDE0047BA9D /* SpringBoard */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpringBoard; sourceTree = "<group>"; };
+		24F666CD15F202570047BA9D /* lockdownd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lockdownd; sourceTree = "<group>"; };
+		24F666CF15F20EF00047BA9D /* FakPREF */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FakPREF; sourceTree = "<group>"; };
+		24F666D915F231C90047BA9D /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		24F666DA15F231C90047BA9D /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		24F666DB15F231C90047BA9D /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		24F666DC15F231C90047BA9D /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		24F666DD15F231C90047BA9D /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		24F666DE15F231C90047BA9D /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		24F666DF15F231C90047BA9D /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		24F666E015F231C90047BA9D /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		24F666E115F231C90047BA9D /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
+		24F666E715F231FB0047BA9D /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		24F7531D14C9AE540007E549 /* FakID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakID.h; path = Classes/Model/FakID.h; sourceTree = SOURCE_ROOT; };
+		24F7531E14C9AE540007E549 /* FakID.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FakID.mm; path = Classes/Model/FakID.mm; sourceTree = SOURCE_ROOT; };
+		24FC1C2815F6FC31002821EC /* Preferences */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Preferences; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2447BCE014C9824400A34F0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2402197F16036E40008AE6BB /* MobileDevice.framework in Frameworks */,
+				24F4047115FC270300086E1C /* Security.framework in Frameworks */,
+				24F666E815F231FC0047BA9D /* libz.1.2.5.dylib in Frameworks */,
+				2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2402197416035F86008AE6BB /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				2402197516035F86008AE6BB /* MobileDevice.h */,
+				2402197816036DE0008AE6BB /* MobileDeviceAccess.h */,
+				2402197916036DE0008AE6BB /* MobileDeviceAccess.m */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		2402198016039757008AE6BB /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				2402198116039757008AE6BB /* NSUtil.h */,
+				2402198216039757008AE6BB /* NSUtil.mm */,
+				2402198716039865008AE6BB /* SettingUtil.h */,
+				2402198816039865008AE6BB /* SettingUtil.mm */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		2447BCD814C9824400A34F0F = {
+			isa = PBXGroup;
+			children = (
+				2447BD0414C9830000A34F0F /* Classes */,
+				2447BD1214C9830000A34F0F /* Sources */,
+				2402197416035F86008AE6BB /* Headers */,
+				2447BD0A14C9830000A34F0F /* Resources */,
+				2447BCE614C9824400A34F0F /* Frameworks */,
+				2447BCE414C9824400A34F0F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2447BCE414C9824400A34F0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2447BCE314C9824400A34F0F /* FakID.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2447BCE614C9824400A34F0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2402197E16036E40008AE6BB /* MobileDevice.framework */,
+				24F666E715F231FB0047BA9D /* libz.1.2.5.dylib */,
+				2447BCE714C9824400A34F0F /* Cocoa.framework */,
+				2447BCEA14C9824400A34F0F /* AppKit.framework */,
+				2447BCEB14C9824400A34F0F /* CoreData.framework */,
+				2447BCEC14C9824400A34F0F /* Foundation.framework */,
+				24F4047015FC270300086E1C /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2447BD0414C9830000A34F0F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2447BD0814C9830000A34F0F /* Model */,
+				2447BD0914C9830000A34F0F /* View */,
+				2447BD0514C9830000A34F0F /* AppDelegate.h */,
+				2447BD0614C9830000A34F0F /* AppDelegate.mm */,
+			);
+			path = Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		2447BD0814C9830000A34F0F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				24F7531D14C9AE540007E549 /* FakID.h */,
+				24F7531E14C9AE540007E549 /* FakID.mm */,
+				24E5F6E815F28080003B48CE /* SBLDFile.h */,
+				24E5F6E915F28080003B48CE /* SBLDFile.mm */,
+				24E5F6EA15F28080003B48CE /* PREFFile.h */,
+				24E5F6EB15F28080003B48CE /* PREFFile.mm */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2447BD0914C9830000A34F0F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2447BD0A14C9830000A34F0F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				24F666C715F1FFDE0047BA9D /* FakID */,
+				24F666CF15F20EF00047BA9D /* FakPREF */,
+				24F666CD15F202570047BA9D /* lockdownd */,
+				24F666C915F1FFDE0047BA9D /* SpringBoard */,
+				24FC1C2815F6FC31002821EC /* Preferences */,
+				24F328D0160563C400B850C9 /* FakID.bundle */,
+				2447BD1114C9830000A34F0F /* Info.plist */,
+				24E0393D14C987BB003AA3D9 /* Icon.icns */,
+				24D0AC8615F2448600398D3C /* MainMenu.xib */,
+				240219981603BDC7008AE6BB /* ActivationInfo.plist */,
+			);
+			path = Resources;
+			sourceTree = SOURCE_ROOT;
+		};
+		2447BD1214C9830000A34F0F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2402198016039757008AE6BB /* Util */,
+				24F666D815F231C90047BA9D /* ZipArchive */,
+				2447BD1314C9830000A34F0F /* Prefix.pch */,
+				2447BD1414C9830000A34F0F /* Main.m */,
+			);
+			path = Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		24F666D815F231C90047BA9D /* ZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				24F666D915F231C90047BA9D /* crypt.h */,
+				24F666DA15F231C90047BA9D /* ioapi.c */,
+				24F666DB15F231C90047BA9D /* ioapi.h */,
+				24F666DC15F231C90047BA9D /* unzip.c */,
+				24F666DD15F231C90047BA9D /* unzip.h */,
+				24F666DE15F231C90047BA9D /* zip.c */,
+				24F666DF15F231C90047BA9D /* zip.h */,
+				24F666E015F231C90047BA9D /* ZipArchive.h */,
+				24F666E115F231C90047BA9D /* ZipArchive.mm */,
+			);
+			path = ZipArchive;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2447BCE214C9824400A34F0F /* FakID */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2447BD0114C9824400A34F0F /* Build configuration list for PBXNativeTarget "FakID" */;
+			buildPhases = (
+				2447BCDF14C9824400A34F0F /* Sources */,
+				2447BCE014C9824400A34F0F /* Frameworks */,
+				2447BCE114C9824400A34F0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FakID;
+			productName = FakID;
+			productReference = 2447BCE314C9824400A34F0F /* FakID.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2447BCDA14C9824400A34F0F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 2447BCDD14C9824400A34F0F /* Build configuration list for PBXProject "FakID" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+				"zh-Hant",
+			);
+			mainGroup = 2447BCD814C9824400A34F0F;
+			productRefGroup = 2447BCE414C9824400A34F0F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2447BCE214C9824400A34F0F /* FakID */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2447BCE114C9824400A34F0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24E0393E14C987BB003AA3D9 /* Icon.icns in Resources */,
+				24F666CA15F1FFDE0047BA9D /* FakID in Resources */,
+				24F666CC15F1FFDE0047BA9D /* SpringBoard in Resources */,
+				24F666CE15F202570047BA9D /* lockdownd in Resources */,
+				24F666D015F20EF00047BA9D /* FakPREF in Resources */,
+				24D0AC8715F2448600398D3C /* MainMenu.xib in Resources */,
+				24FC1C2915F6FC31002821EC /* Preferences in Resources */,
+				240219991603BDC7008AE6BB /* ActivationInfo.plist in Resources */,
+				24F328D1160563C500B850C9 /* FakID.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2447BCDF14C9824400A34F0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */,
+				2447BD1A14C9830000A34F0F /* Main.m in Sources */,
+				24F7531F14C9AE540007E549 /* FakID.mm in Sources */,
+				24F666E215F231C90047BA9D /* ioapi.c in Sources */,
+				24F666E315F231C90047BA9D /* unzip.c in Sources */,
+				24F666E415F231C90047BA9D /* zip.c in Sources */,
+				24F666E515F231C90047BA9D /* ZipArchive.mm in Sources */,
+				24E5F6EC15F28080003B48CE /* SBLDFile.mm in Sources */,
+				24E5F6ED15F28080003B48CE /* PREFFile.mm in Sources */,
+				2402197C16036DE0008AE6BB /* MobileDeviceAccess.m in Sources */,
+				2402198516039757008AE6BB /* NSUtil.mm in Sources */,
+				2402198916039865008AE6BB /* SettingUtil.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2447BCFF14C9824400A34F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Sources/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = FakID;
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2447BD0014C9824400A34F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Sources/Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = FakID;
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2447BD0214C9824400A34F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Volumes/RAM,
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
+			};
+			name = Debug;
+		};
+		2447BD0314C9824400A34F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Volumes/RAM,
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2447BCDD14C9824400A34F0F /* Build configuration list for PBXProject "FakID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2447BCFF14C9824400A34F0F /* Debug */,
+				2447BD0014C9824400A34F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2447BD0114C9824400A34F0F /* Build configuration list for PBXNativeTarget "FakID" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2447BD0214C9824400A34F0F /* Debug */,
+				2447BD0314C9824400A34F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2447BCDA14C9824400A34F0F /* Project object */;
+}
