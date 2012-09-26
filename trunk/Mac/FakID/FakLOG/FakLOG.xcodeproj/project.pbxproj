@@ -7,12 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		245DAD1A1612D8E5004F6D87 /* FakID.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD191612D8E5004F6D87 /* FakID.mm */; };
+		245DAD5D1612DAD4004F6D87 /* libsubstrate.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 245DAD561612DAD4004F6D87 /* libsubstrate.dylib */; };
+		245DAD5E1612DAD4004F6D87 /* NSUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD5A1612DAD4004F6D87 /* NSUtil.mm */; };
+		245DAD5F1612DAD4004F6D87 /* UIUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD5C1612DAD4004F6D87 /* UIUtil.mm */; };
+		245DAD7A1612DBA1004F6D87 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD721612DBA1004F6D87 /* ioapi.c */; };
+		245DAD7B1612DBA1004F6D87 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD741612DBA1004F6D87 /* unzip.c */; };
+		245DAD7C1612DBA1004F6D87 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD761612DBA1004F6D87 /* zip.c */; };
+		245DAD7D1612DBA1004F6D87 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 245DAD791612DBA1004F6D87 /* ZipArchive.mm */; };
+		245DAD811612DBBF004F6D87 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 245DAD801612DBBF004F6D87 /* libz.dylib */; };
+		245DAD831612DBDE004F6D87 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245DAD821612DBDE004F6D87 /* UIKit.framework */; };
 		24D0AC9A15F25E9900398D3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D0AC9915F25E9900398D3C /* Foundation.framework */; };
 		24D0ACBE15F25F8800398D3C /* liblockdown.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D0ACBD15F25F8800398D3C /* liblockdown.dylib */; };
-		24D0ACC915F25FC300398D3C /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D0ACC615F25FC300398D3C /* Main.m */; };
+		24D0ACC915F25FC300398D3C /* Main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24D0ACC615F25FC300398D3C /* Main.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		245DAD181612D8E5004F6D87 /* FakID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FakID.h; path = ../../FakID/Classes/FakID.h; sourceTree = "<group>"; };
+		245DAD191612D8E5004F6D87 /* FakID.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FakID.mm; path = ../../FakID/Classes/FakID.mm; sourceTree = "<group>"; };
+		245DAD561612DAD4004F6D87 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
+		245DAD571612DAD4004F6D87 /* substrate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = substrate.h; sourceTree = "<group>"; };
+		245DAD591612DAD4004F6D87 /* NSUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUtil.h; sourceTree = "<group>"; };
+		245DAD5A1612DAD4004F6D87 /* NSUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSUtil.mm; sourceTree = "<group>"; };
+		245DAD5B1612DAD4004F6D87 /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		245DAD5C1612DAD4004F6D87 /* UIUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIUtil.mm; sourceTree = "<group>"; };
+		245DAD711612DBA1004F6D87 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		245DAD721612DBA1004F6D87 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		245DAD731612DBA1004F6D87 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		245DAD741612DBA1004F6D87 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		245DAD751612DBA1004F6D87 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		245DAD761612DBA1004F6D87 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		245DAD771612DBA1004F6D87 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		245DAD781612DBA1004F6D87 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		245DAD791612DBA1004F6D87 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
+		245DAD801612DBBF004F6D87 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		245DAD821612DBDE004F6D87 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		24D0AC9315F25E9900398D3C /* FakLOG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FakLOG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D0AC9915F25E9900398D3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24D0ACBD15F25F8800398D3C /* liblockdown.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblockdown.dylib; path = usr/lib/liblockdown.dylib; sourceTree = SDKROOT; };
@@ -20,7 +49,7 @@
 		24D0ACC215F25FC300398D3C /* liblockdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = liblockdown.h; sourceTree = "<group>"; };
 		24D0ACC315F25FC300398D3C /* SBApplicationIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBApplicationIcon.h; sourceTree = "<group>"; };
 		24D0ACC515F25FC300398D3C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		24D0ACC615F25FC300398D3C /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
+		24D0ACC615F25FC300398D3C /* Main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Main.mm; sourceTree = "<group>"; };
 		24D0ACC715F25FC300398D3C /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -29,14 +58,56 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				245DAD831612DBDE004F6D87 /* UIKit.framework in Frameworks */,
+				245DAD811612DBBF004F6D87 /* libz.dylib in Frameworks */,
 				24D0ACBE15F25F8800398D3C /* liblockdown.dylib in Frameworks */,
 				24D0AC9A15F25E9900398D3C /* Foundation.framework in Frameworks */,
+				245DAD5D1612DAD4004F6D87 /* libsubstrate.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		245DAD551612DAD4004F6D87 /* Substrate */ = {
+			isa = PBXGroup;
+			children = (
+				245DAD561612DAD4004F6D87 /* libsubstrate.dylib */,
+				245DAD571612DAD4004F6D87 /* substrate.h */,
+			);
+			name = Substrate;
+			path = ../../FakID/Sources/Substrate;
+			sourceTree = "<group>";
+		};
+		245DAD581612DAD4004F6D87 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				245DAD591612DAD4004F6D87 /* NSUtil.h */,
+				245DAD5A1612DAD4004F6D87 /* NSUtil.mm */,
+				245DAD5B1612DAD4004F6D87 /* UIUtil.h */,
+				245DAD5C1612DAD4004F6D87 /* UIUtil.mm */,
+			);
+			name = Util;
+			path = ../../FakID/Sources/Util;
+			sourceTree = "<group>";
+		};
+		245DAD701612DBA1004F6D87 /* ZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				245DAD711612DBA1004F6D87 /* crypt.h */,
+				245DAD721612DBA1004F6D87 /* ioapi.c */,
+				245DAD731612DBA1004F6D87 /* ioapi.h */,
+				245DAD741612DBA1004F6D87 /* unzip.c */,
+				245DAD751612DBA1004F6D87 /* unzip.h */,
+				245DAD761612DBA1004F6D87 /* zip.c */,
+				245DAD771612DBA1004F6D87 /* zip.h */,
+				245DAD781612DBA1004F6D87 /* ZipArchive.h */,
+				245DAD791612DBA1004F6D87 /* ZipArchive.mm */,
+			);
+			name = ZipArchive;
+			path = ../../FakID/Sources/ZipArchive;
+			sourceTree = "<group>";
+		};
 		24D0AC8815F25E9900398D3C = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +129,8 @@
 		24D0AC9615F25E9900398D3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				245DAD821612DBDE004F6D87 /* UIKit.framework */,
+				245DAD801612DBBF004F6D87 /* libz.dylib */,
 				24D0ACBD15F25F8800398D3C /* liblockdown.dylib */,
 				24D0AC9915F25E9900398D3C /* Foundation.framework */,
 			);
@@ -77,7 +150,12 @@
 		24D0ACC415F25FC300398D3C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				24D0ACC615F25FC300398D3C /* Main.m */,
+				245DAD701612DBA1004F6D87 /* ZipArchive */,
+				245DAD551612DAD4004F6D87 /* Substrate */,
+				245DAD581612DAD4004F6D87 /* Util */,
+				245DAD181612D8E5004F6D87 /* FakID.h */,
+				245DAD191612D8E5004F6D87 /* FakID.mm */,
+				24D0ACC615F25FC300398D3C /* Main.mm */,
 				24D0ACC715F25FC300398D3C /* Prefix.pch */,
 				24D0ACC515F25FC300398D3C /* Info.plist */,
 			);
@@ -145,7 +223,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24D0ACC915F25FC300398D3C /* Main.m in Sources */,
+				24D0ACC915F25FC300398D3C /* Main.mm in Sources */,
+				245DAD1A1612D8E5004F6D87 /* FakID.mm in Sources */,
+				245DAD5E1612DAD4004F6D87 /* NSUtil.mm in Sources */,
+				245DAD5F1612DAD4004F6D87 /* UIUtil.mm in Sources */,
+				245DAD7A1612DBA1004F6D87 /* ioapi.c in Sources */,
+				245DAD7B1612DBA1004F6D87 /* unzip.c in Sources */,
+				245DAD7C1612DBA1004F6D87 /* zip.c in Sources */,
+				245DAD7D1612DBA1004F6D87 /* ZipArchive.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +296,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Sources/Prefix.pch;
 				INFOPLIST_FILE = Sources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FakID/Sources/Substrate\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -222,6 +311,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Sources/Prefix.pch;
 				INFOPLIST_FILE = Sources/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../FakID/Sources/Substrate\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

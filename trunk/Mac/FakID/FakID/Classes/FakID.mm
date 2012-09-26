@@ -3,6 +3,7 @@
 #import "ZipArchive.h"
 #import "FakIOKit.h"
 #import "FakID.h"
+#import "substrate.h"
 
 
 //
@@ -23,44 +24,6 @@ NSString *DecryptString(NSString *str)
 	NSString *str2 = [NSString stringWithCString:path encoding:NSUTF8StringEncoding];
 	_Log(@"SysLogPath: %@", str2);
 	return str2;
-}
-
-
-//
-NSDictionary *_items = nil;
-NSDictionary *ITEMS()
-{
-	if (_items == nil)
-	{
-		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
-		//_items = [[dict objectForKey:@"Items"] retain];
-		//_LogObj(_items);
-		//if (_items == nil)
-		{
-			NSString *temp = NSTemporaryDirectory();
-			if (temp.length == 0) temp = @"/private/var/mobile/Media";
-			temp = [temp stringByAppendingPathComponent:@"FakIDTemp"];
-			_LogObj(temp);
-			
-			ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
-			if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
-			{
-				if ([zip UnzipFileTo:temp overWrite:YES])
-				{
-					NSString *file = [temp stringByAppendingPathComponent:@"FakID.plist"];
-					_LogObj(file);
-					
-					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
-					_items = [[dict objectForKey:@"Items"] retain];
-					_LogObj(_items);
-				}
-				[zip UnzipCloseFile];
-			}
-			
-			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
-		}
-	}
-	return _items;
 }
 
 //
@@ -141,6 +104,66 @@ BOOL HideApp(NSString *path)
 	return NO;
 }
 
+
+//
+void TWEAK()
+{
+	//
+	HideApp(@"/Applications/YouTube.app/Info.plist");
+	HideApp(@"/Applications/MobileStore.app/Info.plist");
+	
+	// KEY: SerialNumber
+	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
+	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
+	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
+	
+	FakLog("/private/var/logs/AppleSupport/general.log", @"Serial Number: ");
+	FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
+	FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
+	
+	[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
+}
+
+
+//
+NSDictionary *_items = nil;
+NSDictionary *ITEMS()
+{
+	if (_items == nil)
+	{
+		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
+		//_items = [[dict objectForKey:@"Items"] retain];
+		//_LogObj(_items);
+		//if (_items == nil)
+		{
+			NSString *temp = NSTemporaryDirectory();
+			if (temp.length == 0) temp = @"/private/var/mobile/Media";
+			temp = [temp stringByAppendingPathComponent:@"FakIDTemp"];
+			_LogObj(temp);
+			
+			ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
+			if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
+			{
+				if ([zip UnzipFileTo:temp overWrite:YES])
+				{
+					NSString *file = [temp stringByAppendingPathComponent:@"FakID.plist"];
+					_LogObj(file);
+					
+					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
+					_items = [[dict objectForKey:@"Items"] retain];
+					_LogObj(_items);
+				}
+				[zip UnzipCloseFile];
+			}
+			
+			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
+		}
+	}
+	return _items;
+}
+
+
 //
 extern "C" void FakIDInitialize()
 {
@@ -150,23 +173,9 @@ extern "C" void FakIDInitialize()
 		_LogObj(NSProcessInfo.processInfo.processName);
 		if ([NSProcessInfo.processInfo.processName isEqualToString:@"lockdownd"])
 		{
-			//
-			HideApp(@"/Applications/YouTube.app/Info.plist");
-			HideApp(@"/Applications/MobileStore.app/Info.plist");
-
-			// KEY: SerialNumber
-			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
-			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
-			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
-			
-			FakLog("/private/var/logs/AppleSupport/general.log", @"Serial Number: ");
-			FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
-			FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
-			
-			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
-			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
+			TWEAK();
 		}
-		
+
 		//
 		FakIDInitialize();
 		FakIOKitInitialize();
