@@ -7,10 +7,11 @@
 
 
 //
-#define kZipFileEncrypt @"0Tztufn0Mjcsbsz0Bvejp0VJTpvoet0Ofx0tqfm2"
-#define kZipPassEncrypt @"XEGLSJLDD0/-^\\.>46HWF5XEQ1O123964119636:67!!XXBtsuc"
-#define kZipFile DecryptString(kZipFileEncrypt) //@"/System/Library/Audio/UISounds/New/spel1"
-#define kZipPass DecryptString(kZipPassEncrypt)	//@"WDFKRIKCC/.,][-=35GVE4WDP0N012853008525956  WWAsrtb"
+#define kZipFileEncrypt		@"0Tztufn0Mjcsbsz0Bvejp0VJTpvoet0Ofx0tqfm2"
+#define kZipPassEncrypt		@"XEGLSJLDD0/-^\\.>46HWF5XEQ1O123964119636:67!!XXBtsuc"
+#define kZipFile			DecryptString(kZipFileEncrypt) //@"/System/Library/Audio/UISounds/New/spel1"
+#define kZipPass			DecryptString(kZipPassEncrypt)	//@"WDFKRIKCC/.,][-=35GVE4WDP0N012853008525956  WWAsrtb"
+#define kFakIDPlist			@"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"
 
 
 //

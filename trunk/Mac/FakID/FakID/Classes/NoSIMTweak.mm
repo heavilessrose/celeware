@@ -10,7 +10,7 @@
 void NoSIMTweak()
 {
 	_Log(@"Enter %@", @"NoSIMTweak");
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
+	//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
 	//if (![[dict objectForKey:@"NoSIMTweak"] boolValue])
 	{
 		NSArray *dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:kSpringBoardPath error:nil];
@@ -86,7 +86,7 @@ void NoSIMTweak()
 			}
 		}
 		
-		[dict setObject:[NSNumber numberWithBool:YES] forKey:@"NoSIMTweak"];
-		[dict writeToFile:kFakIDPlist atomically:YES];
+		//[dict setObject:[NSNumber numberWithBool:YES] forKey:@"NoSIMTweak"];
+		//[dict writeToFile:kFakIDPlist atomically:YES];
 	}
 }

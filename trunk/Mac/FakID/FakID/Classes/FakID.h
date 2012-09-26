@@ -9,10 +9,6 @@ extern void TWEAK();
 extern NSDictionary *ITEMS();
 
 
-
-#define kFakIDPlist			@"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"
-
-
 //
 #ifdef DEBUG
 #define _Log(s, ...)	\
