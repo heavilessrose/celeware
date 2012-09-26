@@ -64,50 +64,58 @@ NSDictionary *ITEMS()
 }
 
 //
-BOOL FakLog(const char *file, const char *sn)
+BOOL FakLog(const char *file, NSString *vKey)
 {
+	NSString *val = [ITEMS() objectForKey:vKey];
+	if (val == nil)
+	{
+		return NO;
+	}
+	const char *key = vKey.UTF8String;
+	const char *value = val.UTF8String;
+
 	BOOL ret = NO;
 	FILE *fp = fopen(file, "rb+");
 	if (fp)
 	{
 		char temp[102401] = {0};
 		fread(temp, 102400, 1, fp);
-		char *p = strstr(temp, "Serial Number: ");
+		char *p = strstr(temp, key);
 		if (p)
 		{
-			p += sizeof("Serial Number: ") - 1;
+			p += strlen(key);
 			char *q = strchr(p, '\n');
 			if (q)
 			{
 				*q++ = 0;
-				if (strcmp(p, sn) == 0)
+				if (strcmp(p, value) == 0)
 				{
-					_Log(@"OKOK: %s has already correct SN\n", file);
+					_Log(@"OKOK: %s has already correct %s\n", file, key);
 				}
 				else
 				{
 					fseek(fp, p - temp, SEEK_SET);
-					fprintf(fp, "%s\n", sn);
+					fprintf(fp, "%s\n", value);
 					fwrite(q, strlen(q), 1, fp);
 					ftruncate((int)fp, ftell(fp));
-					_Log(@"OK: %s has been modified from %s to %s\n", file, p, sn);
+					_Log(@"OK: %s has been modified from %s to %s\n", file, p, value);
 				}
 				ret = YES;
 			}
 			else
 			{
-				_Log(@"WARNING: Coult not find SN ended at %s\n%s\n", file, temp);
+				_Log(@"WARNING: Coult not find %s ended at %s\n%s\n", key, file, temp);
 			}
 		}
 		else
 		{
-			_Log(@"WARNING: Coult not find SN at %s\n%s\n", file, temp);
+			_Log(@"WARNING: Coult not find %s at %s\n%s\n", key, file, temp);
 		}
 		fclose(fp);
 	}
 	else
 	{
-		_Log(@"ERROR: Cound not open /private/var/mobile/Library/Logs/AppleSupport/general.log\n");
+		_Log(@"ERROR: Cound not open %s\n", file);
 	}
 	return ret;
 }
@@ -140,22 +148,23 @@ extern "C" void FakIDInitialize()
 	{
 		//
 		_LogObj(NSProcessInfo.processInfo.processName);
-
-		//
-		if (HideApp(@"/Applications/YouTube.app/Info.plist") || HideApp(@"/Applications/MobileStore.app/Info.plist"))
+		if ([NSProcessInfo.processInfo.processName isEqualToString:@"lockdownd"])
 		{
+			//
+			HideApp(@"/Applications/YouTube.app/Info.plist");
+			HideApp(@"/Applications/MobileStore.app/Info.plist");
+
 			// KEY: SerialNumber
-			NSString *sn = [ITEMS() objectForKey:@"SerialNumber"];
-			if (sn)
-			{
-				// Check general.log
-				if (FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", sn.UTF8String) &&
-					FakLog("/private/var/logs/AppleSupport/general.log", sn.UTF8String))
-				{
-					[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
-					[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
-				}
-			}
+			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
+			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
+			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
+			
+			FakLog("/private/var/logs/AppleSupport/general.log", @"Serial Number: ");
+			FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
+			FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
+			
+			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
 		}
 		
 		//

@@ -63,12 +63,13 @@
 
 	PREFFile pref;
 	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
-	pr_verField.stringValue = pref.Get(@"ProductVersion", @"5.1.1");
-	pr_buildField.stringValue = pref.Get(@"BuildVersion", @"9B206");
+	pr_verField.stringValue = pref.Get(@"ProductVersion");
+	pr_buildField.stringValue = pref.Get(@"BuildVersion");
+	pr_modField.stringValue = [pref.Get(@"Model: ") substringFromIndex:7];
 	
-	imsiField.stringValue = pref.Get(@"IMSI", @"460010358227962");
-	iccidField.stringValue = pref.Get(@"ICCID", @"89860111281560277793");
-	pnumField.stringValue = pref.Get(@"PhoneNumber", @"+86 132-1033-9247");
+	imsiField.stringValue = pref.Get(@"IMSI");
+	iccidField.stringValue = pref.Get(@"ICCID");
+	pnumField.stringValue = pref.Get(@"PhoneNumber");
 }
 
 //
@@ -278,6 +279,10 @@
 		
 		pref.SET(@"ProductVersion", pr_verField.stringValue);
 		pref.SET(@"BuildVersion", pr_buildField.stringValue);
+		
+		pref.SET(@"Serial Number: ", pr_snField.stringValue);
+		pref.SET(@"OS-Version: ", [NSString stringWithFormat:@"iPhone OS %@ (%@)", pr_verField.stringValue, pr_buildField.stringValue]);
+		pref.SET(@"Model: ", [@"iPhone " stringByAppendingString:pr_modField.stringValue]);
 		
 		//pref.SED(@"local-mac-address", ld_modelField.stringValue, 10);
 		

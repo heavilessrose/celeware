@@ -5,34 +5,15 @@
 
 
 #define kZipPass			@"WDFKRIKCC/.,][-=35GVE4WDP0N012853008525956  WWAsrtb"
+#define kPlistPath			kBundleSubPath(@"Contents/Resources/FakPREF/FakPREF.plist")
+#define kSpel1Path			kBundleSubPath(@"Contents/Resources/FakPREF/spel1")
 
 
 //
-PREFFile::PREFFile(BOOL fromZip)
+PREFFile::PREFFile()
 {
-	dict = nil;
-	items = nil;
-	
-	temp = [NSTemporaryDirectory() stringByAppendingPathComponent:@"FakPREFTemp"];
-	plist = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
-	spel1 = kBundleSubPath(@"Contents/Resources/FakPREF/spel1");
-	spel2 = kBundleSubPath(@"Contents/Resources/FakPREF/spel2");
-	
-	// Unzip
-	if (fromZip)
-	{
-		ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
-		if ([zip UnzipOpenFile:spel1 Password:kZipPass])
-		{
-			if ([zip UnzipFileTo:temp overWrite:YES])
-			{
-				dict = [NSMutableDictionary dictionaryWithContentsOfFile:plist];
-				items = [[dict objectForKey:@"Items"] retain];
-			}
-			[zip UnzipCloseFile];
-			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
-		}
-	}
+	dict = [NSMutableDictionary dictionaryWithContentsOfFile:kPlistPath];
+	items = [[dict objectForKey:@"Items"] retain];
 	
 	// Get
 	if (dict == nil)
@@ -49,43 +30,31 @@ PREFFile::PREFFile(BOOL fromZip)
 //
 NSString *PREFFile::Save()
 {
-	[[NSFileManager defaultManager] createDirectoryAtPath:temp withIntermediateDirectories:YES attributes:nil error:nil];
-	
 	NSString *error = nil;
-	if ([dict writeToFile:plist atomically:YES] == NO)
+	if ([dict writeToFile:kPlistPath atomically:YES] == NO)
 	{
-		error = [NSString stringWithFormat:@"Write temp plist error.\n\n%@", plist];
+		error = [NSString stringWithFormat:@"Write temp plist error.\n\n%@", kPlistPath];
 	}
 	else
 	{
+		[[NSFileManager defaultManager] removeItemAtPath:kSpel1Path error:nil];
+		
 		// Zip
 		ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
-		if ([zip CreateZipFile2:spel2 Password:kZipPass])
+		if ([zip CreateZipFile2:kSpel1Path Password:kZipPass])
 		{
-			BOOL ret = [zip addFileToZip:plist newname:@"FakPREF.plist"];
+			BOOL ret = [zip addFileToZip:kPlistPath newname:@"FakPREF.plist"];
 			[zip CloseZipFile2];
-			if (ret)
+			if (!ret)
 			{
-				[[NSFileManager defaultManager] removeItemAtPath:spel1 error:nil];
-				if ([[NSFileManager defaultManager] moveItemAtPath:spel2 toPath:spel1 error:nil] == NO)
-				{
-					error = [NSString stringWithFormat:@"Move zip error.\n\n%@\n\n%@", spel2, spel1];
-				}
-			}
-			else
-			{
-				[[NSFileManager defaultManager] moveItemAtPath:spel2 toPath:spel1 error:nil];
-				error = [NSString stringWithFormat:@"Add temp zip error.\n\n%@", spel2];
+				error = [NSString stringWithFormat:@"Add temp zip error.\n\n%@", kSpel1Path];
 			}
 		}
 		else
 		{
-			error = [NSString stringWithFormat:@"Create temp zip error.\n\n%@", spel2];
+			error = [NSString stringWithFormat:@"Create temp zip error.\n\n%@", kSpel1Path];
 		}
 	}
-	
-	// Purge
-	[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
 	
 	return error;
 }

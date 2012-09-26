@@ -11,31 +11,19 @@
 class PREFFile
 {
 private:
-	NSString *temp;
-	NSString *plist;
-	NSString *spel1;
-	NSString *spel2;
-
 	NSMutableDictionary *dict;
 	NSMutableDictionary *items;
 
 public:
 	//
-	PREFFile(BOOL fromZip = YES);
+	PREFFile();
 	
 	//
 	inline NSString *Get(NSString *key)
 	{
 		return [items objectForKey:key];
 	}
-	
-	//
-	inline NSString *Get(NSString *key, id def)
-	{
-		NSString *value = [items objectForKey:key];
-		return value ? value : def;
-	}
-	
+		
 	//
 	inline void Set(NSString *key, id value = nil)
 	{
