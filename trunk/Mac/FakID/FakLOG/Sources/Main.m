@@ -94,6 +94,8 @@ int main(int argc, char *argv[])
 		NSString *wifi = lockdown_copy_value(connection, nil, kLockdownWifiAddressKey);
 		NSString *bt = lockdown_copy_value(connection, nil, kLockdownBluetoothAddressKey);
 		NSString *udid = lockdown_copy_value(connection, nil, kLockdownUniqueDeviceIDKey);
+		NSString *version = lockdown_copy_value(connection, nil, kLockdownProductVersionKey);
+		NSString *build = lockdown_copy_value(connection, nil, kLockdownBuildVersionKey);
 		
 		/*NSNumber *amount_data_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownAmountDataAvailableKey);
 		NSNumber *amount_data_rsv = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownAmountDataReservedKey);
@@ -110,6 +112,8 @@ int main(int argc, char *argv[])
 		printf("WIFI: %s\n", wifi.UTF8String);
 		printf("BT: %s\n", bt.UTF8String);
 		printf("UDID: %s\n\n", udid.UTF8String);
+		printf("VER: %s\n\n", version.UTF8String);
+		printf("BUILD: %s\n\n", build.UTF8String);
 
 		/*printf("Amount Data Available:%.2f GB\n", amount_data_avail.floatValue / 1024 / 1024 / 1024);
 		printf("Amount Data Reserved: %.2f GB\n", amount_data_rsv.floatValue / 1024 / 1024 / 1024);
