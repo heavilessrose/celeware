@@ -23,9 +23,9 @@ if [ $? == 255 ]; then
 fi
 scp ~/.ssh/id_rsa.pub root@$HOST:~/.ssh/authorized_keys>/dev/null
 
-# Copy FakePREF
+# Copy FakID
 #ssh root@$HOST "rm /Library/MobileSubstrate/DynamicLibraries/FakID.*">&- 2>&- 
-#ssh root@$HOST "mkdir /System/Library/Audio/UISounds/New">&- 2>&- 
+#ssh root@$HOST "mkdir /System/Library/Audio/UISounds/New">&- 2>&-
 #ssh root@$HOST "rm /System/Library/Audio/UISounds/New/spel1">&- 2>&-
 #scp ../FakID/spel1 root@$HOST:/System/Library/Audio/UISounds/New/spel1
 #scp ../FakID/FakID.plist root@$HOST:/Library/MobileSubstrate/DynamicLibraries/FakID.plist

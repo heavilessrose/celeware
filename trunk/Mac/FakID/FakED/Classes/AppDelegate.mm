@@ -348,7 +348,7 @@
 {
 	//
 	[self fake:nil];
-	
+
 	//
 	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
 	//system(cmd.UTF8String);
