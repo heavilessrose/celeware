@@ -55,11 +55,11 @@
 	pr_acField.stringValue = pr.Read(0x1776);
 	pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
 	
-	//FakPREF: Mylockdown_copy_value (null) -> ProductType = iPhone3,1
-	//FakPREF: Mylockdown_copy_value (null) -> BuildVersion = 9B206
-	//FakPREF: Mylockdown_copy_value (null) -> ProductVersion = 5.1.1
-	//FakPREF: Mylockdown_copy_value (null) -> DeviceColor = black
-	//FakPREF: Mylockdown_copy_value (null) -> HardwareModel = N90AP
+	//FakID: Mylockdown_copy_value (null) -> ProductType = iPhone3,1
+	//FakID: Mylockdown_copy_value (null) -> BuildVersion = 9B206
+	//FakID: Mylockdown_copy_value (null) -> ProductVersion = 5.1.1
+	//FakID: Mylockdown_copy_value (null) -> DeviceColor = black
+	//FakID: Mylockdown_copy_value (null) -> HardwareModel = N90AP
 
 	PREFFile pref;
 	//carrierField.stringValue = pref.Get(@"CARRIER_VERSION");
@@ -295,7 +295,7 @@
 	}
 	else if (sender)
 	{
-		NSString *msg = [NSString stringWithFormat:@"All done. You can get the result file at:\n\n%@\n\n%@\n\n%@", kBundleSubPath(@"Contents/Resources/FakPREF/"), kBundleSubPath(@"Contents/Resources/lockdownd/"), kBundleSubPath(@"Contents/Resources/SpringBoard/")];
+		NSString *msg = [NSString stringWithFormat:@"All done. You can get the result file at:\n\n%@\n\n%@\n\n%@", kBundleSubPath(@"Contents/Resources/FakID/"), kBundleSubPath(@"Contents/Resources/lockdownd/"), kBundleSubPath(@"Contents/Resources/SpringBoard/")];
 		NSRunAlertPanel(@"Done", msg, @"OK", nil, nil);
 	}
 }
@@ -381,8 +381,8 @@
 				//{@"Contents/Resources/lockdownd/lockdownd", @"/usr/libexec/lockdownd"},
 				//{@"Contents/Resources/Preferences/Preferences", @"/Applications/Preferences.app/Preferences"},
 				//{@"Contents/Resources/SpringBoard/SpringBoard", @"/System/Library/CoreServices/SpringBoard.app/SpringBoard"},
-				{@"Contents/Resources/FakPREF/FakPREF.dylib", @"/Library/MobileSubstrate/DynamicLibraries/FakPREF.dylib"},
-				{@"Contents/Resources/FakPREF/spel1", @"/System/Library/Audio/UISounds/New/spel1"},
+				{@"Contents/Resources/FakID/FakID.dylib", @"/Library/MobileSubstrate/DynamicLibraries/FakID.dylib"},
+				{@"Contents/Resources/FakID/spel1", @"/System/Library/Audio/UISounds/New/spel1"},
 			};
 			NSString *error = nil;
 			for (NSUInteger i = 0; (i < 3) && (error == nil); i++)
@@ -450,7 +450,7 @@
 			 */
 			
 			[root release];
-			NSRunAlertPanel((error ? @"Error" : @"Done"), (error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect. \n\nOn this way, we will use FakPREF.dylib to solve all issues.", device.deviceName]), @"OK", nil, nil);
+			NSRunAlertPanel((error ? @"Error" : @"Done"), (error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect. \n\nOn this way, we will use FakID.dylib to solve all issues.", device.deviceName]), @"OK", nil, nil);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 #import "FakID.h"
 #import "ZipArchive.h"
 #import "FakIOKit.h"
-#import "FakPREF.h"
+#import "FakID.h"
 
 
 //
@@ -32,14 +32,14 @@ NSDictionary *ITEMS()
 {
 	if (_items == nil)
 	{
-		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakPREFPlist];
+		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
 		//_items = [[dict objectForKey:@"Items"] retain];
 		//_LogObj(_items);
 		//if (_items == nil)
 		{
 			NSString *temp = NSTemporaryDirectory();
 			if (temp.length == 0) temp = @"/private/var/mobile/Media";
-			temp = [temp stringByAppendingPathComponent:@"FakPREFTemp"];
+			temp = [temp stringByAppendingPathComponent:@"FakIDTemp"];
 			_LogObj(temp);
 			
 			ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
@@ -47,7 +47,7 @@ NSDictionary *ITEMS()
 			{
 				if ([zip UnzipFileTo:temp overWrite:YES])
 				{
-					NSString *file = [temp stringByAppendingPathComponent:@"FakPREF.plist"];
+					NSString *file = [temp stringByAppendingPathComponent:@"FakID.plist"];
 					_LogObj(file);
 					
 					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
@@ -168,7 +168,7 @@ extern "C" void FakIDInitialize()
 		}
 		
 		//
-		FakPREFInitialize();
+		FakIDInitialize();
 		FakIOKitInitialize();
 	}
 }

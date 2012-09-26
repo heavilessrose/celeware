@@ -11,4 +11,4 @@
 extern NSDictionary *ITEMS();
 
 #define kSpringBoardPath @"/System/Library/CoreServices/SpringBoard.app"
-#define kFakPREFPlist @"/Library/MobileSubstrate/DynamicLibraries/FakPREF.plist"
+#define kFakIDPlist @"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"

@@ -5,8 +5,8 @@
 
 
 #define kZipPass			@"WDFKRIKCC/.,][-=35GVE4WDP0N012853008525956  WWAsrtb"
-#define kPlistPath			kBundleSubPath(@"Contents/Resources/FakPREF/FakPREF.plist")
-#define kSpel1Path			kBundleSubPath(@"Contents/Resources/FakPREF/spel1")
+#define kPlistPath			kBundleSubPath(@"Contents/Resources/FakID/FakID.plist")
+#define kSpel1Path			kBundleSubPath(@"Contents/Resources/FakID/spel1")
 
 
 //
@@ -43,7 +43,7 @@ NSString *PREFFile::Save()
 		ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
 		if ([zip CreateZipFile2:kSpel1Path Password:kZipPass])
 		{
-			BOOL ret = [zip addFileToZip:kPlistPath newname:@"FakPREF.plist"];
+			BOOL ret = [zip addFileToZip:kPlistPath newname:@"FakID.plist"];
 			[zip CloseZipFile2];
 			if (!ret)
 			{
