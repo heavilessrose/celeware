@@ -80,13 +80,13 @@ NSString *SBLDFile::Read(long offset, long length, NSStringEncoding encoding)
 }
 
 //
-size_t SBLDFile::Write(long offset, NSString *string, NSStringEncoding encoding)
+size_t SBLDFile::Write(long offset, NSString *string, NSStringEncoding encoding, NSUInteger max)
 {
 	if (!fp) return 0;
 	
 	NSUInteger length = 0;
 	char temp[1024] = {0};
-	[string getBytes:temp maxLength:1024 usedLength:&length encoding:encoding options:0 range:NSMakeRange(0, string.length) remainingRange:nil];
+	[string getBytes:temp maxLength:max usedLength:&length encoding:encoding options:0 range:NSMakeRange(0, string.length) remainingRange:nil];
 
 	fseek(fp, offset, SEEK_SET);
 	return fwrite(temp, length, 1, fp);

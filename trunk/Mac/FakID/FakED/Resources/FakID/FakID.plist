@@ -13,58 +13,70 @@
 	<key>Items</key>
 	<dict>
 		<key>BTMACAddress</key>
-		<string>6C:C2:6B:77:4A:B6</string>
+		<string>99:99:99:99:99:99</string>
+		<key>BasebandVersion</key>
+		<string>04.12.02</string>
 		<key>BuildVersion</key>
-		<string>9B206</string>
+		<string>10A403</string>
 		<key>CARRIER_VERSION</key>
-		<string>中国移动 12.0</string>
+		<string>中国联通 13.0</string>
 		<key>ICCID</key>
-		<string>89860111281560277793</string>
+		<string>89860111243600286564</string>
 		<key>IMEI</key>
-		<string>01 296400 705005 0</string>
+		<string>12 345678 901234 5</string>
+		<key>IMSI</key>
+		<string>460018414228656</string>
 		<key>IOPlatformSerialNumber</key>
-		<string>DNPH9MMPDP0N</string>
+		<string>12345678901</string>
 		<key>InternationalMobileEquipmentIdentity</key>
-		<string>012964007050050</string>
+		<string>123456789012345</string>
+		<key>InternationalMobileSubscriberIdentity</key>
+		<string>460018414228656</string>
 		<key>MACAddress</key>
-		<string>6C:C2:6B:77:4A:B7</string>
+		<string>88:88:88:88:88:88</string>
 		<key>Model: </key>
 		<string>iPhone 3,1</string>
+		<key>ModelNumber</key>
+		<string>MC999</string>
 		<key>ModemIMEI</key>
-		<string>01 296400 705005 0</string>
+		<string>12 345678 901234 5</string>
 		<key>ModemVersion</key>
-		<string>04.12.01</string>
+		<string>04.12.02</string>
 		<key>OS-Version: </key>
-		<string>iPhone OS 5.1.1 (9B206)</string>
+		<string>iPhone OS 6.0 (10A403)</string>
 		<key>PhoneNumber</key>
-		<string>+86 132-1033-9247</string>
+		<string>+86-186-8888-8888</string>
 		<key>ProductModel</key>
-		<string>MD128ZP</string>
+		<string>MC99988</string>
+		<key>ProductType</key>
+		<string>iPhone3,1</string>
 		<key>ProductVersion</key>
-		<string>5.1.1</string>
+		<string>6.0</string>
+		<key>RegionInfo</key>
+		<string>88/8</string>
 		<key>Serial Number: </key>
-		<string>DNPH9MMPDP0N</string>
+		<string>12345678901</string>
 		<key>SerialNumber</key>
-		<string>DNPH9MMPDP0N</string>
+		<string>12345678901</string>
 		<key>UniqueDeviceID</key>
-		<string>a5ebcf1587c3e8f10baa2ca781ddcb7abf041a74</string>
+		<string>cafb6040717642caaf704d78c46bff13882bafc6</string>
 		<key>User Data Available</key>
-		<string>6.1 GB</string>
+		<string>8.8 G</string>
 		<key>User Data Capacity</key>
-		<string>6.4 GB</string>
+		<string>9.9 G</string>
 		<key>kCTMobileEquipmentInfoCurrentMobileId</key>
-		<string>012964007050050</string>
+		<string>123456789012345</string>
 		<key>kCTMobileEquipmentInfoICCID</key>
-		<string>89860111281560277793</string>
+		<string>89860111243600286564</string>
 		<key>kCTMobileEquipmentInfoIMEI</key>
-		<string>012964007050050</string>
+		<string>123456789012345</string>
 		<key>model-number</key>
 		<data>
-		TUQxMjgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+		TUM5OTkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 		</data>
 		<key>region-info</key>
 		<data>
-		WlAvQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+		ODgvOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 		</data>
 	</dict>
 </dict>

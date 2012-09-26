@@ -89,10 +89,6 @@ NSString *FakED::Fake(NSString *model,
 	{
 		return @"IMEI must be 15 characters.";
 	}
-	if ([carrier lengthOfBytesUsingEncoding:NSUTF16LittleEndianStringEncoding] != 18)
-	{
-		return @"Carrier Version must be 18 bytes in UTF-8";
-	}
 
 	NSString *imei2 = [NSString stringWithFormat:@"%@ %@ %@ %@",
 					   [imei substringToIndex:2],
@@ -106,8 +102,8 @@ NSString *FakED::Fake(NSString *model,
 		PREFFile pref;
 		
 		// UI
-		pref.SED(@"region-info", region, 32);
-		pref.SED(@"model-number", model, 32);
+		pref.SET(@"ModelNumber", model);
+		pref.SET(@"RegionInfo", region);
 		pref.SET(@"User Data Capacity", tcap);
 		pref.SET(@"User Data Available", acap);
 		
@@ -125,14 +121,20 @@ NSString *FakED::Fake(NSString *model,
 
 		pref.SET(@"UniqueDeviceID", udid);
 		
-		pref.SET(@"IMSI", imsi);
+		pref.SET(@"InternationalMobileSubscriberIdentity", imsi);
 		pref.SET(@"ICCID", iccid);
 		pref.SET(@"PhoneNumber", pnum);
-		
+
 		// EXTRA
+		pref.SED(@"region-info", region, 32);
+		pref.SED(@"model-number", model, 32);
+
 		pref.SET(@"IOPlatformSerialNumber", sn);	// lockdown
 		pref.SET(@"ModemIMEI", imei2);				// PREF
 		pref.SET(@"IMEI", imei2);					// ?
+		pref.SET(@"IMSI", imsi);
+
+		pref.SET(@"BasebandVersion", modem);
 
 		pref.SET(@"kCTMobileEquipmentInfoCurrentMobileId", imei);
 		pref.SET(@"kCTMobileEquipmentInfoIMEI", imei);
@@ -163,7 +165,7 @@ NSString *FakED::Fake(NSString *model,
 	{
 		error = Sign(@"SpringBoard");
 	}
-	
+
 	// LD
 	if (error == nil)
 	{
@@ -197,7 +199,7 @@ NSString *FakED::Fake(NSString *model,
 			!pr.Write(0x1758, bt) ||
 			!pr.Write(0x176c, tcap) ||
 			!pr.Write(0x1776, acap) ||
-			!pr.Write(0x46938, carrier, NSUTF16LittleEndianStringEncoding))
+			!pr.Write(0x46938, carrier, NSUTF16LittleEndianStringEncoding, 18))
 		{
 			error = [NSString stringWithFormat:@"File write error.\n\n%s", kPreferencesFile];
 		}

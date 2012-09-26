@@ -1124,7 +1124,7 @@
 						<object class="NSTextField" id="81207550">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{388, 246}, {44, 22}}</string>
+							<string key="NSFrame">{{388, 246}, {39, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="961128348"/>
@@ -1147,7 +1147,7 @@
 						<object class="NSTextField" id="961128348">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{440, 246}, {51, 22}}</string>
+							<string key="NSFrame">{{435, 246}, {56, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="555199277"/>
@@ -1290,7 +1290,6 @@
 							<string key="NSFrame">{{336, 36}, {157, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="590586363">
@@ -3702,45 +3701,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="active:">id</string>
-						<string key="deploy:">id</string>
-						<string key="fake:">id</string>
-						<string key="fetch:">id</string>
-						<string key="load:">id</string>
-						<string key="pwnage:">id</string>
-						<string key="write:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="active:">
-							<string key="name">active:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="deploy:">
-							<string key="name">deploy:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="fake:">
-							<string key="name">fake:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="fetch:">
-							<string key="name">fetch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="load:">
-							<string key="name">load:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="pwnage:">
-							<string key="name">pwnage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="write:">
-							<string key="name">write:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="acapField">NSTextField</string>
 						<string key="btField">NSTextField</string>

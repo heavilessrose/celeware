@@ -32,5 +32,5 @@ public:
 	size_t Write(long offset, NSString *string);
 	
 	//
-	size_t Write(long offset, NSString *string, NSStringEncoding encoding);
+	size_t Write(long offset, NSString *string, NSStringEncoding encoding, NSUInteger max = 1024);
 };

@@ -36,8 +36,8 @@
 	
 	PREFFile pref;
 	
-	modelField.stringValue = pref.GED(@"model-number");
-	regionField.stringValue = pref.GED(@"region-info");
+	modelField.stringValue = pref.Get(@"ModelNumber");
+	regionField.stringValue = pref.Get(@"RegionInfo");
 	tcapField.stringValue = pref.Get(@"User Data Capacity");
 	acapField.stringValue = pref.Get(@"User Data Available");
 	
@@ -55,7 +55,7 @@
 	
 	udidField.stringValue = pref.Get(@"UniqueDeviceID");
 	
-	imsiField.stringValue = pref.Get(@"IMSI");
+	imsiField.stringValue = pref.Get(@"InternationalMobileSubscriberIdentity");
 	iccidField.stringValue = pref.Get(@"ICCID");
 	pnumField.stringValue = pref.Get(@"PhoneNumber");
 	
@@ -72,74 +72,69 @@
 		NSRunAlertPanel(@"Error", @"Please plug iPhone device.", @"OK", nil, nil);
 		return;
 	}
+	
+	//
+	class Device
+	{
+	public:
+		AMDevice *_device;
+		
+		inline Device(AMDevice *device)
+		{
+			_device = device;
+		}
+		
+		inline NSString *Get(NSString *key)
+		{
+			NSString *value = [_device deviceValueForKey:key];
+			return value ? value : @"";
+		}
+		
+		inline NSString *GET(NSString *key)
+		{
+			AFCMediaDirectory *media = _device.newAFCMediaDirectory;
+			if (media)
+			{
+				NSDictionary *info = media.deviceInfo;
+				if (info)
+				{
+					NSNumber *value = [info objectForKey:key];
+					if (value)
+					{
+						return [NSString stringWithFormat:@"%.1f G", value.longLongValue / 1024.0 / 1024.0 / 1024.0];
+					}
+				}
+			}
+			return @"";
+		}
+	}
+	dev([devices objectAtIndex:0]);
 
-	 sb_imeiField.stringValue = @"";
-	 sb_imei2Field.stringValue = @"";
-	 
-	 ld_modelField.stringValue = @"";
-	 ld_regionField.stringValue = @"";
-	 ld_snField.stringValue = @"";
-	 ld_imeiField.stringValue = @"";
-	 ld_wifiField.stringValue = @"";
-	 ld_btField.stringValue = @"";
-	 ld_udidField.stringValue = @"";
-	 
-	 pr_modelField.stringValue = @"";
-	 pr_modemField.stringValue = @"";
-	 pr_snField.stringValue = @"";
-	 pr_imei2Field.stringValue = @"";
-	 pr_wifiField.stringValue = @"";
-	 pr_btField.stringValue = @"";
-	 pr_tcField.stringValue = @"";
-	 pr_acField.stringValue = @"";
-	 pr_carrierField.stringValue = @"";
-	 
-	 pnumField.stringValue = @"";
-	 iccidField.stringValue = @"";
-	 imsiField.stringValue = @"";
-	 
-	 AMDevice *device = [devices objectAtIndex:0];
-	 
-	 #define FillValue(field, key) {NSString *value = [device deviceValueForKey:key]; if (value) field.stringValue = value;}
-	 FillValue(pr_snField, @"SerialNumber");
-	 
-	 FillValue(pr_wifiField, @"WiFiAddress");
-	 FillValue(pr_btField, @"BluetoothAddress");
-	 FillValue(ld_modelField, @"ModelNumber");
-	 FillValue(ld_regionField, @"RegionInfo");
-	 
-	 FillValue(ld_imeiField, @"InternationalMobileEquipmentIdentity");
-	 
-	 FillValue(ld_udidField, @"UniqueDeviceID");
-	 FillValue(pr_modemField, @"BasebandVersion");
-	 //FillValue(pr_carrierField, @"FirmwareVersion");
-	 
-	 FillValue(pnumField, @"PhoneNumber");
-	 FillValue(iccidField, @"IntegratedCircuitCardIdentity");
-	 FillValue(imsiField, @"InternationalMobileSubscriberIdentity");
-	 
-	 FillValue(pr_verField, @"ProductVersion");
-	 FillValue(pr_buildField, @"BuildVersion");
-	 
-	 //
-	 AFCMediaDirectory *media = device.newAFCMediaDirectory;
-	 if (media)
-	 {
-	 NSDictionary *info = media.deviceInfo;
-	 if (info)
-	 {
-	 NSNumber *freeBytes = [info objectForKey:@"FSFreeBytes"];
-	 NSNumber *totalBytes = [info objectForKey:@"FSTotalBytes"];
-	 pr_acField.stringValue = [NSString stringWithFormat:@"%.1f G", freeBytes.longLongValue / 1024.0 / 1024.0 / 1024.0];
-	 pr_tcField.stringValue = [NSString stringWithFormat:@"%.1f G", totalBytes.longLongValue / 1024.0 / 1024.0 / 1024.0];
-	 }
-	 [media release];
-	 }
-	 
-	 SBLDFile pr(kPreferencesFile);
-	 pr_carrierField.stringValue = pr.Read(0x46938, 18, NSUTF16LittleEndianStringEncoding);
-	 
-	 return [self sync:nil];*/
+	//
+	modelField.stringValue = dev.Get(@"ModelNumber");
+	regionField.stringValue = dev.Get(@"RegionInfo");
+	tcapField.stringValue = dev.GET(@"FSTotalBytes");
+	acapField.stringValue = dev.GET(@"FSFreeBytes");
+	
+	imeiField.stringValue = dev.Get(@"InternationalMobileEquipmentIdentity");
+	snField.stringValue = dev.Get(@"SerialNumber");
+	wifiField.stringValue = dev.Get(@"WiFiAddress");
+	btField.stringValue = dev.Get(@"BluetoothAddress");
+	
+	//carrierField.stringValue = dev.Get(@"CARRIER_VERSION");
+	modemField.stringValue = dev.Get(@"BasebandVersion");
+
+	typeField.stringValue = dev.Get(@"ProductType");
+	verField.stringValue = dev.Get(@"ProductVersion");
+	buildField.stringValue = dev.Get(@"BuildVersion");
+	
+	udidField.stringValue = dev.Get(@"UniqueDeviceID");
+	
+	imsiField.stringValue = dev.Get(@"InternationalMobileSubscriberIdentity");
+	iccidField.stringValue = dev.Get(@"IntegratedCircuitCardIdentity");
+	pnumField.stringValue = dev.Get(@"PhoneNumber");
+	
+	if ([typeField.stringValue hasPrefix:@"iPhone"]) typeField.stringValue = [typeField.stringValue substringFromIndex:6];
 }
 
 //
