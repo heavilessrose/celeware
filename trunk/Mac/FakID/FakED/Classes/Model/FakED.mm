@@ -1,9 +1,9 @@
 
 
-#import "FakID.h"
+#import "FakED.h"
 
 //
-NSString *FakID::Run(NSString *path, NSArray *arguments, NSString *directory, BOOL needResult)
+NSString *FakED::Run(NSString *path, NSArray *arguments, NSString *directory, BOOL needResult)
 {
 	NSTask *task = [[NSTask alloc] init];
 	task.launchPath = path;
@@ -34,7 +34,7 @@ NSString *FakID::Run(NSString *path, NSArray *arguments, NSString *directory, BO
 }
 
 //
-NSString *FakID::Sign(NSString *name)
+NSString *FakED::Sign(NSString *name)
 {
 	NSString *file = [NSString stringWithFormat:@"Contents/Resources/%@", name];
 	NSString *path = kBundleSubPath(file);
@@ -62,7 +62,7 @@ NSString *FakID::Sign(NSString *name)
 }
 
 //
-NSString *FakID::Fake(
+NSString *FakED::Fake(
 						NSString *sb_imei,
 						NSString *sb_imei2,
 						
@@ -156,7 +156,7 @@ NSString *FakID::Fake(
 }
 
 //
-BOOL FakID::Check()
+BOOL FakED::Check()
 {
 	// Check tools
 	if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/codesign"] ||
@@ -203,7 +203,7 @@ BOOL FakID::Check()
 }
 
 //
-NSString *FakID::active(NSData *data, NSString *sn)
+NSString *FakED::active(NSData *data, NSString *sn)
 {
 	NSURL *URL = [NSURL URLWithString:@"https://albert.apple.com:443/WebObjects/ALUnbrick.woa/wa/deviceActivation"];//https://albert.apple.com/WebObjects/ALActivation.woa/wa/deviceActivation"];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
@@ -273,7 +273,7 @@ NSString *FakID::active(NSData *data, NSString *sn)
 }
 
 //
-NSString *FakID::FakLog(const char *file, const char *sn)
+NSString *FakED::FakLog(const char *file, const char *sn)
 {
 	NSString *ret = NO;
 	FILE *fp = fopen(file, "rb+");

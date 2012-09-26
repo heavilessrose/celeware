@@ -1,7 +1,7 @@
 
 
 #import "AppDelegate.h"
-#import "FakID.h"
+#import "FakED.h"
 
 @implementation AppDelegate
 @synthesize window;
@@ -230,7 +230,7 @@
 //
 - (IBAction)fake:(id)sender
 {
-	NSString *error = FakID::Fake(sb_imeiField.stringValue,
+	NSString *error = FakED::Fake(sb_imeiField.stringValue,
 								  sb_imei2Field.stringValue,
 								  
 								  ld_modelField.stringValue,
@@ -350,7 +350,7 @@
 		[[NSFileManager defaultManager] copyItemAtPath:from_pr toPath:to_pr error:nil] &&
 		[[NSFileManager defaultManager] copyItemAtPath:from_pt toPath:to_pt error:nil])
 	{
-		FakID::Run([path stringByAppendingPathComponent:@"Contents/MacOS/PwnageTool"],
+		FakED::Run([path stringByAppendingPathComponent:@"Contents/MacOS/PwnageTool"],
 				   [NSArray array],
 				   nil,
 				   NO);
@@ -411,7 +411,7 @@
 			 {
 			 if (i < 2)
 			 {
-			 error = FakID::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
+			 error = FakED::FakLog(temp.UTF8String, ld_snField.stringValue.UTF8String);
 			 }
 			 else
 			 {
@@ -465,7 +465,7 @@
 	//NSString *cmd = [NSString stringWithFormat:@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal %@", kBundleSubPath(@"Contents/Resources/FakID/FakID.sh")];
 	//system(cmd.UTF8String);
 	
-	FakID::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
+	FakED::Run(@"/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal",
 			   [NSArray arrayWithObjects:kBundleSubPath(@"Contents/Resources/FakID/FakID.sh"), nil],
 			   nil,
 			   NO);
@@ -535,7 +535,7 @@
 		[info writeToFile:kBundleSubPath(@"ActivationInfo.xml") atomically:NO];
 		[info2 writeToFile:kBundleSubPath(@"ActivationInfo2.xml") atomically:NO];
 		
-		NSString *ret = FakID::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.xml")], [xml2 objectForKey:@"SerialNumber"]);
+		NSString *ret = FakED::active([NSData dataWithContentsOfFile:kBundleSubPath(@"ActivationInfo2.xml")], [xml2 objectForKey:@"SerialNumber"]);
 		[self performSelectorOnMainThread:@selector(activated:) withObject:ret waitUntilDone:YES];
 	}
 }
@@ -562,7 +562,7 @@
 //
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	if (!FakID::Check())
+	if (!FakED::Check())
 	{
 		exit(1);
 	}

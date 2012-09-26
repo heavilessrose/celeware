@@ -15,7 +15,7 @@
 
 
 //
-class FakID
+class FakED
 {
 public:
 	static BOOL Check();

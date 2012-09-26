@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NSUtil.h"
-#import "FakID.h"
+#import "FakED.h"
 
 //
 @interface AppDelegate : NSObject <NSApplicationDelegate, MobileDeviceAccessListener>
