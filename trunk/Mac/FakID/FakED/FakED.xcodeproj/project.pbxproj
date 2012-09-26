@@ -15,6 +15,7 @@
 		2447BCE814C9824400A34F0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2447BCE714C9824400A34F0F /* Cocoa.framework */; };
 		2447BD1514C9830000A34F0F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD0614C9830000A34F0F /* AppDelegate.mm */; };
 		2447BD1A14C9830000A34F0F /* Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2447BD1414C9830000A34F0F /* Main.m */; };
+		2456E97C16135FE200871474 /* FakOS6 in Resources */ = {isa = PBXBuildFile; fileRef = 2456E97B16135FE200871474 /* FakOS6 */; };
 		24A7620B1612E8D0008D0746 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 24A762031612E8D0008D0746 /* ioapi.c */; };
 		24A7620C1612E8D0008D0746 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24A762051612E8D0008D0746 /* unzip.c */; };
 		24A7620D1612E8D0008D0746 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 24A762071612E8D0008D0746 /* zip.c */; };
@@ -54,6 +55,7 @@
 		2447BD1114C9830000A34F0F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2447BD1314C9830000A34F0F /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		2447BD1414C9830000A34F0F /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
+		2456E97B16135FE200871474 /* FakOS6 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FakOS6; sourceTree = SOURCE_ROOT; };
 		24A762021612E8D0008D0746 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		24A762031612E8D0008D0746 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		24A762041612E8D0008D0746 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				24F666C715F1FFDE0047BA9D /* FakED */,
 				24F666CF15F20EF00047BA9D /* FakID */,
+				2456E97B16135FE200871474 /* FakOS6 */,
 				24F666CD15F202570047BA9D /* lockdownd */,
 				24F666C915F1FFDE0047BA9D /* SpringBoard */,
 				24FC1C2815F6FC31002821EC /* Preferences */,
@@ -288,6 +291,7 @@
 				24FC1C2915F6FC31002821EC /* Preferences in Resources */,
 				240219991603BDC7008AE6BB /* ActivationInfo.plist in Resources */,
 				24E6AAC91612D66600412C60 /* FakID.bundle in Resources */,
+				2456E97C16135FE200871474 /* FakOS6 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -281,6 +281,10 @@
 				[data release];
 			}
 			
+			{
+				///mobile/Library/Caches/ 文件夹下把com.apple.mobile.installation.plist
+			}
+			
 #if 0
 			static NSString *c_mods[] =
 			{
