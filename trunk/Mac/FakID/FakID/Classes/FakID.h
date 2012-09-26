@@ -9,7 +9,7 @@ extern void TWEAK();
 extern NSDictionary *ITEMS();
 
 
-#define kSpringBoardPath	@"/System/Library/CoreServices/SpringBoard.app"
+
 #define kFakIDPlist			@"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"
 
 

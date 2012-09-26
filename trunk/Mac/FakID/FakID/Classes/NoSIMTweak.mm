@@ -4,6 +4,8 @@
 #import "NoSIMTweak.h"
 
 
+#define kSpringBoardPath	@"/System/Library/CoreServices/SpringBoard.app"
+
 //
 void NoSIMTweak()
 {

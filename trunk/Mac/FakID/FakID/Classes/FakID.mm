@@ -132,10 +132,10 @@ NSDictionary *ITEMS()
 {
 	if (_items == nil)
 	{
-		//NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
-		//_items = [[dict objectForKey:@"Items"] retain];
-		//_LogObj(_items);
-		//if (_items == nil)
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
+		_items = [[dict objectForKey:@"Items"] retain];
+		_LogObj(_items);
+		if (_items == nil)
 		{
 			NSString *temp = NSTemporaryDirectory();
 			if (temp.length == 0) temp = @"/private/var/mobile/Media";
