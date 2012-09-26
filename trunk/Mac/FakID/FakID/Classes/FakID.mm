@@ -160,7 +160,7 @@ void TWEAK()
 
 	//
 	if ([processName isEqualToString:@"iOS Diagnostics"] ||
-		//[processName isEqualToString:@"lockdownd"] ||
+		[processName isEqualToString:@"lockdownd"] ||
 		[processName isEqualToString:@"FakLOG"])
 	{
 		//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/logs/AppleSupport/general.log" error:nil];
