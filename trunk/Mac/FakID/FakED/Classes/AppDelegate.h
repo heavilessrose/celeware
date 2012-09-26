@@ -1,6 +1,7 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "MobileDeviceAccess.h"
 #import "NSUtil.h"
 #import "FakED.h"
 
