@@ -16,6 +16,8 @@ public:
 	
 	inline NSString *Copy(NSString *from, NSString *to)
 	{
+		_Log(@"Copy file to %@", to);
+
 		NSString *error = nil;
 		AFCFileReference *file = [root openForWrite:to];
 		NSData *data = [[NSData alloc] initWithContentsOfFile:from];
@@ -382,7 +384,20 @@ public:
 			NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:kBundleSubPath(@"Contents/Resources/FakOS6")];
 			for (NSString *file in files)
 			{
-				error = dev.Copy(kBundleSubPath(file), file);
+				BOOL dir = NO;
+				NSString *from = kBundleSubPath([@"Contents/Resources/FakOS6" stringByAppendingPathComponent:file]);
+				NSString *to = [@"/" stringByAppendingPathComponent:file];
+				if ([[NSFileManager defaultManager] fileExistsAtPath:from isDirectory:&dir] && dir)
+				{
+					if ([dev.root mkdir:to] == NO)
+					{
+						error = [NSString stringWithFormat:@"Could not create dir %@", to];
+					}
+				}
+				else
+				{
+					error = dev.Copy(from, to);
+				}
 				if (error) break;
 			}
 		}
