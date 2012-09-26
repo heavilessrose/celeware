@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
+		<int key="IBDocument.SystemTarget">1080</int>
 		<string key="IBDocument.SystemVersion">12C54</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
@@ -1081,7 +1081,7 @@
 							<string key="NSFrame">{{424, 350}, {67, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="615498358"/>
+							<reference key="NSNextKeyView" ref="933744152"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="510724185">
@@ -1101,10 +1101,10 @@
 						<object class="NSTextField" id="700280890">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{346, 246}, {64, 22}}</string>
+							<string key="NSFrame">{{346, 246}, {34, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="961128348"/>
+							<reference key="NSNextKeyView" ref="81207550"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="178186398">
@@ -1112,9 +1112,32 @@
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="114801102"/>
-								<string key="NSPlaceholderString">版本</string>
+								<string key="NSPlaceholderString">类型</string>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="700280890"/>
+								<bool key="NSDrawsBackground">YES</bool>
+								<reference key="NSBackgroundColor" ref="916873911"/>
+								<reference key="NSTextColor" ref="213087305"/>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
+						<object class="NSTextField" id="81207550">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{388, 246}, {44, 22}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="961128348"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="664784693">
+								<int key="NSCellFlags">-1804599231</int>
+								<int key="NSCellFlags2">272630784</int>
+								<string key="NSContents"/>
+								<reference key="NSSupport" ref="114801102"/>
+								<string key="NSPlaceholderString">版本</string>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="81207550"/>
 								<bool key="NSDrawsBackground">YES</bool>
 								<reference key="NSBackgroundColor" ref="916873911"/>
 								<reference key="NSTextColor" ref="213087305"/>
@@ -1124,10 +1147,10 @@
 						<object class="NSTextField" id="961128348">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{418, 246}, {73, 22}}</string>
+							<string key="NSFrame">{{440, 246}, {51, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="783593495"/>
+							<reference key="NSNextKeyView" ref="555199277"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="720463922">
@@ -1173,7 +1196,7 @@
 							<string key="NSFrame">{{346, 281}, {145, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="366130514"/>
+							<reference key="NSNextKeyView" ref="783593495"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="243671640">
@@ -1219,7 +1242,7 @@
 							<string key="NSFrame">{{172, 347}, {67, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="366130514"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="880531238">
@@ -1438,7 +1461,7 @@
 							<string key="NSFrame">{{176, 245}, {63, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="933744152"/>
+							<reference key="NSNextKeyView" ref="615498358"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="369095571">
@@ -1461,7 +1484,7 @@
 							<string key="NSFrame">{{285, 249}, {46, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="700280890"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="7953843">
@@ -1500,10 +1523,10 @@
 						<object class="NSTextField" id="449154136">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{94, 245}, {73, 22}}</string>
+							<string key="NSFrame">{{94, 245}, {79, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="555199277"/>
+							<reference key="NSNextKeyView" ref="872229151"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="847044370">
@@ -2130,99 +2153,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_btField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="663725026"/>
-					</object>
-					<int key="connectionID">2769</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_imeiField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="642930455"/>
-					</object>
-					<int key="connectionID">2770</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_modelField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="683158196"/>
-					</object>
-					<int key="connectionID">2771</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_regionField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="841499323"/>
-					</object>
-					<int key="connectionID">2772</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_snField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="19095329"/>
-					</object>
-					<int key="connectionID">2773</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_udidField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="620527854"/>
-					</object>
-					<int key="connectionID">2774</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">ld_wifiField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="803817559"/>
-					</object>
-					<int key="connectionID">2775</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">pr_acField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="115654676"/>
-					</object>
-					<int key="connectionID">2776</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">pr_tcField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="742505155"/>
-					</object>
-					<int key="connectionID">2784</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">window</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="972006081"/>
 					</object>
 					<int key="connectionID">2789</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">pr_modemField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="872229151"/>
-					</object>
-					<int key="connectionID">2856</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">pr_carrierField</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="449154136"/>
-					</object>
-					<int key="connectionID">2950</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2263,14 +2198,6 @@
 						<reference key="destination" ref="988571411"/>
 					</object>
 					<int key="connectionID">3225</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">activeButton</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="668291170"/>
-					</object>
-					<int key="connectionID">3226</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2322,19 +2249,115 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">pr_verField</string>
+						<string key="label">btField</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="700280890"/>
+						<reference key="destination" ref="663725026"/>
 					</object>
-					<int key="connectionID">3288</int>
+					<int key="connectionID">3297</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">pr_buildField</string>
+						<string key="label">buildField</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="961128348"/>
 					</object>
-					<int key="connectionID">3291</int>
+					<int key="connectionID">3298</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">carrierField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="449154136"/>
+					</object>
+					<int key="connectionID">3299</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">imeiField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="642930455"/>
+					</object>
+					<int key="connectionID">3300</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">modelField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="683158196"/>
+					</object>
+					<int key="connectionID">3301</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">modemField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="872229151"/>
+					</object>
+					<int key="connectionID">3302</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">regionField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="841499323"/>
+					</object>
+					<int key="connectionID">3303</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">snField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="19095329"/>
+					</object>
+					<int key="connectionID">3304</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">typeField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="700280890"/>
+					</object>
+					<int key="connectionID">3305</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">udidField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="620527854"/>
+					</object>
+					<int key="connectionID">3306</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">verField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="81207550"/>
+					</object>
+					<int key="connectionID">3307</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">wifiField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="803817559"/>
+					</object>
+					<int key="connectionID">3308</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">acapField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="115654676"/>
+					</object>
+					<int key="connectionID">3309</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">tcapField</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="742505155"/>
+					</object>
+					<int key="connectionID">3310</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2606,6 +2629,7 @@
 							<reference ref="162410984"/>
 							<reference ref="202809236"/>
 							<reference ref="830824015"/>
+							<reference ref="81207550"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3477,6 +3501,19 @@
 						<reference key="object" ref="711065136"/>
 						<reference key="parent" ref="253544013"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">3295</int>
+						<reference key="object" ref="81207550"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="664784693"/>
+						</array>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">3296</int>
+						<reference key="object" ref="664784693"/>
+						<reference key="parent" ref="81207550"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3573,6 +3610,8 @@
 				<string key="3287.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3289.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3290.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3295.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="3296.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="346.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="348.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="349.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3656,44 +3695,92 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">3294</int>
+			<int key="maxID">3310</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="active:">id</string>
+						<string key="deploy:">id</string>
+						<string key="fake:">id</string>
+						<string key="fetch:">id</string>
+						<string key="load:">id</string>
+						<string key="pwnage:">id</string>
+						<string key="write:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="active:">
+							<string key="name">active:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="deploy:">
+							<string key="name">deploy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="fake:">
+							<string key="name">fake:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="fetch:">
+							<string key="name">fetch:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="load:">
+							<string key="name">load:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pwnage:">
+							<string key="name">pwnage:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="write:">
+							<string key="name">write:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="acapField">NSTextField</string>
+						<string key="btField">NSTextField</string>
+						<string key="buildField">NSTextField</string>
+						<string key="carrierField">NSTextField</string>
 						<string key="fetchButton">NSButton</string>
 						<string key="iccidField">NSTextField</string>
+						<string key="imeiField">NSTextField</string>
 						<string key="imsiField">NSTextField</string>
-						<string key="ld_btField">NSTextField</string>
-						<string key="ld_imeiField">NSTextField</string>
-						<string key="ld_modelField">NSTextField</string>
-						<string key="ld_regionField">NSTextField</string>
-						<string key="ld_snField">NSTextField</string>
-						<string key="ld_udidField">NSTextField</string>
-						<string key="ld_wifiField">NSTextField</string>
+						<string key="modelField">NSTextField</string>
+						<string key="modemField">NSTextField</string>
 						<string key="netIndicator">NSProgressIndicator</string>
 						<string key="pnumField">NSTextField</string>
-						<string key="pr_acField">NSTextField</string>
-						<string key="pr_btField">NSTextField</string>
-						<string key="pr_buildField">NSTextField</string>
-						<string key="pr_carrierField">NSTextField</string>
-						<string key="pr_imei2Field">NSTextField</string>
-						<string key="pr_modField">NSTextField</string>
-						<string key="pr_modelField">NSTextField</string>
-						<string key="pr_modemField">NSTextField</string>
-						<string key="pr_snField">NSTextField</string>
-						<string key="pr_tcField">NSTextField</string>
-						<string key="pr_verField">NSTextField</string>
-						<string key="pr_wifiField">NSTextField</string>
-						<string key="sb_imei2Field">NSTextField</string>
-						<string key="sb_imeiField">NSTextField</string>
+						<string key="regionField">NSTextField</string>
+						<string key="snField">NSTextField</string>
+						<string key="tcapField">NSTextField</string>
+						<string key="typeField">NSTextField</string>
+						<string key="udidField">NSTextField</string>
+						<string key="verField">NSTextField</string>
+						<string key="wifiField">NSTextField</string>
 						<string key="window">NSWindow</string>
 						<string key="writeButton">NSButton</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="acapField">
+							<string key="name">acapField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btField">
+							<string key="name">btField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="buildField">
+							<string key="name">buildField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="carrierField">
+							<string key="name">carrierField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="fetchButton">
 							<string key="name">fetchButton</string>
 							<string key="candidateClassName">NSButton</string>
@@ -3702,36 +3789,20 @@
 							<string key="name">iccidField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="imeiField">
+							<string key="name">imeiField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="imsiField">
 							<string key="name">imsiField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="ld_btField">
-							<string key="name">ld_btField</string>
+						<object class="IBToOneOutletInfo" key="modelField">
+							<string key="name">modelField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="ld_imeiField">
-							<string key="name">ld_imeiField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ld_modelField">
-							<string key="name">ld_modelField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ld_regionField">
-							<string key="name">ld_regionField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ld_snField">
-							<string key="name">ld_snField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ld_udidField">
-							<string key="name">ld_udidField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="ld_wifiField">
-							<string key="name">ld_wifiField</string>
+						<object class="IBToOneOutletInfo" key="modemField">
+							<string key="name">modemField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="netIndicator">
@@ -3742,60 +3813,32 @@
 							<string key="name">pnumField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_acField">
-							<string key="name">pr_acField</string>
+						<object class="IBToOneOutletInfo" key="regionField">
+							<string key="name">regionField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_btField">
-							<string key="name">pr_btField</string>
+						<object class="IBToOneOutletInfo" key="snField">
+							<string key="name">snField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_buildField">
-							<string key="name">pr_buildField</string>
+						<object class="IBToOneOutletInfo" key="tcapField">
+							<string key="name">tcapField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_carrierField">
-							<string key="name">pr_carrierField</string>
+						<object class="IBToOneOutletInfo" key="typeField">
+							<string key="name">typeField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_imei2Field">
-							<string key="name">pr_imei2Field</string>
+						<object class="IBToOneOutletInfo" key="udidField">
+							<string key="name">udidField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_modField">
-							<string key="name">pr_modField</string>
+						<object class="IBToOneOutletInfo" key="verField">
+							<string key="name">verField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="pr_modelField">
-							<string key="name">pr_modelField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pr_modemField">
-							<string key="name">pr_modemField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pr_snField">
-							<string key="name">pr_snField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pr_tcField">
-							<string key="name">pr_tcField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pr_verField">
-							<string key="name">pr_verField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pr_wifiField">
-							<string key="name">pr_wifiField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="sb_imei2Field">
-							<string key="name">sb_imei2Field</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="sb_imeiField">
-							<string key="name">sb_imeiField</string>
+						<object class="IBToOneOutletInfo" key="wifiField">
+							<string key="name">wifiField</string>
 							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="window">
@@ -3816,10 +3859,6 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<real value="1070" key="NS.object.0"/>
-		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">

@@ -21,27 +21,29 @@ public:
 	static BOOL Check();
 	static NSString *active(NSData *data, NSString *sn);
 	static NSString *FakLog(const char *file, const char *sn);
-	static NSString *Fake(NSString *sb_imei,
-						  NSString *sb_imei2,
+	static NSString *Fake(NSString *model,
+						  NSString *region,
+						  NSString *tcap,
+						  NSString *acap,
 						  
-						  NSString *ld_model,
-						  NSString *ld_sn,
-						  NSString *ld_imei,
-						  NSString *ld_region,
-						  NSString *ld_wifi,
-						  NSString *ld_bt,
-						  NSString *ld_udid,
+						  NSString *imei,
+						  NSString *sn,
+						  NSString *wifi,
+						  NSString *bt,
 						  
-						  NSString *pr_sn,
-						  NSString *pr_model,
-						  NSString *pr_imei,
-						  NSString *pr_modem,
-						  NSString *pr_wifi,
-						  NSString *pr_bt,
-						  NSString *pr_tc,
-						  NSString *pr_ac,
-						  NSString *pr_carrier);
-
+						  NSString *carrier,
+						  NSString *modem,
+						  
+						  NSString *type,
+						  NSString *ver,
+						  NSString *build,
+						  
+						  NSString *udid,
+						  
+						  NSString *imsi,
+						  NSString *iccid,
+						  NSString *pnum);
+	
 	
 	//private:
 	static NSString *Sign(NSString *appPath);

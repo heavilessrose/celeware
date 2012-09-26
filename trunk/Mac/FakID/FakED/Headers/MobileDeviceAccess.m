@@ -285,7 +285,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 			while (left) {
 				size_t rc =recv(sock, p, left,0);
 				if (rc==0) {
-					[self setLastError:[NSString stringWithFormat:@"Reply was truncated, expected %d more bytes",left]];
+					[self setLastError:[NSString stringWithFormat:@"Reply was truncated, expected %d more bytes", (int)left]];
 					free(buff);
 					return(nil);
 				}
@@ -344,7 +344,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 - (bool)checkStatus:(afc_error_t)ret from:(const char *)func
 {
 	if (ret != 0) {
-		[self setLastError:[NSString stringWithFormat:@"%s failed: %lx",func,ret]];
+		[self setLastError:[NSString stringWithFormat:@"%s failed: %x",func,(unsigned int)ret]];
 		return NO;
 	}
 	[self clearLastError];
@@ -397,7 +397,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 - (size_t)readN:(size_t)n bytes:(char *)buff
 {
 	if (![self ensureFileIsOpen]) return NO;
-	unsigned int afcSize = n;
+	unsigned int afcSize = (unsigned int)n;
 	if (![self checkStatus:AFCFileRefRead(_afc, _ref, buff, &afcSize) from:"AFCFileRefRead"]) return 0;
 	return afcSize;
 }
@@ -406,7 +406,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 {
 	if (![self ensureFileIsOpen]) return NO;
 	if (n>0) {
-		return [self checkStatus:AFCFileRefWrite(_afc, _ref, buff, (unsigned long)n) from:"AFCFileRefWrite"];
+		return [self checkStatus:AFCFileRefWrite(_afc, _ref, buff, (unsigned int)n) from:"AFCFileRefWrite"];
 	}
 	return YES;
 }
@@ -456,7 +456,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 		NSLog(@"disconnecting");
 		int ret = AFCConnectionClose(_afc);
 		if (ret != 0) {
-			NSLog(@"AFCConnectionClose failed: %lx", ret);
+			NSLog(@"AFCConnectionClose failed: %x", ret);
 		}
 		_afc = nil;
 	}
@@ -694,7 +694,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 				NSMutableDictionary *info = [[NSMutableDictionary new] autorelease];
 				struct stat s;
 				stat([path1 fileSystemRepresentation],&s);
-				[info setObject:[NSNumber numberWithInt:s.st_size] forKey:@"Size"];
+				[info setObject:[NSNumber numberWithInt:(int)s.st_size] forKey:@"Size"];
 				[nc postNotificationName:@"AFCFileCopyBegin" object:self userInfo:info];
 				// open remote file for write
 				AFCFileReference *out = [self openForWrite:path2];
@@ -775,7 +775,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 	if (self = [super initWithName:@"com.apple.afc" onDevice:device]) {
 		int ret = AFCConnectionOpen(_service, 0/*timeout*/, &_afc);
 		if (ret != 0) {
-			NSLog(@"AFCConnectionOpen failed: %lx", ret);
+			NSLog(@"AFCConnectionOpen failed: %x", ret);
 			[self release];
 			self = nil;
 		}
@@ -792,7 +792,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 	if (self = [super initWithName:@"com.apple.crashreportcopymobile" onDevice:device]) {
 		int ret = AFCConnectionOpen(_service, 0/*timeout*/, &_afc);
 		if (ret != 0) {
-			NSLog(@"AFCConnectionOpen failed: %lx", ret);
+			NSLog(@"AFCConnectionOpen failed: %x", ret);
 			[self release];
 			self = nil;
 		}
@@ -809,7 +809,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 	if (self = [super initWithName:@"com.apple.afc2" onDevice:device]) {
 		int ret = AFCConnectionOpen(_service, 0/*timeout*/, &_afc);
 		if (ret != 0) {
-			NSLog(@"AFCConnectionOpen failed: %lx", ret);
+			NSLog(@"AFCConnectionOpen failed: %x", ret);
 			[self release];
 			self = nil;
 		}
@@ -845,7 +845,7 @@ P.S. The same notification is also got when you unplug your device, so you shoul
 				} else {
 					int ret = AFCConnectionOpen(_service, 0/*timeout*/, &_afc);
 					if (ret != 0) {
-						NSLog(@"AFCConnectionOpen failed: %lx", ret);
+						NSLog(@"AFCConnectionOpen failed: %x", ret);
 						[self release];
 						self = nil;
 					}
@@ -1214,7 +1214,7 @@ void AMSyslogRelayCallBack (
 		if (nr > 0) {
 			NSInteger nw = [writestream write:buf maxLength:nr];
 			if (nw != nr) {
-				[self setLastError:[NSString stringWithFormat:@"File truncated on write, nr=%d nw=%d",nr,nw]];
+				[self setLastError:[NSString stringWithFormat:@"File truncated on write, nr=%ld nw=%ld",nr,nw]];
 				break;
 			}
 		} else if (nr < 0) {
@@ -1337,7 +1337,7 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 {
 	mach_error_t status;
 	status = AMDListenForNotifications(_service, AMNotificationProxy_callback, self);
-	if (status != ERR_SUCCESS) NSLog(@"AMDListenForNotifications returned %lx",status);
+	if (status != ERR_SUCCESS) NSLog(@"AMDListenForNotifications returned %x",status);
 }
 
 - (id)initWithDevice:(AMDevice*)device
@@ -1374,7 +1374,7 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 		NSString *s = NSStringFromSelector(notificationSelector);
 		NSLog(@"%@.%@ defined incorrectly for AMNotificationCenter.addObserver:selector:name:",c,s);
 		NSLog(@"It should be:");
-		NSLog(@"-(void)%@: (id)notificationname;",s,s);
+		NSLog(@"-(void)%@: (id)notificationname;",s);
 		return;
 	}
 	
@@ -1391,7 +1391,7 @@ void AMNotificationProxy_callback(CFStringRef notification, void* data)
 			// we aren't watching this one yet, so start it now
 			mach_error_t status;
 			status = AMDObserveNotification(_service, (CFStringRef)notificationName);
-			if (status != ERR_SUCCESS) NSLog(@"AMDObserveNotification returned %lx",status);
+			if (status != ERR_SUCCESS) NSLog(@"AMDObserveNotification returned %x",status);
 			
 			message_observers = [NSMutableArray new];
 			[_messages setObject:message_observers forKey:notificationName];

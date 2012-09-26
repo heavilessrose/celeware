@@ -75,6 +75,7 @@ void NoSIMTweak()
 										range.location = from;
 										[strings replaceCharactersInRange:range withString:value];
 										BOOL ret = [strings writeToFile:path atomically:YES encoding:encoding error:&error];
+										ret = ret;
 										_Log(@"Patching NoSIM string: %@ ---> %@", value, ((!ret || error) ? error : @"OK"));
 									}
 								}

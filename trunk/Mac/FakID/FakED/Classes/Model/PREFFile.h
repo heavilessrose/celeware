@@ -21,7 +21,8 @@ public:
 	//
 	inline NSString *Get(NSString *key)
 	{
-		return [items objectForKey:key];
+		NSString *value = [items objectForKey:key];
+		return value ? value : @"";
 	}
 		
 	//
@@ -52,6 +53,13 @@ public:
 			length = strlen(temp);
 		}
 		[items setValue:[NSData dataWithBytes:temp length:length] forKey:key];
+	}
+
+	//
+	inline NSString *GED(NSString *key)
+	{
+		NSData *data = [items objectForKey:key];
+		return [NSString stringWithUTF8String:(const char *)data.bytes];
 	}
 
 	//

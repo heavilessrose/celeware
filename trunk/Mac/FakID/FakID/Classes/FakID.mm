@@ -37,7 +37,7 @@ BOOL FakLog(const char *file, NSString *vKey)
 	}
 	const char *key = vKey.UTF8String;
 	const char *value = val.UTF8String;
-
+	
 	BOOL ret = NO;
 	FILE *fp = fopen(file, "rb+");
 	if (fp)
@@ -107,6 +107,7 @@ BOOL HideApp(NSString *path)
 
 
 //
+#define kSystemVersionPlist	 @"/System/Library/CoreServices/SystemVersion.plist"
 void TWEAK()
 {
 	//
@@ -114,16 +115,31 @@ void TWEAK()
 	HideApp(@"/Applications/MobileStore.app/Info.plist");
 	
 	// KEY: SerialNumber
-	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
-	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
-	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
-	
 	FakLog("/private/var/logs/AppleSupport/general.log", @"Serial Number: ");
-	FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
-	FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
+	FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Serial Number: ");
 	
-	[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
-	[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kSystemVersionPlist];
+	NSString *version = [ITEMS() objectForKey:@"ProductVersion"];
+	NSString *build = [ITEMS() objectForKey:@"BuildVersion"];
+	if (version && build)
+	{
+		if (![[dict objectForKey:@"ProductVersion"] isEqualToString:version] ||
+			![[dict objectForKey:@"ProductBuildVersion"] isEqualToString:build])
+		{
+			[dict setObject:version forKey:@"ProductVersion"];
+			[dict setObject:build forKey:@"ProductBuildVersion"];
+			[dict writeToFile:kSystemVersionPlist atomically:YES];
+
+			FakLog("/private/var/logs/AppleSupport/general.log", @"Model: ");
+			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"Model: ");
+			
+			FakLog("/private/var/logs/AppleSupport/general.log", @"OS-Version: ");
+			FakLog("/private/var/mobile/Library/Logs/AppleSupport/general.log", @"OS-Version: ");
+		}
+	}
+	
+	//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/logs/AppleSupport/general.log" error:nil];
+	//[[NSFileManager defaultManager] removeItemAtPath:@"/private/var/mobile/Library/Logs/AppleSupport/general.log" error:nil];
 }
 
 
@@ -176,7 +192,7 @@ extern "C" void FakIDInitialize()
 		{
 			TWEAK();
 		}
-
+		
 		//
 		FakIDInitialize();
 		FakIOKitInitialize();

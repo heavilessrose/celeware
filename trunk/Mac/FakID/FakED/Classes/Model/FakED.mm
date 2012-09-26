@@ -47,7 +47,7 @@ NSString *FakED::Sign(NSString *name)
 	NSString *entitlementsArgument = [NSString stringWithFormat:@"--entitlements=%@",entitlementsPath];
 	
 	NSString *result = Run(@"/usr/bin/codesign", [NSArray arrayWithObjects:@"-fs", kCertName, resourceRulesArgument, entitlementsArgument, path, nil]);
-
+	
 	if (([result rangeOfString:@"replacing existing signature"].location == NSNotFound) &&
 		([result rangeOfString:@"replacing invalid existing signature"].location == NSNotFound))
 	{
@@ -57,49 +57,104 @@ NSString *FakED::Sign(NSString *name)
 		[[NSFileManager defaultManager] copyItemAtPath:kBundleSubPath(from) toPath:kBundleSubPath(to) error:nil];
 		return result;
 	}
-
+	
 	return nil;
 }
 
 //
-NSString *FakED::Fake(
-						NSString *sb_imei,
-						NSString *sb_imei2,
-						
-						NSString *ld_model,
-						NSString *ld_sn,
-						NSString *ld_imei,
-						NSString *ld_region,
-						NSString *ld_wifi,
-						NSString *ld_bt,
-						NSString *ld_udid,
-						
-						NSString *pr_sn,
-						NSString *pr_model,
-						NSString *pr_imei,
-						NSString *pr_modem,
-						NSString *pr_wifi,
-						NSString *pr_bt,
-						NSString *pr_tc,
-						NSString *pr_ac,
-						NSString *pr_carrier)
+NSString *FakED::Fake(NSString *model,
+					  NSString *region,
+					  NSString *tcap,
+					  NSString *acap,
+					  
+					  NSString *imei,
+					  NSString *sn,
+					  NSString *wifi,
+					  NSString *bt,
+					  
+					  NSString *carrier,
+					  NSString *modem,
+					  
+					  NSString *type,
+					  NSString *ver,
+					  NSString *build,
+					  
+					  NSString *udid,
+					  
+					  NSString *imsi,
+					  NSString *iccid,
+					  NSString *pnum)
 {
-	NSString *error = nil;
-	
-	if ([pr_carrier lengthOfBytesUsingEncoding:NSUTF16LittleEndianStringEncoding] != 18)
+	if (imei.length != 15)
 	{
-		error = @"Preferences Carrier Version must be 18 bytes in UTF-8";
+		return @"IMEI must be 15 characters.";
+	}
+	if ([carrier lengthOfBytesUsingEncoding:NSUTF16LittleEndianStringEncoding] != 18)
+	{
+		return @"Carrier Version must be 18 bytes in UTF-8";
+	}
+
+	NSString *imei2 = [NSString stringWithFormat:@"%@ %@ %@ %@",
+					   [imei substringToIndex:2],
+					   [imei substringWithRange:NSMakeRange(2, 6)],
+					   [imei substringWithRange:NSMakeRange(8, 6)],
+					   [imei substringFromIndex:14]];
+	// PREF
+	NSString *error/* = nil*/;
+	//if (error == nil)
+	{
+		PREFFile pref;
+		
+		// UI
+		pref.SED(@"region-info", region, 32);
+		pref.SED(@"model-number", model, 32);
+		pref.SET(@"User Data Capacity", tcap);
+		pref.SET(@"User Data Available", acap);
+		
+		pref.SET(@"InternationalMobileEquipmentIdentity", imei);
+		pref.SET(@"SerialNumber", sn);
+		pref.SET(@"MACAddress", wifi);
+		pref.SET(@"BTMACAddress", bt);
+		
+		pref.SET(@"CARRIER_VERSION", carrier);
+		pref.SET(@"ModemVersion", modem);
+
+		pref.SET(@"ProductType", [@"iPhone" stringByAppendingString:type]);
+		pref.SET(@"ProductVersion", ver);
+		pref.SET(@"BuildVersion", build);
+
+		pref.SET(@"UniqueDeviceID", udid);
+		
+		pref.SET(@"IMSI", imsi);
+		pref.SET(@"ICCID", iccid);
+		pref.SET(@"PhoneNumber", pnum);
+		
+		// EXTRA
+		pref.SET(@"IOPlatformSerialNumber", sn);	// lockdown
+		pref.SET(@"ModemIMEI", imei2);				// PREF
+		pref.SET(@"IMEI", imei2);					// ?
+
+		pref.SET(@"kCTMobileEquipmentInfoCurrentMobileId", imei);
+		pref.SET(@"kCTMobileEquipmentInfoIMEI", imei);
+		pref.SET(@"kCTMobileEquipmentInfoICCID", iccid);
+		
+		NSString *region2 = ([region rangeOfString:@"/"].location == NSNotFound) ? region : [region stringByDeletingLastPathComponent];
+		pref.SET(@"ProductModel", [model stringByAppendingString:region2]);
+
+		pref.SET(@"Serial Number: ", sn);
+		pref.SET(@"OS-Version: ", [NSString stringWithFormat:@"iPhone OS %@ (%@)", ver, build]);
+		pref.SET(@"Model: ", [@"iPhone " stringByAppendingString:type]);
+
+		//pref.SED(@"local-mac-address", ld_modelField.stringValue, 10);
+
+		error = pref.Save();
 	}
 
 	// SB
-	if ([sb_imei2 lengthOfBytesUsingEncoding:NSUTF8StringEncoding] != 18)
-	{
-		error = @"SpringBoard IMEI2 must be 18 bytes in UTF-8";
-	}
-	else
+	if (error == nil)
 	{
 		SBLDFile sb(kSpringBoardFile);
-		if (!sb.Write(0x2830, sb_imei) || !sb.Write(0x27C1, sb_imei2, NSUTF8StringEncoding))
+		if (!sb.Write(0x2830, imei) || !sb.Write(0x27C1, imei2, NSUTF8StringEncoding))
 		{
 			error = [NSString stringWithFormat:@"File write error.\n\n%s", kSpringBoardFile];
 		}
@@ -108,19 +163,19 @@ NSString *FakED::Fake(
 	{
 		error = Sign(@"SpringBoard");
 	}
-
+	
 	// LD
 	if (error == nil)
 	{
 		SBLDFile ld(klockdowndFile);
 		
-		if (!ld.Write(0x0D00, ld_sn) ||
-			!ld.Write(0x0D10, ld_imei) ||
-			!ld.Write(0x0D60, ld_model) ||
-			!ld.Write(0x0D68, ld_region) ||
-			!ld.Write(0x0D70, ld_wifi) ||
-			!ld.Write(0x0D90, ld_bt) ||
-			!ld.Write(0x0D30, ld_udid))
+		if (!ld.Write(0x0D00, sn) ||
+			!ld.Write(0x0D10, imei) ||
+			!ld.Write(0x0D60, model) ||
+			!ld.Write(0x0D68, region) ||
+			!ld.Write(0x0D70, wifi) ||
+			!ld.Write(0x0D90, bt) ||
+			!ld.Write(0x0D30, udid))
 		{
 			error = [NSString stringWithFormat:@"File write error.\n\n%s", klockdowndFile];
 		}
@@ -134,15 +189,15 @@ NSString *FakED::Fake(
 	if (error == nil)
 	{
 		SBLDFile pr(kPreferencesFile);
-		if (!pr.Write(0x1710, pr_sn) ||
-			!pr.Write(0x1700, pr_model) ||
-			!pr.Write(0x1720, pr_imei) ||
-			!pr.Write(0x1735, pr_modem) ||
-			!pr.Write(0x1740, pr_wifi) ||
-			!pr.Write(0x1758, pr_bt) ||
-			!pr.Write(0x176c, pr_tc) ||
-			!pr.Write(0x1776, pr_ac) ||
-			!pr.Write(0x46938, pr_carrier, NSUTF16LittleEndianStringEncoding))
+		if (!pr.Write(0x1710, sn) ||
+			!pr.Write(0x1700, model) ||
+			!pr.Write(0x1720, imei2) ||
+			!pr.Write(0x1735, modem) ||
+			!pr.Write(0x1740, wifi) ||
+			!pr.Write(0x1758, bt) ||
+			!pr.Write(0x176c, tcap) ||
+			!pr.Write(0x1776, acap) ||
+			!pr.Write(0x46938, carrier, NSUTF16LittleEndianStringEncoding))
 		{
 			error = [NSString stringWithFormat:@"File write error.\n\n%s", kPreferencesFile];
 		}
@@ -151,7 +206,7 @@ NSString *FakED::Fake(
 	{
 		error = Sign(@"Preferences");
 	}
-	
+
 	return error;
 }
 
@@ -198,7 +253,7 @@ BOOL FakED::Check()
 			}
 		}
 	}
-
+	
 	return YES;
 }
 
@@ -208,7 +263,7 @@ NSString *FakED::active(NSData *data, NSString *sn)
 	NSURL *URL = [NSURL URLWithString:@"https://albert.apple.com:443/WebObjects/ALUnbrick.woa/wa/deviceActivation"];//https://albert.apple.com/WebObjects/ALActivation.woa/wa/deviceActivation"];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
 	request.timeoutInterval = 60;
-
+	
 	// Just some random text that will never occur in the body
 	NSString *boundaryString = @"88EAC6C1-6127-45D9-8313-BA22B794951F";
 	NSMutableData *formData = [NSMutableData data];
@@ -253,9 +308,9 @@ NSString *FakED::active(NSData *data, NSString *sn)
 	[request setValue:@"iOS 5.1.1 9B206 iPhone Setup Assistant iOS Device Activator (MobileActivation-20 built on Jan 15 2012 at 19:07:28)" forHTTPHeaderField:@"User-Agent"];
 	request.HTTPMethod = @"POST";
 	request.HTTPBody = formData;
-
+	
 	[formData writeToFile:kBundleSubPath(@"Request.txt") atomically:NO];
-
+	
 	//
 	NSError *error = nil;
 	NSHTTPURLResponse *response = nil;
@@ -265,7 +320,7 @@ NSString *FakED::active(NSData *data, NSString *sn)
 		[ret writeToFile:kBundleSubPath(@"Response.xml") atomically:NO];
 		//if (response.statusCode == 200)
 		{
-		//	return YES;
+			//	return YES;
 		}
 		return [[[NSString alloc] initWithData:ret encoding:NSUTF8StringEncoding] autorelease];
 	}

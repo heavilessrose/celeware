@@ -46,6 +46,9 @@ int main(int argc, char *argv[])
 		printf("Total System Capacity: %.2f GB\n\n", total_sys_cap.floatValue / 1024 / 1024 / 1024);*/
 		
 		TWEAK();
+
+		[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
+		[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
 		
 	    return 0;
 	}

@@ -160,8 +160,7 @@ extern "C" void FakREQInitialize()
 {
 	@autoreleasepool
 	{
-		NSString *msg = [[NSBundle mainBundle] bundleIdentifier];
-		_Log(@"FakIDInitialize: %@", msg);
+		_Log(@"FakIDInitialize: %@", NSBundle.mainBundle.bundleIdentifier);
 		
 		MSHookMessageEx(objc_getMetaClass("NSURLConnection"), @selector(connectionWithRequest: delegate:), (IMP)MyConnectionWithRequest, (IMP *)&pMyConnectionWithRequest);
 		

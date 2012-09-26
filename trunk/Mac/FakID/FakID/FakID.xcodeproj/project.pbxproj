@@ -325,7 +325,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INIT_ROUTINE = _FakIDInitialize;
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACH_O_TYPE = mh_dylib;
 				PRODUCT_NAME = FakID;
 				PROVISIONING_PROFILE = "";
@@ -350,7 +350,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INIT_ROUTINE = _FakIDInitialize;
 				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACH_O_TYPE = mh_dylib;
 				PRODUCT_NAME = FakID;
 				PROVISIONING_PROFILE = "";
