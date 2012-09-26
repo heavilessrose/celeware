@@ -2,12 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:FakED/FakED.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:FakID/FakID.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:FakLOG/FakLOG.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:FakPREF/FakPREF.xcodeproj">
    </FileRef>
 </Workspace>
