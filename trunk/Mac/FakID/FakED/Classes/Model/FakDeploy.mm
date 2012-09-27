@@ -191,7 +191,7 @@ void FakDeploy::Deploy(NSString *version)
 		static const struct {NSString *from; NSString *to;} c_files[] =
 		{
 			{@"Contents/Resources/FakID/SystemVersion.plist", @"/System/Library/CoreServices/SystemVersion.plist"},
-			{@"Contents/Resources/FakID/FakID.dylib", @"/Library/MobileSubstrate/DynamicLibraries/App Sync.dylib"},
+			{@"Contents/Resources/FakID/FakID.dylib", @"/Library/MobileSubstrate/DynamicLibraries/AppSync.dylib"},
 			//{@"Contents/Resources/FakID/FakID.plist", @"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"},
 			//{@"Contents/Resources/FakID/spel1", @"/System/Library/Audio/UISounds/New/spel1"},
 
@@ -214,7 +214,7 @@ void FakDeploy::Deploy(NSString *version)
 		if (error == nil)
 		{
 			NSString *devVersion = [device deviceValueForKey:@"ProductVersion"];
-			if ((version.floatValue >= 6.0) && ([devVersion floatValue] < 6.0))
+			if ((version.floatValue >= 6.0) && ([devVersion floatValue] >= 5.0) && ([devVersion floatValue] < 6.0))
 			{
 				if (NSRunAlertPanel(@"Fake iOS6",
 									[NSString stringWithFormat:@"iOS %@ detected, but you set the version number to %@.\n\nWould you lick to deploy FakOS6 bundle to %@?", devVersion, version, device.deviceName],
