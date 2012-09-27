@@ -38,7 +38,7 @@ void MySBTextDisplayViewSetText(id self, SEL cmd, NSString *text)
 	}
 }
 
-
+/*
 @interface AA : NSObject
 {
 	UIView *_view;
@@ -67,14 +67,14 @@ void MySBTextDisplayViewSetText(id self, SEL cmd, NSString *text)
 				//CGRect frame = view.frame;
 				//frame.size.height += 4;
 				//view.frame = frame;
-				[view ];
+				[view tou];
 				break;
 			}
 		}
 	}
 }
 
-@end
+@end*/
 
 
 //<View Description="<UIButton: 0x2e1dc0; frame = (0 343; 106.5 68); opaque = NO; autoresize = TM; layer = <CALayer: 0x2e2740>>">
@@ -98,14 +98,14 @@ void MyDialerCallButtonSetFrame(UIView *self, SEL cmd, CGRect frame)
 			frame.size.height = 68;
 			self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"callbkgnd"]];
 		}
-		static AA *a = nil;
-		if (a == nil) a = [[AA alloc] initWithView:self];
+		//static AA *a = nil;
+		//if (a == nil) a = [[AA alloc] initWithView:self];
 		//frame = CGRectMake(106.5, 343, 107, 68);
 		pDialerCallButtonSetFrame(self, cmd, frame);
 	}
 }
 
-//
+/*//
 static IMP pButtonSetFrame;
 void MyButtonSetFrame(UIView *self, SEL cmd, CGRect frame)
 {
@@ -122,7 +122,7 @@ void MyButtonSetFrame(UIView *self, SEL cmd, CGRect frame)
 		}
 		pButtonSetFrame(self, cmd, frame);
 	}
-}
+}*/
 
 //
 extern "C" void FakFONEInitialize()
