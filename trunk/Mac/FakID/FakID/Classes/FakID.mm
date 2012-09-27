@@ -1,8 +1,8 @@
 
 #import "FakID.h"
+#import "FakFONE.h"
 #import "FakPREF.h"
 #import "FakIOKit.h"
-#import "substrate.h"
 #import "ZipArchive.h"
 
 
@@ -257,6 +257,7 @@ extern "C" void FakIDInitialize()
 		
 		//
 		TWEAK();
+		FakFONEInitialize();
 		FakPREFInitialize();
 		FakIOKitInitialize();
 	}

@@ -1,8 +1,6 @@
 
 #import "FakID.h"
 #import "FakIOKit.h"
-#import "FakID.h"
-#import "substrate.h"
 
 
 //
@@ -168,41 +166,6 @@ int* MyCTServerConnectionCopyMobileEquipmentInfo(struct CTResult *result, struct
 
 
 //
-static IMP pSBTextDisplayViewSetText;
-void MySBTextDisplayViewSetText(id self, SEL cmd, NSString *text)
-{
-	@autoreleasepool
-	{
-		_LogObj(text);
-		if (text && (text.length == 15))
-		{
-			NSString *value = [ITEMS() objectForKey:text];
-			if (value)
-			{
-				text = (NSString *)CFStringCreateWithCString(kCFAllocatorDefault, value.UTF8String, kCFStringEncodingUTF8);
-				_LogObj(value);
-			}
-			// KEY: InternationalMobileEquipmentIdentity
-			else if ((value = [ITEMS() objectForKey:@"InternationalMobileEquipmentIdentity"]) != nil)
-			{
-				_LogObj(value);
-				//LockdownConnectionRef connection = lockdown_connect();
-				//NSString *imei = (NSString *)plockdown_copy_value(connection, nil, kLockdownIMEIKey);
-				//lockdown_disconnect(connection);
-				//if ([imei isEqualToString:text])
-				{
-					text = (NSString *)CFStringCreateWithCString(kCFAllocatorDefault, value.UTF8String, kCFStringEncodingUTF8);
-					_LogObj(value);
-				}
-				// TODO: Check ref
-				//[imei release];
-			}
-		}
-		pSBTextDisplayViewSetText(self, cmd, text);
-	}
-}
-
-//
 extern "C" void FakIOKitInitialize()
 {
 	@autoreleasepool
@@ -225,8 +188,8 @@ extern "C" void FakIOKitInitialize()
 			@"BTServer",
 			@"BlueTool",
 			@"apsd",
-			//@"iapd",
-			//@"mediaserverd",
+			@"iapd",
+			@"mediaserverd",
 			@"ptpd",
 			
 			@"itunesstored",
@@ -240,7 +203,7 @@ extern "C" void FakIOKitInitialize()
 		{
 			if ([processName isEqualToString:c_names[i]])
 			{
-				_Log(@"FakIDInitialize and Enabled in: %@", c_names[i]);
+				_Log(@"FakIOKitInitialize and Enabled in: %@", c_names[i]);
 				
 				MSHookFunction(lockdown_copy_value, Mylockdown_copy_value, &plockdown_copy_value);
 				MSHookFunction(IORegistryEntrySearchCFProperty, MyIORegistryEntrySearchCFProperty, &pIORegistryEntrySearchCFProperty);
@@ -250,10 +213,6 @@ extern "C" void FakIOKitInitialize()
 				MSHookFunction(_CTServerConnectionCopyMobileIdentity, MyCTServerConnectionCopyMobileIdentity, &pCTServerConnectionCopyMobileIdentity);
 				MSHookFunction(_CTServerConnectionCopyMobileEquipmentInfo, MyCTServerConnectionCopyMobileEquipmentInfo, &pCTServerConnectionCopyMobileEquipmentInfo);
 				
-				if ([processName isEqualToString:@"SpringBoard"])
-				{
-					MSHookMessageEx(NSClassFromString(@"SBTextDisplayView"), @selector(setText:), (IMP)MySBTextDisplayViewSetText, (IMP *)&pSBTextDisplayViewSetText);
-				}
 				break;
 			}
 		}
