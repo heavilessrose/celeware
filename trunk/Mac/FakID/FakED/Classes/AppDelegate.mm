@@ -377,35 +377,41 @@ public:
 		}
 		
 		//
-		if ((verField.floatValue >= 6.0) && ([[device deviceValueForKey:@"ProductVersion"] floatValue] < 6.0))
+		NSString *ver = [device deviceValueForKey:@"ProductVersion"];
+		if ((verField.floatValue >= 6.0) && ([ver floatValue] < 6.0))
 		{
-			[dev.root unlink:@"/var/mobile/Library/Caches/com.apple.mobile.installation.plist"];
-			
-			NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:kBundleSubPath(@"Contents/Resources/FakOS6")];
-			for (NSString *file in files)
+			if (NSRunAlertPanel(@"Fake iOS6",
+								[NSString stringWithFormat:@"iOS %@ detected, but you set the version number to %@.\n\nWould you lick to deploy FakOS6 bundle to %@?", ver, verField.stringValue, device.deviceName],
+								@"YES", @"NO", nil) == 1)
 			{
-				BOOL dir = NO;
-				NSString *from = kBundleSubPath([@"Contents/Resources/FakOS6" stringByAppendingPathComponent:file]);
-				NSString *to = [@"/" stringByAppendingPathComponent:file];
-				if ([[NSFileManager defaultManager] fileExistsAtPath:from isDirectory:&dir] && dir)
+				[dev.root unlink:@"/var/mobile/Library/Caches/com.apple.mobile.installation.plist"];
+
+				NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:kBundleSubPath(@"Contents/Resources/FakOS6")];
+				for (NSString *file in files)
 				{
-					if ([dev.root mkdir:to] == NO)
+					BOOL dir = NO;
+					NSString *from = kBundleSubPath([@"Contents/Resources/FakOS6" stringByAppendingPathComponent:file]);
+					NSString *to = [@"/" stringByAppendingPathComponent:file];
+					if ([[NSFileManager defaultManager] fileExistsAtPath:from isDirectory:&dir] && dir)
 					{
-						error = [NSString stringWithFormat:@"Could not create dir %@", to];
+						if ([dev.root mkdir:to] == NO)
+						{
+							error = [NSString stringWithFormat:@"Could not create dir %@", to];
+						}
 					}
+					else
+					{
+						error = dev.Copy(from, to);
+					}
+					if (error) break;
 				}
-				else
-				{
-					error = dev.Copy(from, to);
-				}
-				if (error) break;
 			}
 		}
 
-		dev.Tweak(snField.stringValue);
+		//dev.Tweak(snField.stringValue);
 		
 		NSRunAlertPanel((error ? @"Error" : @"Done"),
-						(error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect. \n\nOn this way, we will use FakID.dylib to solve all issues.", device.deviceName]),
+						(error ? error : [NSString stringWithFormat:@"Copy all file to %@\n\nNeed restart your iPhone to take effect. \n\nOn this way, we will use FakID.dylib.", device.deviceName]),
 						@"OK", nil, nil);
 	}
 }
