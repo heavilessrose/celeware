@@ -148,6 +148,13 @@ UITableViewCell *MyCellForRowAtIndexPathForRoot(id<UITableViewDataSource> self, 
 				}
 			}
 		}
+		else if ((indexPath.section == 0) && (indexPath.row == 2))
+		{
+			if (cell.imageView.image == nil)
+			{
+				cell.imageView.image = [UIImage imageNamed:@"Bluetooth"];
+			}
+		}
 		
 		return cell;
 	}
