@@ -333,4 +333,3 @@ NSData *NSUtil::BASE64Decode(NSString *string)
 	
 	return mutableData;
 }
-

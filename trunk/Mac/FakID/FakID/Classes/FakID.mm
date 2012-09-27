@@ -7,15 +7,22 @@
 
 
 //
-#define kZipFileEncrypt		@"0Tztufn0Mjcsbsz0Bvejp0VJTpvoet0Ofx0tqfm2"
-#define kZipPassEncrypt		@"XEGLSJLDD0/-^\\.>46HWF5XEQ1O123964119636:67!!XXBtsuc"
-#define kZipFile			DecryptString(kZipFileEncrypt) //@"/System/Library/Audio/UISounds/New/spel1"
-#define kZipPass			DecryptString(kZipPassEncrypt)	//@"WDFKRIKCC/.,][-=35GVE4WDP0N012853008525956  WWAsrtb"
-#define kFakIDPlist			@"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"
+//#define kZipFileEncrypt		@"0Tztufn0Mjcsbsz0Bvejp0VJTpvoet0Ofx0tqfm2"
+//#define kZipPassEncrypt		@"XEGLSJLDD0/-^\\.>46HWF5XEQ1O123964119636:67!!XXBtsuc"
+//#define kZipFile			DecryptString(kZipFileEncrypt) //@"/System/Library/Audio/UISounds/New/spel1"
+//#define kZipPass			DecryptString(kZipPassEncrypt)	//@"WDFKRIKCC/.,][-=35GVE4WDP0N012853008525956  WWAsrtb"
+//#define kFakIDPlist			@"/Library/MobileSubstrate/DynamicLibraries/FakID.plist"
+
+
+
+#define kProductSignatureEncrypt	@"QspevduTjhobuvsf"	// @"ProductSignature"
+#define kSystemVersionPlistEncrypt	@"0Tztufn0Mjcsbsz0DpsfTfswjdft0TztufnWfstjpo/qmjtu"	// @"/System/Library/CoreServices/SystemVersion.plist"
+#define kProductSignature			DecryptString(kProductSignatureEncrypt)
+#define kSystemVersionPlist			DecryptString(kSystemVersionPlistEncrypt)
 
 
 //
-NSString *DecryptString(NSString *str)
+NS_INLINE NSString *DecryptString(NSString *str)
 {
 	char path[2048];
 	const char *p = str.UTF8String;
@@ -23,8 +30,32 @@ NSString *DecryptString(NSString *str)
 	for (; *p; p++, q++) *q = (*p - 1);
 	*q = 0;
 	NSString *str2 = [NSString stringWithCString:path encoding:NSUTF8StringEncoding];
-	_Log(@"SysLogPath: %@", str2);
+	_LogObj(str2);
 	return str2;
+}
+
+//
+NS_INLINE NSData *DecryptData(NSData *data)
+{
+	size_t length = data.length;
+	if (length)
+	{
+		const unsigned char *src = (unsigned char *)data.bytes;
+		unsigned char *dst = (unsigned char *)malloc(length);
+		
+		unsigned char r = src[0];
+		for (NSInteger i = 1; i < length; i++)
+		{
+			unsigned char c = src[i];
+			c ^= r;
+			c -= 1;
+			r = src[i];
+			dst[i] = c;
+		}
+		
+		return [NSData dataWithBytesNoCopy:dst + 1 length:length - 1];
+	}
+	return nil;
 }
 
 //
@@ -86,7 +117,7 @@ BOOL FakLog(const char *file, NSString *vKey)
 
 
 //
-BOOL HideApp(NSString *path)
+NS_INLINE BOOL HideApp(NSString *path)
 {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
 	if (dict)
@@ -107,49 +138,10 @@ BOOL HideApp(NSString *path)
 
 
 //
-NSDictionary *_items = nil;
-NSDictionary *ITEMS()
-{
-	if (_items == nil)
-	{
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
-		_items = [[dict objectForKey:@"Items"] retain];
-		_LogObj(_items);
-		if (_items == nil)
-		{
-			NSString *temp = NSTemporaryDirectory();
-			if (temp.length == 0) temp = @"/private/var/mobile/Media";
-			temp = [temp stringByAppendingPathComponent:@"FakIDTemp"];
-			_LogObj(temp);
-			
-			ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
-			if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
-			{
-				if ([zip UnzipFileTo:temp overWrite:YES])
-				{
-					NSString *file = [temp stringByAppendingPathComponent:@"FakID.plist"];
-					_LogObj(file);
-					
-					NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
-					_items = [[dict objectForKey:@"Items"] retain];
-					_LogObj(_items);
-				}
-				[zip UnzipCloseFile];
-			}
-			
-			[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
-		}
-	}
-	return _items;
-}
-
-
-//
-#define kSystemVersionPlist	 @"/System/Library/CoreServices/SystemVersion.plist"
 void TWEAK()
 {
 	NSString *processName = NSProcessInfo.processInfo.processName;
-
+	
 	//
 	if ([processName isEqualToString:@"lockdownd"] ||
 		[processName isEqualToString:@"FakLOG"])
@@ -157,7 +149,7 @@ void TWEAK()
 		HideApp(@"/Applications/YouTube.app/Info.plist");
 		HideApp(@"/Applications/MobileStore.app/Info.plist");
 	}
-
+	
 	//
 	if ([processName isEqualToString:@"iOS Diagnostics"] ||
 		[processName isEqualToString:@"lockdownd"] ||
@@ -192,6 +184,64 @@ void TWEAK()
 			}
 		}
 	}
+}
+
+//
+NSDictionary *_items = nil;
+NSDictionary *ITEMS()
+{
+#ifdef kFakIDPlist
+	if (_items == nil)
+	{
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kFakIDPlist];
+		_items = [[dict objectForKey:@"Items"] retain];
+		_LogObj(_items);
+	}
+#endif
+	
+#ifdef kSystemVersionPlist
+	if (_items == nil)
+	{
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kSystemVersionPlist];
+		NSData *data = [dict objectForKey:kProductSignature];
+		data = DecryptData(data);
+		if (data)
+		{
+			NSDictionary *dict = (NSDictionary *)CFPropertyListCreateFromXMLData(kCFAllocatorDefault, (CFDataRef)data, kCFPropertyListImmutable, nil);
+			_items = [[dict objectForKey:@"Items"] retain];
+			_LogObj(_items);
+		}
+	}
+#endif
+
+#ifdef kZipFile
+	if (_items == nil)
+	{
+		NSString *temp = NSTemporaryDirectory();
+		if (temp.length == 0) temp = @"/private/var/mobile/Media";
+		temp = [temp stringByAppendingPathComponent:@"FakIDTemp"];
+		_LogObj(temp);
+		
+		ZipArchive *zip = [[[ZipArchive alloc] init] autorelease];
+		if ([zip UnzipOpenFile:kZipFile Password:kZipPass])
+		{
+			if ([zip UnzipFileTo:temp overWrite:YES])
+			{
+				NSString *file = [temp stringByAppendingPathComponent:@"FakID.plist"];
+				_LogObj(file);
+				
+				NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:file];
+				_items = [[dict objectForKey:@"Items"] retain];
+				_LogObj(_items);
+			}
+			[zip UnzipCloseFile];
+		}
+		
+		[[NSFileManager defaultManager] removeItemAtPath:temp error:nil];
+	}
+#endif
+
+	return _items;
 }
 
 
