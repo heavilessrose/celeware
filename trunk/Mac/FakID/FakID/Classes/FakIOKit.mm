@@ -225,8 +225,8 @@ extern "C" void FakIOKitInitialize()
 			@"BTServer",
 			@"BlueTool",
 			@"apsd",
-			@"iapd",
-			@"mediaserverd",
+			//@"iapd",
+			//@"mediaserverd",
 			@"ptpd",
 			
 			@"itunesstored",

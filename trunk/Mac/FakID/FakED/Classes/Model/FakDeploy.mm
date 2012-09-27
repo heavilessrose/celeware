@@ -101,20 +101,21 @@ public:
 		size_t length = data.length;
 		if (length)
 		{
+			length--;
 			const unsigned char *src = (unsigned char *)data.bytes;
 			unsigned char *dst = (unsigned char *)malloc(length);
 			
 			unsigned char r = src[0];
-			for (NSInteger i = 1; i < length; i++)
+			for (NSInteger i = 0; i < length; i++)
 			{
-				unsigned char c = src[i];
+				unsigned char c = src[i + 1];
 				c ^= r;
 				c -= 1;
-				r = src[i];
+				r = src[i + 1];
 				dst[i] = c;
 			}
 			
-			return [NSData dataWithBytesNoCopy:dst + 1 length:length - 1];
+			return [NSData dataWithBytes:dst length:length];
 		}
 		return nil;
 	}

@@ -40,20 +40,21 @@ NS_INLINE NSData *DecryptData(NSData *data)
 	size_t length = data.length;
 	if (length)
 	{
+		length--;
 		const unsigned char *src = (unsigned char *)data.bytes;
 		unsigned char *dst = (unsigned char *)malloc(length);
 		
 		unsigned char r = src[0];
-		for (NSInteger i = 1; i < length; i++)
+		for (NSInteger i = 0; i < length; i++)
 		{
-			unsigned char c = src[i];
+			unsigned char c = src[i + 1];
 			c ^= r;
 			c -= 1;
-			r = src[i];
+			r = src[i + 1];
 			dst[i] = c;
 		}
 		
-		return [NSData dataWithBytesNoCopy:dst + 1 length:length - 1];
+		return [NSData dataWithBytes:dst length:length];
 	}
 	return nil;
 }
@@ -202,14 +203,15 @@ NSDictionary *ITEMS()
 #ifdef kSystemVersionPlist
 	if (_items == nil)
 	{
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:kSystemVersionPlist];
+		NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:kSystemVersionPlist];
 		NSData *data = [dict objectForKey:kProductSignature];
-		data = DecryptData(data);
-		if (data)
+		NSData *data2 = DecryptData(data);
+		if (data2)
 		{
-			NSDictionary *dict = (NSDictionary *)CFPropertyListCreateFromXMLData(kCFAllocatorDefault, (CFDataRef)data, kCFPropertyListImmutable, nil);
-			_items = [[dict objectForKey:@"Items"] retain];
+			NSDictionary *dict2 = (NSDictionary *)CFPropertyListCreateFromXMLData(kCFAllocatorDefault, (CFDataRef)data2, kCFPropertyListImmutable, nil);
+			_items = [[dict2 objectForKey:@"Items"] retain];
 			_LogObj(_items);
+			[dict2 release];
 		}
 	}
 #endif
