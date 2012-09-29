@@ -56,6 +56,7 @@
 		2447BD1114C9830000A34F0F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2447BD1314C9830000A34F0F /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		2447BD1414C9830000A34F0F /* Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Main.m; sourceTree = "<group>"; };
+		2498FB02161677A8007B904C /* liblockdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = liblockdown.h; sourceTree = "<group>"; };
 		24A762021612E8D0008D0746 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		24A762031612E8D0008D0746 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
 		24A762041612E8D0008D0746 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		2402197416035F86008AE6BB /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				2498FB02161677A8007B904C /* liblockdown.h */,
 				2402197516035F86008AE6BB /* MobileDevice.h */,
 				2402197816036DE0008AE6BB /* MobileDeviceAccess.h */,
 				2402197916036DE0008AE6BB /* MobileDeviceAccess.m */,

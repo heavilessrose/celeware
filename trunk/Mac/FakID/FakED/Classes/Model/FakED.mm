@@ -147,7 +147,13 @@ NSString *FakED::Fake(NSString *model,
 		pref.SET(@"OS-Version: ", [NSString stringWithFormat:@"iPhone OS %@ (%@)", ver, build]);
 		pref.SET(@"Model: ", [@"iPhone " stringByAppendingString:type]);
 
-		//pref.SED(@"local-mac-address", ld_modelField.stringValue, 10);
+		if (wifi.length == 17)
+		{
+			unsigned char temp[10] = {0};
+			sscanf(wifi.UTF8String, "%02X:%02X:%02X:%02X:%02X:%02X", &temp[0], &temp[1], &temp[2], &temp[3], &temp[4], &temp[5]);
+			NSData *data = [NSData dataWithBytes:temp length:6];
+			pref.SET(@"local-mac-address", data);
+		}
 
 		error = pref.Save();
 	}

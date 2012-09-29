@@ -3,52 +3,96 @@
 #import "liblockdown.h"
 #import "FakID.h"
 
+
+#define LogValue2(domain, key)	{id value = (id)lockdown_copy_value(connection, domain, key); NSLog(@"%s=%@(%@): %@\n", #key, key, NSStringFromClass([value class]), value); printf("%s(%s): %s\n", ((NSString *)key).UTF8String, NSStringFromClass([value class]).UTF8String, [[value description] UTF8String]);};
+#define LogValue(key)			LogValue2(nil, key)
+
 int main(int argc, char *argv[])
 {
 	@autoreleasepool
-	{		
+	{
 		LockdownConnectionRef connection = lockdown_connect();
 		
-		NSString *sn = (NSString *)lockdown_copy_value(connection, nil, kLockdownSerialNumberKey);
-		NSString *imei = (NSString *)lockdown_copy_value(connection, nil, kLockdownIMEIKey);
-		NSString *model = (NSString *)lockdown_copy_value(connection, nil, kLockdownModelNumberKey);
-		NSString *region = (NSString *)lockdown_copy_value(connection, nil, kLockdownRegionInfoKey);
-		NSString *wifi = (NSString *)lockdown_copy_value(connection, nil, kLockdownWifiAddressKey);
-		NSString *bt = (NSString *)lockdown_copy_value(connection, nil, kLockdownBluetoothAddressKey);
-		NSString *udid = (NSString *)lockdown_copy_value(connection, nil, kLockdownUniqueDeviceIDKey);
-		NSString *version = (NSString *)lockdown_copy_value(connection, nil, kLockdownProductVersionKey);
-		NSString *build = (NSString *)lockdown_copy_value(connection, nil, kLockdownBuildVersionKey);
+		LogValue(kLockdownActivationInfoKey);
+		LogValue(kLockdownActivationRandomnessKey);
+		LogValue(kLockdownActivationStateKey);
+		LogValue(kLockdownBuildVersionKey);
+		LogValue(kLockdownBrickStateKey);
+		LogValue(kLockdownDeviceCertificateKey);
+		LogValue(kLockdownDeviceClassKey);
+		LogValue(kLockdownDeviceNameKey);
+		LogValue(kLockdownDevicePrivateKey);
+		LogValue(kLockdownDevicePublicKey);
+		LogValue(kLockdownFirmwareVersionKey);
+		LogValue(kLockdownHostAttachedKey);
+		LogValue(kLockdownInverseDeviceIDKey);
+		LogValue(kLockdownModelNumberKey);
+		LogValue(kLockdownPasswordProtectedKey);
+		LogValue(kLockdownProductTypeKey);
+		LogValue(kLockdownProductVersionKey);
+		LogValue(kLockdownProtocolVersionKey);
+		LogValue(kLockdownRegionInfoKey);
+		LogValue(kLockdownSIMGID1Key);	// ?
+		LogValue(kLockdownSIMGID2Key);	// ?
+		LogValue(kLockdownSIMStatusKey);
+		LogValue(kLockdownSerialNumberKey);
+		LogValue(kLockdownSoftwareBehaviorKey);
+		LogValue(kLockdownSomebodySetTimeZoneKey);
+		LogValue(kLockdownTimeIntervalSince1970Key);
+		LogValue(kLockdownTimeZoneKey);
+		LogValue(kLockdownTimeZoneOffsetFromUTCKey);
+		LogValue(kLockdownTrustedHostAttachedKey);
+		LogValue(kLockdownUniqueChipIDKey);
+		LogValue(kLockdownUniqueDeviceIDKey);
+		LogValue(kLockdownUses24HourClockKey);
+		LogValue(kLockdownWifiAddressKey);
+		LogValue(kLockdowniTunesHasConnectedKey);
+		LogValue(kLockdownActivationStateAcknowledgedKey);
+		LogValue(kLockdownActivationPrivateKey);
+		LogValue(kLockdownActivationPublicKey);
+		LogValue(kLockdownCPUArchitectureKey);
+		LogValue(kLockdownHardwareModelKey);
+		LogValue(kLockdownMLBSerialNumberKey);
+		LogValue(kLockdownProductionSOCKey);
+
+		LogValue(kLockdownActivationInfoCompleteKey);
+		LogValue(kLockdownActivationInfoErrorsKey);
+		LogValue(kLockdownActivationTicketKey);
+		LogValue(kLockdownBasebandBootloaderVersionKey);
+		LogValue(kLockdownBasebandMasterKeyHashKey);
+		LogValue(kLockdownBasebandThumbprintKey);
+		LogValue(kLockdownBasebandVersionKey);
+		LogValue(kLockdownBluetoothAddressKey);
+		LogValue(kLockdownCarrierBundleInfoKey);
+		LogValue(kLockdownICCIDKey);	// IntegratedCircuitCardIdentity
+		LogValue(kLockdownIMEIKey);	// InternationalMobileEquipmentIdentity
+		LogValue(kLockdownIMSIKey);	// InternationalMobileSubscriberIdentity
+		LogValue(kLockdownIsInternalKey);
+		LogValue(kLockdownPhoneNumberKey);
+		LogValue(kLockdownProposedTicketKey);
+		LogValue(kLockdownReleaseTypeKey);
+		LogValue(kLockdownReservedBytesKey);
+		LogValue(kLockdownShutterClickKey);
+		LogValue(kLockdownUnlockCodeKey);
+		LogValue(kLockdownVolumeLimitKey);
+		LogValue(kLockdownWildcardTicketKey);
+		LogValue(kLockdownBatteryCurrentCapacity);
+		LogValue(kLockdownBatteryIsCharging);
 		
-		/*NSNumber *amount_data_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownAmountDataAvailableKey);
-		NSNumber *amount_data_rsv = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownAmountDataReservedKey);
-		NSNumber *total_data_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalDataAvailableKey);
-		NSNumber *total_data_cap = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalDataCapacityKey);
-		NSNumber *total_disk_cap = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalDiskCapacityKey);
-		NSNumber *total_sys_avail = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalSystemAvailableKey);
-		NSNumber *total_sys_cap = lockdown_copy_value(connection, kLockdownDiskUsageDomainKey, kLockdownTotalSystemCapacityKey);*/
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownAmountDataAvailableKey);
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownAmountDataReservedKey);
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownTotalDataAvailableKey);
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownTotalDataCapacityKey);
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownTotalDiskCapacityKey);
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownTotalSystemAvailableKey);
+		LogValue2(kLockdownDiskUsageDomainKey, kLockdownTotalSystemCapacityKey);
 		lockdown_disconnect(connection);
-		
-		printf("SN: %s\n", sn.UTF8String);
-		printf("IMEI: %s\n", imei.UTF8String);
-		printf("REGION: %s %s\n", model.UTF8String, region.UTF8String);
-		printf("WIFI: %s\n", wifi.UTF8String);
-		printf("BT: %s\n", bt.UTF8String);
-		printf("UDID: %s\n\n", udid.UTF8String);
-		printf("VER: %s (%s)\n", version.UTF8String, build.UTF8String);
-
-		/*printf("Amount Data Available:%.2f GB\n", amount_data_avail.floatValue / 1024 / 1024 / 1024);
-		printf("Amount Data Reserved: %.2f GB\n", amount_data_rsv.floatValue / 1024 / 1024 / 1024);
-		printf("Total Data Available: %.2f GB\n", total_data_avail.floatValue / 1024 / 1024 / 1024);
-		printf("Total Data Capacity: %.2f GB\n", total_data_cap.floatValue / 1024 / 1024 / 1024);
-		printf("Total Disk Capacity: %.2f GB\n", total_disk_cap.floatValue / 1024 / 1024 / 1024);
-		printf("Total System Available: %.2f GB\n", total_sys_avail.floatValue / 1024 / 1024 / 1024);
-		printf("Total System Capacity: %.2f GB\n\n", total_sys_cap.floatValue / 1024 / 1024 / 1024);*/
-		
+				
 		TWEAK();
-
+		
 		[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakID.plist" error:nil];
 		[[NSFileManager defaultManager] removeItemAtPath:@"/System/Library/LaunchDaemons/FakLOG" error:nil];
 		
-	    return 0;
+		return 0;
 	}
 }
