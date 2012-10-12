@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		241202691571C2F9009F4337 /* BitLive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 241202681571C2F9009F4337 /* BitLive.mm */; };
+		246D4FF116280F700028E899 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 246D4FF016280F700028E899 /* Default-568h@2x.png */; };
+		246D4FF416280F7F0028E899 /* CacheImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 246D4FF316280F7F0028E899 /* CacheImageView.mm */; };
 		248B2CBE141CFC8C0026FD73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CBD141CFC8C0026FD73 /* UIKit.framework */; };
 		248B2CC0141CFC8C0026FD73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CBF141CFC8C0026FD73 /* Foundation.framework */; };
 		248B2CC2141CFC8C0026FD73 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CC1141CFC8C0026FD73 /* CoreGraphics.framework */; };
@@ -68,6 +70,9 @@
 /* Begin PBXFileReference section */
 		241202671571C2F9009F4337 /* BitLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitLive.h; sourceTree = "<group>"; };
 		241202681571C2F9009F4337 /* BitLive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BitLive.mm; sourceTree = "<group>"; };
+		246D4FF016280F700028E899 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		246D4FF216280F7F0028E899 /* CacheImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheImageView.h; sourceTree = "<group>"; };
+		246D4FF316280F7F0028E899 /* CacheImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CacheImageView.mm; sourceTree = "<group>"; };
 		248B2CB9141CFC8C0026FD73 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B2CBD141CFC8C0026FD73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		248B2CBF141CFC8C0026FD73 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -297,6 +302,7 @@
 				248B2CF9141CFD700026FD73 /* Default.png */,
 				248B2CFA141CFD700026FD73 /* Default@2x.png */,
 				248B2CFB141CFD700026FD73 /* Default@iPad.png */,
+				246D4FF016280F700028E899 /* Default-568h@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -443,6 +449,8 @@
 		248B2DB5141CFD700026FD73 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				246D4FF216280F7F0028E899 /* CacheImageView.h */,
+				246D4FF316280F7F0028E899 /* CacheImageView.mm */,
 				248B2DB6141CFD700026FD73 /* DelayImageView.h */,
 				248B2DB7141CFD700026FD73 /* DelayImageView.mm */,
 				248B2DB8141CFD700026FD73 /* KBCustomTextField.h */,
@@ -571,6 +579,7 @@
 				248B2E2D141CFD700026FD73 /* BackwardIcon@2x.png in Resources */,
 				248B2E2E141CFD700026FD73 /* ForwardIcon.png in Resources */,
 				248B2E2F141CFD700026FD73 /* ForwardIcon@2x.png in Resources */,
+				246D4FF116280F700028E899 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +621,7 @@
 				24B05D5115EF0BEB00B6EB39 /* NRGridView.m in Sources */,
 				24B05D5215EF0BEB00B6EB39 /* NRGridViewCell.m in Sources */,
 				24B05D5315EF0BEB00B6EB39 /* NRGridViewController.m in Sources */,
+				246D4FF416280F7F0028E899 /* CacheImageView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
