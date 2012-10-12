@@ -385,6 +385,26 @@
 }
 
 //
+#define kActivityViewTag 53217
+- (void)showActivityIndicator:(BOOL)show
+{
+	UIView *activityView = [self viewWithTag:kActivityViewTag];
+	if (show == NO)
+	{
+		[activityView removeFromSuperview];
+	}
+	else if (activityView == nil)
+	{
+		UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+		activityView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
+		activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+		[self addSubview:activityView];
+		[activityView startAnimating];
+		activityView.tag = kActivityViewTag;
+	}
+}
+
+//
 - (void)fadeForAction:(SEL)action target:(id)target
 {
 	[self fadeForAction:action target:target duration:0.3];

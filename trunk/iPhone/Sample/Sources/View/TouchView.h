@@ -1,6 +1,5 @@
 
 #import <UIKit/UIKit.h>
-#import "DelayImageView.h"
 
 //
 @protocol TouchViewDelegate <NSObject>
@@ -93,6 +92,5 @@
 //_DeclareTouchView(TouchView, UIView);
 _DeclareTouchView(TouchImageView, UIImageView);
 _DeclareTouchView(TouchScrollView, UIScrollView);
-_DeclareTouchView(TouchDelayImageView, DelayImageView);
 
 

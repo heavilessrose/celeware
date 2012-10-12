@@ -194,10 +194,10 @@
 {
 	self = [super initWithFrame:frame];
 
-	frame.origin.y = 0;//frame.size.height - 40;
+	frame.origin.y = frame.size.height - 26;
 	frame.size.height = 26;
 	_pageCtrl = [[UIPageControl alloc] initWithFrame:frame];
-	_pageCtrl.autoresizingMask = UIViewAutoresizingFlexibleWidth/* | UIViewAutoresizingFlexibleTopMargin*/;
+	_pageCtrl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
 	_pageCtrl.numberOfPages = 0;
 	_pageCtrl.currentPage = 0;
 	_pageCtrl.hidesForSinglePage = YES;

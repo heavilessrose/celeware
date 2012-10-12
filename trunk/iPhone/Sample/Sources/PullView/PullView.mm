@@ -235,6 +235,21 @@
 		pullView = [[[PullView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height - self.contentInset.top, self.frame.size.width, self.frame.size.height)] autorelease];
 		pullView.tag = kPullViewTag;
 		[self addSubview:pullView];
+
+#ifdef kPullViewColor
+		pullView.backgroundColor = kPullViewColor;
+		pullView.stampLabel.textColor = kPullViewTextColor;
+		pullView.stateLabel.textColor = kPullViewTextColor;
+		pullView.stampLabel.shadowColor = kPullViewTextShadow;
+		pullView.stateLabel.shadowColor = kPullViewTextShadow;
+#endif
+		
+		// Create brand view
+#ifdef kPullViewBrand
+	TODO:UIImageView *brandView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kPullViewBrand]] autorelease];
+		brandView.center = CGPointMake(pullView.frame.size.width / 2, pullView.frame.size.height - 65 - (brandView.frame.size.height / 2));
+		[pullView addSubview:brandView];
+#endif
 	}
 	return pullView;
 }

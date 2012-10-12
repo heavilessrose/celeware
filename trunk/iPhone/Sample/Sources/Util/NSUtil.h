@@ -134,6 +134,10 @@ public:
 		return [[NSLocale preferredLanguages] objectAtIndex:0];
 		//return [DefaultForKey(@"AppleLanguages") objectAtIndex:0];
 	}
+	
+	//
+	static NSString *CountryAreaCode(NSString *country = (NSString *)[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]);
+
 
 #pragma mark Cache methods
 public:
@@ -186,6 +190,24 @@ public:
 		}
 		NSString *file = [NSString stringWithCharacters:chars length:range.length];
 		return CachePath(file);
+	}
+
+	//
+	NS_INLINE unsigned long long CacheSize()
+	{
+		NSString *dir = NSUtil::CachePath();
+		
+		//
+		unsigned long long size = 0;
+		NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:dir];
+		for (NSString *file in files)
+		{
+			NSString *path = [dir stringByAppendingPathComponent:file];
+			NSDictionary *dict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+			size += [dict fileSize];
+		}
+
+		return size;
 	}
 
 #pragma mark Format methods
