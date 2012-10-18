@@ -4,14 +4,12 @@
 
 //
 @implementation AppDelegate
-@synthesize controller=_controller;
 
 #pragma mark Generic methods
 
 // Destructor
 - (void)dealloc
 {
-	[_controller release];
 	[_window release];
 	[super dealloc];
 }
@@ -30,12 +28,11 @@
 	_window = [[UIWindow alloc] initWithFrame:frame];
 
 	// Create controller
-	UIViewController *controller = [[UIViewController alloc] init];
-	_controller = [[UINavigationController alloc] initWithRootViewController:controller];
-	[controller release];
+	UIViewController *controller = [[[UIViewController alloc] init] autorelease];
+	UINavigationController *navigator = [[[UINavigationController alloc] initWithRootViewController:controller] autorelease];
 
 	// Show main view
-	[_window addSubview:_controller.view];
+	_window.rootViewController = navigator;
 	[_window makeKeyAndVisible];
 
 	UIUtil::ShowSplashView(controller.view);
