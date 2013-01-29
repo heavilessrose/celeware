@@ -1728,9 +1728,14 @@ UAPI(UINT) UFileGetTemp(PTSTR ptzPath)
 	CFRelease(uuid);
 	
 	NSString *dir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	NSString *path = [dir stringByAppendingPathComponent:(NSString *)string];
-	[(NSString *)string autorelease];
-	return TStrCopy(ptzPath, path.UTF8String) - 1;
+	NSString *path = [dir stringByAppendingPathComponent:(
+#if __has_feature(objc_arc)
+					  __bridge
+#endif
+					   NSString *)string];
+	UINT ret = TStrCopy(ptzPath, path.UTF8String) - 1;
+	CFRelease(string);
+	return ret;
 }
 #endif
 /**********************************************************************************************************************/

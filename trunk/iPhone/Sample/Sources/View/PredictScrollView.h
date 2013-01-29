@@ -16,7 +16,7 @@
 {
 	CGFloat _gap;
 	BOOL _bIgnore;
-	UIView **_pages;
+	void **_pages;
 	NSUInteger _itemPage;
 	NSUInteger _numberOfPages;
 	id<PredictScrollViewDelegate> _delegate2;
@@ -25,7 +25,7 @@
 - (void)freePages:(BOOL)force;
 
 @property(nonatomic,assign) CGFloat gap;
-@property(nonatomic,readonly) UIView **pages;
+@property(nonatomic,readonly) void **pages;
 @property(nonatomic,assign) NSUInteger currentPage;
 @property(nonatomic,assign) NSUInteger numberOfPages;
 @property(nonatomic,assign) id<PredictScrollViewDelegate> delegate2;

@@ -65,7 +65,7 @@
 		{
 			if ((i != _itemPage) && (force || ((i != _itemPage - 1) && (i != _itemPage + 1))))
 			{
-				[_pages[i] removeFromSuperview];
+				[(UIView *)_pages[i] removeFromSuperview];
 				_pages[i] = nil;
 			}
 		}
@@ -84,8 +84,8 @@
 	frame.size.width -= _gap * 2;
 
 	_pages[index] = [_delegate2 scrollView:self viewForPage:index inFrame:frame];
-	_pages[index].autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-	[self addSubview:_pages[index]];
+	((UIView *)_pages[index]).autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+	[self addSubview:(UIView *)_pages[index]];
 }
 
 //
@@ -140,7 +140,7 @@
 	_numberOfPages = numberOfPages;
 	
 	NSUInteger size = numberOfPages * sizeof(UIView *);
-	_pages = (UIView **)realloc(_pages, size);
+	_pages = (void **)realloc(_pages, size);
 	memset(_pages, 0, size);
 }
 
