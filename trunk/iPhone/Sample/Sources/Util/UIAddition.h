@@ -6,12 +6,14 @@
 //
 @interface UIImage (ImageEx)
 + (UIImage *)imageWithColor:(UIColor *)color;
+- (UIImage *)stretchableImage;
 - (UIImage *)scaleImageToSize:(CGSize)size;
 - (UIImage *)cropImageInRect:(CGRect)rect;
 //- (UIImage *)cropImageToRect:(CGRect)rect;
 - (UIImage *)maskImageWithImage:(UIImage *)mask;
 - (CGAffineTransform)orientationTransform:(CGSize *)newSize;
 - (UIImage *)straightenAndScaleImage:(NSUInteger)maxDimension;
+
 @end
 
 
@@ -104,3 +106,22 @@
 }
 @property(nonatomic,retain) UIColor *tintColor;
 @end
+
+
+@interface UILabel (LabelEx)
+
+//
++ (id)labelAtPoint:(CGPoint)point
+		 withText:(NSString *)text
+		   withWidth:(float)width
+		   withColor:(UIColor *)color
+			withFont:(UIFont*)font
+	   withAlignment:(UITextAlignment)alignment;
+//
++ (id)labelWithFrame:(CGRect)frame
+		 withText:(NSString *)text
+		   withColor:(UIColor *)color
+			withFont:(UIFont *)font
+	   withAlignment:(UITextAlignment)alignment;
+@end
+

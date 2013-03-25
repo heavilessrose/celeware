@@ -18,7 +18,11 @@ public:
 	// 
 	NS_INLINE NSString *DeviceID()
 	{
-		return Device().uniqueIdentifier;
+		if (SystemVersion() < 6.0)
+		{
+			return Device().uniqueIdentifier;
+		}
+		return Device().identifierForVendor.UUIDString;
 	}
 	
 	// 
@@ -181,6 +185,19 @@ public:
 	{
 		return Image([name stringByAppendingString:IsPad() ? @"@2x.png" : @".png"]);
 	}
+	
+	//
+	NS_INLINE UIImage *BundleImageNamed(NSString *file)
+	{
+		return [UIImage imageNamed:[@"Images/" stringByAppendingString:file]];
+	}
+	
+	//
+	NS_INLINE UIImage *BundleImage(NSString *file)
+	{
+		return [UIImage imageWithContentsOfFile:NSUtil::BundlePath([@"Images/" stringByAppendingString:file])];
+	}
+
 #pragma mark Debug methods
 public:	
 	// Print log with indent

@@ -10,7 +10,7 @@
 // Constructor
 //- (id)init
 //{
-//	[super init];
+//	self = [super init];
 //	return self;
 //}
 
@@ -56,12 +56,6 @@
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 //{
 //	return YES;
-//}
-
-// Notifies when rotation begins.
-//- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-//{
-//	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 //}
 
 // Release any cached data, images, etc that aren't in use.

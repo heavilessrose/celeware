@@ -82,19 +82,19 @@ UIImageView *UIUtil::ShowSplashView(UIView *fadeInView)
 
 	//
 	fadeInView.alpha = 0;
-	[UIView beginAnimations:@"Splash" context:nil];
-	[UIView setAnimationDuration:0.6];
-	[UIView setAnimationDelegate:splashView];
-	[UIView setAnimationDidStopSelector:@selector(removeFromSuperview)];
-
-	//
-	fadeInView.alpha = 1;
-	splashView.alpha = 0;
-	//splashView.frame = CGRectInset(frame, -frame.size.width / 2, -frame.size.height / 2);
-	//splashView.frame = CGRectInset(frame, frame.size.width / 2, frame.size.height / 2);
-
-	//
-	[UIView commitAnimations];
+	
+	[UIView animateWithDuration:0.6 animations:^()
+	 {
+		 //
+		 fadeInView.alpha = 1;
+		 splashView.alpha = 0;
+		 //splashView.frame = CGRectInset(frame, -frame.size.width / 2, -frame.size.height / 2);
+		 //splashView.frame = CGRectInset(frame, frame.size.width / 2, frame.size.height / 2);
+	 } completion:^(BOOL finished)
+	 {
+		 [splashView removeFromSuperview];
+	 }];
+	 
 	return splashView;
 }
 

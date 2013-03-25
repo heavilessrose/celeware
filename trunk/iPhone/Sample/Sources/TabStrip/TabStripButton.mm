@@ -16,7 +16,7 @@
 {
 	self = [super initWithFrame:frame];
 	
-	UIImage *image = [UIImage imageNamed:@"TabStripOver.png"];
+	UIImage *image = UIUtil::BundleImageNamed(@"TabStripOver.png");
 	imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, (frame.size.height - image.size.height) / 2, frame.size.width, image.size.height)];
 	imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	imageView.backgroundColor = [UIColor clearColor];
@@ -62,10 +62,10 @@
 	label.shadowColor = TabStripButtonTextColor;
 #endif
 	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.4];
-	imageView.alpha = 1;
-	[UIView commitAnimations];
+	[UIView animateWithDuration:0.4 animations:^()
+	 {
+		 imageView.alpha = 1;
+	 }];
 	self.selected = YES;
 }
 
@@ -77,10 +77,10 @@
 	label.shadowColor = TabStripButtonTextShadow;
 #endif
 	
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.4];
-	imageView.alpha = 0;
-	[UIView commitAnimations];
+	[UIView animateWithDuration:0.4 animations:^()
+	 {
+		 imageView.alpha = 0;
+	 }];
 	self.selected = NO;
 }
 

@@ -190,7 +190,7 @@
 
 
 //
-@implementation DoneNumberField
+@implementation ActionNumberField
 
 //
 - (id)initWithFrame:(CGRect)frame
@@ -204,11 +204,18 @@
 	return self;
 }
 
+//
+- (void)dealloc
+{
+	[_title release];
+	[super dealloc];
+}
+
 // Handle keyboard show
 - (void)keyboardShow:(KBCustomTextField *)sender
 {
 	[self keyboardHide:self];
-	_customButton = [[KBCustomTextField addCustomButton:@"NumberPad-Empty" title:NSLocalizedString(@"Hide KB", @"隐藏键盘") target:self action:@selector(resignFirstResponder)] retain];
+	_customButton = [[KBCustomTextField addCustomButton:@"NumberPad-Empty" title:_title target:_target action:_action] retain];
 }
 
 // Handle keyboard hide
@@ -217,6 +224,44 @@
 	[_customButton removeFromSuperview];
 	[_customButton release];
 	_customButton = nil;
+}
+
+@end
+
+
+//
+@implementation DoneNumberField
+
+//
+- (id)initWithFrame:(CGRect)frame
+{
+	self = [super initWithFrame:frame];
+	self.title = NSLocalizedString(@"Done", @"完成");
+	self.target = self;
+	self.action = @selector(resignFirstResponder);
+	return self;
+}
+
+@end
+
+
+//
+@implementation NextNumberField
+
+//
+- (id)initWithFrame:(CGRect)frame
+{
+	self = [super initWithFrame:frame];
+	self.title = NSLocalizedString(@"Next", @"下一项");
+	self.target = self;
+	self.action = @selector(gotoNextField);
+	return self;
+}
+
+//
+- (void)gotoNextField
+{
+	[_nextField becomeFirstResponder];
 }
 
 @end

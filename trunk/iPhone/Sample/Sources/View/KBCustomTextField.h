@@ -63,8 +63,31 @@
 
 
 //
-@interface DoneNumberField: KBCustomTextField <KBCustomTextFieldDelegate>
+@interface ActionNumberField: KBCustomTextField <KBCustomTextFieldDelegate>
 {
+	id _target;
+	SEL _action;
+	NSString *_title;
 	UIButton *_customButton;
 }
+@property(nonatomic,assign) id target;
+@property(nonatomic,assign) SEL action;
+@property(nonatomic,retain) NSString *title;
+@property(nonatomic,readonly) UIButton *customButton;
+@end
+
+
+//
+@interface DoneNumberField: ActionNumberField
+{
+}
+@end
+
+
+//
+@interface NextNumberField: ActionNumberField
+{
+	UITextField *_nextField;
+}
+@property(nonatomic,assign) UITextField *nextField;
 @end

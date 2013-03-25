@@ -15,7 +15,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
-
+	
 	//
 	_stampLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 	_stampLabel.font = [UIFont systemFontOfSize:12];
@@ -41,7 +41,7 @@
 	//
 	_arrowImage = [CALayer layer];
 	_arrowImage.contentsGravity = kCAGravityResizeAspect;
-	_arrowImage.contents = (id)[UIImage imageNamed:@"PullArrow.png"].CGImage;
+	_arrowImage.contents = (id)UIUtil::BundleImageNamed(@"PullArrow.png").CGImage;
 	_arrowImage.contentsScale = [[UIScreen mainScreen] scale];
 	[[self layer] addSublayer:_arrowImage];
 	
@@ -53,15 +53,15 @@
 	self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
 	self.autoresizingMask = UIViewAutoresizingFlexibleWidth;// | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 	self.delegate = nil;
-
-    return self;
+	
+	return self;
 }
 
 //
 - (void)layoutSubviews
 {
 	[super layoutSubviews];
-
+	
 	CGRect frame = self.frame;
 	_stampLabel.frame = CGRectMake(0, frame.size.height - 30, frame.size.width, 20);
 	_stateLabel.frame = CGRectMake(0, frame.size.height - 48, frame.size.width, 20);
@@ -95,7 +95,7 @@
 			[_activityView stopAnimating];
 			
 			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
+			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 			_arrowImage.hidden = NO;
 			_arrowImage.transform = CATransform3DIdentity;
 			[CATransaction commit];
@@ -114,7 +114,7 @@
 			[_activityView startAnimating];
 			
 			[CATransaction begin];
-			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
+			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 			_arrowImage.hidden = YES;
 			[CATransaction commit];
 			break;
@@ -178,15 +178,14 @@
 - (void)beginLoading
 {
 	UIScrollView *scrollView = (UIScrollView *)self.superview;
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.2];
-
-	_ignore = YES;
-	scrollView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
-	scrollView.contentOffset = CGPointMake(0, -60);
-	_ignore = NO;
-
-	[UIView commitAnimations];
+	
+	[UIView animateWithDuration:0.2 animations:^()
+	 {
+		 _ignore = YES;
+		 scrollView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
+		 scrollView.contentOffset = CGPointMake(0, -60);
+		 _ignore = NO;
+	 }];
 	
 	self.state = PullViewStateLoading;
 }
@@ -195,14 +194,13 @@
 - (void)fold
 {
 	UIScrollView *scrollView = (UIScrollView *)self.superview;
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
-
-	_ignore = YES;
-	scrollView.contentInset = UIEdgeInsetsZero;
-	_ignore = NO;
-
-	[UIView commitAnimations];
+	
+	[UIView animateWithDuration:0.3 animations:^()
+	 {
+		 _ignore = YES;
+		 scrollView.contentInset = UIEdgeInsetsZero;
+		 _ignore = NO;
+	 }];
 }
 
 //
@@ -235,7 +233,7 @@
 		pullView = [[[PullView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height - self.contentInset.top, self.frame.size.width, self.frame.size.height)] autorelease];
 		pullView.tag = kPullViewTag;
 		[self addSubview:pullView];
-
+		
 #ifdef kPullViewColor
 		pullView.backgroundColor = kPullViewColor;
 		pullView.stampLabel.textColor = kPullViewTextColor;
@@ -246,7 +244,7 @@
 		
 		// Create brand view
 #ifdef kPullViewBrand
-	TODO:UIImageView *brandView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:kPullViewBrand]] autorelease];
+	TODO:UIImageView *brandView = [[[UIImageView alloc] initWithImage:UIUtil::BundleImageNamed(kPullViewBrand)] autorelease];
 		brandView.center = CGPointMake(pullView.frame.size.width / 2, pullView.frame.size.height - 65 - (brandView.frame.size.height / 2));
 		[pullView addSubview:brandView];
 #endif

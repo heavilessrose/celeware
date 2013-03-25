@@ -41,7 +41,7 @@
 	[NSThread sleepForTimeInterval:10];
 
 	NSError *error = nil;
-	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.yonsm.net/"] options:NSUncachedRead error:&error];
+	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.xxx.xxx/"] options:NSUncachedRead error:&error];
 	if (data)
 	{
 		NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"BitLive"];

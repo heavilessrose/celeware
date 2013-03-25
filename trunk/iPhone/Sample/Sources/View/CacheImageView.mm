@@ -1,6 +1,6 @@
 
 #import "NSUtil.h"
-#import "DownloadUtil.h"
+#import "HttpUtil.h"
 #import "CacheImageView.h"
 
 
@@ -30,7 +30,7 @@
 	@autoreleasepool
 	{
 		NSString *path = NSUtil::CacheUrlPath(cacheImageUrl);
-		NSData *data = DownloadUtil::DownloadData(cacheImageUrl, path, DownloadFromOnline);
+		NSData *data = HttpUtil::DownloadData(cacheImageUrl, path, DownloadFromOnline);
 		UIImage *image = [UIImage imageWithData:data];
 		[self performSelectorOnMainThread:@selector(cacheImageDownloaded:) withObject:image waitUntilDone:YES];
 	}
@@ -45,16 +45,16 @@
 		if ([self respondsToSelector:@selector(setImage:)])
 		{
 			[self performSelector:@selector(setImage:) withObject:image];
-
+			
 			//CGFloat alpha = self.alpha;
 			//self.alpha = 0;
 			CGRect frame = self.frame;
 			self.frame = CGRectMake(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2, 0, 0);
-			[UIView beginAnimations:nil context:nil];
-			[UIView setAnimationDuration:0.5];
-			//self.alpha = alpha;
-			self.frame = frame;
-			[UIView commitAnimations];
+			[UIView animateWithDuration:0.5 animations:^()
+			 {
+				 //self.alpha = alpha;
+				 self.frame = frame;
+			 }];
 		}
 	}
 }

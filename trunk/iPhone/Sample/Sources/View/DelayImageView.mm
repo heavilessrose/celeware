@@ -1,6 +1,6 @@
 
 #import "NSUtil.h"
-#import "DownloadUtil.h"
+#import "HttpUtil.h"
 #import "DelayImageView.h"
 
 
@@ -23,7 +23,7 @@
 - (void)startAnimating
 {
 	[self stopAnimating];
-
+	
 	_activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 	_activityView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 	_activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
@@ -35,9 +35,9 @@
 - (void)downloading
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
+	
 	NSString *path = NSUtil::CacheUrlPath(_url);
-	NSData *data = DownloadUtil::DownloadData(_url, path, _force ? DownloadFromOnline : DownloadCheckLocal /*DownloadCheckOnline*/);
+	NSData *data = HttpUtil::DownloadData(_url, path, _force ? DownloadFromOnline : DownloadCheckLocal /*DownloadCheckOnline*/);
 	[self performSelectorOnMainThread:@selector(downloaded:) withObject:data waitUntilDone:YES];
 	[pool release];
 }
@@ -51,12 +51,12 @@
 	{
 		CGFloat alpha = self.alpha;
 		self.alpha = 0;
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.5];
-		self.alpha = alpha;
-		[UIView commitAnimations];
+		[UIView animateWithDuration:0.5 animations:^()
+		 {
+			 self.alpha = alpha;
+		 }];
 	}
-
+	
 	if (self.image || _force)
 	{
 		[self stopAnimating];
@@ -64,7 +64,7 @@
 		{
 			if (_def)
 			{
-				self.image = [UIImage imageNamed:_def];
+				self.image = UIUtil::BundleImageNamed(_def);
 			}
 		}
 		else
@@ -83,7 +83,7 @@
 - (void)setUrl:(NSString *)url
 {
 	[_url release];
-
+	
 	_force = NO;
 	self.image = nil;
 	if (url)
@@ -95,7 +95,7 @@
 		if (self.image == nil)
 		{
 			_loaded = NO;
-			if (_def) self.image = [UIImage imageNamed:_def];
+			if (_def) self.image = UIUtil::BundleImageNamed(_def);
 			[self startAnimating];
 			[self performSelectorInBackground:@selector(downloading) withObject:nil];
 		}
@@ -111,7 +111,7 @@
 }
 
 //
-/*
+#ifdef _AnimatingSetImageInDelayImageView
 - (void)setImage:(UIImage *)image
 {
 	[super setImage:image];
@@ -119,13 +119,13 @@
 	{
 		CGFloat alpha = self.alpha;
 		self.alpha = 0;
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.5];
-		self.alpha = alpha;
-		[UIView commitAnimations];
+		[UIView animateWithDuration:0.5 animations:^()
+		 {
+			 self.alpha = alpha;
+		 }];
 	}
 }
-*/
+#endif
 
 //
 - (id)initWithUrl:(NSString *)url frame:(CGRect)frame
@@ -135,7 +135,7 @@
 	return self;
 }
 
-// 
+//
 - (void)dealloc
 {
 	[_url release];

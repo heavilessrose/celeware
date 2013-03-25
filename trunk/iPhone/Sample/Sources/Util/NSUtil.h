@@ -244,6 +244,9 @@ public:
 	// Check email address
 	static BOOL IsEmailAddress(NSString *emailAddress);
 	
+	// Check mobile phone number in China
+	static BOOL IsMobileNumberInChina(NSString *phoneNumber);
+	
 	// Check phone number equal
 	static BOOL IsPhoneNumberEqual(NSString *phoneNumber1, NSString *phoneNumber2, NSUInteger minEqual = 10);
 
@@ -315,3 +318,45 @@ public:
 		return [(NSString *)string autorelease];
 	}
 };
+
+// Array count
+#ifndef _NumOf
+#define _NumOf(a) (sizeof(a) / sizeof(a[0]))
+#endif
+
+// Log Helper
+#ifdef __cplusplus
+#import <mach/mach_time.h>
+class AutoLog
+{
+private:
+	uint _line;
+	uint64_t _start;
+	const char *_name;
+	
+public:
+	inline AutoLog(const char *name, NSUInteger line): _line(line), _name(name), _start(mach_absolute_time())
+	{
+		NSLog(@"Enter %s:%u", name, line);
+	}
+	
+	inline ~AutoLog()
+	{
+		NSLog(@"Leave %s:%u Elapsed %qu", _name, _line, mach_absolute_time() - _start);
+	}
+};
+#endif
+
+#ifdef _DEBUG
+#define _Log(s, ...)	NSLog(s, ##__VA_ARGS__)
+#define _LineLog()		_Log(@"Log %s:%u", __FUNCTION__, __LINE__)
+#ifdef __cplusplus
+#define _AutoLog()		AutoLog al(__FUNCTION__, __LINE__)
+#else
+#define _AutoLog()		_LineLog()
+#endif
+#else
+#define _Log(s, ...)	((void) 0)
+#define _LineLog()
+#define _AutoLog()
+#endif

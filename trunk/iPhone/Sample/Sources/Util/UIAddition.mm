@@ -23,6 +23,12 @@
 	return image;
 }
 
+//
+- (UIImage *)stretchableImage
+{
+	return [self stretchableImageWithLeftCapWidth:self.size.width / 2 topCapHeight:self.size.height / 2];
+}
+
 // Scale to specified size if needed
 #define _Radians(d) (d * M_PI/180)
 - (UIImage *)scaleImageToSize:(CGSize)size
@@ -279,7 +285,7 @@
 
 //
 - (UIImage *)straightenAndScaleImage:(NSUInteger)maxDimension
-{ 
+{
 	CGImageRef img = self.CGImage;
 	CGFloat width = CGImageGetWidth(img);
 	CGFloat height = CGImageGetHeight(img);
@@ -287,18 +293,18 @@
 	
 	CGSize size = bounds.size;
 	if (width > maxDimension || height > maxDimension)
-	{ 
+	{
 		CGFloat ratio = width/height;
 		if (ratio > 1.0f)
-		{ 
+		{
 			size.width = maxDimension;
 			size.height = size.width / ratio;
-		} 
+		}
 		else
 		{
 			size.height = maxDimension;
 			size.width = size.height * ratio;
-		} 
+		}
 	}
 	CGFloat scale = size.width/width;
 	
@@ -316,10 +322,10 @@
 		CGContextTranslateCTM(context, -height, 0);
 	}
 	else
-	{ 
+	{
 		CGContextScaleCTM(context, scale, -scale);
 		CGContextTranslateCTM(context, 0, -height);
-	} 
+	}
 	CGContextConcatCTM(context, transform);
 	CGContextDrawImage(context, bounds, img);
 	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -329,7 +335,7 @@
 @end
 
 
-#pragma mark UIImage methods
+#pragma mark UIView methods
 
 @implementation UIView (ViewEx)
 
@@ -346,19 +352,19 @@
 //
 - (UIView *)findFirstResponder
 {
-    if ([self isFirstResponder])
+	if ([self isFirstResponder])
 	{
-        return self;
-    }
+		return self;
+	}
 	
-    for (UIView *view in self.subviews)
+	for (UIView *view in self.subviews)
 	{
 		UIView* ret = [view findFirstResponder];
-        if (ret)
+		if (ret)
 		{
-            return ret;
+			return ret;
 		}
-    }
+	}
 	return nil;
 }
 
@@ -456,46 +462,46 @@
 //
 - (UIImage*)screenshotWithOptimization:(BOOL)optimized
 {
-    if (optimized)
-    {
-        // take screenshot of the view
-        if ([self isKindOfClass:NSClassFromString(@"MKMapView")])
-        {
-            if ([[[UIDevice currentDevice] systemVersion] floatValue]>=6.0)
-            {
-                // in iOS6, there is no problem using a non-retina screenshot in a retina display screen
-                UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 1.0);
-            }
-            else
-            {
-                // if the view is a mapview in iOS5.0 and below, screenshot has to take the screen scale into consideration
-                // else, the screen shot in retina display devices will be of a less detail map (note, it is not the size of the screenshot, but it is the level of detail of the screenshot
-                UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
-            }
-        }
-        else
-        {
-            // for performance consideration, everything else other than mapview will use a lower quality screenshot
-            UIGraphicsBeginImageContext(self.frame.size);
-        }
-    }
-    else
-    {
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
-    }
-    
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return screenshot;
+	if (optimized)
+	{
+		// take screenshot of the view
+		if ([self isKindOfClass:NSClassFromString(@"MKMapView")])
+		{
+			if ([[[UIDevice currentDevice] systemVersion] floatValue]>=6.0)
+			{
+				// in iOS6, there is no problem using a non-retina screenshot in a retina display screen
+				UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 1.0);
+			}
+			else
+			{
+				// if the view is a mapview in iOS5.0 and below, screenshot has to take the screen scale into consideration
+				// else, the screen shot in retina display devices will be of a less detail map (note, it is not the size of the screenshot, but it is the level of detail of the screenshot
+				UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
+			}
+		}
+		else
+		{
+			// for performance consideration, everything else other than mapview will use a lower quality screenshot
+			UIGraphicsBeginImageContext(self.frame.size);
+		}
+	}
+	else
+	{
+		UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 0.0);
+	}
+	
+	[self.layer renderInContext:UIGraphicsGetCurrentContext()];
+	
+	UIImage *screenshot = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	return screenshot;
 }
 
 //
 - (UIImage*)screenshot
 {
-    return [self screenshotWithOptimization:NO];
+	return [self screenshotWithOptimization:NO];
 }
 
 @end
@@ -549,7 +555,7 @@
 		textField.borderStyle = UITextBorderStyleRoundedRect;
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		textField.tag = kTextFieldTag;
-
+		
 		[self addSubview:textField];
 		[textField becomeFirstResponder];
 	}
@@ -656,4 +662,48 @@
 	self.tabBarItem = barItem;
 	[barItem release];
 }
+@end
+
+
+#pragma mark UILabel methods
+
+@implementation UILabel (LabelEx)
+
+//
++ (id)labelAtPoint:(CGPoint)point
+		  withText:(NSString *)text
+		 withWidth:(float)width
+		 withColor:(UIColor *)color
+		  withFont:(UIFont*)font
+	 withAlignment:(UITextAlignment)alignment
+{
+	CGSize size = [text sizeWithFont:font
+				   constrainedToSize:CGSizeMake(width, 1000)
+					   lineBreakMode:UILineBreakModeWordWrap];
+	
+	CGRect frame = CGRectMake(point.x, point.y, width, size.height);
+	
+	UILabel *label = [UILabel labelWithFrame:frame withText:text withColor:color withFont:font withAlignment:alignment];
+	label.lineBreakMode = UILineBreakModeWordWrap;
+	label.numberOfLines = 0;
+	return label;
+}
+
+//
++ (id)labelWithFrame:(CGRect)frame
+			withText:(NSString *)text
+		   withColor:(UIColor *)color
+			withFont:(UIFont *)font
+	   withAlignment:(UITextAlignment)alignment
+{
+	UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+	label.textColor = color;
+	label.backgroundColor = [UIColor clearColor];
+	label.font = font;
+    label.text = text;
+	label.textAlignment = alignment;
+	
+	return label;
+}
+
 @end

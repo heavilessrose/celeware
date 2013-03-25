@@ -97,7 +97,6 @@ NSString *NSUtil::SmartDate(NSDate *date, NSDateFormatterStyle dateStyle, NSDate
 	return string ? [string stringByAppendingFormat:@" %@", FormatDate(date, NSDateFormatterNoStyle, timeStyle)] : FormatDate(date, dateStyle, timeStyle);
 }
 
-
 // Check email address
 BOOL NSUtil::IsEmailAddress(NSString *emailAddress)
 {
@@ -113,6 +112,22 @@ BOOL NSUtil::IsEmailAddress(NSString *emailAddress)
 	NSPredicate *regExPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
 	return [regExPredicate evaluateWithObject:[emailAddress lowercaseString]];
 }
+
+// Check mobile number
+BOOL NSUtil::IsMobileNumberInChina(NSString *phoneNumber)
+{
+	/**
+	 * 移动：134[0-8],135,136,137,138,139,150,151,157,158,159,182,187,188
+	 * 联通：130,131,132,152,155,156,185,186
+	 * 电信：133,1349,153,180,189
+	 */
+	
+	NSString *mobileNumberRegEx = @"^1[358]\\d{9}$";
+	
+	NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", mobileNumberRegEx];
+	return ([regextestmobile evaluateWithObject:phoneNumber]);
+}
+
 
 // Check phone number equal
 BOOL NSUtil::IsPhoneNumberEqual(NSString *phoneNumber1, NSString *phoneNumber2, NSUInteger minEqual)

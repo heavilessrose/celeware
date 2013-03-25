@@ -213,7 +213,7 @@
 		}
 		else
 		{
-			button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:c_buttons[i].title] style:UIBarButtonItemStylePlain target:target action:c_buttons[i].action];
+			button = [[UIBarButtonItem alloc] initWithImage:UIUtil::BundleImageNamed(c_buttons[i].title) style:UIBarButtonItemStylePlain target:target action:c_buttons[i].action];
 		}
 		[buttons addObject:button];
 		[button release];

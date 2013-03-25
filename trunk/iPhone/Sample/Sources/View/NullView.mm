@@ -10,7 +10,7 @@
 // Constructor
 //- (id)initWithFrame:(CGRect)frame
 //{
-//	[super initWithFrame:frame];
+//	self = [super initWithFrame:frame];
 //
 //	return self;
 //}
