@@ -39,7 +39,6 @@
 		24B5636917001DD300398ED6 /* NRGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B562E117001DD300398ED6 /* NRGridViewCell.m */; };
 		24B5636A17001DD300398ED6 /* NRGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B562E317001DD300398ED6 /* NRGridViewController.m */; };
 		24B5636D17001DD300398ED6 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B562EC17001DD300398ED6 /* JSONKit.m */; };
-		24B5636E17001DD300398ED6 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B562EE17001DD300398ED6 /* libMobClickLibrary.a */; };
 		24B5636F17001DD300398ED6 /* PullArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B562F117001DD300398ED6 /* PullArrow.png */; };
 		24B5637017001DD300398ED6 /* PullArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24B562F217001DD300398ED6 /* PullArrow@2x.png */; };
 		24B5637117001DD300398ED6 /* PullView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24B562F417001DD300398ED6 /* PullView.mm */; };
@@ -137,7 +136,6 @@
 		24B562E517001DD300398ED6 /* NRGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridViewDelegate.h; sourceTree = "<group>"; };
 		24B562EB17001DD300398ED6 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		24B562EC17001DD300398ED6 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		24B562EE17001DD300398ED6 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		24B562EF17001DD300398ED6 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		24B562F117001DD300398ED6 /* PullArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PullArrow.png; sourceTree = "<group>"; };
 		24B562F217001DD300398ED6 /* PullArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PullArrow@2x.png"; sourceTree = "<group>"; };
@@ -216,7 +214,6 @@
 				248B2E3B141CFEBA0026FD73 /* MessageUI.framework in Frameworks */,
 				248B2E3D141CFEC40026FD73 /* MediaPlayer.framework in Frameworks */,
 				248B2E3F141CFECD0026FD73 /* SystemConfiguration.framework in Frameworks */,
-				24B5636E17001DD300398ED6 /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +396,6 @@
 		24B562ED17001DD300398ED6 /* MobClick */ = {
 			isa = PBXGroup;
 			children = (
-				24B562EE17001DD300398ED6 /* libMobClickLibrary.a */,
 				24B562EF17001DD300398ED6 /* MobClick.h */,
 			);
 			path = MobClick;
@@ -677,8 +673,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = Sample;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -698,8 +693,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				ONLY_ACTIVE_ARCH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = Sample;
 				SDKROOT = iphoneos;
@@ -711,20 +705,12 @@
 		248B2CE0141CFC8C0026FD73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Sources/MobClick\"",
-				);
 			};
 			name = Debug;
 		};
 		248B2CE1141CFC8C0026FD73 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Sources/MobClick\"",
-				);
 			};
 			name = Release;
 		};
