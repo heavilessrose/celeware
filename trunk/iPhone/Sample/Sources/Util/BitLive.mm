@@ -1,6 +1,6 @@
 
+#ifdef _TODO
 #import "BitLive.h"
-
 
 //
 @implementation BitLive
@@ -57,3 +57,5 @@
 //static BitLive *_bitLive = [[BitLive alloc] init];
 
 @end
+
+#endif

@@ -1,5 +1,4 @@
 
-#import "AppDelegate.h"
 #import "FoldPane.h"
 
 @implementation FoldPane
