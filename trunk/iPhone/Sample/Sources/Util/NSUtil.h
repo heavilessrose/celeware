@@ -349,7 +349,8 @@ public:
 
 #ifdef _DEBUG
 #define _Log(s, ...)	NSLog(s, ##__VA_ARGS__)
-#define _LineLog()		_Log(@"Log %s:%u", __FUNCTION__, __LINE__)
+#define _ObjLog(o)		if (o) _Log(@"Object Log: %s (%u), %@ (%@)", __FUNCTION__, __LINE__, NSStringFromClass([o class]), o)
+#define _LineLog()		_Log(@"Line Log: %s (%u)", __FUNCTION__, __LINE__)
 #ifdef __cplusplus
 #define _AutoLog()		AutoLog al(__FUNCTION__, __LINE__)
 #else
@@ -357,6 +358,7 @@ public:
 #endif
 #else
 #define _Log(s, ...)	((void) 0)
-#define _LineLog()
-#define _AutoLog()
+#define _LineLog()		((void) 0)
+#define _AutoLog()		((void) 0)
+#define _ObjLog(o)		((void) 0)
 #endif

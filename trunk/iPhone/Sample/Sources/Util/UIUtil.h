@@ -18,11 +18,11 @@ public:
 	// 
 	NS_INLINE NSString *DeviceID()
 	{
-		if (SystemVersion() < 6.0)
+		if ([Device() respondsToSelector:@selector(identifierForVendor)])
 		{
-			return Device().uniqueIdentifier;
+			return Device().identifierForVendor.UUIDString;
 		}
-		return Device().identifierForVendor.UUIDString;
+		return Device().uniqueIdentifier;
 	}
 	
 	// 
