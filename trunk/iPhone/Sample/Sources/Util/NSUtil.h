@@ -351,7 +351,7 @@ private:
 	const char *_name;
 	
 public:
-	inline AutoLog(const char *name, NSUInteger line): _line(line), _name(name), _start(mach_absolute_time())
+	inline AutoLog(const char *name, unsigned int line): _line(line), _name(name), _start(mach_absolute_time())
 	{
 		NSLog(@"Enter %s:%u", name, line);
 	}
