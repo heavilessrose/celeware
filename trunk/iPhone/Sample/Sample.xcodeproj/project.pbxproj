@@ -320,20 +320,17 @@
 		24F3B5811701754D001DEA15 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				24F3B62C1701754E001DEA15 /* Prefix.pch */,
+				24F3B6371701754E001DEA15 /* UniBase.h */,
+				24F3B6281701754E001DEA15 /* Main.mm */,
+				24F3B6381701754E001DEA15 /* Util */,
+				24F3B6491701754E001DEA15 /* View */,
 				24F3B5ED1701754E001DEA15 /* Controller */,
-				24F3B5FC1701754E001DEA15 /* Flurry */,
 				24F3B5FF1701754E001DEA15 /* FoldPane */,
 				24F3B60B1701754E001DEA15 /* GridView */,
 				24F3B6251701754E001DEA15 /* JSONKit */,
-				24F3B6281701754E001DEA15 /* Main.mm */,
 				24F3B6291701754E001DEA15 /* MobClick */,
-				24F3B62C1701754E001DEA15 /* Prefix.pch */,
-				24F3B62D1701754E001DEA15 /* PullView */,
 				24F3B62E1701754E001DEA15 /* TabStrip */,
-				24F3B6371701754E001DEA15 /* UniBase.h */,
-				24F3B6381701754E001DEA15 /* Util */,
-				24F3B6491701754E001DEA15 /* View */,
-				24F3B65E1701754E001DEA15 /* WebController */,
 				24F3B65F1701754E001DEA15 /* ZipArchive */,
 			);
 			path = Sources;
@@ -358,29 +355,6 @@
 				24F3B5FB1701754E001DEA15 /* WebController.mm */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		24F3B5FC1701754E001DEA15 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				24F3B5FD1701754E001DEA15 /* FlurryLib */,
-			);
-			path = Flurry;
-			sourceTree = "<group>";
-		};
-		24F3B5FD1701754E001DEA15 /* FlurryLib */ = {
-			isa = PBXGroup;
-			children = (
-				24F3B5FE1701754E001DEA15 /* AppCircle */,
-			);
-			path = FlurryLib;
-			sourceTree = "<group>";
-		};
-		24F3B5FE1701754E001DEA15 /* AppCircle */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AppCircle;
 			sourceTree = "<group>";
 		};
 		24F3B5FF1701754E001DEA15 /* FoldPane */ = {
@@ -433,13 +407,6 @@
 				24F3B62B1701754E001DEA15 /* MobClick.h */,
 			);
 			path = MobClick;
-			sourceTree = "<group>";
-		};
-		24F3B62D1701754E001DEA15 /* PullView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PullView;
 			sourceTree = "<group>";
 		};
 		24F3B62E1701754E001DEA15 /* TabStrip */ = {
@@ -505,13 +472,6 @@
 				24F3B65D1701754E001DEA15 /* TouchView.mm */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		24F3B65E1701754E001DEA15 /* WebController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = WebController;
 			sourceTree = "<group>";
 		};
 		24F3B65F1701754E001DEA15 /* ZipArchive */ = {
