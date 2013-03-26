@@ -34,7 +34,7 @@
 	UIPanGestureRecognizer *gesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPane:)] autorelease];
 	[_foldButton addGestureRecognizer:gesture];
 	
-	NSURL *URL = [NSURL fileURLWithPath:NSUtil::BundlePath(@"FoldBeep.wav") isDirectory:NO];
+	NSURL *URL = [NSURL fileURLWithPath:NSUtil::ResourcePath(@"FoldBeep.wav") isDirectory:NO];
 	AudioServicesCreateSystemSoundID((CFURLRef)URL, &_beepSound);
 	
 	return self;
@@ -81,7 +81,7 @@
 {
 	[_timer invalidate];
 	_timer = nil;
-
+	
 	_contentView.hidden = NO;
 	[self removeFoldView];
 	if (_beepSound) AudioServicesPlaySystemSound(_beepSound);

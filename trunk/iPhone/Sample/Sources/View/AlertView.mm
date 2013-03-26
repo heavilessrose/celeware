@@ -1,10 +1,10 @@
 
-#import "AlertBox.h"
+#import "AlertView.h"
 
 //
-@implementation AlertBox
+@implementation AlertView
 
-#pragma mark Simulate UIAlertBox
+#pragma mark Simulate UIAlertView
 
 //
 + (UIButton *)buttonWithTitle:(NSString *)title
@@ -87,14 +87,14 @@
 	//
 	if (cancelButtonTitle)
 	{
-		_cancelButton = [AlertBox buttonWithTitle:cancelButtonTitle];
+		_cancelButton = [AlertView buttonWithTitle:cancelButtonTitle];
 		[_cancelButton addTarget:self action:@selector(onCancelButton) forControlEvents:UIControlEventTouchUpInside];
 	}
 	
 	//
 	if (otherButtonTitle)
 	{
-		_otherButton = [AlertBox buttonWithTitle:otherButtonTitle];
+		_otherButton = [AlertView buttonWithTitle:otherButtonTitle];
 		[_otherButton addTarget:self action:@selector(onOtherButton) forControlEvents:UIControlEventTouchUpInside];
 		
 	}
@@ -164,9 +164,7 @@
 //
 - (void)showInView:(UIView *)parent
 {
-	CGRect frame = parent.frame;
-	frame.origin.x = 0;
-	frame.origin.y = 0;
+	CGRect frame = parent.bounds;
 	if ([[UIApplication sharedApplication].keyWindow findFirstResponder])
 	{
 		_fitKeyboard = YES;
@@ -177,7 +175,7 @@
 	
 	self.alpha = 0;
 	
-	if ([_delegate respondsToSelector:@selector(willPresentAlertBox:)])
+	if ([_delegate respondsToSelector:@selector(willPresentAlertView:)])
 	{
 		[_delegate willPresentAlertView:(UIAlertView *)self];
 	}
@@ -187,7 +185,7 @@
 		 self.alpha = 1;
 	 } completion:^(BOOL finished)
 	 {
-		 if ([_delegate respondsToSelector:@selector(didPresentAlertBox:)])
+		 if ([_delegate respondsToSelector:@selector(didPresentAlertView:)])
 		 {
 			 [_delegate didPresentAlertView:(UIAlertView *)self];
 		 }
@@ -215,7 +213,11 @@
 	
 	[self removeFromSuperview];
 	
-	if ([_delegate respondsToSelector:@selector(alertView: clickedButtonAtIndex:)])
+	if (_clickAction && [_delegate respondsToSelector:_clickAction])
+	{
+		[_delegate performSelector:_clickAction withObject:_clickParam];
+	}
+	else if ([_delegate respondsToSelector:@selector(alertView: clickedButtonAtIndex:)])
 	{
 		[_delegate alertView:(UIAlertView *)self clickedButtonAtIndex:buttonIndex];
 	}
@@ -299,18 +301,18 @@
 }
 
 
-#pragma mark Simulate UIAlertBox (AlertBoxEx)
+#pragma mark Simulate UIAlertView (AlertViewEx)
 
 //
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle accessoryView:(UIView *)accessoryView
 {
-	AlertBox *alertView = [[[AlertBox alloc] initWithTitle:title
-												   message:message
-												  delegate:delegate
-										 cancelButtonTitle:cancelButtonTitle
-										  otherButtonTitle:otherButtonTitle
-											 accessoryView:accessoryView
-							] autorelease];
+	AlertView *alertView = [[[AlertView alloc] initWithTitle:title
+													 message:message
+													delegate:delegate
+										   cancelButtonTitle:cancelButtonTitle
+											otherButtonTitle:otherButtonTitle
+											   accessoryView:accessoryView
+							 ] autorelease];
 	[alertView show];
 	return alertView;
 }
@@ -336,9 +338,26 @@
 //
 + (id)alertWithTask:(id/*<AlertViewExDelegate>*/)delegate title:(NSString *)title
 {
-	AlertBox *alertView = [self alertWithTitle:title message:@" \n " delegate:nil cancelButtonTitle:nil otherButtonTitle:nil];
+	AlertView *alertView = [self alertWithTitle:title message:@" \n " delegate:nil cancelButtonTitle:nil otherButtonTitle:nil];
 	[alertView.activityIndicator startAnimating];
-	[delegate performSelectorInBackground:@selector(doTask:) withObject:alertView];
+	[delegate performSelectorInBackground:@selector(taskForAlertView:) withObject:alertView];
+	return alertView;
+}
+
+//
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle target:(id)target action:(SEL)action param:(id)param
+{
+	AlertView *alertView = [AlertView alertWithTitle:title message:message delegate:target cancelButtonTitle:buttonTitle otherButtonTitle:nil];
+	alertView.clickAction = action;
+	alertView.clickParam = param;
+	return alertView;
+}
+
+//
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)buttonTitle target:(id)target action:(SEL)action
+{
+	AlertView *alertView = [AlertView alertWithTitle:title message:message buttonTitle:buttonTitle target:target action:action param:nil];
+	alertView.clickParam = alertView;
 	return alertView;
 }
 
