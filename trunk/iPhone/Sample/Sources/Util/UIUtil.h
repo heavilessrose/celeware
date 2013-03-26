@@ -8,14 +8,14 @@
 class UIUtil
 {
 #pragma mark Device methods
-public:	
-	// 
+public:
+	//
 	NS_INLINE UIDevice *Device()
 	{
 		return [UIDevice currentDevice];
 	}
 	
-	// 
+	//
 	NS_INLINE NSString *DeviceID()
 	{
 		if ([Device() respondsToSelector:@selector(identifierForVendor)])
@@ -25,7 +25,7 @@ public:
 		return Device().uniqueIdentifier;
 	}
 	
-	// 
+	//
 	NS_INLINE float SystemVersion()
 	{
 		return [[Device() systemVersion] floatValue];
@@ -36,7 +36,7 @@ public:
 	{
 		return [Device() userInterfaceIdiom] == UIUserInterfaceIdiomPad;
 	}
-
+	
 	//
 	NS_INLINE BOOL IsRetina()
 	{
@@ -48,13 +48,13 @@ public:
 	{
 		return [UIScreen mainScreen];
 	}
-
+	
 	//
 	NS_INLINE CGFloat ScreenScale()
 	{
 		return Screen().scale;
 	}
-
+	
 	//
 	NS_INLINE CGRect AppFrame()
 	{
@@ -80,7 +80,7 @@ public:
 	
 #pragma mark Application methods
 public:
-	// 
+	//
 	NS_INLINE UIApplication *Application()
 	{
 		return [UIApplication sharedApplication];
@@ -114,7 +114,7 @@ public:
 		}
 		return ret;
 	}
-
+	
 	//
 	NS_INLINE BOOL MakeCall(NSString *number, BOOL direct = YES)
 	{
@@ -139,7 +139,7 @@ public:
 	{
 		return Application().keyWindow;
 	}
-
+	
 	//
 	NS_INLINE BOOL IsWindowLandscape()
 	{
@@ -152,7 +152,7 @@ public:
 	{
 		[Application() setStatusBarHidden:!show withAnimation:animated];
 	}
-
+	
 	//
 	NS_INLINE void ShowNetworkIndicator(BOOL show = YES)
 	{
@@ -168,41 +168,38 @@ public:
 			if (_ref == 0) Application().networkActivityIndicatorVisible = NO;
 		}
 	}
-
+	
 	//
 	static UIImageView *ShowSplashView(UIView *fadeInView = nil);
-
+	
 #pragma mark Misc methods
 	
 	//
-	NS_INLINE UIImage *Image(NSString *name)
+	NS_INLINE UIImage *Image(NSString *file)
 	{
+		return [UIImage imageWithContentsOfFile:NSUtil::ResourcePath(file)];
+	}
+	
+	//
+	NS_INLINE UIImage *ImageNamed(NSString *name)
+	{
+#ifdef kResourceBundle
+		name = [kResourceBundle stringByAppendingPathComponent:name];
+#endif
 		return [UIImage imageNamed:name];
 	}
 	
-	//
-	NS_INLINE UIImage *Image2X(NSString *name)
+	// Param name must NOT have suffix @".png"
+	NS_INLINE UIImage *ImageNamed2X(NSString *name)
 	{
-		return Image([name stringByAppendingString:IsPad() ? @"@2x.png" : @".png"]);
+		return ImageNamed([name stringByAppendingString:IsPad() ? @"@2x.png" : @".png"]);
 	}
 	
-	//
-	NS_INLINE UIImage *BundleImageNamed(NSString *file)
-	{
-		return [UIImage imageNamed:[@"Images/" stringByAppendingString:file]];
-	}
-	
-	//
-	NS_INLINE UIImage *BundleImage(NSString *file)
-	{
-		return [UIImage imageWithContentsOfFile:NSUtil::BundlePath([@"Images/" stringByAppendingString:file])];
-	}
-
 #pragma mark Debug methods
-public:	
+public:
 	// Print log with indent
 	static void PrintIndentString(NSUInteger indent, NSString *str);
-
+	
 	// Print controller and sub-controllers
 	static void PrintController(UIViewController *controller, NSUInteger indent = 0);
 	

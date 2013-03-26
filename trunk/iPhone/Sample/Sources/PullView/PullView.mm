@@ -23,7 +23,7 @@
 	_stampLabel.shadowColor = [UIColor colorWithWhite:0.9f alpha:1];
 	_stampLabel.shadowOffset = CGSizeMake(0, 1);
 	_stampLabel.backgroundColor = [UIColor clearColor];
-	_stampLabel.textAlignment = UITextAlignmentCenter;
+	_stampLabel.textAlignment = NSTextAlignmentCenter;
 	[self addSubview:_stampLabel];
 	[_stampLabel release];
 	
@@ -34,14 +34,14 @@
 	_stateLabel.shadowColor = [UIColor colorWithWhite:0.9f alpha:1];
 	_stateLabel.shadowOffset = CGSizeMake(0, 1);
 	_stateLabel.backgroundColor = [UIColor clearColor];
-	_stateLabel.textAlignment = UITextAlignmentCenter;
+	_stateLabel.textAlignment = NSTextAlignmentCenter;
 	[self addSubview:_stateLabel];
 	[_stateLabel release];
 	
 	//
 	_arrowImage = [CALayer layer];
 	_arrowImage.contentsGravity = kCAGravityResizeAspect;
-	_arrowImage.contents = (id)UIUtil::BundleImageNamed(@"PullArrow.png").CGImage;
+	_arrowImage.contents = (id)UIUtil::ImageNamed(@"PullArrow.png").CGImage;
 	_arrowImage.contentsScale = [[UIScreen mainScreen] scale];
 	[[self layer] addSublayer:_arrowImage];
 	
@@ -244,7 +244,7 @@
 		
 		// Create brand view
 #ifdef kPullViewBrand
-	TODO:UIImageView *brandView = [[[UIImageView alloc] initWithImage:UIUtil::BundleImageNamed(kPullViewBrand)] autorelease];
+	TODO:UIImageView *brandView = [[[UIImageView alloc] initWithImage:UIUtil::ImageNamed(kPullViewBrand)] autorelease];
 		brandView.center = CGPointMake(pullView.frame.size.width / 2, pullView.frame.size.height - 65 - (brandView.frame.size.height / 2));
 		[pullView addSubview:brandView];
 #endif

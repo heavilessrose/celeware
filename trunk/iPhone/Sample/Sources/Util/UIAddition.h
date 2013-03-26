@@ -38,7 +38,7 @@
 //
 @protocol AlertViewExDelegate
 @required
-- (void)doTask:(UIAlertView *)alertView;
+- (void)taskForAlertView:(UIAlertView *)alertView;
 @end
 
 //
@@ -116,12 +116,12 @@
 		   withWidth:(float)width
 		   withColor:(UIColor *)color
 			withFont:(UIFont*)font
-	   withAlignment:(UITextAlignment)alignment;
+	   withAlignment:(NSTextAlignment)alignment;
 //
 + (id)labelWithFrame:(CGRect)frame
 		 withText:(NSString *)text
 		   withColor:(UIColor *)color
 			withFont:(UIFont *)font
-	   withAlignment:(UITextAlignment)alignment;
+	   withAlignment:(NSTextAlignment)alignment;
 @end
 

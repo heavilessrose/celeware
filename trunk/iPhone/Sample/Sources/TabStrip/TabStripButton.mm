@@ -16,7 +16,7 @@
 {
 	self = [super initWithFrame:frame];
 	
-	UIImage *image = UIUtil::BundleImageNamed(@"TabStripOver.png");
+	UIImage *image = UIUtil::ImageNamed(@"TabStripOver.png");
 	imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, (frame.size.height - image.size.height) / 2, frame.size.width, image.size.height)];
 	imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	imageView.backgroundColor = [UIColor clearColor];

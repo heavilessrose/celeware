@@ -73,7 +73,7 @@ NSString *NSUtil::SmartDate(NSDate *date)
 		case 2: return NSLocalizedString(@"After Tomorrow ", @"后天");
 	}
 	return nil;
-}	
+}
 
 
 // Convert date to smart string
@@ -100,7 +100,7 @@ NSString *NSUtil::SmartDate(NSDate *date, NSDateFormatterStyle dateStyle, NSDate
 // Check email address
 BOOL NSUtil::IsEmailAddress(NSString *emailAddress)
 {
-	NSString *emailRegEx = 
+	NSString *emailRegEx =
 	@"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
 	@"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
 	@"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
@@ -234,11 +234,11 @@ NSString *NSUtil::BASE64Encode(const unsigned char *data, NSUInteger length, NSU
 		
 		switch (ctremaining)
 		{
-			case 1: 
-				ctcopy = 2; 
+			case 1:
+				ctcopy = 2;
 				break;
-			case 2: 
-				ctcopy = 3; 
+			case 2:
+				ctcopy = 3;
 				break;
 		}
 		
@@ -306,7 +306,7 @@ NSData *NSUtil::BASE64Decode(NSString *string)
 			else if (ch == '+') ch = 62;
 			else if (ch == '=') flendtext = YES;
 			else if (ch == '/') ch = 63;
-			else flignore = YES; 
+			else flignore = YES;
 			
 			if (!flignore)
 			{

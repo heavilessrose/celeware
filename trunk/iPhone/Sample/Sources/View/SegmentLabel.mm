@@ -1,6 +1,5 @@
 
 
-#import "AppDelegate.h"
 #import "SegmentLabel.h"
 
 
@@ -116,11 +115,11 @@
 	{
 		if (width > size.width)
 		{
-			if (alignment == UITextAlignmentRight)
+			if (alignment == NSTextAlignmentRight)
 			{
 				point.x += width - size.width;
 			}
-			else if (alignment == UITextAlignmentCenter)
+			else if (alignment == NSTextAlignmentCenter)
 			{
 				point.x += (width - size.width) / 2;
 			}

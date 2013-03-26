@@ -1,5 +1,4 @@
 
-#import "AppDelegate.h"
 #import "FoldViews.h"
 
 #define kFoldViewTag 12445

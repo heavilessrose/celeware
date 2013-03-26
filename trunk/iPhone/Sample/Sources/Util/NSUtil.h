@@ -47,8 +47,24 @@ public:
 	{
 		return [BundlePath() stringByAppendingPathComponent:file];
 	}
-
-#pragma mark File manager methods	
+	
+	//
+	NS_INLINE NSString *ResourcePath()
+	{
+#ifdef kResourceBundle
+		return [BundlePath() stringByAppendingPathComponent:kResourceBundle];
+#else
+		return BundlePath();
+#endif
+	}
+	
+	//
+	NS_INLINE NSString *ResourcePath(NSString *file)
+	{
+		return [ResourcePath() stringByAppendingPathComponent:file];
+	}
+	
+#pragma mark File manager methods
 public:
 	//
 	NS_INLINE NSFileManager *FileManager()
@@ -81,7 +97,7 @@ public:
 	{
 		return [FileManager() removeItemAtPath:path error:nil];
 	}
-
+	
 #pragma mark User directory methods
 public:
 	//
@@ -96,12 +112,12 @@ public:
 		return UserDirectoryPath(NSDocumentDirectory);
 	}
 	
-	// 
+	//
 	NS_INLINE NSString *DocumentPath(NSString *file)
 	{
 		return [DocumentPath() stringByAppendingPathComponent:file];
 	}
-
+	
 #pragma mark User defaults
 public:
 	//
@@ -115,19 +131,19 @@ public:
 	{
 		return [UserDefaults() objectForKey:key];
 	}
-
+	
 	//
 	NS_INLINE void SetDefaultForKey(NSString *key, id value)
 	{
 		return [UserDefaults() setObject:value forKey:key];
 	}
-
+	
 	//
 	NS_INLINE NSString *PhoneNumber()
 	{
 		return DefaultForKey(@"SBFormattedPhoneNumber");
 	}
-
+	
 	//
 	NS_INLINE NSString *DefaultLanguage()
 	{
@@ -137,8 +153,8 @@ public:
 	
 	//
 	static NSString *CountryAreaCode(NSString *country = (NSString *)[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode]);
-
-
+	
+	
 #pragma mark Cache methods
 public:
 	//
@@ -150,7 +166,7 @@ public:
 	
 	//
 	NS_INLINE void RemoveCache()
-	{	
+	{
 		[FileManager() removeItemAtPath:CachePath() error:nil];
 	}
 	
@@ -191,7 +207,7 @@ public:
 		NSString *file = [NSString stringWithCharacters:chars length:range.length];
 		return CachePath(file);
 	}
-
+	
 	//
 	NS_INLINE unsigned long long CacheSize()
 	{
@@ -206,12 +222,12 @@ public:
 			NSDictionary *dict = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
 			size += [dict fileSize];
 		}
-
+		
 		return size;
 	}
-
+	
 #pragma mark Format methods
-public:	
+public:
 	// Convert number to string
 	static NSString *FormatNumber(NSNumber *number, NSNumberFormatterStyle style = NSNumberFormatterNoStyle);
 	
@@ -226,19 +242,19 @@ public:
 	
 	// Convert string to date
 	static NSDate *FormatDate(NSString *string, NSDateFormatterStyle dateStyle, NSDateFormatterStyle timeStyle = NSDateFormatterNoStyle, NSLocale *locale = nil);
-
+	
 	// Convert date to readable string. Return nil on fail
 	static NSString *SmartDate(NSDate *date);
 	
 	// Convert date to smart string
 	static NSString *SmartDate(NSDate *date, NSString *format);
-
+	
 	// Convert date to smart string
 	static NSString *SmartDate(NSDate *date, NSDateFormatterStyle dateStyle);
-
+	
 	// Convert date to smart string
 	static NSString *SmartDate(NSDate *date, NSDateFormatterStyle dateStyle, NSDateFormatterStyle timeStyle);
-
+	
 #pragma mark Crypto methods
 public:
 	// Check email address
@@ -249,13 +265,13 @@ public:
 	
 	// Check phone number equal
 	static BOOL IsPhoneNumberEqual(NSString *phoneNumber1, NSString *phoneNumber2, NSUInteger minEqual = 10);
-
+	
 	// Calculate MD5
 	static NSString *MD5(NSString *str);
-
+	
 	// Calculate HMAC SHA1
 	static NSString *HmacSHA1(NSString *text, NSString *secret);
-
+	
 	// BASE64 encode
 	static NSString *BASE64Encode(const unsigned char *data, NSUInteger length, NSUInteger lineLength = 0);
 	
@@ -267,7 +283,7 @@ public:
 	{
 		return BASE64Encode((const unsigned char *)data.bytes, data.length, lineLength);
 	}
-
+	
 	// BASE64 encode string
 	NS_INLINE NSString *BASE64EncodeString(NSString *string, NSUInteger lineLength = 0)
 	{
@@ -280,7 +296,7 @@ public:
 		NSData *data = BASE64Decode(string);
 		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	}
-
+	
 public:
 	//
 	NS_INLINE NSString *URLEscape(NSString *string)
@@ -292,7 +308,7 @@ public:
 																	 kCFStringEncodingUTF8);
 		return [(NSString *)result autorelease];
 	}
-
+	
 	//
 	NS_INLINE NSString *URLUnEscape(NSString *string)
 	{
@@ -302,13 +318,13 @@ public:
 																					 kCFStringEncodingUTF8);
 		return [(NSString *)result autorelease];
 	}
-
+	
 	//
 	NS_INLINE NSString *TS()
 	{
 		return [NSString stringWithFormat:@"%ld", time(NULL)];
 	}
-
+	
 	//
 	NS_INLINE NSString *UUID()
 	{
@@ -347,7 +363,7 @@ public:
 };
 #endif
 
-#ifdef _DEBUG
+#ifdef DEBUG
 #define _Log(s, ...)	NSLog(s, ##__VA_ARGS__)
 #define _ObjLog(o)		if (o) _Log(@"Object Log: %s (%u), %@ (%@)", __FUNCTION__, __LINE__, NSStringFromClass([o class]), o)
 #define _LineLog()		_Log(@"Line Log: %s (%u)", __FUNCTION__, __LINE__)

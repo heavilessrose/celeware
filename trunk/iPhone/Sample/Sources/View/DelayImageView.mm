@@ -64,7 +64,7 @@
 		{
 			if (_def)
 			{
-				self.image = UIUtil::BundleImageNamed(_def);
+				self.image = UIUtil::ImageNamed(_def);
 			}
 		}
 		else
@@ -95,7 +95,7 @@
 		if (self.image == nil)
 		{
 			_loaded = NO;
-			if (_def) self.image = UIUtil::BundleImageNamed(_def);
+			if (_def) self.image = UIUtil::ImageNamed(_def);
 			[self startAnimating];
 			[self performSelectorInBackground:@selector(downloading) withObject:nil];
 		}

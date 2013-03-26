@@ -9,7 +9,7 @@
 //
 + (UIButton *)buttonWithTitle:(NSString *)title
 {
-	UIImage *image = UIUtil::BundleImageNamed(@"CommonButton.png");
+	UIImage *image = UIUtil::ImageNamed(@"CommonButton.png");
 	UIFont *font = [UIFont systemFontOfSize:16];
 	
 	CGRect frame = {0, 0, [title sizeWithFont:font].width + 40, image.size.height};
@@ -40,7 +40,7 @@
 	self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	//
-	UIImage *image = UIUtil::BundleImageNamed(@"AlertBox.png");
+	UIImage *image = UIUtil::ImageNamed(@"AlertBox.png");
 	
 	//
 	CGFloat y = 20;
@@ -63,7 +63,7 @@
 		_titleLabel.textColor = [UIColor whiteColor];
 		_titleLabel.numberOfLines = 0;
 		_titleLabel.font = font;
-		_titleLabel.textAlignment = UITextAlignmentCenter;
+		_titleLabel.textAlignment = NSTextAlignmentCenter;
 		
 		y = CGRectGetMaxY(_titleLabel.frame) + 10;
 	}
@@ -350,8 +350,8 @@
 		CGRect frame = _messageLabel.frame;
 		_textField = [[[UITextField alloc] initWithFrame:CGRectInset(_messageLabel.frame, 0, (frame.size.height - 32) / 2)] autorelease];
 		_textField.borderStyle = UITextBorderStyleRoundedRect;
-		//_textField.background = UIUtil::BundleImageNamed(@"AlertEdit.png");
-		//_textField.textAlignment = UITextAlignmentCenter;
+		//_textField.background = UIUtil::ImageNamed(@"AlertEdit.png");
+		//_textField.textAlignment = NSTextAlignmentCenter;
 		_textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		
 		[_alertCanvas addSubview:_textField];

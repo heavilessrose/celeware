@@ -540,7 +540,7 @@
 {
 	UIAlertView *alertView = [self alertWithTitle:title message:nil delegate:nil cancelButtonTitle:nil otherButtonTitle:nil];
 	[alertView.activityIndicator startAnimating];
-	[delegate performSelectorInBackground:@selector(doTask:) withObject:alertView];
+	[delegate performSelectorInBackground:@selector(taskForAlertView:) withObject:alertView];
 	return alertView;
 }
 
@@ -675,16 +675,14 @@
 		 withWidth:(float)width
 		 withColor:(UIColor *)color
 		  withFont:(UIFont*)font
-	 withAlignment:(UITextAlignment)alignment
+	 withAlignment:(NSTextAlignment)alignment
 {
 	CGSize size = [text sizeWithFont:font
-				   constrainedToSize:CGSizeMake(width, 1000)
-					   lineBreakMode:UILineBreakModeWordWrap];
+				   constrainedToSize:CGSizeMake(width, 1000)];
 	
 	CGRect frame = CGRectMake(point.x, point.y, width, size.height);
 	
 	UILabel *label = [UILabel labelWithFrame:frame withText:text withColor:color withFont:font withAlignment:alignment];
-	label.lineBreakMode = UILineBreakModeWordWrap;
 	label.numberOfLines = 0;
 	return label;
 }
@@ -694,7 +692,7 @@
 			withText:(NSString *)text
 		   withColor:(UIColor *)color
 			withFont:(UIFont *)font
-	   withAlignment:(UITextAlignment)alignment
+	   withAlignment:(NSTextAlignment)alignment
 {
 	UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
 	label.textColor = color;

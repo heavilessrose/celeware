@@ -41,7 +41,7 @@ typedef enum
 @property(nonatomic,retain) UIColor *shadowColor;		// Default is nil, no shadow
 
 @property(nonatomic,assign) CGFloat width;				// Default is 0
-@property(nonatomic,assign) SegmentItemTextAlignment alignment;	// Default is UITextAlignmentLeft, only valid if width is not 0
+@property(nonatomic,assign) SegmentItemTextAlignment alignment;	// Default is NSTextAlignmentLeft, only valid if width is not 0
 
 @end
 

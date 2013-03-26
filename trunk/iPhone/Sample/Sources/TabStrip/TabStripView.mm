@@ -14,7 +14,7 @@
 // 
 - (id)initWithFrame:(CGRect)frame
 {
-	UIImage *image = UIUtil::BundleImageNamed(@"TabStripBack.png");
+	UIImage *image = UIUtil::ImageNamed(@"TabStripBack.png");
 	if (image)
 	{
 		frame.size.height = image.size.height;
@@ -40,7 +40,7 @@
 	[self addSubview:scrollView];
 	
 	// Create left cap
-	UIImage *leftImage = UIUtil::BundleImageNamed(@"TabStripLeft.png");
+	UIImage *leftImage = UIUtil::ImageNamed(@"TabStripLeft.png");
 	leftCap = [[UIImageView alloc] initWithImage:leftImage];
 	leftCap.hidden = YES;
 	leftCap.center = CGPointMake(leftImage.size.width / 2, frame.size.height / 2);
@@ -48,7 +48,7 @@
 	[self addSubview:leftCap];
 	
 	// Create right cap
-	UIImage *rightImage = UIUtil::BundleImageNamed(@"TabStripRight.png");
+	UIImage *rightImage = UIUtil::ImageNamed(@"TabStripRight.png");
 	rightCap = [[UIImageView alloc] initWithImage:rightImage];
 	rightCap.hidden = YES;
 	rightCap.center = CGPointMake(frame.size.width - rightImage.size.width / 2, frame.size.height / 2);
