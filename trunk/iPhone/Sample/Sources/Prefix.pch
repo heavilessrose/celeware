@@ -5,11 +5,7 @@
 #define _TARGET_IPHONE_IPAD
 
 // Resource
-#if TARGET_OS_MAC
-#define kResourceBundle @"Contents/Resources"
-#else
-//#define kResourceBundle @"Sample.bundle"
-#endif
+//#define kResourceBundle @"Contents/Resources"
 
 // UniBase
 //#import "UniBase.h"
