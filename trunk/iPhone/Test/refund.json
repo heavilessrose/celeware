@@ -1,0 +1,158 @@
+﻿{
+  "success": true,
+  "object": {
+    "version": 1.0,
+    "records": [
+      {
+        "date": "2013.03.20",
+        "products": [
+          {
+            "name": "天猫 12个月等额本金",
+            "principal": 1800,
+            "interest": 100
+          },
+          {
+            "name": "淘宝 6个月随借随还",
+            "principal": 990900.02,
+            "interest": 9999.05
+          },
+          {
+            "name": "阿里快速回款",
+            "principal": 9.02,
+            "interest": 0.05
+          },
+          {
+            "name": "阿里信用贷款",
+            "principal": 12340.02,
+            "interest": 1210.05
+          },
+          {
+            "name": "淘宝订单贷款",
+            "principal": 12340.02,
+            "interest": 0
+          }
+        ]
+      },
+      {
+        "date": "2013.01.31",
+        "products": [
+          {
+            "name": "天猫 12个月等额本金",
+            "principal": 1800,
+            "interest": 100
+          },
+          {
+            "name": "淘宝 6个月随借随还",
+            "principal": 990900.02,
+            "interest": 9999.05
+          }
+        ]
+      },
+      {
+        "date": "2012.12.31",
+        "products": [
+          {
+            "name": "淘宝订单贷款",
+            "principal": 12340.02,
+            "interest": 0
+          }
+        ]
+      },
+      {
+        "date": "2012.11.30",
+        "products": [
+          {
+            "name": "天猫 12个月等额本金",
+            "principal": 1800,
+            "interest": 100
+          },
+          {
+            "name": "淘宝 6个月随借随还",
+            "principal": 990900.02,
+            "interest": 9999.05
+          },
+          {
+            "name": "阿里快速回款",
+            "principal": 9.02,
+            "interest": 0.05
+          },
+          {
+            "name": "淘宝 3个月短期贷款",
+            "principal": 12340.02,
+            "interest": 1210.05
+          },
+          {
+            "name": "阿里信用贷款",
+            "principal": 12340.02,
+            "interest": 1210.05
+          },
+          {
+            "name": "淘宝订单贷款",
+            "principal": 12340.02,
+            "interest": 0
+          }
+        ]
+      },
+      {
+        "date": "2012.10.31",
+        "products": [
+          {
+            "name": "天猫 12个月等额本金",
+            "principal": 1800,
+            "interest": 100
+          },
+          {
+            "name": "淘宝 6个月随借随还",
+            "principal": 900.02,
+            "interest": 9.05
+          },
+          {
+            "name": "阿里快速回款",
+            "principal": 9.02,
+            "interest": 0.05
+          },
+          {
+            "name": "淘宝 3个月短期贷款",
+            "principal": 12340.02,
+            "interest": 121.05
+          },
+          {
+            "name": "阿里信用贷款",
+            "principal": 12340.02,
+            "interest": 120.05
+          },
+          {
+            "name": "淘宝订单贷款",
+            "principal": 120.02,
+            "interest": 0
+          }
+        ]
+      },
+      {
+        "date": "2012.09.30",
+        "products": [
+          {
+            "name": "天猫 12个月等额本金",
+            "principal": 100,
+            "interest": 10
+          },
+          {
+            "name": "淘宝 6个月随借随还",
+            "principal": 900.02,
+            "interest": 99.05
+          }
+        ]
+      },
+      {
+        "date": "2012.08.31",
+        "products": [
+          {
+            "name": "淘宝订单贷款",
+            "principal": 12340.02,
+            "interest": 0
+          }
+        ]
+      }
+    ]
+  }
+}
