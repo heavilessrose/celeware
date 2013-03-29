@@ -1,0 +1,190 @@
+﻿{
+  "success": true,
+  "object": {
+    "version": 1.0,
+    "records": [
+      {
+        "name": "天猫 12个月等额本金",
+        "type": 1,
+        "time": "12-03-09 12:34:34",
+        "expire": "12-02-12",
+        "rate": "日利率：万分之6",
+        "balance": 13000,
+        "amount": 6000,
+        "refund": {
+          "principal": 2000,
+          "interest": 42,
+          "plans": [
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            }
+          ]
+        }
+      },
+      {
+        "name": "淘宝 6个月随借随还",
+        "type": 1,
+        "time": "12-03-09 12:34:34",
+        "expire": "12-02-12",
+        "rate": "日利率：万分之6",
+        "balance": 13000,
+        "amount": 8000,
+        "refundPrincipal": 7000,
+        "refundInterest": 42,
+        "refund": {
+          "principal": 7000,
+          "interest": 42,
+          "plans": [
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            }
+          ]
+        }
+      },
+      {
+        "name": "阿里快速回款",
+        "type": 2,
+        "time": "12-03-09 12:34:34",
+        "expire": "12-02-12",
+        "rate": "日利率：万分之6",
+        "balance": 13000,
+        "amount": 6000,
+        "refund": {
+          "principal": 2000,
+          "interest": 42,
+          "plans": [
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            }
+          ]
+        }
+      },
+      {
+        "name": "阿里信用贷款",
+        "type": 3,
+        "time": "12-03-09 12:34:34",
+        "expire": "12-02-12",
+        "rate": "年利率：万分之5",
+        "balance": 13000,
+        "amount": 6000,
+        "refund": {
+          "principal": 1000,
+          "interest": 100,
+          "servicefee":22,
+          "plans": [
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42,
+              "servicefee": 10
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42,
+              "servicefee": 10
+            },
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42,
+              "servicefee": 1
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42,
+              "servicefee": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "淘宝订单贷款",
+        "type": 1,
+        "time": "12-03-09 12:34:34",
+        "expire": "12-02-12",
+        "rate": "费用：26 元",
+        "balance": 13000,
+        "amount": 2000,
+        "refund": {
+          "principal": 200,
+          "interest": 42,
+          "plans": [
+            {
+              "date": "2013-04-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 808
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-05-10",
+              "principal": 7000,
+              "interest": 42
+            },
+            {
+              "date": "2013-06-10",
+              "principal": 7000,
+              "interest": 42
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
