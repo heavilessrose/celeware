@@ -45,7 +45,7 @@
 @interface UIAlertView (AlertViewEx)
 
 //
-+ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle;
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle, ...;
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message;
 + (id)alertWithTitle:(NSString *)title;
 + (id)alertWithTask:(id/*<AlertViewExDelegate>*/)delegate title:(NSString *)title;

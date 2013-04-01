@@ -28,6 +28,12 @@
 }
 
 //
+#ifndef kAlertBoxTopPad
+#define kAlertBoxTopPad 30
+#endif
+#ifndef kAlertBoxBottomPad
+#define kAlertBoxBottomPad 15
+#endif
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id /*<UIUIAlertViewDelegate>*/)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle accessoryView:(UIView *)accessoryView
 {
 	//
@@ -43,7 +49,7 @@
 	UIImage *image = UIUtil::ImageNamed(@"AlertBox.png");
 	
 	//
-	CGFloat y = 20;
+	CGFloat y = kAlertBoxTopPad;
 	
 	if (accessoryView)
 	{
@@ -103,9 +109,8 @@
 	{
 		if (_otherButton)
 		{
-			CGFloat x = (image.size.width - _cancelButton.frame.size.width - _otherButton.frame.size.width) / 2;
-			_cancelButton.center = CGPointMake(x + (_cancelButton.frame.size.width / 2), y + _cancelButton.frame.size.height / 2);
-			_otherButton.center = CGPointMake(CGRectGetMaxX(_cancelButton.frame) + (_otherButton.frame.size.width / 2), y + _otherButton.frame.size.height / 2);
+			_cancelButton.center = CGPointMake((image.size.width - _cancelButton.frame.size.width) / 2 - 6, y + _cancelButton.frame.size.height / 2);
+			_otherButton.center = CGPointMake((image.size.width + _otherButton.frame.size.width) / 2 + 6, y + _otherButton.frame.size.height / 2);
 		}
 		else
 		{
@@ -126,7 +131,7 @@
 	frame.origin.x = (frame.size.width - image.size.width) / 2;
 	frame.origin.y = (frame.size.height - y) / 2;
 	frame.size.width = image.size.width;
-	frame.size.height = y;
+	frame.size.height = y + kAlertBoxBottomPad;
 	_alertCanvas = [[[UIImageView alloc] initWithFrame:frame] autorelease];
 	_alertCanvas.userInteractionEnabled = YES;
 	_alertCanvas.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;

@@ -341,30 +341,12 @@ public:
 #endif
 
 // Log Helper
-#ifdef __cplusplus
-#import <mach/mach_time.h>
-class AutoLog
-{
-private:
-	uint _line;
-	uint64_t _start;
-	const char *_name;
-	
-public:
-	inline AutoLog(const char *name, unsigned int line): _line(line), _name(name), _start(mach_absolute_time())
-	{
-		NSLog(@"Enter %s:%u", name, line);
-	}
-	
-	inline ~AutoLog()
-	{
-		NSLog(@"Leave %s:%u Elapsed %qu", _name, _line, mach_absolute_time() - _start);
-	}
-};
-#endif
-
 #ifdef DEBUG
+#ifdef _LOG_TO_FILE
+#define _Log(s, ...)	{NSString *str = [NSString stringWithFormat:s, ##__VA_ARGS__]; FILE *fp = fopen("/var/mobile/Media/log.txt", "a"); if (fp) {fprintf(fp, "[%s] %s\n", NSProcessInfo.processInfo.processName.UTF8String, str.UTF8String); fclose(fp);}}
+#else
 #define _Log(s, ...)	NSLog(s, ##__VA_ARGS__)
+#endif
 #define _ObjLog(o)		if (o) _Log(@"Object Log: %s (%u), %@ (%@)", __FUNCTION__, __LINE__, NSStringFromClass([o class]), o)
 #define _LineLog()		_Log(@"Line Log: %s (%u)", __FUNCTION__, __LINE__)
 #ifdef __cplusplus
@@ -377,4 +359,27 @@ public:
 #define _LineLog()		((void) 0)
 #define _AutoLog()		((void) 0)
 #define _ObjLog(o)		((void) 0)
+#endif
+
+// Auto Log
+#ifdef __cplusplus
+#import <mach/mach_time.h>
+class AutoLog
+{
+private:
+	uint _line;
+	uint64_t _start;
+	const char *_name;
+	
+public:
+	inline AutoLog(const char *name, unsigned int line): _line(line), _name(name), _start(mach_absolute_time())
+	{
+		_Log(@"Enter %s:%u", name, line);
+	}
+	
+	inline ~AutoLog()
+	{
+		_Log(@"Leave %s:%u Elapsed %qu", _name, _line, mach_absolute_time() - _start);
+	}
+};
 #endif

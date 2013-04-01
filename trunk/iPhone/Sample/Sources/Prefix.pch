@@ -14,8 +14,8 @@
 #ifdef __cplusplus
 #import "NSUtil.h"
 #import "UIUtil.h"
-#import "SettingUtil.h"
 #import "HttpUtil.h"
+#import "SettingUtil.h"
 //#import "NetworkUtil.h"
 #endif
 

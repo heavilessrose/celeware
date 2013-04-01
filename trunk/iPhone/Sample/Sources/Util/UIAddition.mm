@@ -401,7 +401,7 @@
 	}
 	else if (activityView == nil)
 	{
-		UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+		UIActivityIndicatorView *activityView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
 		activityView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 		activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		[self addSubview:activityView];
@@ -512,13 +512,21 @@
 @implementation UIAlertView (AlertViewEx)
 
 //
-+ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle, ...
 {
+	va_list arg;
+	va_start(arg, otherButtonTitle);
 	UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title
 														 message:message
 														delegate:delegate
 											   cancelButtonTitle:cancelButtonTitle
-											   otherButtonTitles:otherButtonTitle, nil] autorelease];
+											   otherButtonTitles:otherButtonTitle,
+							   va_arg(arg, NSString *),
+							   va_arg(arg, NSString *),
+							   va_arg(arg, NSString *),
+							   va_arg(arg, NSString *),
+							   nil] autorelease];
+	va_end(arg);
 	[alertView show];
 	return alertView;
 }

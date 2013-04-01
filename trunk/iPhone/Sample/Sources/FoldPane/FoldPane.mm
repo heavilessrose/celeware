@@ -8,7 +8,7 @@
 {
 	CGRect frame = contentView.frame;
 	
-	frame.origin.y += frame.size.height - image.size.height - 4/*TODO:?*/;
+	frame.origin.y += frame.size.height - image.size.height;
 	frame.size.height += image_.size.height;
 	self = [super initWithFrame:frame];
 	
@@ -26,13 +26,20 @@
 	_contentView = contentView;
 	
 	//
-	_foldButton = [[[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, image_.size.height)] autorelease];
+	_foldButton = [[[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, image.size.height)] autorelease];
 	[_foldButton setImage:image forState:UIControlStateNormal];
 	[_foldButton addTarget:self action:@selector(togglePane:) forControlEvents:UIControlEventTouchUpInside];
 	[self addSubview:_foldButton];
 	
+	//
 	UIPanGestureRecognizer *gesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPane:)] autorelease];
 	[_foldButton addGestureRecognizer:gesture];
+	
+	//
+	UIImage *indicator = UIUtil::Image(@"FoldIndicator.png");
+	_foldIndicator = [[[UIImageView alloc] initWithImage:indicator] autorelease];
+	_foldIndicator.center = CGPointMake(220, image.size.height - 3 - indicator.size.height / 2);
+	[_foldButton addSubview:_foldIndicator];
 	
 	NSURL *URL = [NSURL fileURLWithPath:NSUtil::ResourcePath(@"FoldBeep.wav") isDirectory:NO];
 	AudioServicesCreateSystemSoundID((CFURLRef)URL, &_beepSound);
@@ -73,7 +80,17 @@
 	_foldView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[self insertSubview:_foldView belowSubview:_foldButton];
 	
+	_foldIndicator.center = CGPointMake(220, _foldButton.frame.size.height - 11 - _foldIndicator.frame.size.height / 2);
 	[_foldButton setImage:_image_ forState:UIControlStateNormal];
+
+	if (!_touchMask)
+	{
+		_touchMask = [[[UIControl alloc] initWithFrame:self.superview.bounds] autorelease];
+		_touchMask.backgroundColor = [UIColor colorWithWhite:0 alpha:0.42];
+		_touchMask.alpha = 0;
+		[self.superview insertSubview:_touchMask belowSubview:self];
+		[_touchMask addTarget:self action:@selector(togglePane:) forControlEvents:UIControlEventTouchDown];
+	}
 }
 
 //
@@ -84,18 +101,15 @@
 	
 	_contentView.hidden = NO;
 	[self removeFoldView];
-	if (_beepSound) AudioServicesPlaySystemSound(_beepSound);
-	
-	if (open)
+	if (_beepSound)
 	{
-		[_touchMask removeFromSuperview];
-		_touchMask = [[[UIControl alloc] initWithFrame:self.superview.bounds] autorelease];
-		_touchMask.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
-		[self.superview insertSubview:_touchMask belowSubview:self];
-		[_touchMask addTarget:self action:@selector(togglePane:) forControlEvents:UIControlEventTouchDown];
+		AudioServicesPlaySystemSound(_beepSound);
 	}
-	else
+
+	_open = open;
+	if (!open)
 	{
+		_foldIndicator.center = CGPointMake(220, _foldButton.frame.size.height - 3 - _foldIndicator.frame.size.height / 2);
 		[_foldButton setImage:_image forState:UIControlStateNormal];
 		[_touchMask removeFromSuperview];
 		_touchMask = nil;
@@ -110,7 +124,7 @@
 	CGFloat delta = [sender.userInfo floatValue];
 	if (delta > 0)
 	{
-		CGFloat y = self.superview.frame.size.height - _image.size.height - 4/*TODO:?*/;
+		CGFloat y = self.superview.frame.size.height - _foldButton.frame.size.height;
 		if (frame.origin.y + delta < y)
 		{
 			frame.origin.y += delta;
@@ -120,7 +134,6 @@
 			frame.origin.y = y;
 			[self foldEnded:NO];
 		}
-		self.frame = frame;
 	}
 	else if (delta < 0)
 	{
@@ -134,16 +147,12 @@
 			frame.origin.y = y;
 			[self foldEnded:YES];
 		}
-		self.frame = frame;
 	}
 	else
 	{
-		[self foldEnded:(frame.origin.y < self.superview.frame.size.height - _image.size.height - 4/*TODO:?*/)];
+		[self foldEnded:(frame.origin.y < self.superview.frame.size.height - _foldButton.frame.size.height)];
 	}
-	
-	frame = _foldView.frame;
-	frame.size.height = self.superview.frame.size.height - self.frame.origin.y - frame.origin.y;
-	_foldView.frame = frame;
+	self.frame = frame;
 }
 
 //
@@ -152,32 +161,21 @@
 	if (_timer) return;
 	
 	CGRect frame = self.frame;
-	BOOL fold = frame.origin.y > self.superview.frame.size.height - frame.size.height / 3;
+	BOOL fold = frame.origin.y > self.superview.frame.size.height - (frame.size.height * (_open ? 7 : 2) / 8);
 	if (sender)
 	{
 		fold = !fold;
 		[self foldBegan];
 	}
-	
+
 	const NSUInteger times = 0.4 / 0.02;
 	
-	CGFloat delta;
-	if (fold)
-	{
-		CGFloat y = self.superview.frame.size.height - _image.size.height - 4/*TODO:?*/;
-		delta = (y - frame.origin.y) / times;
-	}
-	else
-	{
-		CGFloat y = self.superview.frame.size.height - frame.size.height;
-		delta = -(frame.origin.y - y) / times;
-	}
-	
+	CGFloat y = fold ? (self.superview.frame.size.height - _foldButton.frame.size.height) : (self.superview.frame.size.height - frame.size.height);
+	CGFloat delta = (y - frame.origin.y) / times;
 	_timer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(autoFold:) userInfo:[NSNumber numberWithFloat:delta] repeats:YES];
 }
 
 //
-BOOL _gestureBegan = NO;
 - (void)panPane:(UIPanGestureRecognizer *)gesture
 {
 	if (_timer) return;
@@ -198,14 +196,10 @@ BOOL _gestureBegan = NO;
 			CGRect frame = self.frame;
 			
 			frame.origin.y += translation.y;
-			if ((frame.origin.y <= self.superview.frame.size.height - _image.size.height - 4/*TODO:?*/) &&
+			if ((frame.origin.y <= self.superview.frame.size.height - _foldButton.frame.size.height) &&
 				(frame.origin.y >= self.superview.frame.size.height - frame.size.height))
 			{
 				self.frame = frame;
-				
-				frame = _foldView.frame;
-				frame.size.height = self.superview.frame.size.height - self.frame.origin.y - frame.origin.y;
-				_foldView.frame = frame;
 			}
 		}
 		[gesture setTranslation:CGPointZero inView:self.superview];
@@ -214,6 +208,20 @@ BOOL _gestureBegan = NO;
 	{
 		[self togglePane:nil];
 	}
+}
+
+//
+- (void)setFrame:(CGRect)frame
+{
+	[super setFrame:frame];
+
+	CGRect foldFrame = _foldView.frame;
+	foldFrame.size.height = self.superview.frame.size.height - frame.origin.y - _foldButton.frame.size.height;
+	_foldView.frame = foldFrame;
+
+	CGFloat alpha = _touchMask.alpha = (foldFrame.size.height / (frame.size.height - _foldButton.frame.size.height));
+
+	_foldIndicator.transform = CGAffineTransformMakeRotation((M_PI / 180.0) * (180 * alpha));
 }
 
 @end

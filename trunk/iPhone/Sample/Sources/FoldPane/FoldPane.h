@@ -14,6 +14,9 @@
 	UIControl *_touchMask;
 	UIView *_contentView;
 	UIButton *_foldButton;
+	UIImageView *_foldIndicator;
+	
+	BOOL _open;
 	SystemSoundID _beepSound;
 }
 

@@ -60,6 +60,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
+	self.userInteractionEnabled = NO;
 	//self.backgroundColor = [UIColor colorWithRed:1 green:0.5 blue:0.5 alpha:0.2];
 	self.opaque = NO;
 	return self;
