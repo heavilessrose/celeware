@@ -3,14 +3,12 @@
 
 
 //
-@interface AlertView: UIView
+@interface AlertView : UIImageView
 {
 	id<UIAlertViewDelegate> _delegate;
 	SEL _clickAction;
 	id _clickParam;
-	
-	UIImageView *_alertCanvas;
-	
+
 	UILabel *_titleLabel;
 	UILabel *_messageLabel;
 	UIButton *_cancelButton;

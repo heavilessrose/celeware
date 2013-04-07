@@ -66,7 +66,7 @@ void UIUtil::PrintView(UIView *view, NSUInteger indent)
 UIImageView *UIUtil::ShowSplashView(UIView *fadeInView)
 {
 	//
-	CGRect frame = UIUtil::ScreenFrame();
+	CGRect frame = UIUtil::ScreenBounds();
 	UIImageView *splashView = [[[UIImageView alloc] initWithFrame:frame] autorelease];
 	splashView.image = [UIImage imageWithContentsOfFile:NSUtil::BundlePath(UIUtil::IsPad() ? @"Default@iPad.png" : @"Default.png")];
 	splashView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

@@ -90,6 +90,7 @@
 		_labels = labels.retain;
 	}
 	
+	_lineWidth = 0;
 	_lineHeight = 0;
 	for (SegmentItem *label in _labels)
 	{
@@ -160,7 +161,7 @@
 		NSUInteger lines = ((NSUInteger)_lineWidth + (NSUInteger)rect.size.width - 1) / (NSUInteger)rect.size.width;
 		CGSize size = {MIN(rect.size.width, _lineWidth), _lineHeight * lines};
 		
-		if (rect.size.width > size.width)
+		if (rect.size.width >= size.width)
 		{
 			if ((contentMode == UIViewContentModeRight) || (contentMode == UIViewContentModeTopRight) || (contentMode == UIViewContentModeBottomRight))
 			{
@@ -171,7 +172,7 @@
 				rect.origin.x += (rect.size.width - size.width) / 2;
 			}
 		}
-		if (rect.size.height > size.height)
+		if (rect.size.height >= size.height)
 		{
 			if ((contentMode == UIViewContentModeBottom) || (contentMode == UIViewContentModeBottomLeft) || (contentMode == UIViewContentModeBottomRight))
 			{
@@ -202,6 +203,7 @@
 		if (text.length)
 		{
 			UIFont *font = label.font;
+
 			while (!(width = [self drawText:text atPoint:point withFont:font right:right width:label.width alignment:label.alignment]))
 			{
 				NSUInteger i = 1;

@@ -28,6 +28,14 @@
 }
 
 //
+#ifndef kAlertBoxLeftPad
+#define kAlertBoxLeftPad 30
+#endif
+
+#ifndef kAlertBoxRightPad
+#define kAlertBoxRightPad	30
+#endif
+
 #ifndef kAlertBoxTopPad
 #define kAlertBoxTopPad 30
 #endif
@@ -37,57 +45,57 @@
 - (id)initWithTitle:(NSString *)title message:(NSString *)message delegate:(id /*<UIUIAlertViewDelegate>*/)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle accessoryView:(UIView *)accessoryView
 {
 	//
-	CGRect frame = UIUtil::ScreenFrame();
-	self = [super initWithFrame:frame];
-	
-	_delegate = delegate;
-	self.userInteractionEnabled = YES;
-	self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
-	self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	
-	//
 	UIImage *image = UIUtil::ImageNamed(@"AlertBox.png");
 	
 	//
-	CGFloat y = kAlertBoxTopPad;
+	CGRect frame = {0, 0, image.size.width, kAlertBoxTopPad};
+	self = [super initWithFrame:frame];
+	
+	self.userInteractionEnabled = YES;
+	self.image = image.stretchableImage;
+	self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+	_delegate = delegate;
 	
 	if (accessoryView)
 	{
-		accessoryView.center = CGPointMake(image.size.width / 2, y + accessoryView.frame.size.height / 2);
-		accessoryView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-		y += accessoryView.frame.size.height + 20;
+		[self addSubview:accessoryView];
+		
+		accessoryView.center = CGPointMake(image.size.width / 2, frame.size.height + accessoryView.frame.size.height / 2);
+		frame.size.height += accessoryView.frame.size.height + 20;
 	}
 	
 	if (title)
 	{
 		UIFont *font = [UIFont boldSystemFontOfSize:17];
-		CGSize size = [title sizeWithFont:font constrainedToSize:CGSizeMake(image.size.width - 40, frame.size.height)];
+		CGSize size = [title sizeWithFont:font constrainedToSize:CGSizeMake(image.size.width - (kAlertBoxLeftPad + kAlertBoxRightPad), 1000)];
 		
-		_titleLabel = [[[UILabel alloc] initWithFrame:CGRectMake(20, y, image.size.width - 40, size.height)] autorelease];
+		_titleLabel = [[[UILabel alloc] initWithFrame:CGRectMake(kAlertBoxLeftPad, frame.size.height, image.size.width - (kAlertBoxLeftPad + kAlertBoxRightPad), size.height)] autorelease];
 		_titleLabel.text = title;
 		_titleLabel.backgroundColor = UIColor.clearColor;
 		_titleLabel.textColor = [UIColor whiteColor];
 		_titleLabel.numberOfLines = 0;
 		_titleLabel.font = font;
 		_titleLabel.textAlignment = NSTextAlignmentCenter;
+		[self addSubview:_titleLabel];
 		
-		y = CGRectGetMaxY(_titleLabel.frame) + 10;
+		frame.size.height = CGRectGetMaxY(_titleLabel.frame) + 10;
 	}
 	
 	//
 	if (message)
 	{
 		UIFont *font = [UIFont systemFontOfSize:17];
-		CGSize size = [message sizeWithFont:font constrainedToSize:CGSizeMake(image.size.width - 40, frame.size.height)];
+		CGSize size = [message sizeWithFont:font constrainedToSize:CGSizeMake(image.size.width - (kAlertBoxLeftPad + kAlertBoxRightPad), 1000)];
 		
-		_messageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(20, y, image.size.width - 40, size.height)] autorelease];
+		_messageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(kAlertBoxLeftPad, frame.size.height, image.size.width - (kAlertBoxLeftPad + kAlertBoxRightPad), size.height)] autorelease];
 		_messageLabel.text = message;
 		_messageLabel.backgroundColor = UIColor.clearColor;
 		_messageLabel.textColor = [UIColor whiteColor];
 		_messageLabel.numberOfLines = 0;
 		_messageLabel.font = font;
+		[self addSubview:_messageLabel];
 		
-		y = CGRectGetMaxY(_messageLabel.frame) + 10;
+		frame.size.height = CGRectGetMaxY(_messageLabel.frame) + 10;
 	}
 	
 	//
@@ -95,6 +103,7 @@
 	{
 		_cancelButton = [AlertView buttonWithTitle:cancelButtonTitle];
 		[_cancelButton addTarget:self action:@selector(onCancelButton) forControlEvents:UIControlEventTouchUpInside];
+		[self addSubview:_cancelButton];
 	}
 	
 	//
@@ -102,47 +111,34 @@
 	{
 		_otherButton = [AlertView buttonWithTitle:otherButtonTitle];
 		[_otherButton addTarget:self action:@selector(onOtherButton) forControlEvents:UIControlEventTouchUpInside];
-		
+		[self addSubview:_otherButton];
 	}
 	
 	if (_cancelButton)
 	{
 		if (_otherButton)
 		{
-			_cancelButton.center = CGPointMake((image.size.width - _cancelButton.frame.size.width) / 2 - 6, y + _cancelButton.frame.size.height / 2);
-			_otherButton.center = CGPointMake((image.size.width + _otherButton.frame.size.width) / 2 + 6, y + _otherButton.frame.size.height / 2);
+			_cancelButton.center = CGPointMake((image.size.width - _cancelButton.frame.size.width) / 2 - 6, frame.size.height + _cancelButton.frame.size.height / 2);
+			_otherButton.center = CGPointMake((image.size.width + _otherButton.frame.size.width) / 2 + 6, frame.size.height + _otherButton.frame.size.height / 2);
 		}
 		else
 		{
-			_cancelButton.center = CGPointMake((image.size.width / 2), y + _cancelButton.frame.size.height / 2);
+			_cancelButton.center = CGPointMake((image.size.width / 2), frame.size.height + _cancelButton.frame.size.height / 2);
 		}
-		y = CGRectGetMaxY(_cancelButton.frame) + 10;
+		frame.size.height = CGRectGetMaxY(_cancelButton.frame) + 10;
 	}
 	else if (_otherButton)
 	{
-		_otherButton.center = CGPointMake((image.size.width / 2), y + _otherButton.frame.size.height / 2);
-		y = CGRectGetMaxY(_otherButton.frame) + 10;
+		_otherButton.center = CGPointMake((image.size.width / 2), frame.size.height + _otherButton.frame.size.height / 2);
+		frame.size.height = CGRectGetMaxY(_otherButton.frame) + 10;
 	}
 	else
 	{
-		y += 15;
+		frame.size.height += 15;
 	}
 	
-	frame.origin.x = (frame.size.width - image.size.width) / 2;
-	frame.origin.y = (frame.size.height - y) / 2;
-	frame.size.width = image.size.width;
-	frame.size.height = y + kAlertBoxBottomPad;
-	_alertCanvas = [[[UIImageView alloc] initWithFrame:frame] autorelease];
-	_alertCanvas.userInteractionEnabled = YES;
-	_alertCanvas.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-	_alertCanvas.image = image.stretchableImage;
-	[self addSubview:_alertCanvas];
-	
-	if (accessoryView) [_alertCanvas addSubview:accessoryView];
-	if (_titleLabel) [_alertCanvas addSubview:_titleLabel];
-	if (_messageLabel) [_alertCanvas addSubview:_messageLabel];
-	if (_cancelButton) [_alertCanvas addSubview:_cancelButton];
-	if (_otherButton) [_alertCanvas addSubview:_otherButton];
+	frame.size.height += kAlertBoxBottomPad;
+	self.frame = frame;
 	
 	return self;
 }
@@ -160,25 +156,44 @@
 }
 
 //
+#define kAlertWindowTag 92304
+- (UIWindow *)paneWindow
+{
+	UIWindow *window = (UIWindow *)self.superview;
+	return ([window isKindOfClass:[UIWindow class]] && window.tag == kAlertWindowTag) ? window : nil;
+}
+
+//
+- (UIView *)pane
+{
+	UIWindow *window = self.paneWindow;
+	return window ? window : self;
+}
+
+//
 - (void)show
 {
-	UIView *parent = [UIUtil::KeyWindow().subviews objectAtIndex:0];
-	[self showInView:parent];
+	UIWindow *window = [[UIWindow alloc] initWithFrame:UIUtil::ScreenBounds()];
+	window.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+	window.windowLevel = UIWindowLevelAlert;
+	window.tag = kAlertWindowTag;
+	[window makeKeyAndVisible];
+	[self showInView:window];
 }
 
 //
 - (void)showInView:(UIView *)parent
 {
-	CGRect frame = parent.bounds;
+	CGRect bounds = parent.bounds;
 	if ([[UIApplication sharedApplication].keyWindow findFirstResponder])
 	{
 		_fitKeyboard = YES;
-		frame.size.height -= 216;
+		bounds.size.height -= 216;
 	}
-	self.frame = frame;
+	self.center = CGPointMake(bounds.size.width / 2, bounds.size.height / 2);
 	[parent addSubview:self];
 	
-	self.alpha = 0;
+	self.pane.alpha = 0;
 	
 	if ([_delegate respondsToSelector:@selector(willPresentAlertView:)])
 	{
@@ -187,7 +202,7 @@
 	
 	[UIView animateWithDuration:0.3 animations:^()
 	 {
-		 self.alpha = 1;
+		 self.pane.alpha = 1;
 	 } completion:^(BOOL finished)
 	 {
 		 if ([_delegate respondsToSelector:@selector(didPresentAlertView:)])
@@ -240,7 +255,7 @@
 	{
 		[UIView animateWithDuration:0.3 animations:^()
 		 {
-			 self.alpha = 0;
+			 self.pane.alpha = 0;
 		 } completion:^(BOOL finished)
 		 {
 			 [self dismissWithClickedButtonIndex:buttonIndex];
@@ -265,8 +280,13 @@
 //
 - (void)removeFromSuperview
 {
+	UIWindow *window = self.paneWindow;
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super removeFromSuperview];
+	
+	[window resignKeyWindow];
+	[window release];
 }
 
 //
@@ -281,9 +301,9 @@
 	
 	[UIView animateWithDuration:0.3 animations:^()
 	 {
-		 CGRect frame = self.frame;
-		 frame.size.height -= rect.size.height;
-		 self.frame = frame;
+		 CGPoint center = self.center;
+		 center.y -= rect.size.height / 2;
+		 self.center = center;
 	 }];
 }
 
@@ -299,9 +319,9 @@
 	
 	[UIView animateWithDuration:0.3 animations:^()
 	 {
-		 CGRect frame = self.frame;
-		 frame.size.height += rect.size.height;
-		 self.frame = frame;
+		 CGPoint center = self.center;
+		 center.y += rect.size.height / 2;
+		 self.center = center;
 	 }];
 }
 
@@ -378,7 +398,7 @@
 		//_textField.textAlignment = NSTextAlignmentCenter;
 		_textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		
-		[_alertCanvas addSubview:_textField];
+		[self addSubview:_textField];
 		//[textField becomeFirstResponder];
 	}
 	return _textField;
@@ -395,7 +415,7 @@
 		activityIndicator.center = _messageLabel.center;
 		activityIndicator.tag = kActivityIndicatorTag;
 		activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-		[_alertCanvas addSubview:activityIndicator];
+		[self addSubview:activityIndicator];
 		[activityIndicator release];
 	}
 	return activityIndicator;

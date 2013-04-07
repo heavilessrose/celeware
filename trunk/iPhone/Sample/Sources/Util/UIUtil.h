@@ -69,12 +69,9 @@ public:
 	}
 	
 	//
-	NS_INLINE CGRect ScreenFrame()
+	NS_INLINE CGRect ScreenBounds()
 	{
-		CGRect frame = AppFrame();
-		frame.size.height += frame.origin.y;
-		frame.origin.y = 0;
-		return frame;
+		return Screen().bounds;
 	}
 	
 	
