@@ -91,6 +91,9 @@
 		[self.superview insertSubview:_touchMask belowSubview:self];
 		[_touchMask addTarget:self action:@selector(togglePane:) forControlEvents:UIControlEventTouchDown];
 	}
+
+	if ([_delegate respondsToSelector:@selector(foldPaneFoldBegin:)])
+		[_delegate foldPaneFoldBegin:self];
 }
 
 //
@@ -114,6 +117,9 @@
 		[_touchMask removeFromSuperview];
 		_touchMask = nil;
 	}
+
+	if ([_delegate respondsToSelector:@selector(foldPaneFoldEnded:)])
+		[_delegate foldPaneFoldEnded:self];
 }
 
 //

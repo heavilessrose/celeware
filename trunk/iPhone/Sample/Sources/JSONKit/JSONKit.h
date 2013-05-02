@@ -59,7 +59,7 @@
 #include <TargetConditionals.h>
 #include <AvailabilityMacros.h>
 
-#ifdef    __OBJC__
+#ifdef	__OBJC__
 #import <Foundation/NSArray.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSDictionary.h>
@@ -76,14 +76,14 @@ extern "C" {
 // For Mac OS X < 10.5.
 #ifndef   NSINTEGER_DEFINED
 #define   NSINTEGER_DEFINED
-#if       defined(__LP64__) || defined(NS_BUILD_32_LIKE_64)
-typedef long           NSInteger;
+#if	   defined(__LP64__) || defined(NS_BUILD_32_LIKE_64)
+typedef long		   NSInteger;
 typedef unsigned long  NSUInteger;
 #define NSIntegerMin   LONG_MIN
 #define NSIntegerMax   LONG_MAX
 #define NSUIntegerMax  ULONG_MAX
 #else  // defined(__LP64__) || defined(NS_BUILD_32_LIKE_64)
-typedef int            NSInteger;
+typedef int			NSInteger;
 typedef unsigned int   NSUInteger;
 #define NSIntegerMin   INT_MIN
 #define NSIntegerMax   INT_MAX
@@ -107,34 +107,34 @@ typedef unsigned int   NSUInteger;
 typedef NSUInteger JKFlags;
 
 /*
-  JKParseOptionComments        : Allow C style // and /_* ... *_/ (without a _, obviously) comments in JSON.
+  JKParseOptionComments		: Allow C style // and /_* ... *_/ (without a _, obviously) comments in JSON.
   JKParseOptionUnicodeNewlines : Allow Unicode recommended (?:\r\n|[\n\v\f\r\x85\p{Zl}\p{Zp}]) newlines.
-  JKParseOptionLooseUnicode    : Normally the decoder will stop with an error at any malformed Unicode.
-                                 This option allows JSON with malformed Unicode to be parsed without reporting an error.
-                                 Any malformed Unicode is replaced with \uFFFD, or "REPLACEMENT CHARACTER".
+  JKParseOptionLooseUnicode	: Normally the decoder will stop with an error at any malformed Unicode.
+								 This option allows JSON with malformed Unicode to be parsed without reporting an error.
+								 Any malformed Unicode is replaced with \uFFFD, or "REPLACEMENT CHARACTER".
  */
 
 enum {
-  JKParseOptionNone                     = 0,
-  JKParseOptionStrict                   = 0,
-  JKParseOptionComments                 = (1 << 0),
-  JKParseOptionUnicodeNewlines          = (1 << 1),
-  JKParseOptionLooseUnicode             = (1 << 2),
+  JKParseOptionNone					 = 0,
+  JKParseOptionStrict				   = 0,
+  JKParseOptionComments				 = (1 << 0),
+  JKParseOptionUnicodeNewlines		  = (1 << 1),
+  JKParseOptionLooseUnicode			 = (1 << 2),
   JKParseOptionPermitTextAfterValidJSON = (1 << 3),
-  JKParseOptionValidFlags               = (JKParseOptionComments | JKParseOptionUnicodeNewlines | JKParseOptionLooseUnicode | JKParseOptionPermitTextAfterValidJSON),
+  JKParseOptionValidFlags			   = (JKParseOptionComments | JKParseOptionUnicodeNewlines | JKParseOptionLooseUnicode | JKParseOptionPermitTextAfterValidJSON),
 };
 typedef JKFlags JKParseOptionFlags;
 
 enum {
-  JKSerializeOptionNone                 = 0,
-  JKSerializeOptionPretty               = (1 << 0),
-  JKSerializeOptionEscapeUnicode        = (1 << 1),
+  JKSerializeOptionNone				 = 0,
+  JKSerializeOptionPretty			   = (1 << 0),
+  JKSerializeOptionEscapeUnicode		= (1 << 1),
   JKSerializeOptionEscapeForwardSlashes = (1 << 4),
-  JKSerializeOptionValidFlags           = (JKSerializeOptionPretty | JKSerializeOptionEscapeUnicode | JKSerializeOptionEscapeForwardSlashes),
+  JKSerializeOptionValidFlags		   = (JKSerializeOptionPretty | JKSerializeOptionEscapeUnicode | JKSerializeOptionEscapeForwardSlashes),
 };
 typedef JKFlags JKSerializeOptionFlags;
 
-#ifdef    __OBJC__
+#ifdef	__OBJC__
 
 typedef struct JKParseState JKParseState; // Opaque internal, private type.
 
@@ -149,11 +149,11 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 - (void)clearCache;
 
 // The parse... methods were deprecated in v1.4 in favor of the v1.4 objectWith... methods.
-- (id)parseUTF8String:(const unsigned char *)string length:(size_t)length                         JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithUTF8String:length:        instead.
+- (id)parseUTF8String:(const unsigned char *)string length:(size_t)length						 JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithUTF8String:length:		instead.
 - (id)parseUTF8String:(const unsigned char *)string length:(size_t)length error:(NSError **)error JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithUTF8String:length:error:  instead.
 // The NSData MUST be UTF8 encoded JSON.
-- (id)parseJSONData:(NSData *)jsonData                                                            JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithData:                     instead.
-- (id)parseJSONData:(NSData *)jsonData error:(NSError **)error                                    JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithData:error:               instead.
+- (id)parseJSONData:(NSData *)jsonData															JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithData:					 instead.
+- (id)parseJSONData:(NSData *)jsonData error:(NSError **)error									JK_DEPRECATED_ATTRIBUTE; // Deprecated in JSONKit v1.4.  Use objectWithData:error:			   instead.
 
 // Methods that return immutable collection objects.
 - (id)objectWithUTF8String:(const unsigned char *)string length:(NSUInteger)length;
@@ -203,7 +203,7 @@ typedef struct JKParseState JKParseState; // Opaque internal, private type.
 // Normally, a string that is serialized to JSON has quotation marks surrounding it, which you may or may not want when serializing a single string, and can be controlled with includeQuotes:
 // includeQuotes:YES `a "test"...` -> `"a \"test\"..."`
 // includeQuotes:NO  `a "test"...` -> `a \"test\"...`
-- (NSData *)JSONData;     // Invokes JSONDataWithOptions:JKSerializeOptionNone   includeQuotes:YES
+- (NSData *)JSONData;	 // Invokes JSONDataWithOptions:JKSerializeOptionNone   includeQuotes:YES
 - (NSData *)JSONDataWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;
 - (NSString *)JSONString; // Invokes JSONStringWithOptions:JKSerializeOptionNone includeQuotes:YES
 - (NSString *)JSONStringWithOptions:(JKSerializeOptionFlags)serializeOptions includeQuotes:(BOOL)includeQuotes error:(NSError **)error;

@@ -38,6 +38,8 @@
 //
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle accessoryView:(UIView *)accessoryView;
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle;
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle;
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate;
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message;
 + (id)alertWithTitle:(NSString *)title;
 + (id)alertWithTask:(id/*<AlertViewExDelegate>*/)delegate title:(NSString *)title;

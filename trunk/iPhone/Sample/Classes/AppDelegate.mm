@@ -23,7 +23,7 @@
 	UIUtil::ShowStatusBar(YES);
 
 	// Create window
-	CGRect frame = UIUtil::ScreenFrame();
+	CGRect frame = UIUtil::ScreenBounds();
 	frame.origin.y = 0;
 	_window = [[UIWindow alloc] initWithFrame:frame];
 

@@ -111,8 +111,10 @@
 	[self loadPage:_itemPage];
 	[_delegate2 scrollView:self scrollToPage:_itemPage];
 
-	// TODO: Check for call mode
-	[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(scheduledNearby) userInfo:nil repeats:NO];
+	if (!_noPredict)
+	{
+		[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(scheduledNearby) userInfo:nil repeats:NO];
+	}
 }
 
 //

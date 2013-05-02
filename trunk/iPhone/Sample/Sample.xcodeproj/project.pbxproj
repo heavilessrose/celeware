@@ -35,12 +35,12 @@
 		24F3B69E1701754E001DEA15 /* SelectController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5F71701754E001DEA15 /* SelectController.mm */; };
 		24F3B69F1701754E001DEA15 /* ShareComposer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5F91701754E001DEA15 /* ShareComposer.mm */; };
 		24F3B6A01701754E001DEA15 /* WebController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5FB1701754E001DEA15 /* WebController.mm */; };
-		24F3B6A11701754E001DEA15 /* FacingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6011701754E001DEA15 /* FacingView.m */; };
+		24F3B6A11701754E001DEA15 /* FacingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6011701754E001DEA15 /* FacingView.mm */; };
 		24F3B6A21701754E001DEA15 /* FoldBeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6021701754E001DEA15 /* FoldBeep.wav */; };
 		24F3B6A31701754E001DEA15 /* FoldPane.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6041701754E001DEA15 /* FoldPane.mm */; };
-		24F3B6A41701754E001DEA15 /* FoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6061701754E001DEA15 /* FoldView.m */; };
+		24F3B6A41701754E001DEA15 /* FoldView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6061701754E001DEA15 /* FoldView.mm */; };
 		24F3B6A51701754E001DEA15 /* FoldViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6081701754E001DEA15 /* FoldViews.mm */; };
-		24F3B6A61701754E001DEA15 /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B60A1701754E001DEA15 /* ShadowView.m */; };
+		24F3B6A61701754E001DEA15 /* ShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B60A1701754E001DEA15 /* ShadowView.mm */; };
 		24F3B6A71701754E001DEA15 /* NRGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B60E1701754E001DEA15 /* NRGridView.m */; };
 		24F3B6A81701754E001DEA15 /* NRGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6101701754E001DEA15 /* NRGridViewCell.m */; };
 		24F3B6A91701754E001DEA15 /* NRGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6121701754E001DEA15 /* NRGridViewController.m */; };
@@ -79,6 +79,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		246B2C5917323CC5003333DF /* StatCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatCenter.h; sourceTree = "<group>"; };
 		246D4FF016280F700028E899 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		248B2CB9141CFC8C0026FD73 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B2CBD141CFC8C0026FD73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -121,16 +122,16 @@
 		24F3B5FA1701754E001DEA15 /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		24F3B5FB1701754E001DEA15 /* WebController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebController.mm; sourceTree = "<group>"; };
 		24F3B6001701754E001DEA15 /* FacingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacingView.h; sourceTree = "<group>"; };
-		24F3B6011701754E001DEA15 /* FacingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacingView.m; sourceTree = "<group>"; };
+		24F3B6011701754E001DEA15 /* FacingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FacingView.mm; sourceTree = "<group>"; };
 		24F3B6021701754E001DEA15 /* FoldBeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FoldBeep.wav; sourceTree = "<group>"; };
 		24F3B6031701754E001DEA15 /* FoldPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldPane.h; sourceTree = "<group>"; };
 		24F3B6041701754E001DEA15 /* FoldPane.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FoldPane.mm; sourceTree = "<group>"; };
 		24F3B6051701754E001DEA15 /* FoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldView.h; sourceTree = "<group>"; };
-		24F3B6061701754E001DEA15 /* FoldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldView.m; sourceTree = "<group>"; };
+		24F3B6061701754E001DEA15 /* FoldView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FoldView.mm; sourceTree = "<group>"; };
 		24F3B6071701754E001DEA15 /* FoldViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldViews.h; sourceTree = "<group>"; };
 		24F3B6081701754E001DEA15 /* FoldViews.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FoldViews.mm; sourceTree = "<group>"; };
 		24F3B6091701754E001DEA15 /* ShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowView.h; sourceTree = "<group>"; };
-		24F3B60A1701754E001DEA15 /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
+		24F3B60A1701754E001DEA15 /* ShadowView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ShadowView.mm; sourceTree = "<group>"; };
 		24F3B60C1701754E001DEA15 /* NRGridConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridConstants.h; sourceTree = "<group>"; };
 		24F3B60D1701754E001DEA15 /* NRGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRGridView.h; sourceTree = "<group>"; };
 		24F3B60E1701754E001DEA15 /* NRGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRGridView.m; sourceTree = "<group>"; };
@@ -361,16 +362,16 @@
 			isa = PBXGroup;
 			children = (
 				24F3B6001701754E001DEA15 /* FacingView.h */,
-				24F3B6011701754E001DEA15 /* FacingView.m */,
+				24F3B6011701754E001DEA15 /* FacingView.mm */,
 				24F3B6021701754E001DEA15 /* FoldBeep.wav */,
 				24F3B6031701754E001DEA15 /* FoldPane.h */,
 				24F3B6041701754E001DEA15 /* FoldPane.mm */,
 				24F3B6051701754E001DEA15 /* FoldView.h */,
-				24F3B6061701754E001DEA15 /* FoldView.m */,
+				24F3B6061701754E001DEA15 /* FoldView.mm */,
 				24F3B6071701754E001DEA15 /* FoldViews.h */,
 				24F3B6081701754E001DEA15 /* FoldViews.mm */,
 				24F3B6091701754E001DEA15 /* ShadowView.h */,
-				24F3B60A1701754E001DEA15 /* ShadowView.m */,
+				24F3B60A1701754E001DEA15 /* ShadowView.mm */,
 			);
 			path = FoldPane;
 			sourceTree = "<group>";
@@ -403,6 +404,7 @@
 		24F3B6291701754E001DEA15 /* MobClick */ = {
 			isa = PBXGroup;
 			children = (
+				246B2C5917323CC5003333DF /* StatCenter.h */,
 				24F3B62A1701754E001DEA15 /* libMobClickLibrary.a */,
 				24F3B62B1701754E001DEA15 /* MobClick.h */,
 			);
@@ -579,11 +581,11 @@
 				24F3B69E1701754E001DEA15 /* SelectController.mm in Sources */,
 				24F3B69F1701754E001DEA15 /* ShareComposer.mm in Sources */,
 				24F3B6A01701754E001DEA15 /* WebController.mm in Sources */,
-				24F3B6A11701754E001DEA15 /* FacingView.m in Sources */,
+				24F3B6A11701754E001DEA15 /* FacingView.mm in Sources */,
 				24F3B6A31701754E001DEA15 /* FoldPane.mm in Sources */,
-				24F3B6A41701754E001DEA15 /* FoldView.m in Sources */,
+				24F3B6A41701754E001DEA15 /* FoldView.mm in Sources */,
 				24F3B6A51701754E001DEA15 /* FoldViews.mm in Sources */,
-				24F3B6A61701754E001DEA15 /* ShadowView.m in Sources */,
+				24F3B6A61701754E001DEA15 /* ShadowView.mm in Sources */,
 				24F3B6A71701754E001DEA15 /* NRGridView.m in Sources */,
 				24F3B6A81701754E001DEA15 /* NRGridViewCell.m in Sources */,
 				24F3B6A91701754E001DEA15 /* NRGridViewController.m in Sources */,

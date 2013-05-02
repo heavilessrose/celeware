@@ -20,7 +20,7 @@ public:
 
 public:
 	// Request HTTP data
-	static NSData *HttpData(NSString *url, NSData *post = nil);
+	static NSData *HttpData(NSString *url, NSData *post = nil, NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy, NSURLResponse **response = nil, NSError **error = nil);
 	
 	// Request HTTP string
 	static NSString *HttpString(NSString *url, NSString *post = nil);
@@ -30,9 +30,6 @@ public:
 	static NSString *HttpFile(NSString *url, NSString *path);
 
 public:
-	// Request HTTP
-	static NSData *HttpRequest(NSString *url, NSHTTPURLResponse **response, NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy);
-	
 	// Upload data
 	static NSData *UploadData(NSString *url, NSData *data, NSString *fileName = @"Upload.dat", NSString *mimeType = @"application/octet-stream", NSHTTPURLResponse **response = nil);
 };

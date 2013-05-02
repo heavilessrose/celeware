@@ -109,12 +109,26 @@
 	[self setNeedsDisplay];
 }
 
+//#define TEST
+#ifdef TEST
+CGFloat _white = 0;
+CGFloat _step = 0;
+CGContextRef _context = nil;
+#endif
+
 //
-- (BOOL)drawText:(NSString *)text atPoint:(CGPoint)point withFont:(UIFont *)font right:(CGFloat)right width:(CGFloat)width alignment:(SegmentItemTextAlignment)alignment
+- (CGFloat)drawText:(NSString *)text atPoint:(CGPoint)point withFont:(UIFont *)font right:(CGFloat)right width:(CGFloat)width alignment:(SegmentItemTextAlignment)alignment
 {
 	CGSize size = [text sizeWithFont:font];
 	if (point.x + size.width <= right)
 	{
+#ifdef TEST
+		CGContextSaveGState(_context);
+		CGContextSetFillColorWithColor(_context, [UIColor colorWithWhite:_white alpha:1].CGColor);
+		CGContextFillRect(_context, CGRectMake(point.x, point.y, width ? width : size.width, _lineHeight));
+		CGContextRestoreGState(_context);
+#endif
+
 		if (width > size.width)
 		{
 			if (alignment == NSTextAlignmentRight)
@@ -146,9 +160,10 @@
 			}
 		}
 		
-		return [text drawAtPoint:point withFont:font].width;
+		CGSize size = [text drawAtPoint:point withFont:font];
+		return size.width;
 	}
-	return NO;
+	return 0;
 }
 
 //
@@ -190,6 +205,13 @@
 	CGPoint point = rect.origin;
 	CGFloat right = rect.origin.x + rect.size.width;
 	CGContextRef context = UIGraphicsGetCurrentContext();
+
+#ifdef TEST
+	_white = 0;
+	_step = _labels.count ? (1.0 / _labels.count) : 0;
+	_context = context;
+#endif
+
 	for (SegmentItem *label in _labels)
 	{
 		if (UIColor *color = (_highlighted && label.highlightedColor) ? label.highlightedColor : label.color)
@@ -228,6 +250,10 @@
 			}
 		}
 		point.x += label.width ? label.width : width;
+		
+#ifdef TEST
+		_white += _step;
+#endif
 	}
 }
 

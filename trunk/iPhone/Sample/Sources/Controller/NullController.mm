@@ -51,11 +51,6 @@
 //	[super viewWillDisappear:animated];
 //}
 
-// Override to allow rotation.
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//	return YES;
-//}
 
 // Release any cached data, images, etc that aren't in use.
 //- (void)didReceiveMemoryWarning

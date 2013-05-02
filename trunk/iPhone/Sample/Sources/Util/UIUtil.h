@@ -145,6 +145,19 @@ public:
 	}
 	
 	//
+	NS_INLINE BOOL IsKeyBoardInDisplay()
+	{
+		for (UIWindow *window in Application().windows)
+		{
+			if ([[window description] hasPrefix:@"<UITextEffectsWindow"] == YES)
+			{
+				return YES;
+			}
+		}
+		return NO;
+	}
+	
+	//
 	NS_INLINE void ShowStatusBar(BOOL show = YES, UIStatusBarAnimation animated = UIStatusBarAnimationFade)
 	{
 		[Application() setStatusBarHidden:!show withAnimation:animated];
@@ -191,6 +204,24 @@ public:
 	{
 		return ImageNamed([name stringByAppendingString:IsPad() ? @"@2x.png" : @".png"]);
 	}
+	
+	// UIColor from HTML color
+	NS_INLINE UIColor *Color(NSString *code)
+	{
+		NSUInteger length = code.length;
+		if ((length == 6) || (length == 8))
+		{
+			unsigned char color[8];
+			sscanf(code.UTF8String, "%02X%02X%02X%02X", (unsigned int *)&color[0], (unsigned int *)&color[1], (unsigned int *)&color[2], (unsigned int *)&color[3]);
+			if (length == 6)
+			{
+				color[3] = 0xFF;
+			}
+			return [UIColor colorWithRed:color[0]/255.0 green:color[1]/255.0 blue:color[2]/255.0 alpha:color[3]/255.0];
+		}
+		return [UIColor blackColor];
+	}
+	
 	
 #pragma mark Debug methods
 public:

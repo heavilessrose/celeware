@@ -23,7 +23,7 @@
 - (UIView *)findFirstResponder;
 - (UIView *)findSubview:(NSString *)cls;
 
-- (void)showActivityIndicator:(BOOL)show;
+- (UIActivityIndicatorView *)showActivityIndicator:(BOOL)show;
 
 - (void)fadeForAction:(SEL)action target:(id)target;
 - (void)fadeForAction:(SEL)action target:(id)target duration:(CGFloat)duration;
@@ -105,6 +105,12 @@
 {
 }
 @property(nonatomic,retain) UIColor *tintColor;
+@end
+
+
+//
+@interface UIButton (UIButtonEx)
++ (UIButton *)buttonWithTitle:(NSString *)title;
 @end
 
 

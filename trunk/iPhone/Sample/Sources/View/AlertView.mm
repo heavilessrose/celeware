@@ -10,7 +10,7 @@
 + (UIButton *)buttonWithTitle:(NSString *)title
 {
 	UIImage *image = UIUtil::ImageNamed(@"CommonButton.png");
-	UIFont *font = [UIFont systemFontOfSize:16];
+	UIFont *font = [UIFont systemFontOfSize:15];
 	
 	CGRect frame = {0, 0, [title sizeWithFont:font].width + 40, image.size.height};
 	UIButton *button = [[[UIButton alloc] initWithFrame:frame] autorelease];
@@ -72,7 +72,7 @@
 		_titleLabel = [[[UILabel alloc] initWithFrame:CGRectMake(kAlertBoxLeftPad, frame.size.height, image.size.width - (kAlertBoxLeftPad + kAlertBoxRightPad), size.height)] autorelease];
 		_titleLabel.text = title;
 		_titleLabel.backgroundColor = UIColor.clearColor;
-		_titleLabel.textColor = [UIColor whiteColor];
+		_titleLabel.textColor = [UIColor colorWithRed:98.0 / 255 green:113.0 / 255 blue:147.0 / 255 alpha:1.0];
 		_titleLabel.numberOfLines = 0;
 		_titleLabel.font = font;
 		_titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -180,6 +180,7 @@
 	[window makeKeyAndVisible];
 	[self showInView:window];
 }
+
 
 //
 - (void)showInView:(UIView *)parent
@@ -346,6 +347,16 @@
 + (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle otherButtonTitle:(NSString *)otherButtonTitle
 {
 	return [self alertWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitle:otherButtonTitle accessoryView:nil];
+}
+
+//
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate cancelButtonTitle:(NSString *)cancelButtonTitle{
+	return [self alertWithTitle:title message:message delegate:delegate cancelButtonTitle:cancelButtonTitle otherButtonTitle:nil];
+}
+//
++ (id)alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id)delegate
+{
+	return [self alertWithTitle:title message:message delegate:delegate cancelButtonTitle:NSLocalizedString(@"Dismiss", @"关闭")];
 }
 
 //

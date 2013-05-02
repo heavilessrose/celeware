@@ -4,23 +4,23 @@
 //#define _TARGET_IPAD
 #define _TARGET_IPHONE_IPAD
 
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+
+#ifdef __cplusplus
+
 // Resource
 //#define kResourceBundle @"Contents/Resources"
 
-// UniBase
-//#import "UniBase.h"
-
 // Util
-#ifdef __cplusplus
+#import "UniBase.h"
 #import "NSUtil.h"
 #import "UIUtil.h"
 #import "HttpUtil.h"
+#import "UIAddition.h"
 #import "SettingUtil.h"
 //#import "NetworkUtil.h"
-#endif
-
-
-#ifdef __OBJC__
+#import "StatCenter.h"
 
 // View
 //#import "PullView.h"
@@ -40,15 +40,13 @@
 //#import "ShareComposer.h"
 //#import "NRGridViewController.h"
 
-// Addition
-#import "UIAddition.h"
-
 // JSONKit
 #import "JSONKit.h"
 
 // ZipArchive
 //#import "ZipArchive.h"
 
+#endif
 #endif
 
 

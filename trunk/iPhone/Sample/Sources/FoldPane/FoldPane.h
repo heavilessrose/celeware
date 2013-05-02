@@ -2,6 +2,12 @@
 #import "FoldViews.h"
 #import <AVFoundation/AVFoundation.h>
 
+@class FoldPane;
+@protocol FoldPaneDelegate <NSObject>
+@optional
+- (void)foldPaneFoldBegin:(FoldPane *)sender;
+- (void)foldPaneFoldEnded:(FoldPane *)sender;
+@end
 
 //
 @interface FoldPane : UIView
@@ -15,10 +21,14 @@
 	UIView *_contentView;
 	UIButton *_foldButton;
 	UIImageView *_foldIndicator;
-	
+
 	BOOL _open;
 	SystemSoundID _beepSound;
+	id<FoldPaneDelegate> _delegate;
 }
+
+@property(nonatomic,readonly) BOOL open;
+@property(nonatomic,assign) id<FoldPaneDelegate> delegate;
 
 - (id)initWithContentView:(UIView *)contentView buttonImage:(UIImage *)image buttonImage_:(UIImage *)image_;
 

@@ -392,22 +392,24 @@
 
 //
 #define kActivityViewTag 53217
-- (void)showActivityIndicator:(BOOL)show
+- (UIActivityIndicatorView *)showActivityIndicator:(BOOL)show
 {
-	UIView *activityView = [self viewWithTag:kActivityViewTag];
+	UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)[self viewWithTag:kActivityViewTag];
 	if (show == NO)
 	{
 		[activityView removeFromSuperview];
+		return nil;
 	}
 	else if (activityView == nil)
 	{
-		UIActivityIndicatorView *activityView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+		activityView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
 		activityView.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 		activityView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 		[self addSubview:activityView];
 		[activityView startAnimating];
 		activityView.tag = kActivityViewTag;
 	}
+	return activityView;
 }
 
 //
@@ -673,6 +675,28 @@
 @end
 
 
+#pragma mark Button methods
+
+@implementation UIButton (ButtonEx)
+
+//
++ (UIButton *)buttonWithTitle:(NSString *)title
+{
+	UIImage *image = UIUtil::ImageNamed(@"CommonButton.png");
+	UIFont *font = [UIFont systemFontOfSize:15];
+	
+	CGRect frame = {0, 0, [title sizeWithFont:font].width + 40, image.size.height};
+	UIButton *button = [[[UIButton alloc] initWithFrame:frame] autorelease];
+	button.titleLabel.font = font;
+	[button setBackgroundImage:image.stretchableImage forState:UIControlStateNormal];
+	[button setTitle:title forState:UIControlStateNormal];
+	
+	return button;
+}
+
+@end
+
+
 #pragma mark UILabel methods
 
 @implementation UILabel (LabelEx)
@@ -706,7 +730,7 @@
 	label.textColor = color;
 	label.backgroundColor = [UIColor clearColor];
 	label.font = font;
-    label.text = text;
+	label.text = text;
 	label.textAlignment = alignment;
 	
 	return label;

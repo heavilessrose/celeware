@@ -21,20 +21,20 @@ NSData *HttpUtil::DownloadData(NSString *url, NSString *to, DownloadMode mode)
 
 
 // Request HTTP data
-NSData *HttpUtil::HttpData(NSString *url, NSData *post)
+NSData *HttpUtil::HttpData(NSString *url, NSData *post, NSURLRequestCachePolicy cachePolicy, NSURLResponse **response, NSError **error)
 {
-	UIUtil::ShowNetworkIndicator(YES);
+	//UIUtil::ShowNetworkIndicator(YES);
 	
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]]; 
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]cachePolicy:cachePolicy timeoutInterval:30];
 	if (post)
 	{
 		[request setHTTPMethod:@"POST"];
 		[request setHTTPBody:post];
 	}
 	
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:response error:error];
 	
-	UIUtil::ShowNetworkIndicator(NO);
+	//UIUtil::ShowNetworkIndicator(NO);
 	return data;
 }
 
@@ -63,18 +63,6 @@ NSString *HttpUtil::HttpFile(NSString *url, NSString *path)
 	UIUtil::ShowNetworkIndicator(NO);
 	
 	return data ? nil : error.localizedDescription;
-}
-
-//
-NSData *HttpUtil::HttpRequest(NSString *url, NSHTTPURLResponse **response, NSURLRequestCachePolicy cachePolicy)
-{
-	NSURL *URL = [NSURL URLWithString:url];
-	NSURLRequest *request = [NSURLRequest requestWithURL:URL cachePolicy:cachePolicy timeoutInterval:30];
-	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:response error:nil];
-#ifdef _DEBUG
-	[data writeToFile:@"Response.txt" atomically:NO];
-#endif
-	return data;
 }
 
 //

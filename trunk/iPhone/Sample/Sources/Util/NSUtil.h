@@ -255,7 +255,7 @@ public:
 	// Convert date to smart string
 	static NSString *SmartDate(NSDate *date, NSDateFormatterStyle dateStyle, NSDateFormatterStyle timeStyle);
 	
-#pragma mark Crypto methods
+#pragma mark Misc methods
 public:
 	// Check email address
 	static BOOL IsEmailAddress(NSString *emailAddress);
@@ -295,6 +295,40 @@ public:
 	{
 		NSData *data = BASE64Decode(string);
 		return [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	}
+	
+	// Encrypt string use private method
+	NS_INLINE NSString *EncryptString(NSString *str)
+	{
+		const char *p = str.UTF8String;
+		NSUInteger length = [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+		char *q = (char *)malloc(length * 2);
+		unsigned char m = 3;
+		for (NSUInteger i = 0; i < length; i++)
+		{
+			unsigned char t = m ^ p[i];
+			q[i * 2] = m = 0x35 + (t & 0x0F);
+			q[i * 2 + 1] = 0x23 + ((t & 0xF0) >> 4);
+			q[i * 2] -= 0x0F;
+		}
+		return [[[NSString alloc] initWithBytesNoCopy:q length:length * 2 encoding:NSUTF8StringEncoding freeWhenDone:YES] autorelease];
+	}
+
+	// Decrypt string use private method
+	NS_INLINE NSString *DecryptString(NSString *str)
+	{
+		const char *q = str.UTF8String;
+		NSUInteger length = [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding] / 2;
+		char *p = (char *)malloc(length);
+		unsigned char m = 3;
+		for (NSUInteger i = 0; i < length; i++)
+		{
+			unsigned char n = (q[i * 2] + 0x0F);
+			unsigned char t = (n - 0x35) | ((q[i * 2 + 1] - 0x23) << 4);
+			p[i] = t ^ m;
+			m = n;
+		}
+		return [[[NSString alloc] initWithBytesNoCopy:p length:length encoding:NSUTF8StringEncoding freeWhenDone:YES] autorelease];
 	}
 	
 public:
