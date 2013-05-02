@@ -80,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		246B2C5917323CC5003333DF /* StatCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatCenter.h; sourceTree = "<group>"; };
+		246B2C5A17324AA3003333DF /* CelePrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CelePrefix.h; sourceTree = "<group>"; };
 		246D4FF016280F700028E899 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		248B2CB9141CFC8C0026FD73 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B2CBD141CFC8C0026FD73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -323,6 +324,7 @@
 			children = (
 				24F3B62C1701754E001DEA15 /* Prefix.pch */,
 				24F3B6371701754E001DEA15 /* UniBase.h */,
+				246B2C5A17324AA3003333DF /* CelePrefix.h */,
 				24F3B6281701754E001DEA15 /* Main.mm */,
 				24F3B6381701754E001DEA15 /* Util */,
 				24F3B6491701754E001DEA15 /* View */,
