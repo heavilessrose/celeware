@@ -37,6 +37,8 @@
 
 	UIUtil::ShowSplashView(controller.view);
 	
+	StatStart();
+
 	return YES;
 }
 
