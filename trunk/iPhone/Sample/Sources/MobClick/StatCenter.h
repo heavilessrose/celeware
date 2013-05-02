@@ -4,7 +4,7 @@
 //
 NS_INLINE void StatStart()
 {
-	return [MobClick startWithAppkey:NSUtil::BundleInfo(@"MobClickKey")];
+	return [MobClick startWithAppkey:NSUtil::BundleInfo(@"AppStatKey")];
 }
 
 //
