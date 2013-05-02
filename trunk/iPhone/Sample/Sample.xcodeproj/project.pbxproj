@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		246B2C5C17324BC3003333DF /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 246B2C5B17324BC3003333DF /* Resources */; };
 		246D4FF116280F700028E899 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 246D4FF016280F700028E899 /* Default-568h@2x.png */; };
 		248B2CBE141CFC8C0026FD73 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CBD141CFC8C0026FD73 /* UIKit.framework */; };
 		248B2CC0141CFC8C0026FD73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2CBF141CFC8C0026FD73 /* Foundation.framework */; };
@@ -26,17 +27,12 @@
 		248B2E3F141CFECD0026FD73 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248B2E3E141CFECD0026FD73 /* SystemConfiguration.framework */; };
 		24B5639117001FA100398ED6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B5639017001FA100398ED6 /* AudioToolbox.framework */; };
 		24B5639317001FB200398ED6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B5639217001FB200398ED6 /* libz.dylib */; };
-		24F3B6981701754E001DEA15 /* BackwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B5EE1701754E001DEA15 /* BackwardIcon.png */; };
-		24F3B6991701754E001DEA15 /* BackwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B5EF1701754E001DEA15 /* BackwardIcon@2x.png */; };
-		24F3B69A1701754E001DEA15 /* ForwardIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B5F01701754E001DEA15 /* ForwardIcon.png */; };
-		24F3B69B1701754E001DEA15 /* ForwardIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B5F11701754E001DEA15 /* ForwardIcon@2x.png */; };
 		24F3B69C1701754E001DEA15 /* MoviePlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5F31701754E001DEA15 /* MoviePlayer.mm */; };
 		24F3B69D1701754E001DEA15 /* NullController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5F51701754E001DEA15 /* NullController.mm */; };
 		24F3B69E1701754E001DEA15 /* SelectController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5F71701754E001DEA15 /* SelectController.mm */; };
 		24F3B69F1701754E001DEA15 /* ShareComposer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5F91701754E001DEA15 /* ShareComposer.mm */; };
 		24F3B6A01701754E001DEA15 /* WebController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B5FB1701754E001DEA15 /* WebController.mm */; };
 		24F3B6A11701754E001DEA15 /* FacingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6011701754E001DEA15 /* FacingView.mm */; };
-		24F3B6A21701754E001DEA15 /* FoldBeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6021701754E001DEA15 /* FoldBeep.wav */; };
 		24F3B6A31701754E001DEA15 /* FoldPane.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6041701754E001DEA15 /* FoldPane.mm */; };
 		24F3B6A41701754E001DEA15 /* FoldView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6061701754E001DEA15 /* FoldView.mm */; };
 		24F3B6A51701754E001DEA15 /* FoldViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6081701754E001DEA15 /* FoldViews.mm */; };
@@ -47,11 +43,7 @@
 		24F3B6B11701754E001DEA15 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6271701754E001DEA15 /* JSONKit.m */; };
 		24F3B6B21701754E001DEA15 /* Main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6281701754E001DEA15 /* Main.mm */; };
 		24F3B6B31701754E001DEA15 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24F3B62A1701754E001DEA15 /* libMobClickLibrary.a */; };
-		24F3B6B41701754E001DEA15 /* TabStripBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B62F1701754E001DEA15 /* TabStripBack.png */; };
 		24F3B6B51701754E001DEA15 /* TabStripButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6311701754E001DEA15 /* TabStripButton.mm */; };
-		24F3B6B61701754E001DEA15 /* TabStripLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6321701754E001DEA15 /* TabStripLeft.png */; };
-		24F3B6B71701754E001DEA15 /* TabStripOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6331701754E001DEA15 /* TabStripOver.png */; };
-		24F3B6B81701754E001DEA15 /* TabStripRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6341701754E001DEA15 /* TabStripRight.png */; };
 		24F3B6B91701754E001DEA15 /* TabStripView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6361701754E001DEA15 /* TabStripView.mm */; };
 		24F3B6BA1701754E001DEA15 /* BitLive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B63A1701754E001DEA15 /* BitLive.mm */; };
 		24F3B6BB1701754E001DEA15 /* HttpUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B63C1701754E001DEA15 /* HttpUtil.mm */; };
@@ -67,8 +59,6 @@
 		24F3B6C51701754E001DEA15 /* KBCustomTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6511701754E001DEA15 /* KBCustomTextField.mm */; };
 		24F3B6C61701754E001DEA15 /* NullView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6531701754E001DEA15 /* NullView.mm */; };
 		24F3B6C71701754E001DEA15 /* PredictScrollView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6551701754E001DEA15 /* PredictScrollView.mm */; };
-		24F3B6C81701754E001DEA15 /* PullArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6561701754E001DEA15 /* PullArrow.png */; };
-		24F3B6C91701754E001DEA15 /* PullArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 24F3B6571701754E001DEA15 /* PullArrow@2x.png */; };
 		24F3B6CA1701754E001DEA15 /* PullView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B6591701754E001DEA15 /* PullView.mm */; };
 		24F3B6CB1701754E001DEA15 /* SegmentLabel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B65B1701754E001DEA15 /* SegmentLabel.mm */; };
 		24F3B6CC1701754E001DEA15 /* TouchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24F3B65D1701754E001DEA15 /* TouchView.mm */; };
@@ -81,6 +71,7 @@
 /* Begin PBXFileReference section */
 		246B2C5917323CC5003333DF /* StatCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatCenter.h; sourceTree = "<group>"; };
 		246B2C5A17324AA3003333DF /* CelePrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CelePrefix.h; sourceTree = "<group>"; };
+		246B2C5B17324BC3003333DF /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		246D4FF016280F700028E899 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		248B2CB9141CFC8C0026FD73 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		248B2CBD141CFC8C0026FD73 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -108,10 +99,6 @@
 		248B2E3E141CFECD0026FD73 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		24B5639017001FA100398ED6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		24B5639217001FB200398ED6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		24F3B5EE1701754E001DEA15 /* BackwardIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackwardIcon.png; sourceTree = "<group>"; };
-		24F3B5EF1701754E001DEA15 /* BackwardIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackwardIcon@2x.png"; sourceTree = "<group>"; };
-		24F3B5F01701754E001DEA15 /* ForwardIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForwardIcon.png; sourceTree = "<group>"; };
-		24F3B5F11701754E001DEA15 /* ForwardIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ForwardIcon@2x.png"; sourceTree = "<group>"; };
 		24F3B5F21701754E001DEA15 /* MoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayer.h; sourceTree = "<group>"; };
 		24F3B5F31701754E001DEA15 /* MoviePlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoviePlayer.mm; sourceTree = "<group>"; };
 		24F3B5F41701754E001DEA15 /* NullController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullController.h; sourceTree = "<group>"; };
@@ -124,7 +111,6 @@
 		24F3B5FB1701754E001DEA15 /* WebController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebController.mm; sourceTree = "<group>"; };
 		24F3B6001701754E001DEA15 /* FacingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacingView.h; sourceTree = "<group>"; };
 		24F3B6011701754E001DEA15 /* FacingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FacingView.mm; sourceTree = "<group>"; };
-		24F3B6021701754E001DEA15 /* FoldBeep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = FoldBeep.wav; sourceTree = "<group>"; };
 		24F3B6031701754E001DEA15 /* FoldPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldPane.h; sourceTree = "<group>"; };
 		24F3B6041701754E001DEA15 /* FoldPane.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FoldPane.mm; sourceTree = "<group>"; };
 		24F3B6051701754E001DEA15 /* FoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldView.h; sourceTree = "<group>"; };
@@ -148,12 +134,8 @@
 		24F3B62A1701754E001DEA15 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		24F3B62B1701754E001DEA15 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		24F3B62C1701754E001DEA15 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		24F3B62F1701754E001DEA15 /* TabStripBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabStripBack.png; sourceTree = "<group>"; };
 		24F3B6301701754E001DEA15 /* TabStripButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabStripButton.h; sourceTree = "<group>"; };
 		24F3B6311701754E001DEA15 /* TabStripButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TabStripButton.mm; sourceTree = "<group>"; };
-		24F3B6321701754E001DEA15 /* TabStripLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabStripLeft.png; sourceTree = "<group>"; };
-		24F3B6331701754E001DEA15 /* TabStripOver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabStripOver.png; sourceTree = "<group>"; };
-		24F3B6341701754E001DEA15 /* TabStripRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabStripRight.png; sourceTree = "<group>"; };
 		24F3B6351701754E001DEA15 /* TabStripView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabStripView.h; sourceTree = "<group>"; };
 		24F3B6361701754E001DEA15 /* TabStripView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TabStripView.mm; sourceTree = "<group>"; };
 		24F3B6371701754E001DEA15 /* UniBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniBase.h; sourceTree = "<group>"; };
@@ -185,8 +167,6 @@
 		24F3B6531701754E001DEA15 /* NullView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NullView.mm; sourceTree = "<group>"; };
 		24F3B6541701754E001DEA15 /* PredictScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredictScrollView.h; sourceTree = "<group>"; };
 		24F3B6551701754E001DEA15 /* PredictScrollView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PredictScrollView.mm; sourceTree = "<group>"; };
-		24F3B6561701754E001DEA15 /* PullArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PullArrow.png; sourceTree = "<group>"; };
-		24F3B6571701754E001DEA15 /* PullArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PullArrow@2x.png"; sourceTree = "<group>"; };
 		24F3B6581701754E001DEA15 /* PullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullView.h; sourceTree = "<group>"; };
 		24F3B6591701754E001DEA15 /* PullView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PullView.mm; sourceTree = "<group>"; };
 		24F3B65A1701754E001DEA15 /* SegmentLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentLabel.h; sourceTree = "<group>"; };
@@ -304,6 +284,7 @@
 		248B2CF8141CFD700026FD73 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				246B2C5B17324BC3003333DF /* Resources */,
 				248B2E37141CFE360026FD73 /* GenString */,
 				248B2D03141CFD700026FD73 /* Info.plist */,
 				248B2CFC141CFD700026FD73 /* InfoPlist.strings */,
@@ -342,10 +323,6 @@
 		24F3B5ED1701754E001DEA15 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				24F3B5EE1701754E001DEA15 /* BackwardIcon.png */,
-				24F3B5EF1701754E001DEA15 /* BackwardIcon@2x.png */,
-				24F3B5F01701754E001DEA15 /* ForwardIcon.png */,
-				24F3B5F11701754E001DEA15 /* ForwardIcon@2x.png */,
 				24F3B5F21701754E001DEA15 /* MoviePlayer.h */,
 				24F3B5F31701754E001DEA15 /* MoviePlayer.mm */,
 				24F3B5F41701754E001DEA15 /* NullController.h */,
@@ -365,7 +342,6 @@
 			children = (
 				24F3B6001701754E001DEA15 /* FacingView.h */,
 				24F3B6011701754E001DEA15 /* FacingView.mm */,
-				24F3B6021701754E001DEA15 /* FoldBeep.wav */,
 				24F3B6031701754E001DEA15 /* FoldPane.h */,
 				24F3B6041701754E001DEA15 /* FoldPane.mm */,
 				24F3B6051701754E001DEA15 /* FoldView.h */,
@@ -416,12 +392,8 @@
 		24F3B62E1701754E001DEA15 /* TabStrip */ = {
 			isa = PBXGroup;
 			children = (
-				24F3B62F1701754E001DEA15 /* TabStripBack.png */,
 				24F3B6301701754E001DEA15 /* TabStripButton.h */,
 				24F3B6311701754E001DEA15 /* TabStripButton.mm */,
-				24F3B6321701754E001DEA15 /* TabStripLeft.png */,
-				24F3B6331701754E001DEA15 /* TabStripOver.png */,
-				24F3B6341701754E001DEA15 /* TabStripRight.png */,
 				24F3B6351701754E001DEA15 /* TabStripView.h */,
 				24F3B6361701754E001DEA15 /* TabStripView.mm */,
 			);
@@ -466,8 +438,6 @@
 				24F3B6531701754E001DEA15 /* NullView.mm */,
 				24F3B6541701754E001DEA15 /* PredictScrollView.h */,
 				24F3B6551701754E001DEA15 /* PredictScrollView.mm */,
-				24F3B6561701754E001DEA15 /* PullArrow.png */,
-				24F3B6571701754E001DEA15 /* PullArrow@2x.png */,
 				24F3B6581701754E001DEA15 /* PullView.h */,
 				24F3B6591701754E001DEA15 /* PullView.mm */,
 				24F3B65A1701754E001DEA15 /* SegmentLabel.h */,
@@ -556,17 +526,7 @@
 				248B2DD9141CFD700026FD73 /* Icon@2x.png in Resources */,
 				248B2DDA141CFD700026FD73 /* Icon@iPad.png in Resources */,
 				246D4FF116280F700028E899 /* Default-568h@2x.png in Resources */,
-				24F3B6981701754E001DEA15 /* BackwardIcon.png in Resources */,
-				24F3B6991701754E001DEA15 /* BackwardIcon@2x.png in Resources */,
-				24F3B69A1701754E001DEA15 /* ForwardIcon.png in Resources */,
-				24F3B69B1701754E001DEA15 /* ForwardIcon@2x.png in Resources */,
-				24F3B6A21701754E001DEA15 /* FoldBeep.wav in Resources */,
-				24F3B6B41701754E001DEA15 /* TabStripBack.png in Resources */,
-				24F3B6B61701754E001DEA15 /* TabStripLeft.png in Resources */,
-				24F3B6B71701754E001DEA15 /* TabStripOver.png in Resources */,
-				24F3B6B81701754E001DEA15 /* TabStripRight.png in Resources */,
-				24F3B6C81701754E001DEA15 /* PullArrow.png in Resources */,
-				24F3B6C91701754E001DEA15 /* PullArrow@2x.png in Resources */,
+				246B2C5C17324BC3003333DF /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

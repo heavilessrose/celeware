@@ -10,7 +10,7 @@
 #ifdef __cplusplus
 
 // Resource
-//#define kResourceBundle @"Contents/Resources"
+#define kResourceBundle @"Resources"
 
 // Util
 #import "UniBase.h"
